@@ -17,3 +17,19 @@ exports.postCards = async (data) => {
         throw new Error('新增CARDS資料錯誤');
     }
 };
+
+//更新Cards
+exports.updateCards = async (cardsID, data) => {
+    const sql = `UPDATE CARDS 
+SET CardImage = ?, Title = ?, Paragraph = ?
+WHERE cardsID = ?;
+`;
+    try {
+        const result = await db.query(sql, [data.CardImage, data.Title, data.Paragraph, cardsID]);
+        // console.log('插入結果:', result.results.affectedRows); // 確認完整結果
+        return result.results.affectedRows ;
+    } catch (error) {
+        console.error('更新CARDS資料錯誤：', error);
+        throw new Error('更新CARDS資料錯誤');
+    }
+};

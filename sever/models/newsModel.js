@@ -17,3 +17,19 @@ exports.postNews = async (data) => {
         throw new Error('新增NEWS資料錯誤');
     }
 };
+
+
+exports.updateNews = async (newsID, data) => {
+    const sql = `UPDATE NEWS 
+SET Date = ?, Category = ?, Content = ?
+WHERE newsID = ?;
+`;
+    try {
+        const result = await db.query(sql, [data.Date, data.Category, data.Content, newsID]);
+        // console.log('插入結果:', result.results.affectedRows); // 確認完整結果
+        return result.results.affectedRows ;
+    } catch (error) {
+        console.error('更新NEWS資料錯誤：', error);
+        throw new Error('更新NEWS資料錯誤');
+    }
+};
