@@ -1,4 +1,4 @@
-import { query } from '../db.js';  // 引入資料庫查詢函數
+import  query  from '../db.js';  // 引入資料庫查詢函數
 
 export const getPriceByCarriageType = async (carriageType) => {
     const sql = `SELECT 

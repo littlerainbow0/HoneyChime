@@ -1,4 +1,4 @@
-import { query } from '../db.js';  // 引入資料庫查詢函數
+import  query  from '../db.js';  // 引入資料庫查詢函數
 
 // 取得所有範本
 export const getAllTemplate = async () => {

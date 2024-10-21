@@ -1,6 +1,5 @@
 import * as templateModel from '../models/templateModel.js';  // 引入模型層
 
-
 // 取得所有範本的資料
 export const getAllTemplate = async (req, res) => {
     try {

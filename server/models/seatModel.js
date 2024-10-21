@@ -1,4 +1,4 @@
-import { query } from '../db.js';  // 引入資料庫查詢函數
+import  query  from '../db.js';  // 引入資料庫查詢函數
 
 // 取得特定旅程之所有預定之座位
 export const getOrderedSeatByScheduleID = async (scheduleID) => {

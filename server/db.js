@@ -19,4 +19,4 @@ const query = (sql, values) => {
     });
 };
 
-export { pool, query };
+export default query;
