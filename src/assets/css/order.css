@@ -81,7 +81,8 @@
   color: #1F1F1F;
   line-height: 50px;
   border-radius: 35px;
+  border: 1px solid #1F1F1F;
 }
 .order_info_section div:last-of-type a:hover {
-  border: 1px solid #1F1F1F;
+  border: 2px solid #1F1F1F;
 }/*# sourceMappingURL=order.css.map */

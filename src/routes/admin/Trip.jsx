@@ -34,6 +34,9 @@ const Trip = () => {
 
     return (
         <div>
+            <html>
+
+            
             <header className="trip_hero">
             <Header/>
 
@@ -99,6 +102,7 @@ const Trip = () => {
                     </div>
                 </div>
             </main>
+            </html>
         </div>
     );
 };

@@ -8,6 +8,7 @@ import '../../assets/css/top_btn.css';
 const Facilities = () => {
     return (
         <div>
+            <html>
             <header className="facilities_hero">
             <Header />
             </header>
@@ -91,6 +92,7 @@ const Facilities = () => {
                 <br />
                 Top
             </a>
+            </html>
         </div>
     );
 };

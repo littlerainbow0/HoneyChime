@@ -76,7 +76,7 @@ main {
             width: 550px;
             height: 350px;
             border: 1px solid $gray_800;
-            
+
         }
 
     }
@@ -119,15 +119,18 @@ main {
     margin: auto;
 
 
-        
 
-        h3 {
-            @extend %h4;
-            line-height: 32px;
-            padding: 12px;
-            background-color: $main_400;
+
+    h3 {
+        @extend %h4;
+        line-height: 32px;
+        padding: 12px;
+        // background-color: $main_400;
+        background-color: $secondary_800;
+        color: $secondary_50;
+        // border-radius: 10px;
         height: 56px;
-        }
+    }
 
 
     .view_info_content {
@@ -194,6 +197,7 @@ main {
 // 餐點介紹
 .dessert_info {
     margin: 28px auto;
+    padding-bottom: 100px;
 
     >div {
         display: flex;
@@ -212,7 +216,8 @@ main {
             border-bottom: 2px solid $gray_800;
             padding-top: 28px;
         }
-        span{
+
+        span {
             @extend %body;
         }
 
@@ -223,7 +228,7 @@ main {
             border: 1px solid $gray_800;
         }
 
-        &:last-of-type{
+        &:last-of-type {
             padding-left: 28px;
         }
     }

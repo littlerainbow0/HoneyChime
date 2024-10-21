@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@nextui-org/react": "^2.4.8",
+    "flatpickr": "^4.6.13",
     "postcss-import": "^16.1.0",
     "postcss-nesting": "^13.0.0",
     "react": "^18.3.1",

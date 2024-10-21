@@ -138,7 +138,8 @@ main {
 .dessert_info h3 {
   line-height: 32px;
   padding: 12px;
-  background-color: #B69C7C;
+  background-color: #093B4F;
+  color: #D8FDFF;
   height: 56px;
 }
 .view_info .view_info_content,
@@ -195,6 +196,7 @@ main {
 
 .dessert_info {
   margin: 28px auto;
+  padding-bottom: 100px;
 }
 .dessert_info > div {
   display: flex;

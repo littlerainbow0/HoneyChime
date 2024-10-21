@@ -10,7 +10,7 @@
 </head>
 
 <body>
-    <header class="order_hero"> 
+    <header class="order_hero">
         <div class="header_logo">
             <a href="#">
                 <img src="/src/assets/images/icon/LOGO.svg" alt="">
@@ -41,39 +41,44 @@
             <div class="order_info_section">
 
                 <div class="order_info">
-                    <p>蜂鳴號</p>
+                    <p>您的預約 - 蜂鳴號</p>
                     <p>
                         <span>路線</span>
-                        <span>台北 ⭢ 台中</span>
+                        <span id="orderRoute"></span>
                     </p>
                     <p>
                         <span>出發時間</span>
-                        <span>Fri,20 Sep 2024 09:00</span>
+                        <span id="order_start"></span>
                     </p>
                     <p>
                         <span>抵達時間</span>
-                        <span>Fri,20 Sep 2024 13:00</span>
+                        <span id="order_arrive"></span>
                     </p>
                     <p>
                         <span>乘客人數</span>
-                        <span>2 人</span>
+                        <span id="orderPeople">
+                        </span>
                     </p>
                     <p>
                         <span>車廂</span>
-                        <span>景觀車廂Ｆ - 雙人座</span>
+                        <span id="orderCar"></span>
                     </p>
                     <p>
                         <span>座位</span>
-                        <span>F1</span>
+                        <span id="orderSeat"></span>
                     </p>
                     <p>
                         <span>餐點</span>
-                        <span> 日式舒芙蕾套餐*1, <br>
-                            日式菓子套餐*1</span>
+                        <span>
+                            <span id="orderDessert1"> </span>
+                            <br>
+                            <span id="orderDessert2"> </span>
+                        </span>
+
                     </p>
                     <p>
                         <span>金額</span>
-                        <span>$4000</span>
+                        <span id="orderPrice">$0</span>
                     </p>
                 </div>
                 <!-- 右側行程與資訊 -->
@@ -88,6 +93,40 @@
 
         </div>
     </main>
+
+    <script>
+        // 取得reservation的資料
+        document.addEventListener('DOMContentLoaded', function () {
+    // 從 localStorage 取得資料
+    const route = localStorage.getItem('order_route');
+    const startDate = localStorage.getItem('order_start_date');
+    const arriveDate = localStorage.getItem('order_arrive_date');
+    const peopleCount = localStorage.getItem('order_people');
+    const carType = localStorage.getItem('order_car');
+    const seat = localStorage.getItem('order_seat');
+    const dessert1 = localStorage.getItem('order_dessert1');
+    const dessert2 = localStorage.getItem('order_dessert2');
+    const price = localStorage.getItem('order_price');
+
+    // 確認讀取到的數據
+    console.log('Data retrieved from localStorage:', {
+        route, startDate, arriveDate, peopleCount, carType, seat, dessert1, dessert2, price
+    });
+
+    // 顯示資料
+    document.getElementById('orderRoute').innerText = route;
+    document.getElementById('order_start').innerText = startDate;
+    document.getElementById('order_arrive').innerText = arriveDate;
+    document.getElementById('orderPeople').innerText = peopleCount;
+    document.getElementById('orderCar').innerText = carType;
+    document.getElementById('orderSeat').innerText = seat;
+    document.getElementById('orderDessert1').innerText = dessert1;
+    document.getElementById('orderDessert2').innerText = dessert2;
+    document.getElementById('orderPrice').innerText = `$${price}`;
+});
+
+
+    </script>
 </body>
 
 </html>

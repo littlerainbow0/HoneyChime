@@ -1,6 +1,7 @@
 @charset "UTF-8";
 @import url("https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100..900&family=Noto+Serif+TC:wght@200..900&display=swap");
-.reservation h6 {
+.reservation .trip_detail h6,
+.reservation .user_info h6 {
   font-family: "Noto Serif TC", "Noto Sans TC";
   font-size: 18px;
   font-weight: 600;
@@ -42,7 +43,8 @@
   border: none;
   border-bottom: 1px solid #1F1F1F;
 }
-.reservation h6 {
+.reservation .trip_detail h6,
+.reservation .user_info h6 {
   border-bottom: 1px solid #1F1F1F;
   margin: 0 auto 24px auto;
 }
@@ -61,7 +63,7 @@
   flex-direction: column;
   margin: 12px auto;
   justify-content: end;
-  width: 18%;
+  width: 15%;
 }
 
 .form_seat {
@@ -146,12 +148,13 @@
   display: flex;
   padding: 22px 12px;
   justify-content: space-between;
-  background-color: rgba(255, 255, 255, 0.8);
+  background-color: #EBE3DA;
 }
 
 .user_info {
   width: 1024px;
   margin: 0 auto 24px auto;
+  padding-bottom: 100px;
 }
 .user_info input {
   margin: 20px auto;
@@ -172,6 +175,7 @@
 .user_info button:hover {
   border: 2px solid #434343;
   cursor: pointer;
+  font-weight: 900;
 }
 .user_info span {
   color: #D1534F;

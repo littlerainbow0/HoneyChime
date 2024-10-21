@@ -61,8 +61,10 @@
             line-height: 50px;
             border-radius: 35px;
             @extend %btn_lg;
+            border: 1px solid $gray_800;
             &:hover{
-                border: 1px solid $gray_800;
+                border: 2px solid $gray_800;
+                
             }
         }
 

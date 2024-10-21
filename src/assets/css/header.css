@@ -82,7 +82,8 @@ header {
 }
 
 html {
-  background-color: #D9CCBB;
+  height: 100%;
+  padding-bottom: 100px;
 }
 
 .header_logo {

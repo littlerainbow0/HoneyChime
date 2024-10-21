@@ -1,0 +1,241 @@
+<!-- 引入 Flatpickr 的 CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+<!-- 引入 Flatpickr 的 JavaScript -->
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
+<div class="form_apply">
+    <div>
+        <label for="dessert_type">主題甜點：</label>
+        <select name="" id="dessert_type">
+            <option value="jp">日式甜點</option>
+            <option value="tw">台式甜點</option>
+            <option value="eu">歐式甜點</option>
+        </select>
+    </div>
+
+    <div>
+        <label for="people">旅客人數：</label>
+        <select name="" id="people">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+        </select>
+    </div>
+
+    <div>
+        <label for="departure_date">出發日期：</label>
+        <input type="date" name="" id="departure_date" placeholder="選擇日期">
+    </div>
+
+    <div>
+        <label for="departure_time">出發時間：</label>
+        <select name="" id="departure_time">
+            <option value="13:00">13:00</option>
+            <option value="17:00">17:00</option>
+        </select>
+    </div>
+
+    <div>
+        <label for="route_start">起站：</label>
+        <select name="" id="route_start">
+            <option value="0">請選擇站點</option>
+            <option value="2">台北</option>
+            <option value="3">台中</option>
+            <option value="1">台南</option>
+            <option value="5">高雄</option>
+            <option value="4">花蓮</option>
+        </select>
+    </div>
+    <div>
+        <label for="route_end">迄站：</label>
+        <select name="" id="route_end">
+            <option value="0">請選擇站點</option>
+            <option value="2">台北</option>
+            <option value="3">台中</option>
+            <option value="1">台南</option>
+            <option value="5">高雄</option>
+            <option value="4">花蓮</option>
+        </select>
+    </div>
+</div>
+
+<div class="order_detail">
+    <p>您的預約 - 蜂鳴號</p>
+    <p>
+        <span>路線</span>
+        <span id="order_route"></span>
+    </p>
+    <p>
+        <span>出發時間</span>
+        <span id="order_start_date"></span>
+    </p>
+    <p>
+        <span>抵達時間</span>
+        <span id="order_arrive_date"></span>
+    </p>
+    <p>
+        <span>乘客人數</span>
+        <span id="order_people"></span>
+    </p>
+    <p>
+        <span>車廂</span>
+        <span id="order_car"></span>
+    </p>
+    <p>
+        <span>座位</span>
+        <span id="order_seat"></span>
+    </p>
+    <p>
+        <span>餐點</span>
+        <span id="order_dessert">日式舒芙蕾套餐*1, <br>日式菓子套餐*1</span>
+    </p>
+    <p>
+        <span>金額</span>
+        <span id="order_price">$4000</span>
+    </p>
+</div>
+<script>
+    const scheduleData = [
+        {
+            SchedulesID: 1,
+            DepartureDate: "2024-10-10",
+            DepartureTime: "13:00",
+            RouteStart: "台北",
+            RouteEnd: "台中",
+            Duration: 121,
+        },
+        {
+            SchedulesID: 2,
+            DepartureDate: "2024-10-10",
+            DepartureTime: "17:00",
+            RouteStart: "台北",
+            RouteEnd: "台中",
+            Duration: 121
+        },
+        {
+            SchedulesID: 3,
+            DepartureDate: "2025-11-14",
+            DepartureTime: "13:00",
+            RouteStart: "台北",
+            RouteEnd: "台中",
+            Duration: 121
+        },
+        {
+            SchedulesID: 4,
+            DepartureDate: "2025-11-14",
+            DepartureTime: "17:00",
+            RouteStart: "台北",
+            RouteEnd: "台中",
+            Duration: 121
+        },
+        {
+            SchedulesID: 5,
+            DepartureDate: "2025-11-14",
+            DepartureTime: "13:00",
+            RouteStart: "台北",
+            RouteEnd: "花蓮",
+            Duration: 150
+        }
+    ];
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const departureTimeSelect = document.getElementById('departure_time');
+        const orderStartDate = document.getElementById('order_start_date');
+        const orderArriveDate = document.getElementById('order_arrive_date');
+        const routeStartSelect = document.getElementById('route_start');
+        const routeEndSelect = document.getElementById('route_end');
+
+        // 提取可用日期
+        const availableDates = scheduleData.map(schedule => schedule.DepartureDate);
+
+        // 初始化 Flatpickr
+        flatpickr("#departure_date", {
+            dateFormat: "Y-m-d",
+            enable: availableDates,
+            disable: [
+                function (date) {
+                    return !availableDates.includes(date.toISOString().split('T')[0]);
+                }
+            ],
+            onChange: function (selectedDates, dateStr) {
+                setDepartureDetails(dateStr);
+            }
+        });
+
+        // 設置出發詳情
+        const setDepartureDetails = (selectedDate) => {
+            const selectedTime = departureTimeSelect.value;
+
+            // 查找匹配的排程
+            const schedule = scheduleData.find(s => s.DepartureDate === selectedDate && s.DepartureTime === selectedTime);
+
+            if (schedule) {
+                orderStartDate.textContent = `${schedule.DepartureDate} ${schedule.DepartureTime}`;
+                const arrivalTime = calculateArrivalTime(schedule.DepartureTime, schedule.Duration);
+                orderArriveDate.textContent = arrivalTime;
+
+                // 更新起站和迄站選項
+                updateRouteOptions(selectedDate);
+            } else {
+                orderStartDate.textContent = "無可用排程";
+                orderArriveDate.textContent = ""; // 清空抵達時間
+                clearRouteOptions();
+            }
+        };
+
+        // 計算抵達時間
+        function calculateArrivalTime(departureTime, duration) {
+            const [hours, minutes] = departureTime.split(':').map(Number);
+            const departureDateTime = new Date();
+            departureDateTime.setHours(hours);
+            departureDateTime.setMinutes(minutes);
+            departureDateTime.setMinutes(departureDateTime.getMinutes() + duration); // 加上持續時間
+
+            const arrivalHours = departureDateTime.getHours().toString().padStart(2, '0');
+            const arrivalMinutes = departureDateTime.getMinutes().toString().padStart(2, '0');
+
+            return `${arrivalHours}:${arrivalMinutes}`;
+        }
+
+        // 更新路線選項
+        function updateRouteOptions(selectedDate) {
+            // 清空選項
+            clearRouteOptions();
+
+            // 收集所有起站和迄站
+            const routes = scheduleData.filter(schedule => schedule.DepartureDate === selectedDate);
+
+            const startRoutes = new Set();
+            const endRoutes = new Set();
+
+            routes.forEach(route => {
+                startRoutes.add(route.RouteStart);
+                endRoutes.add(route.RouteEnd);
+            });
+
+            // 更新起站選項
+            startRoutes.forEach(route => {
+                routeStartSelect.innerHTML += `<option value="${route}">${route}</option>`;
+            });
+
+            // 更新迄站選項
+            endRoutes.forEach(route => {
+                routeEndSelect.innerHTML += `<option value="${route}">${route}</option>`;
+            });
+        }
+
+        // 清空路線選項
+        function clearRouteOptions() {
+            routeStartSelect.innerHTML = `<option value="0">請選擇站點</option>`;
+            routeEndSelect.innerHTML = `<option value="0">請選擇站點</option>`;
+        }
+        
+        // 監聽出發時間變化事件
+        departureTimeSelect.addEventListener('change', () => {
+            const selectedDate = document.getElementById('departure_date').value;
+            setDepartureDetails(selectedDate);
+        });
+    });
+
+</script>

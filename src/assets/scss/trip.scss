@@ -18,7 +18,7 @@ main{
     display: flex;
     padding: 28px;
     align-items: center;
-
+    
     h3 {
         @extend %h3;
     }

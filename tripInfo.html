@@ -64,9 +64,9 @@
         <!-- 風景介紹 -->
         <div class="view_info">
 
-                <h3>沿途風景
-                    <span>▼</span>
-                </h3>
+            <h3>沿途風景
+                <span>▼</span>
+            </h3>
 
             <!-- img -->
             <div class="view_info_content">
@@ -88,9 +88,9 @@
         <!-- 餐點介紹 -->
         <div class="dessert_info ">
 
-                <h3>餐點介紹
-                    <span>▼</span>
-                </h3>
+            <h3>餐點介紹
+                <span>▼</span>
+            </h3>
 
             <div>
                 <div class="dessert_section">
@@ -108,7 +108,7 @@
                     <span>日式菓子：<br>
                         和菓子：選用當季新鮮食材，製作出色彩繽紛的和菓子，像是細膩的麻糬、香甜的紅豆糕和繽紛的水果羊羹，無論是口感還是外觀都讓人驚喜。
                         <br>靜岡抹茶：<br>
-            提供選自日本優質茶園，茶香濃郁，口感清新，完美搭配各式和菓子。</span>
+                        提供選自日本優質茶園，茶香濃郁，口感清新，完美搭配各式和菓子。</span>
                     <img src="/src/assets/images/dessert/tripInfo_Jp02.png" alt="">
                 </div>
             </div>
@@ -121,6 +121,83 @@
         <br>
         Top
     </a>
+    <script>
+        dessertTypeData =
+            [
+                {
+                    RouteID: 1,
+                    StopStart: "台北",
+                    StopEnd: "台中",
+                    RouteImage: "./src/assets/images/train_exterior/tripInfo_train01.png",
+                    Duration: 121,
+                    Description: "台北出發，搭乘鐵路前往台中，沿途的景色會讓你驚艷不已。列車穿越繁華的都市後，逐漸進入寧靜的山林與田野。你可以看到壯麗的中央山脈在遠方矗立，隨著列車的前行，山谷與河流交織出一幅幅美麗的畫面。",
+                    LandScapeImage1: "/src/assets/images/train_exterior/tripInfo_MountainSm02.png",
+                    LandScapeImage2: "/src/assets/images/train_exterior/tripInfo_MountainLg01.png",
+                    LandScapeImage3: "/src/assets/images/train_exterior/tripInfo_SeaSm02.png",
+                    LandScapeDescription: "春天的櫻花、夏天的綠意、秋天的紅葉，還是冬天的雲霧，每個季節都有其獨特的風貌。這段旅程不僅是從台北到台中的移動，更是一場視覺與心靈的饗宴，讓你在車窗外的美景中，感受到台灣的自然魅力與文化深度。"
+                },
+                {
+                    RouteID:2,
+                    StopStart:"台北",
+                    StopEnd:"花蓮",
+                    RouteImage:"/src/assets/images/train_exterior/Facilities_train.png",
+                    Duration: 150,
+                    Description:"台北出發，搭乘鐵路前往花蓮，沿途的景色會讓你驚艷不已。列車穿越繁華的都市後，逐漸進入寧靜的山林與田野。你可以看到壯麗的中央山脈在遠方矗立，隨著列車的前行，山谷與河流交織出一幅幅美麗的畫面。",
+                    LandScapeImage1:"/src/assets/images/train_exterior/tripInfo_SeaLg02.png",
+                    LandScapeImage2:"/src/assets/images/train_exterior/train_exterior_7.png",
+                    LandScapeImage3:"/src/assets/images/train_exterior/tripInfo_MountainSm04.png",
+                    LandScapeDescription:"春天的櫻花、夏天的綠意、秋天的紅葉，還是冬天的雲霧，每個季節都有其獨特的風貌。這段旅程不僅是從台北到花蓮的移動，更是一場視覺與心靈的饗宴，讓你在車窗外的美景中，感受到台灣的自然魅力與文化深度。"
+                },
+                {
+                    RouteID:3,
+                    StopStart:"台中",
+                    StopEnd:"台南",
+                    RouteImage:"/src/assets/images/train_exterior/tripInfo_MountainSm03.png",
+                    Duration: 126,
+                    Description:"台中出發，搭乘鐵路前往台南，沿途的景色會讓你驚艷不已。列車穿越繁華的都市後，逐漸進入寧靜的山林與田野。你可以看到壯麗的中央山脈在遠方矗立，隨著列車的前行，山谷與河流交織出一幅幅美麗的畫面。",
+                    LandScapeImage1:"/src/assets/images/train_exterior/tripInfo_MountainSm04.png",
+                    LandScapeImage2:"/src/assets/images/train_exterior/tripInfo_MountainLg02.png",
+                    LandScapeImage3:"/src/assets/images/train_exterior/tripInfo_GrassLg02.png",
+                    LandScapeDescription:"春天的櫻花、夏天的綠意、秋天的紅葉，還是冬天的雲霧，每個季節都有其獨特的風貌。這段旅程不僅是從台南到台中的移動，更是一場視覺與心靈的饗宴，讓你在車窗外的美景中，感受到台灣的自然魅力與文化深度。"
+                },
+                {
+                    RouteID:4,
+                    StopStart:"台中",
+                    StopEnd:"高雄",
+                    RouteImage:"/src/assets/images/train_exterior/train_exterior_4.png.png",
+                    Duration: 145,
+                    Description:"台中出發，搭乘鐵路前往高雄，沿途的景色會讓你驚艷不已。列車穿越繁華的都市後，逐漸進入寧靜的山林與田野。你可以看到壯麗的中央山脈在遠方矗立，隨著列車的前行，山谷與河流交織出一幅幅美麗的畫面。",
+                    LandScapeImage1:"/src/assets/images/train_exterior/tripInfo_train01.png",
+                    LandScapeImage2:"/src/assets/images/train_exterior/tripInfo_MountainLg03.png",
+                    LandScapeImage3:"/src/assets/images/train_exterior/tripInfo_GrassLg02.png",
+                    LandScapeDescription:"春天的櫻花、夏天的綠意、秋天的紅葉，還是冬天的雲霧，每個季節都有其獨特的風貌。這段旅程不僅是從台中到高雄的移動，更是一場視覺與心靈的饗宴，讓你在車窗外的美景中，感受到台灣的自然魅力與文化深度。"
+                },
+                {
+                    RouteID:5,
+                    StopStart:"高雄",
+                    StopEnd:"台中",
+                    RouteImage:"/src/assets/images/train_exterior/train_exterior_hero.png",
+                    Duration: 154,
+                    Description:"高雄出發，搭乘鐵路前往台中，沿途的景色會讓你驚艷不已。列車穿越繁華的都市後，逐漸進入寧靜的山林與田野。你可以看到壯麗的中央山脈在遠方矗立，隨著列車的前行，山谷與河流交織出一幅幅美麗的畫面。",
+                    LandScapeImage1:"/src/assets/images/train_exterior/tripInfo_GrassLg02.png",
+                    LandScapeImage2:"/src/assets/images/train_exterior/tripInfo_MountainSm01.png",
+                    LandScapeImage3:"/src/assets/images/train_exterior/tripInfo_train01.png",
+                    LandScapeDescription:"春天的櫻花、夏天的綠意、秋天的紅葉，還是冬天的雲霧，每個季節都有其獨特的風貌。這段旅程不僅是從高雄到台中的移動，更是一場視覺與心靈的饗宴，讓你在車窗外的美景中，感受到台灣的自然魅力與文化深度。"
+                }, {
+                    RouteID:6,
+                    StopStart:"高雄",
+                    StopEnd:"花蓮",
+                    RouteImage:"/src/assets/images/train_exterior/train_exterior_7.png",
+                    Duration: 240,
+                    Description:"高雄出發，搭乘鐵路前往花蓮，沿途的景色會讓你驚艷不已。列車穿越繁華的都市後，逐漸進入寧靜的山林與田野。你可以看到壯麗的中央山脈在遠方矗立，隨著列車的前行，山谷與河流交織出一幅幅美麗的畫面。",
+                    LandScapeImage1:"/src/assets/images/train_exterior/tripInfo_SeaSm03.png",
+                    LandScapeImage2:"/src/assets/images/train_exterior/tripInfo_MountainLg03.png",
+                    LandScapeImage3:"/src/assets/images/landscape/landscape_landscape04.png",
+                    LandScapeDescription:"春天的櫻花、夏天的綠意、秋天的紅葉，還是冬天的雲霧，每個季節都有其獨特的風貌。這段旅程不僅是從高雄到花蓮的移動，更是一場視覺與心靈的饗宴，讓你在車窗外的美景中，感受到台灣的自然魅力與文化深度。"
+                }
+            ]
+
+    </script>
 </body>
 
 </html>
