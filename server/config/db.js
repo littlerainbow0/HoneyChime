@@ -1,7 +1,7 @@
 const dbConfig = {
     host: 'localhost',
     user: 'root',
-    password: '',
+    password: '' || "root",
     database: 'HoneyTrainDB',
     multipleStatements: true,
 };
