@@ -1,64 +1,61 @@
-const db = require('../db.js');  // 引入資料庫
+import { query } from '../db.js';  // 引入資料庫查詢函數
 
 // 取得所有使用者
-exports.getAllUsers = async () => {
+export const getAllUsers = async () => {
     const sql = 'SELECT * FROM USERS';  // 查詢所有使用者的 SQL 語句
-    return db.query(sql);
+    return query(sql);  // 使用 query 函數執行查詢
 };
 
-exports.getUserByUserID = async (userID) => {
+export const getUserByUserID = async (userID) => {
     const sql = `SELECT * 
 FROM USERS 
 WHERE userID = ?`;
     try {
-        return { results } = await db.query(sql, [userID]);  // 使用 userID 參數進行查詢
+        const { results } = await query(sql, [userID]);  // 使用 userID 參數進行查詢
+        return { results };
     } catch (error) {
         console.log('查詢特定ID之使用者資料錯誤：', error);
         throw new Error('查詢特定ID之使用者資料錯誤：');
     }
 };
 
-exports.signIn = async (data) => {
+export const signIn = async (data) => {
     const sql = `INSERT INTO USERS (UserName, UserPhone, UserMail,  
     Password, Sex, Birth, RegistrationTime) 
     VALUES (?, ?, ?, ?, ?, ?, ?)`;
     try {
-        const result = await db.query(sql, [data.UserName, data.UserPhone, data.UserMail, data.Password, data.Sex, data.Birth, data.RegistrationTime]);
-        // console.log('插入結果:', result.results.insertId); // 確認完整結果
-        return { userID: result.results.insertId };
+        const result = await query(sql, [data.UserName, data.UserPhone, data.UserMail, data.Password, data.Sex, data.Birth, data.RegistrationTime]);        
+        return { userID: result.results.insertId};  // 返回新增使用者的 ID
     } catch (error) {
         console.error('新增註冊資料錯誤：', error);
         throw new Error('新增註冊資料錯誤');
     }
 };
 
-
-//更新使用者資訊
-exports.updateUserInfo = async (userID, data) => {
+// 更新使用者資訊
+export const updateUserInfo = async (userID, data) => {
     const sql = `UPDATE USERS
 SET UserName = ?, UserPhone = ?, UserMail = ?, Password = ?, Birth = ?, 
 Sex = ?
 WHERE userID = ?;`;
 
     try {
-        const result = await db.query(sql, [data.UserName, data.UserPhone, data.UserMail, data.Password, data.Birth, data.Sex, userID]);
-        // console.log('插入結果:', result.results.affectedRows); // 確認完整結果
-        return result.results.affectedRows ;
+        const result = await query(sql, [data.UserName, data.UserPhone, data.UserMail, data.Password, data.Birth, data.Sex, userID]);
+        return result.results.affectedRows;  // 返回受影響的行數
     } catch (error) {
         console.error('更新使用者資料錯誤：', error);
         throw new Error('更新使用者資料錯誤');
     }
 };
 
-//更新使用者最近登入時間
-exports.updateUserLogInTime = async (userID, data) => {
+// 更新使用者最近登入時間
+export const updateUserLogInTime = async (userID, data) => {
     const sql = `UPDATE USERS
 SET LatestLogin = ?
 WHERE userID = ?;`;
     try {
-        const result = await db.query(sql, [data.LatestLogin, userID]);
-        // console.log('插入結果:', result.results.affectedRows); // 確認完整結果
-        return result.results.affectedRows ;
+        const result = await query(sql, [data.LatestLogin, userID]);
+        return result.results.affectedRows;  // 返回受影響的行數
     } catch (error) {
         console.error('更新使用者最近登入時間錯誤：', error);
         throw new Error('更新使用者最近登入時間錯誤');

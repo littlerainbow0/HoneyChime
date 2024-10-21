@@ -1,7 +1,7 @@
-const routeModel = require('../models/routeModel');  // 引入模型層
+import * as routeModel from '../models/routeModel.js';  // 引入模型層
 
 // 取得所有路徑的資料
-exports.getAllRoute = async (req, res) => {
+export const getAllRoute = async (req, res) => {
     try {
         const { results } = await routeModel.getAllRoute();
         res.json(results);  // 返回 JSON 格式的路徑資料
@@ -12,7 +12,7 @@ exports.getAllRoute = async (req, res) => {
 };
 
 // 取得特定甜點之路徑的資料
-exports.getRouteByDessertType = async (req, res) => {
+export const getRouteByDessertType = async (req, res) => {
     const { dessertType } = req.params;  // 從 URL 獲取 dessertType 參數
     try {
         const { results } = await routeModel.getRouteByDessertType(dessertType);

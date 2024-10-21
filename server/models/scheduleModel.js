@@ -1,7 +1,7 @@
-const db = require('../db.js');  // 引入資料庫
+import { query } from '../db.js';  // 引入資料庫查詢函數
 
 // 取得所有旅程
-exports.getAllSchedules = async () => {
+export const getAllSchedules = async () => {
     const sql = `SELECT 
     S.ScheduleID,
     S.DepartureDate,
@@ -28,14 +28,15 @@ LEFT JOIN
     DEPARTURETIMES DT ON S.DepartureTimeID = DT.DepartureTimeID`;
 
     try {
-        return { results } = await db.query(sql);
+        const { results } = await query(sql);
+        return { results };
     } catch (error) {
         console.log('查詢旅程資料錯誤：', error);
         throw new Error('查詢旅程資料錯誤：');
     }
 };
 
-exports.getScheduleByDessertType = async (dessertType) => {
+export const getScheduleByDessertType = async (dessertType) => {
     const sql = `SELECT 
     S.ScheduleID,
     S.DepartureDate,
@@ -59,38 +60,36 @@ JOIN
     STOPS EndStop ON R.StopEnd = EndStop.StopID
 WHERE 
     D.DessertType = ?;`;
+    
     try {
-        return { results } = await db.query(sql, [dessertType]);  // 使用 dessertType 參數進行查詢
+        const { results } = await query(sql, [dessertType]);  // 使用 dessertType 參數進行查詢
+        return { results };
     } catch (error) {
         console.log('查詢特定甜點之旅程資料錯誤：', error);
         throw new Error('查詢特定甜點之旅程資料錯誤');
     }
 };
 
-exports.postSchedule = async (data) => {
+export const postSchedule = async (data) => {
     const sql = `INSERT INTO SCHEDULES (TemplateID, DepartureDate, DepartureTimeID) VALUES (?, ?, ?)`;
     try {
-        const result = await db.query(sql, [data.TemplateID, data.DepartureDate, data.DepartureTimeID]);
-        // console.log('插入結果:', result.results.insertId); // 確認完整結果
+        const result = await query(sql, [data.TemplateID, data.DepartureDate, data.DepartureTimeID]);
         return { scheduleID: result.results.insertId };
     } catch (error) {
-        console.error('新增CARDS資料錯誤：', error);
-        throw new Error('新增CARDS資料錯誤');
+        console.error('新增旅程資料錯誤：', error);
+        throw new Error('新增旅程資料錯誤');
     }
 };
 
-exports.updateSchedule = async (scheduleID, data) => {
+export const updateSchedule = async (scheduleID, data) => {
     const sql = `UPDATE SCHEDULES 
 SET TemplateID = ?, DepartureDate = ?, DepartureTimeID = ?
 WHERE scheduleID = ?;`;
     try {
-        const result = await db.query(sql, [data.TemplateID, data.DepartureDate, data.DepartureTimeID, scheduleID]);
-        // console.log('插入結果:', result.results.affectedRows); // 確認完整結果
-        return result.results.affectedRows ;
+        const result = await query(sql, [data.TemplateID, data.DepartureDate, data.DepartureTimeID, scheduleID]);
+        return result.results.affectedRows;
     } catch (error) {
         console.error('更新旅程資料錯誤：', error);
         throw new Error('更新旅程資料錯誤');
     }
 };
-
-

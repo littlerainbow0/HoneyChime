@@ -1,9 +1,10 @@
-const express = require('express');
+import express from 'express';
+import * as routeController from '../controllers/routeController.js';  // 引入控制器層
+
+
 const router = express.Router();
-const routeController = require('../controllers/routeController.js');
 
 router.get('/', routeController.getAllRoute);
 router.get('/:dessertType', routeController.getRouteByDessertType);
 
-
-module.exports = router;
+export default router;

@@ -1,16 +1,15 @@
-const db = require('../db.js');  // 引入資料庫
+import { query } from '../db.js';  // 引入資料庫查詢函數
 
 // 取得所有使用者
-exports.getAllCards = async () => {
+export const getAllCards = async () => {
     const sql = 'SELECT * FROM CARDS'; 
-    return db.query(sql);  // 傳給db
+    return query(sql);  // 傳給db
 };
 
-exports.postCards = async (data) => {
+export const postCards = async (data) => {
     const sql = `INSERT INTO CARDS (CardImage, Title, Paragraph) VALUES (?, ?, ?)`;
     try {
-        const result = await db.query(sql, [data.CardImage, data.Title, data.Paragraph]);
-        // console.log('插入結果:', result.results.insertId); // 確認完整結果
+        const result = await query(sql, [data.CardImage, data.Title, data.Paragraph]);
         return { cardsID: result.results.insertId };
     } catch (error) {
         console.error('新增CARDS資料錯誤：', error);
@@ -18,16 +17,14 @@ exports.postCards = async (data) => {
     }
 };
 
-//更新Cards
-exports.updateCards = async (cardsID, data) => {
+// 更新Cards
+export const updateCards = async (cardsID, data) => {
     const sql = `UPDATE CARDS 
 SET CardImage = ?, Title = ?, Paragraph = ?
-WHERE cardsID = ?;
-`;
+WHERE cardsID = ?;`;
     try {
-        const result = await db.query(sql, [data.CardImage, data.Title, data.Paragraph, cardsID]);
-        // console.log('插入結果:', result.results.affectedRows); // 確認完整結果
-        return result.results.affectedRows ;
+        const result = await query(sql, [data.CardImage, data.Title, data.Paragraph, cardsID]);
+        return result.results.affectedRows;
     } catch (error) {
         console.error('更新CARDS資料錯誤：', error);
         throw new Error('更新CARDS資料錯誤');

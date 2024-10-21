@@ -1,7 +1,7 @@
-const db = require('../db.js');  // 引入資料庫
+import { query } from '../db.js';  // 引入資料庫查詢函數
 
 // 取得所有路線
-exports.getAllRoute = async () => {
+export const getAllRoute = async () => {
     const sql = `SELECT 
     R.RouteID,
     R.RouteImagePath,
@@ -21,14 +21,15 @@ JOIN
     STOPS S2 ON R.StopEnd = S2.StopID`;
 
     try {
-        return { results } = await db.query(sql);  
+        const { results } = await query(sql);  
+        return { results };
     } catch (error) {
         console.log('查詢路線資料錯誤：', error);
         throw new Error('查詢路線資料錯誤');
     }
 };
 
-exports.getRouteByDessertType = async (dessertType) => {
+export const getRouteByDessertType = async (dessertType) => {
     const sql = `SELECT
     R.RouteID,
     R.RouteImagePath,
@@ -52,8 +53,10 @@ JOIN
     Stops EndStop ON R.StopEnd = EndStop.StopID
 WHERE
     D.DessertType = ?;`;
+    
     try {
-        return { results } = await db.query(sql, [dessertType]);  // 使用 dessertType 參數進行查詢
+        const { results } = await query(sql, [dessertType]);  // 使用 dessertType 參數進行查詢
+        return { results };
     } catch (error) {
         console.log('查詢特定甜點之路線資料錯誤：', error);
         throw new Error('查詢特定甜點之路線資料錯誤');

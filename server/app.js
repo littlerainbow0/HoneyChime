@@ -1,8 +1,8 @@
-const express = require("express");
-const cors = require("cors");
-const bodyParser = require('body-parser');
+import express from 'express';
+import cors from 'cors';
+import index from './routes/index.js';
+
 const app = express();
-const index = require('./routes/index.js');
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -13,8 +13,6 @@ app.use(cors({
     allowedHeaders: ['Content-Type', 'Authorization']
 }));
 
-
 app.use('/', index);
 
-
-module.exports = app;
+export default app;

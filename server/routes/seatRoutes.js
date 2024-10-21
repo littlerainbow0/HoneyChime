@@ -1,7 +1,9 @@
-const express = require('express');
+import express from 'express';
+import * as seatController from '../controllers/seatController.js';  // 引入控制器層
+
+
 const router = express.Router();
-const seatController = require('../controllers/seatController.js');
 
 router.get('/:scheduleID', seatController.getOrderedSeatByScheduleID);
 
-module.exports = router;
+export default router;

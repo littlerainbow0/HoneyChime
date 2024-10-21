@@ -1,7 +1,7 @@
-const db = require('../db.js');  // 引入資料庫
+import { query } from '../db.js';  // 引入資料庫查詢函數
 
 // 取得所有範本
-exports.getAllTemplate = async () => {
+export const getAllTemplate = async () => {
     const sql = `SELECT 
     T.TemplateID,
     T.TemplateDescription,
@@ -31,14 +31,15 @@ LEFT JOIN
     MEALS M2 ON T.MenuSecond = M2.MealID`;
 
     try {
-        return { results } = await db.query(sql);
+        const { results } = await query(sql);
+        return { results };
     } catch (error) {
         console.log('查詢範本資料錯誤：', error);
         throw new Error('查詢範本資料錯誤：');
     }
 };
 
-exports.getTemplateByScheduleID = async (scheduleID) => {
+export const getTemplateByScheduleID = async (scheduleID) => {
     const sql = `SELECT 
     S.ScheduleID,
     S.DepartureDate,
@@ -71,21 +72,23 @@ LEFT JOIN
     MEALS M2 ON T.MenuSecond = M2.MealID
 WHERE 
     S.ScheduleID = ?;`;
+
     try {
-        return { results } = await db.query(sql, [scheduleID]);  // 使用 ScheduleID 參數進行查詢
+        const { results } = await query(sql, [scheduleID]);  // 使用 ScheduleID 參數進行查詢
+        return { results };
     } catch (error) {
         console.log('查詢特定旅程之範本資料錯誤：', error);
         throw new Error('查詢特定旅程之範本資料錯誤');
     }
 };
 
-exports.postTemplate = async (data) => {
+export const postTemplate = async (data) => {
     const sql = `INSERT INTO TEMPLATES (DessertTypeID, RouteID, TemplateDescription, 
     MenuFirst, MenuSecond) 
     VALUES (?, ?, ?, ?, ?)`;
+    
     try {
-        const result = await db.query(sql, [data.DessertTypeID, data.RouteID, data.TemplateDescription, data.MenuFirst, data.MenuSecond]);
-        // console.log('插入結果:', result.results.insertId); // 確認完整結果
+        const result = await query(sql, [data.DessertTypeID, data.RouteID, data.TemplateDescription, data.MenuFirst, data.MenuSecond]);
         return { templateID: result.results.insertId };
     } catch (error) {
         console.error('新增範本資料錯誤：', error);
@@ -93,16 +96,15 @@ exports.postTemplate = async (data) => {
     }
 };
 
-//更新範本
-exports.updateTemplate = async (templateID, data) => {
+// 更新範本
+export const updateTemplate = async (templateID, data) => {
     const sql = `UPDATE TEMPLATES
 SET DessertTypeID = ?, RouteID = ?, MenuFirst = ?, MenuSecond = ?, TemplateDescription = ?
 WHERE templateID = ?;`;
 
     try {
-        const result = await db.query(sql, [data.DessertTypeID, data.RouteID, data.MenuFirst, data.MenuSecond, data.TemplateDescription, templateID]);
-        // console.log('插入結果:', result.results.affectedRows); // 確認完整結果
-        return result.results.affectedRows ;
+        const result = await query(sql, [data.DessertTypeID, data.RouteID, data.MenuFirst, data.MenuSecond, data.TemplateDescription, templateID]);
+        return result.results.affectedRows;
     } catch (error) {
         console.error('更新範本資料錯誤：', error);
         throw new Error('更新範本資料錯誤');

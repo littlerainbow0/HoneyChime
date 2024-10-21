@@ -1,19 +1,18 @@
-const express = require('express');
+import express from 'express';
+
+import userRoutes from './userRoutes.js';
+import frontPageRoutes from './frontPageRoutes.js';
+import routeRoutes from './routeRoutes.js';
+import scheduleRoutes from './scheduleRoutes.js';
+import templateRoutes from './templateRoutes.js';
+import mealRoutes from './mealRoutes.js';
+import seatRoutes from './seatRoutes.js';
+import priceRoutes from './priceRoutes.js';
+import orderRoutes from './orderRoutes.js';
+
 const router = express.Router();
 
-const userRoutes = require('./userRoutes');
-const frontPageRoutes = require('./frontPageRoutes');
-const routeRoutes = require('./routeRoutes');
-const scheduleRoutes = require('./scheduleRoutes');
-const templateRoutes = require('./templateRoutes');
-const mealRoutes = require('./mealRoutes');
-const seatRoutes = require('./seatRoutes');
-const priceRoutes = require('./priceRoutes');
-const orderRoutes = require('./orderRoutes');
-
-
-
-//各個路由
+// 各個路由
 router.use('/', frontPageRoutes);
 router.use('/', mealRoutes);
 router.use('/', userRoutes);
@@ -24,5 +23,4 @@ router.use('/getSeats', seatRoutes);
 router.use('/getPrice', priceRoutes);
 router.use('/', orderRoutes);
 
-
-module.exports = router;
+export default router;

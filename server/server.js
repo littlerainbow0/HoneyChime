@@ -1,5 +1,4 @@
-// server.js
-const app = require('./app.js'); 
+import app from './app.js'; 
 const port = process.env.PORT || 8000; 
 
 // 啟動伺服器

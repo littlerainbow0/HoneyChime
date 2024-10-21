@@ -1,10 +1,11 @@
-const express = require('express');
+import express from 'express';
+import * as mealController from '../controllers/mealController.js';  // 引入控制器層
+
+
 const router = express.Router();
-const mealController = require('../controllers/mealController.js');
 
 router.get('/getMeals/:dessertType', mealController.getMealsByDessertType);
 router.get('/getMenu/:orderID', mealController.getMenuByOrderID);
 router.get('/getDessertType', mealController.getAllDessertType);
 
-
-module.exports = router;
+export default router;

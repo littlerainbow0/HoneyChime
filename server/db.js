@@ -1,5 +1,5 @@
-var mysql = require('mysql');
-const dbConfig = require('./config/db.js');  // 從config引入db配置
+import mysql from 'mysql';
+import dbConfig from './config/db.js';  // 從config引入db配置
 
 //建立連線
 //使用pool讓mysql處理連線與斷線問題
@@ -19,5 +19,4 @@ const query = (sql, values) => {
     });
 };
 
-
-module.exports = { pool, query };
+export { pool, query };

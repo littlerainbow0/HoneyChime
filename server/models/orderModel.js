@@ -1,7 +1,7 @@
-const db = require('../db.js');  // 引入資料庫
+import { query } from '../db.js';  // 引入資料庫查詢函數
 
 // 取得所有訂單
-exports.getAllOrders = async () => {
+export const getAllOrders = async () => {
     const sql = `SELECT 
     O.OrderID,
     O.UserID,
@@ -54,14 +54,15 @@ LEFT JOIN
     MEALS M4 ON O.MealFourth = M4.MealID`;
 
     try {
-        return { results } = await db.query(sql);
+        const { results } = await query(sql);
+        return { results };
     } catch (error) {
         console.log('查詢訂單資料錯誤：', error);
         throw new Error('查詢訂單資料錯誤：');
     }
 };
 
-exports.getOrderByUserID = async (userID) => {
+export const getOrderByUserID = async (userID) => {
     const sql = `SELECT 
     O.OrderID,
     O.UserID,
@@ -114,22 +115,22 @@ LEFT JOIN
     MEALS M4 ON O.MealFourth = M4.MealID
  WHERE
  	O.UserID=?;`;
+
     try {
-        return { results } = await db.query(sql, [userID]);  // 使用 userID 參數進行查詢
+        const { results } = await query(sql, [userID]);  // 使用 userID 參數進行查詢
+        return { results };
     } catch (error) {
         console.log('查詢特定使用者ID之訂單資料錯誤：', error);
         throw new Error('查詢特定使用者ID之訂單資料錯誤');
     }
 };
 
-exports.postOrder = async (data) => {
-    const sql = `INSERT INTO ORDERS (UserID,ScheduleID, 
-    OrderTime, PaymentStatus, SeatID, 
-    PeopleNum, MealFirst, MealSecond, MealThird, MealFourth) VALUES
- (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+export const postOrder = async (data) => {
+    const sql = `INSERT INTO ORDERS (UserID, BookerDetailID, ScheduleID, OrderTime, 
+    PaymentStatus, SeatID, PeopleNum, MealFirst, MealSecond, MealThird, MealFourth) 
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
     try {
-        const result = await db.query(sql, [data.UserID, data.ScheduleID, data.OrderTime, data.PaymentStatus, data.SeatID, data.PeopleNum, data.MealFirst, data.MealSecond, data.MealThird, data.MealFourth]);
-        // console.log('插入結果:', result.results.insertId); // 確認完整結果
+        const result = await query(sql, [data.UserID, data.BookerDetailID ,data.ScheduleID, data.OrderTime, data.PaymentStatus, data.SeatID, data.PeopleNum, data.MealFirst, data.MealSecond, data.MealThird, data.MealFourth]);
         return { orderID: result.results.insertId };
     } catch (error) {
         console.error('新增訂單資料錯誤：', error);
@@ -137,22 +138,17 @@ exports.postOrder = async (data) => {
     }
 };
 
-
-//更新訂單(user)
-exports.updateUserOrder = async (orderID, data) => {
+// 更新訂單(user)
+export const updateUserOrder = async (orderID, data) => {
     const sql = `UPDATE ORDERS
 SET PaymentStatus = ?, MealFirst = ?, MealSecond = ?, MealThird = ?, MealFourth = ?
 WHERE orderID = ?;`;
 
     try {
-        const result = await db.query(sql, [data.PaymentStatus, data.MealFirst, data.MealSecond, data.MealThird, data.MealFourth, orderID]);
-        // console.log('插入結果:', result.results.affectedRows); // 確認完整結果
-        return result.results.affectedRows ;
+        const result = await query(sql, [data.PaymentStatus, data.MealFirst, data.MealSecond, data.MealThird, data.MealFourth, orderID]);
+        return result.results.affectedRows;
     } catch (error) {
         console.error('更新訂單資料錯誤：', error);
         throw new Error('更新訂單資料錯誤');
     }
 };
-
-
-

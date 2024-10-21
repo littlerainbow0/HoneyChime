@@ -1,8 +1,8 @@
-const newsModel = require('../models/newsModel');  
-const cardsModel = require('../models/cardModel');  
+import * as newsModel from '../models/newsModel.js';  // 引入模型層
+import * as cardsModel from '../models/cardModel.js';  // 引入模型層
 
 // 取得所有news
-exports.getAllNews = async (req, res) => {
+export const getAllNews = async (req, res) => {
     try {
         const { results } = await newsModel.getAllNews();
         res.json(results);  // 返回 JSON 格式的使用者資料
@@ -12,51 +12,47 @@ exports.getAllNews = async (req, res) => {
     }
 };
 
-//取得所有Cards
-exports.getAllCards = async (req, res) => {
+// 取得所有Cards
+export const getAllCards = async (req, res) => {
     try {
         const { results } = await cardsModel.getAllCards();
         res.json(results);  // 返回 JSON 格式的使用者資料
     } catch (error) {
-        console.error('取得news資料錯誤：', error);
+        console.error('取得cards資料錯誤：', error);
         res.status(500).json({ message: '伺服器錯誤，無法取得使用者資料' });
     }
 };
 
-//新增NEWS
-exports.postNews = async (req, res) => {
-    const data = req.body; //
+// 新增NEWS
+export const postNews = async (req, res) => {
+    const data = req.body;
     try {
         const result = await newsModel.postNews(data); // 插入資料
-        // console.log('插入結果:', result); 
-        res.status(201).json({ message: 'NEWS資料已成功新增' , newsID: result.newsID });
+        res.status(201).json({ message: 'NEWS資料已成功新增', newsID: result.newsID });
     } catch (error) {
         console.error('處理請求錯誤：', error);
         res.status(500).json({ message: '伺服器錯誤，無法新增NEWS資料，請確認傳輸資料內容' });
     }
 };
 
-//新增CARDS
-exports.postCards = async (req, res) => {
-    const data = req.body; //
+// 新增CARDS
+export const postCards = async (req, res) => {
+    const data = req.body;
     try {
         const result = await cardsModel.postCards(data); // 插入資料
-        // console.log('插入結果:', result); 
-        res.status(201).json({ message: 'CARDS資料已成功新增' , cardsID: result.cardsID });
+        res.status(201).json({ message: 'CARDS資料已成功新增', cardsID: result.cardsID });
     } catch (error) {
         console.error('處理請求錯誤：', error);
         res.status(500).json({ message: '伺服器錯誤，無法新增CARDS資料，請確認傳輸資料內容' });
     }
 };
 
-//更新NEWS
-exports.updateNews = async (req, res) => {
-
-    const {newsID } = req.params;  // 從 URL 獲取 scheduleID 參數
-    const data = req.body; 
+// 更新NEWS
+export const updateNews = async (req, res) => {
+    const { newsID } = req.params;  // 從 URL 獲取 newsID 參數
+    const data = req.body;
     try {
-        const isUpdated  = await newsModel.updateNews(newsID , data); // 更新資料
-        // console.log(isUpdated);        
+        const isUpdated = await newsModel.updateNews(newsID, data); // 更新資料
         if (isUpdated) {
             res.status(200).json({ message: '該NEWS已成功更新' });
         } else {
@@ -64,19 +60,16 @@ exports.updateNews = async (req, res) => {
         }
     } catch (error) {
         console.error('處理請求錯誤：', error);
-        res.status(500).json({ message: '伺服器錯誤，無法更新旅程資料，請確認傳輸資料內容' });
+        res.status(500).json({ message: '伺服器錯誤，無法更新NEWS資料，請確認傳輸資料內容' });
     }
 };
 
-
-//更新CARDS
-exports.updateCards = async (req, res) => {
-
-    const {cardsID } = req.params;  // 從 URL 獲取 scheduleID 參數
-    const data = req.body; 
+// 更新CARDS
+export const updateCards = async (req, res) => {
+    const { cardsID } = req.params;  // 從 URL 獲取 cardsID 參數
+    const data = req.body;
     try {
-        const isUpdated  = await cardsModel.updateCards(cardsID , data); // 更新資料
-        // console.log(isUpdated);        
+        const isUpdated = await cardsModel.updateCards(cardsID, data); // 更新資料
         if (isUpdated) {
             res.status(200).json({ message: '該CARDS已成功更新' });
         } else {
@@ -84,6 +77,6 @@ exports.updateCards = async (req, res) => {
         }
     } catch (error) {
         console.error('處理請求錯誤：', error);
-        res.status(500).json({ message: '伺服器錯誤，無法更新旅程資料，請確認傳輸資料內容' });
+        res.status(500).json({ message: '伺服器錯誤，無法更新CARDS資料，請確認傳輸資料內容' });
     }
 };

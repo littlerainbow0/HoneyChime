@@ -1,12 +1,14 @@
-const express = require('express');
+import express from 'express';
+import * as orderControllers from '../controllers/orderControllers.js';  // 引入控制器層
+
+
 const router = express.Router();
-const oderControllers = require('../controllers/oderControllers.js');
 
-router.get('/getOrders', oderControllers.getAllOrders);
-router.get('/getOrders/:userID', oderControllers.getOrderByUserID);
+router.get('/getOrders', orderControllers.getAllOrders);
+router.get('/getOrders/:userID', orderControllers.getOrderByUserID);
 
-router.post('/postOrder', oderControllers.postOrder);
+router.post('/postOrder', orderControllers.postOrder);
 
-router.put('/updateUserOrder/:orderID', oderControllers.updateUserOrder);
+router.put('/updateUserOrder/:orderID', orderControllers.updateUserOrder);
 
-module.exports = router;
+export default router;
