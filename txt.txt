@@ -30,9 +30,15 @@ git branch -a
 git checkout -b HongYu origin/HongYu  
 git restore --source=HongYu -- server
 
+更新別人的檔案
+git fetch origin
+git checkout HongYu
+git pull origin HongYu
+
 開兩個localhost，server已避免CORS問題
+npm install
 cd server 
-nodemon app.js
+nodemon server.js
 
 *** server若沒有接受CORS訪問請參閱以下，由前端Vite.config可以調整
 .1 https://blog.csdn.net/weixin_71579814/article/details/131684885

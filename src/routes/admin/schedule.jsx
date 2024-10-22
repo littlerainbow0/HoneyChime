@@ -42,14 +42,15 @@ const columns = [
     "ScheduleID",
     "DepartureDate",
     "DepartureTime",
-    "TemplateDescription",
+    "StopStartName",
+    "StopEndName",
     "DessertTitle",
     "status"];
 const columnNames = {
     ScheduleID: "行程ID",
+    
     DepartureDate: "出發日期",
     DepartureTime: "出發時間",
-    TemplateDescription: "模板描述",
     DessertTitle: "甜點標題",
     status: "狀態",
 };
@@ -96,47 +97,19 @@ const AdminSchedule = () => {
             <div className='ml-10 text-left w-full'>
                 <RouteName />
                 <FilterCard data={filterCardName} />
-                <BtnLightBrown btnText={isDataByBtnFilter ? <MdFilterListOff /> : <MdFilterList />}
+                <BtnLightBrown btnText={isDataByBtnFilter ? 
+                (<>
+                <MdFilterListOff />取消篩選
+                </>) : 
+                (<>
+                <MdFilterList />狀態篩選
+                </>)}
                     onClick={btnFilterClick} />
                 <DataFetcher setDataFromServer={setDataFromServer} />
                 <TableDefault
                     columns={columns}
                     data={dataByBtnFilter.length > 0 ? dataByBtnFilter : dataFromServer}
                     columnNames={columnNames} />
-
-                <Table className='bg-lightyellow'>
-                    <TableHeader>
-                        <TableColumn>
-                            出發日期
-                        </TableColumn>
-                        <TableColumn>
-                            出發時間
-                        </TableColumn>
-                        <TableColumn>
-                            模板描述
-                        </TableColumn>
-                        <TableColumn>
-                            甜點標題
-                        </TableColumn>
-                    </TableHeader>
-                    <TableBody>
-                        <TableRow>
-                            <TableCell>
-                                <input type="data" />
-
-                            </TableCell>
-                            <TableCell>
-                                <input type="data" />
-                            </TableCell>
-                            <TableCell>
-                                <input type="data" />
-                            </TableCell>
-                            <TableCell>
-                                <input type="data" />
-                            </TableCell>
-                        </TableRow>
-                    </TableBody>
-                </Table>
             </div>
         </div>
     );

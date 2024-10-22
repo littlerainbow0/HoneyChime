@@ -1,4 +1,5 @@
 import dotenv from 'dotenv';
+import process from 'process';
 
 dotenv.config();
 
@@ -9,12 +10,5 @@ const dbConfig = {
     database: process.env.DB_NAME,
     multipleStatements: true,
 };
-
-console.log(process.env.DB_HOST);
-console.log(process.env.DB_USER);
-console.log(process.env.DB_HOST);
-console.log(process.env.DB_HOST);
-
-
 
 export default dbConfig;

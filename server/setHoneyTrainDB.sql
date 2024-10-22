@@ -1,11 +1,5 @@
 create DATABASE  HoneyTrainDB default character set utf8mb4;
 
-CREATE USER 'myUser'@'localhost' IDENTIFIED BY 'myPassword';
-
-GRANT ALL PRIVILEGES ON HoneyTrainDB.* TO 'myUser'@'localhost';
-
-FLUSH PRIVILEGES;
-
 use HoneyTrainDB;
 
 DROP TABLE IF EXISTS `CARRIAGES`;

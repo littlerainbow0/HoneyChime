@@ -31,6 +31,7 @@ const DataFetcher = ({ setDataFromServer }) => {
             ScheduleID: elem.ScheduleID,
             DepartureDate: elem.DepartureDate.substring(0,10),
             DepartureTime: elem.DepartureTime,
+            
             TemplateDescription:elem.TemplateDescription,
             DessertTitle:elem.DessertTitle,
             status: new Date(elem.DepartureDate) > new Date() ? "即將到來" : "已過期" 

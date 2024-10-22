@@ -4,7 +4,13 @@ import * as routeController from '../controllers/routeController.js';  // 引入
 
 const router = express.Router();
 
-router.get('/', routeController.getAllRoute);
-router.get('/:dessertType', routeController.getRouteByDessertType);
+router.get('/getRoutes', routeController.getAllRoute);
+router.get('/getRoutes/:dessertType', routeController.getRouteByDessertType);
+
+router.get('/getStops', routeController.getAllStops);
+
+router.post('/postRoute', routeController.postRoute);
+
+router.put('/updateRoute/:routeID', routeController.updateRoute);
 
 export default router;
