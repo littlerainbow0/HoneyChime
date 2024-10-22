@@ -1,8 +1,8 @@
 import { Button, Link } from "@nextui-org/react";
+import BtnLightbrown from '../../components/user/btn_lightbrown'
 
 export default function orderTable({ data }) {
     return (
-
         <div className="flex flex-col items-center pt-10">
             {data.map((elem, index) => (
                 <div key={index} className=
@@ -31,10 +31,11 @@ export default function orderTable({ data }) {
                                 </div>
                                 <div className="px-5">
                                     <span>發車時間</span>
-                                    <select name="" id="" className="bg-transparent">
-                                        <option value="">09:00-12:00</option>
-                                        <option value="">12:00-15:00</option>
-                                        <option value="">14:00-17:00</option>
+                                    <select name="" id="" className="bg-transparent
+                                    hover:bg-lightbrown
+                                     hover:text-lightyellow">
+                                        <option value="">09:00</option>
+                                        <option value="">14:00</option>
                                     </select>
                                 </div>
                                 <div>
@@ -47,19 +48,15 @@ export default function orderTable({ data }) {
                                 </div>
                                 <div className="px-5">
                                     <span>{elem.menuName2}</span>
-                                    <select name="" id=""  className="bg-transparent">
+                                    <select name="" id="" className="bg-transparent">
                                         <option value="">1</option>
                                         <option value="">2</option>
                                         <option value="">3</option>
                                     </select>
                                 </div>
                                 <div>
-                                    <Button radius="full" className="mr-5 bg-lightbrown text-brown text-p-3 font-bodyFont">
-                                        儲存修改
-                                    </Button>
-                                    <Button radius="full" className="mr-5 bg-brown text-brown text-p-3 font-bodyFont">
-                                        取消訂單
-                                    </Button>
+                                    <BtnLightbrown btnText="儲存修改" />
+                                    <BtnLightbrown btnText="取消訂單" />
                                 </div>
                             </div>
                         </div>

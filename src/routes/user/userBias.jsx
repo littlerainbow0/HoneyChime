@@ -4,9 +4,9 @@ import { useParams, useNavigate } from 'react-router-dom';
 import './userBias.css'
 
 // */ Componenets
-import UserBiasNav from '../../components/user/userBiasNav.jsx'
-import Header from '../../components/user/header.jsx'
-import RadiusCard from '../../components/user/radiusCard.jsx'
+import NavbarUser from '../../components/user/navbar_user.jsx'
+import Header from '../../components/user/header_user.jsx'
+import RadiusCard from '../../components/user/card_radius.jsx'
 // -- Componenets /*
 
 // */ 假資料
@@ -54,6 +54,7 @@ var cardBodyInfo = {
     title: "基本資料",
     items: [
         {
+            userId: 1,
             tag: "input",
             subtitle: "姓名",
             inputType: "text",
@@ -110,7 +111,7 @@ const UserBias = () => {
                 (
                     <div>
                         <div>
-                            <UserBiasNav />
+                            <NavbarUser userId={cardBodyInfo.items[0].userId} />
 
                         </div>
                         <div id="mainbody">

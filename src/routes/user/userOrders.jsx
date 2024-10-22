@@ -2,9 +2,8 @@
 import React from 'react';
 
 // */ Componenets
-import UserBiasNav from '../../components/user/userBiasNav.jsx'
-import OrderTable from '../../components/user/orderTable.jsx'
-import RadiusCard from '../../components/user/radiusCard.jsx'
+import NavbarUser from '../../components/user/navbar_user.jsx'
+import OrderTable from '../../components/user/table_order.jsx'
 // -- Componenets /*
 
 
@@ -66,11 +65,13 @@ const data = [
     },
 ];
 
+console.log(typeof(data[0].userId)); 
+
 const AdminHome = () => {
     return (
         <div>
             <div className='contactTitle'>
-                <UserBiasNav />
+                <NavbarUser userId={data[0].userId}/>
             </div>
             <div className="flex items-center ml-40 mt-24"> {/* 將下拉選單與其他內容放在同一行 */}
                 <select name="" id="" className="bg-dark p-2 text-p-3 text-lightbrown"> {/* 加入 margin 右邊的空間 */}

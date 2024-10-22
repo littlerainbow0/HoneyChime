@@ -4,7 +4,7 @@ import './login.css';
 import { RadioGroup, Radio } from "@nextui-org/react";
 
 // */ Componenets
-import RadiusCard from '../../components/user/radiusCard.jsx'
+import RadiusCard from '../../components/user/card_radius.jsx'
 // -- Componenets /*
 
 const columns = [

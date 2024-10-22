@@ -27,7 +27,6 @@ body, html {
     margin: 0;
     padding: 0;
     height: 100%;
-    overflow: hidden; 
     /* 防止滾動條出現 */
 }
 

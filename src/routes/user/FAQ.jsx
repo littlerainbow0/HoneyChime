@@ -1,6 +1,5 @@
 import React from 'react';
-import Navbar from '../../components/admin/navbar.jsx';
-import CustomTableCol from '../../components/user/customTable_1Col.jsx'; // 確保導入的是正確的路徑
+import Table1Col from '../../components/user/table_1Col.jsx'; // 確保導入的是正確的路徑
 
 const data = [
     {
@@ -32,7 +31,7 @@ const data = [
 const FAQ = () => {
     return (
         <div>
-            <CustomTableCol data={data} />
+            <Table1Col data={data} />
         </div>
     );
 };

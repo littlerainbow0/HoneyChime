@@ -16,14 +16,26 @@ import {
   Chip,
   User,
   Pagination,
+  button,
 } from "@nextui-org/react";
 
 // */ icon
+import { BsCaretDown } from "react-icons/bs";
+import { BsCaretUpFill } from "react-icons/bs";
 import { BsFilter } from "react-icons/bs";
 // -- icon /*
 
-const CustomTable = ({ columns, data }) => {
-  
+
+const TableCollapse = ({ columns, data }) => {
+  const [iconType, setIconType] = React.useState(true); // true表示BsCaretDown，false表示BsCaretUpFill
+
+  const iconCollapse = () => {
+    return iconType ? <BsCaretDown /> : <BsCaretUpFill />;
+  };
+
+  const iconCollapseClick = () => {
+    setIconType(prev => !prev); // 切換iconType的狀態
+  };
   return (
     <div className="my-5" style={{ width: '100%' }}>
       <Button radius='full' className='font-bodyFont text-p-1 font-bold mb-1
@@ -40,24 +52,32 @@ const CustomTable = ({ columns, data }) => {
               </p>
             </TableColumn>
           ))}
+          <TableColumn>
+            <p></p>
+          </TableColumn>
         </TableHeader>
         <TableBody>
           {data.map((item, index) => (
-            <TableRow key={index}>
-              {columns.map((column) => (
-                <TableCell key={column}>
-                  <p className="text-lightyellow font-bodyFont text-p-3 mx-5 mb-2">
-                    {item[column]}
-                  </p>
-                </TableCell>
+            <TableRow key={item}>
+              {columns.map((column, index) => (
+                  <TableCell key={column}>
+                    <p className="text-lightyellow font-bodyFont text-p-3 mx-5 mb-2">
+                      {item[column]}
+                    </p>
+                  </TableCell>
               ))}
+              <TableCell>
+                <button key={index} onClick={iconCollapseClick}>
+                  {iconCollapse()}
+                </button>
+              </TableCell>
             </TableRow>
           ))}
         </TableBody>
       </Table>
     </div>
-
   );
+
 };
 
-export default CustomTable;
+export default TableCollapse;

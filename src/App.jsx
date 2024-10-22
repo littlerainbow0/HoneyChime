@@ -38,7 +38,7 @@ function App() {
     // BrowserRouter > Routes > Route element={別名}
     <BrowserRouter>
     <Routes>
-      <Route path="/admin/home" element={<AdminHome />} exact />
+      <Route path="/admin" element={<AdminHome />} exact />
       <Route path="/admin/members" element={<AdminMembers />} />
       <Route path="/admin/question" element={<AdminQAmail />} />
       <Route path="/admin/schedule" element={<Schedule />} exact />
@@ -48,7 +48,7 @@ function App() {
       <Route path="/signin" element={<Signin />} exact />
       {/* <Route path="/user/info" element={<Userinfo />} /> */}
       <Route path="/user/info/:userId" element={<UserBias />} />
-      <Route path="/user/orders/:userid" element={<UserOrders />} />
+      <Route path="/user/order/:userId" element={<UserOrders />} />
       <Route path="/contact" element={<Contact />} />
       <Route path="/question" element={<FAQ />} exact />
     </Routes>

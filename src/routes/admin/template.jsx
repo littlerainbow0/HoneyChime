@@ -1,25 +1,27 @@
 // components/home.jsx
-import React from 'react';
-import Navbar from '../../components/admin/navbar.jsx';
-import CustomTable from '../../components/admin/customTable.jsx'; // 確保導入的是正確的路徑
-import CustomTableCollapse from '../../components/admin/customTable_collapse.jsx'; // 確保導入的是正確的路徑
+import React, { useState } from 'react'; // 引入 useState
+import Navbar from '../../components/admin/navbar_admin.jsx';
+import TableDefault from '../../components/admin/table_default.jsx'; // 確保導入的是正確的路徑
+import TableCollapse from '../../components/admin/table_collapse.jsx'; // 確保導入的是正確的路徑
 import RouteName from '../../components/admin/routeName.jsx'
 import FilterCard from '../../components/admin/card_filter.jsx'
-import Modal from '../../components/admin/modal.jsx'
+import Modal from '../../components/admin/modal_text.jsx'
+import { Button } from '@nextui-org/react';
+import BtnBrown from '../../components/user/btn_brown.jsx'
 
 
 const filterCardName = [
     {
-        dessertType:"歐式",
-        imgSrc:"/src/assets/images/dessert/tripInfo_Eur04.png",
+        dessertType: "歐式",
+        imgSrc: "/src/assets/images/dessert/tripInfo_Eur04.png",
     },
     {
-        dessertType:"日式",
-        imgSrc:"/src/assets/images/dessert/dessert_dessert09.png",
+        dessertType: "日式",
+        imgSrc: "/src/assets/images/dessert/dessert_dessert09.png",
     },
     {
-        dessertType:"台式",
-        imgSrc:"/src/assets/images/dessert/trip_Tw.png",
+        dessertType: "台式",
+        imgSrc: "/src/assets/images/dessert/trip_Tw.png",
     },
 ]
 
@@ -32,7 +34,7 @@ const columns = [
 const data = [
     {
         templateId: 1,
-        templateTitle : "日式甜點",
+        templateTitle: "日式甜點",
         routeName: "台中高雄",
         themeName: "日式",
         // 日式甜點, 台式甜點, 歐式甜點
@@ -40,7 +42,7 @@ const data = [
     },
     {
         templateId: 1,
-        templateTitle : "日式甜點",
+        templateTitle: "日式甜點",
         routeName: "台中高雄",
         themeName: "日式",
         // 日式甜點, 台式甜點, 歐式甜點
@@ -48,7 +50,7 @@ const data = [
     },
     {
         templateId: 1,
-        templateTitle : "日式甜點",
+        templateTitle: "日式甜點",
         routeName: "台中高雄",
         themeName: "日式",
         // 日式甜點, 台式甜點, 歐式甜點
@@ -67,10 +69,10 @@ const detailData = [
     {
         templateId: 1,
         themeName: "日式",
-        menuName1:"日式練切",
-    menuContent1:"煎茶、柚香練切、星空羊羹",
-    menuName2:"日式團子",
-    menuContent2:"焙茶、醬油團子、櫻餅、蕨餅",
+        menuName1: "日式練切",
+        menuContent1: "煎茶、柚香練切、星空羊羹",
+        menuName2: "日式團子",
+        menuContent2: "焙茶、醬油團子、櫻餅、蕨餅",
     }
 ];
 const modalColumns = [
@@ -98,23 +100,31 @@ const modalData = [{
     activityChecked: [1, 0, 1, 0],
     menuName: ["日式練切", "日式團子", "日式和菓子"],
     // 篩選出日式tag的菜單名稱
-    menuChecked: [1,1,0]
+    menuChecked: [1, 1, 0]
 },
 ];
 
-const AdminHome = () => {
+const AdminTemplate = () => {
+    const [showModal, setShowModal] = useState(false);
+
+    const clickShowModal = () => {
+        setShowModal(prev => !prev); // 切換 Modal 顯示狀態
+    };
+
     return (
         <div className="flex flex-row">
             <Navbar />
             <div className='ml-10 text-left w-full'>
-            <RouteName/>
-            <FilterCard data={filterCardName} />
-            {/* <CustomTableCollapse columns={columns} data={data} /> */}
-            <CustomTable columns={detailColumns} data={detailData} />
-            <Modal/>
+                <RouteName />
+                <FilterCard data={filterCardName} />
+                <div className='justify-between'>
+            <BtnBrown btnText="新建一筆模板" onClick={clickShowModal} />
+            {showModal && <Modal onClose={clickShowModal} />} {/* 传递 onClose 函数 */}
+                </div>
+                <TableDefault columns={detailColumns} data={detailData} />
             </div>
         </div>
     );
 };
 
-export default AdminHome;
+export default AdminTemplate;

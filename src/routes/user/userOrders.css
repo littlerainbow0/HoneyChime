@@ -42,3 +42,9 @@ img {
     width: 80px;
     height: 80px;
 }
+html, body {
+    margin: 0;
+    padding: 0;
+    overflow: auto; /* 確保可以滾動 */
+    height: auto; /* 允許內容擴展 */
+}

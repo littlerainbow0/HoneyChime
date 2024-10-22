@@ -33,7 +33,7 @@ const CustomTable = ({ data }) => {
             <TableBody>
                 {data.map((elem, index) => (
                     <TableRow key={index}>
-                        <TableCell>
+                        <TableCell className=" hover:scale-105 transition-all">
                             <div className="pl-10 pt-5">
                                 <h6 className="text-h6 font-titleFont font-semibold">
                                     {elem.q}

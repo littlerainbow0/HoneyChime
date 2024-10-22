@@ -2,9 +2,9 @@ import React from 'react';
 import './contact.css'
 
 // */ Componenets
-import UserBiasNav from '../../components/user/userBiasNav.jsx'
-import RadiusCard from '../../components/user/radiusCard.jsx'
-import BtnContact from '../../components/user/btnContact.jsx'
+import RadiusCard from '../../components/user/card_radius.jsx'
+import BtnContact from '../../components/user/card_contact.jsx'
+import Header from '../../components/user/header.jsx';
 // -- Componenets /*
 
 const columns = ["userId", "type", "content", "time", "reply"];
@@ -69,9 +69,7 @@ var cardBody = {
 const Contact = () => {
   return (
     <div>
-      <div className='w-full'>
-        <UserBiasNav />
-      </div>
+      <Header />
       <div className="flex flex-row py-20 justify-center">
         <RadiusCard data={cardBody} id="" />
       <BtnContact />

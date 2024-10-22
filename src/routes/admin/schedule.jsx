@@ -1,9 +1,24 @@
 // components/home.jsx
 import React from 'react';
-import Navbar from '../../components/admin/navbar.jsx';
-import CustomTable from '../../components/admin/customTable.jsx'; // 確保導入的是正確的路徑
+import Navbar from '../../components/admin/navbar_admin.jsx';
+import TableDefault from '../../components/admin/table_default.jsx' // 確保導入的是正確的路徑
 import RouteName from '../../components/admin/routeName.jsx'
+import FilterCard from '../../components/admin/card_filter.jsx'
 
+const filterCardName = [
+    {
+        dessertType:"歐式",
+        imgSrc:"/src/assets/images/dessert/tripInfo_Eur04.png",
+    },
+    {
+        dessertType:"日式",
+        imgSrc:"/src/assets/images/dessert/dessert_dessert09.png",
+    },
+    {
+        dessertType:"台式",
+        imgSrc:"/src/assets/images/dessert/trip_Tw.png",
+    },
+]
 
 const columns = [
     "travelId",
@@ -48,8 +63,8 @@ const AdminHome = () => {
             <Navbar />
             <div className='ml-10 text-left w-full'>
                 <RouteName />
-                <CustomTable columns={columns} data={data} />
-                <FilterCard />
+                <FilterCard data={filterCardName} />
+                <TableDefault columns={columns} data={data} />
             </div>
         </div>
     );

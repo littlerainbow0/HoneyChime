@@ -1,9 +1,9 @@
 // components/home.jsx
 import React from 'react';
 import { DropdownItem, DropdownTrigger, Dropdown, DropdownMenu } from "@nextui-org/react";
-import Navbar from '../../components/admin/navbar.jsx';
-import CustomTable from '../../components/admin/customTable.jsx'; // 確保導入的是正確的路徑
-import CustomTableCollapse from '../../components/admin/customTable_collapse.jsx'; // 確保導入的是正確的路徑
+import Navbar from '../../components/admin/navbar_admin.jsx';
+import TableDefault from '../../components/admin/table_default.jsx'; // 確保導入的是正確的路徑
+import TableCollapse from '../../components/admin/table_collapse.jsx'; // 確保導入的是正確的路徑
 import RouteName from '../../components/admin/routeName.jsx'
 
 var columns = ["userId", "level", "numberOfRides", "abandonedOrders", "registrationTime", "latestLogin"];
@@ -61,9 +61,9 @@ const AdminMember = () => {
             <Navbar />
             <div className='ml-10 text-left w-full'>
                 <RouteName />
-                <CustomTableCollapse columns={columns} data={data} />
-                <CustomTable columns={individualInformationColumns} data={individualInformationData}></CustomTable>
-                <CustomTable columns={historyOrdersColumns} data={historyOrdersData}></CustomTable>
+                <TableCollapse columns={columns} data={data} />
+                <TableDefault columns={individualInformationColumns} data={individualInformationData} />
+                <TableDefault columns={historyOrdersColumns} data={historyOrdersData} />
             </div>
         </div >
     );
