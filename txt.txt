@@ -25,4 +25,25 @@ git push -u origin
 
 npm install autoprefixer --save-dev
 
+拉別人分支的特定檔案
+git branch -a
+git checkout -b HongYu origin/HongYu  
+git restore --source=HongYu -- server
+
+開兩個localhost，server已避免CORS問題
+cd server 
+nodemon app.js
+
+*** server若沒有接受CORS訪問請參閱以下，由前端Vite.config可以調整
+.1 https://blog.csdn.net/weixin_71579814/article/details/131684885
+.2 https://blog.csdn.net/xiaoxiongxia/article/details/131131860 ←typescript
+.3 https://blog.csdn.net/weixin_44786530/article/details/133378611 路徑參考
+
+參考Vite + React + axios設置
+https://blog.51cto.com/u_16213421/11892761
+
+使用API
+npm install axios
+
+工作區設定
 VScode setting > workbench.tree.indent

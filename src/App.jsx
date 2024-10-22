@@ -13,7 +13,7 @@ import { motion } from "framer-motion"
 
 // */ admin pages
 import AdminHome     from './routes/admin/home.jsx'
-import AdminMembers  from './routes/admin/members.jsx'
+import AdminMembers  from './routes/admin/member.jsx'
 import AdminQAmail   from './routes/admin/QAmail.jsx'
 import Schedule      from './routes/admin/schedule.jsx'
 import AdminTemplate from './routes/admin/template.jsx'
