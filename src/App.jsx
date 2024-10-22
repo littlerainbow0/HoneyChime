@@ -11,6 +11,7 @@ import Facilities from './routes/admin/Facilities.jsx';
 import Trip from './routes/admin/Trip.jsx'; // 根據你的文件結構調整路徑
 import './assets/css/header.css';
 import Reservation from './routes/admin/Reservation.jsx';
+import TripInfo from './routes/admin/TripInfo.jsx';
 
 class App extends Component {
   render() {
@@ -18,8 +19,9 @@ class App extends Component {
       <BrowserRouter>
         <div>
           <Routes>
-            <Route path="/2" element={<Facilities/>} exact />
-            <Route path="/1" element={<Trip/>} exact />
+            <Route path="/Facilities" element={<Facilities/>} exact />
+            <Route path="/Trip" element={<Trip/>} exact />
+            <Route path="/" element={<TripInfo/>} exact />
             <Route path="/reservation.html"/>
             {/* <Route path="/reservation.html" element={<Reservation/>} exact /> */}
           </Routes>

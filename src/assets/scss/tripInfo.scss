@@ -17,11 +17,11 @@ main {
     margin: 28px auto;
     border-bottom: 2px solid $gray_800;
 
-    nav ul {
+    .top_nav ul {
         text-align: center;
     }
 
-    nav ul li {
+    .top_nav ul li {
         display: inline-block;
 
         &:nth-of-type(even) {
@@ -58,13 +58,14 @@ main {
     display: flex;
 
     >div:first-of-type {
-        p>span {
+        .dessert_type {
             @extend %h3;
             background-color: $secondary_800;
             color: white;
             padding: 12px;
             margin-right: 144px;
         }
+       
 
         p {
             @extend %h4;

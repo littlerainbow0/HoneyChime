@@ -1,5 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100..900&family=Noto+Serif+TC:wght@200..900&display=swap");
-.trip_title > div:first-of-type p > span {
+.trip_title > div:first-of-type .dessert_type {
   font-family: "Noto Serif TC", "Noto Sans TC";
   font-size: 28px;
   font-weight: 600;
@@ -16,7 +16,7 @@
   letter-spacing: 10%;
 }
 
-.itinerary nav ul li button {
+.itinerary .top_nav ul li button {
   font-family: "Noto Serif TC", "Noto Sans TC";
   font-size: 20px;
   font-weight: 600;
@@ -62,19 +62,19 @@ main {
   margin: 28px auto;
   border-bottom: 2px solid #1F1F1F;
 }
-.itinerary nav ul {
+.itinerary .top_nav ul {
   text-align: center;
 }
-.itinerary nav ul li {
+.itinerary .top_nav ul li {
   display: inline-block;
 }
-.itinerary nav ul li:nth-of-type(even) {
+.itinerary .top_nav ul li:nth-of-type(even) {
   margin-right: 28px;
 }
-.itinerary nav ul li:last-of-type {
+.itinerary .top_nav ul li:last-of-type {
   margin-right: 0px;
 }
-.itinerary nav ul li button {
+.itinerary .top_nav ul li button {
   display: block;
   text-decoration: none;
   color: #D8FDFF;
@@ -85,7 +85,7 @@ main {
   padding: 16px;
   cursor: pointer;
 }
-.itinerary nav ul li button:hover {
+.itinerary .top_nav ul li button:hover {
   background-color: #15959C;
 }
 
@@ -94,7 +94,7 @@ main {
   margin: 52px auto;
   display: flex;
 }
-.trip_title > div:first-of-type p > span {
+.trip_title > div:first-of-type .dessert_type {
   background-color: #093B4F;
   color: white;
   padding: 12px;
