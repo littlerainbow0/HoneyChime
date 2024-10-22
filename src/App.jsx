@@ -47,10 +47,11 @@ function App() {
       <Route path="/login" element={<Login />} exact />
       <Route path="/signin" element={<Signin />} exact />
       {/* <Route path="/user/info" element={<Userinfo />} /> */}
-      <Route path="/user/info/:userId" element={<UserBias />} />
-      <Route path="/user/order/:userId" element={<UserOrders />} />
       <Route path="/contact" element={<Contact />} />
       <Route path="/question" element={<FAQ />} exact />
+      
+      <Route path="/user/info/:userId" element={<UserBias />} />
+      <Route path="/user/order/:userId" element={<UserOrders />} />
     </Routes>
     </BrowserRouter>
   )
