@@ -10,11 +10,4 @@ const dbConfig = {
     multipleStatements: true,
 };
 
-console.log(process.env.DB_HOST);
-console.log(process.env.DB_USER);
-console.log(process.env.DB_HOST);
-console.log(process.env.DB_HOST);
-
-
-
 export default dbConfig;
