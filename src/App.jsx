@@ -39,7 +39,7 @@ function App() {
     <BrowserRouter>
     <Routes>
       <Route path="/admin" element={<AdminHome />} exact />
-      <Route path="/admin/members" element={<AdminMembers />} />
+      <Route path="/admin/member" element={<AdminMembers />} />
       <Route path="/admin/question" element={<AdminQAmail />} />
       <Route path="/admin/schedule" element={<Schedule />} exact />
       <Route path="/admin/template" element={<AdminTemplate />} />
