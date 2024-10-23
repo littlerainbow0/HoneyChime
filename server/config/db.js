@@ -10,5 +10,5 @@ const dbConfig = {
     database: process.env.DB_NAME,
     multipleStatements: true,
 };
-
+//"檔名"
 export default dbConfig;
