@@ -94,7 +94,7 @@ main {
             @extend %body;
         }
 
-        a {
+        button {
             text-align: center;
             text-decoration: none;
             @extend %btn_lg;
@@ -104,6 +104,7 @@ main {
             line-height: 56px;
             letter-spacing: 4px;
             border: 1px solid $gray_800;
+            cursor: pointer;
 
             &:hover {
                 background-color: $secondary_600;

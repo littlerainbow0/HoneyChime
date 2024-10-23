@@ -95,36 +95,52 @@
     </main>
 
     <script>
+        // var result = await axios.get("http://localhost:8000/todo/list");
+
+        //console.log(localStorage.getItem("applebee"));
+        let reservationData = JSON.parse(localStorage.getItem("dataFromUser"));
+        let a = reservationData.name;
+        let b = reservationData.phone;
+        let c = reservationData.email;
+        let d = reservationData.creditCard;
+        let e = reservationData.route;
+        let f = reservationData.date;
+        let g = reservationData.arrive;
+        let h = reservationData.people;
+        let i = reservationData.carriage;
+        let j = reservationData.seat;
+        let k = reservationData.dessert1;
+        let l = reservationData.dessert2;
+        let m = reservationData.price;
+
+        console.log(a);
+        console.log(b);
+        console.log(c);
+        console.log(d);
+        console.log(e);
+        console.log(f);
+        console.log(g);
+        console.log(h);
+        console.log(i);
+        console.log(j);
+        console.log(k);
+        console.log(l);
+        console.log(m);
+
         // 取得reservation的資料
         document.addEventListener('DOMContentLoaded', function () {
-    // 從 localStorage 取得資料
-    const route = localStorage.getItem('order_route');
-    const startDate = localStorage.getItem('order_start_date');
-    const arriveDate = localStorage.getItem('order_arrive_date');
-    const peopleCount = localStorage.getItem('order_people');
-    const carType = localStorage.getItem('order_car');
-    const seat = localStorage.getItem('order_seat');
-    const dessert1 = localStorage.getItem('order_dessert1');
-    const dessert2 = localStorage.getItem('order_dessert2');
-    const price = localStorage.getItem('order_price');
 
-    // 確認讀取到的數據
-    console.log('Data retrieved from localStorage:', {
-        route, startDate, arriveDate, peopleCount, carType, seat, dessert1, dessert2, price
-    });
-
-    // 顯示資料
-    document.getElementById('orderRoute').innerText = route;
-    document.getElementById('order_start').innerText = startDate;
-    document.getElementById('order_arrive').innerText = arriveDate;
-    document.getElementById('orderPeople').innerText = peopleCount;
-    document.getElementById('orderCar').innerText = carType;
-    document.getElementById('orderSeat').innerText = seat;
-    document.getElementById('orderDessert1').innerText = dessert1;
-    document.getElementById('orderDessert2').innerText = dessert2;
-    document.getElementById('orderPrice').innerText = `$${price}`;
-});
-
+            // 顯示資料
+            document.getElementById('orderRoute').innerText = e;
+            document.getElementById('order_start').innerText = f;
+            document.getElementById('order_arrive').innerText = g;
+            document.getElementById('orderPeople').innerText = h;
+            document.getElementById('orderCar').innerText = i;
+            document.getElementById('orderSeat').innerText = j;
+            document.getElementById('orderDessert1').innerText = k;
+            document.getElementById('orderDessert2').innerText = l;
+            document.getElementById('orderPrice').innerText = m;
+        });
 
     </script>
 </body>

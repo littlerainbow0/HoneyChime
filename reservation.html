@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <!-- 引入 Flatpickr 的 JavaScript -->
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios@1.1.2/dist/axios.min.js"></script>
 
     <title>預約行程</title>
 </head>
@@ -71,6 +72,7 @@
             <div>
                 <label for="departure_time">出發時間：</label>
                 <select name="" id="departure_time">
+                    <option value="0">選擇出發時間</option>
                     <option value="13:00">13:00</option>
                     <option value="17:00">17:00</option>
                 </select>
@@ -128,8 +130,8 @@
                     行程
                 </h6>
                 <div>
-                    <img src="/src/assets/images/train_exterior/tripInfo_train01.png" alt="">
-                    <p>台北⭢台中</p>
+                    <img id="tripRouteImg" src="/src/assets/images/train_exterior/tripInfo_train01.png" alt="">
+                    <p id="tripRoute">台北⭢台中</p>
                 </div>
             </div>
 
@@ -141,9 +143,9 @@
                     <div>
                         <img id="dessert_img1" src="/src/assets/images/dessert/dessert_newDessert.jpg" alt="">
                         <label for="dessert_jpA_qty">
-                            套餐名稱：<span id="dessert_title1"></span>
+                            套餐名稱：<span id="dessert_title1">舒芙蕾佐時令水果</span>
                             <br>
-                            套餐內容：<span id="dessert_content1"></span>
+                            套餐內容：<span id="dessert_content1">舒芙蕾, 時令水果, 日本綠茶</span>
                         </label>
                         <select name="" id="dessert_jpA_qty">
                             <option value="0">0</option>
@@ -157,9 +159,9 @@
                     <div>
                         <img id="dessert_img2" src="/src/assets/images/dessert/tripInfo_Jp02.png" alt="">
                         <label for="dessert_jpB_qty">
-                            套餐名稱：<span id="dessert_title2"></span>
+                            套餐名稱：<span id="dessert_title2">日式和菓子佐綠茶羊羹</span>
                             <br>
-                            套餐內容：<span id="dessert_content2"></span>
+                            套餐內容：<span id="dessert_content2">日式和菓子, 綠茶羊羹, 靜岡抹茶</span>
                         </label>
                         <select name="" id="dessert_jpB_qty">
                             <option value="0">0</option>
@@ -226,25 +228,25 @@
         <h6>訂位人資料</h6>
         <label for="lastName">姓名</label>
         <br>
-        <input type="text" id="Name" placeholder="請輸入姓名" minlength="2" required>
+        <input type="text" id="Name" placeholder="請輸入姓名" minlength="2" value="dd" required>
         <span class="error"></span>
 
         <br>
         <label for="phone">手機號碼</label>
         <br>
-        <input type="tel" id="phone" pattern="09[0-9]{10}" placeholder="請輸入手機號碼" required>
+        <input type="tel" id="phone" pattern="09[0-9]{10}" placeholder="請輸入手機號碼" value="0911222333" required>
         <span class="error"></span>
         <br>
         <label for="email">電子郵件</label>
         <br>
-        <input type="email" id="email" placeholder="請輸入電子郵件" required>
+        <input type="email" id="email" placeholder="請輸入電子郵件" value="abc@gmail.com" required>
         <span class="error"></span>
 
         <br>
         <label for="creditCard">信用卡號</label>
         <br>
         <input type="text" id="creditCard" pattern="[0-9]{4}-[0-9]{4}-[0-9]{4}-[0-9]{4}"
-            placeholder="xxxx-xxxx-xxxx-xxxx" required>
+            placeholder="xxxx-xxxx-xxxx-xxxx" value="1111-2222-3333-4444" required>
         <span class="error"></span>
 
         <button type="submit" onclick="userInfoCheck()" id="complete">下一步</button>
@@ -257,8 +259,32 @@
         Top
     </a>
     <script>
+        var schedule = "http://localhost:8000/getTemplates/:scheduleID";
+        var dessertType = "http://localhost:8000//getSchedules/:dessertType";
+        departure_date.onclick = async function () {
+            let data = await axios.get(dessertType);
+            let data1 = await axios.get(schedule);
+            console.log(data.data);
+            console.log(data1.data);
+        }
+
+        // log(typeof apple)
+        // json.parse(apple)
+        // json(apple[0].title)
 
 
+        // ------------ 抓到路線 ------------
+        let tripInfoData = JSON.parse(localStorage.getItem("routeType"));
+        let start = tripInfoData.start; 
+        let end = tripInfoData.end; 
+        let img = tripInfoData.image;
+        console.log(start, " ⭢ " , end);
+        console.log(img);
+        
+        document.addEventListener('DOMContentLoaded', function(){
+            document.getElementById('tripRoute').innerText =`${start} ⭢ ${end}`;
+            document.getElementById('tripRouteImg').src = img;
+        });
 
         // -------- 旅客人數與車廂選項邏輯 ---------
         document.addEventListener('DOMContentLoaded', function () {
@@ -385,7 +411,7 @@
 
 
 
-        
+
         // ---------- 取得甜點類型匯出甜點選項 -----------
         const dessertData =
         {
@@ -918,8 +944,59 @@
                 isValid = false;
             }
 
+            // -------------- send data -------------------------------
+
+            let sendName = document.getElementById('Name').value;
+            let sendPhone = document.getElementById('phone').value;
+            let sendEmail = document.getElementById('email').value;
+            let sendCreditCard = document.getElementById('creditCard').value;
+            let sendRoute = document.getElementById('order_route').innerText;
+            let sendStartDate = document.getElementById('order_start_date').innerText;
+            let sendArriveDate = document.getElementById('order_arrive_date').innerText;
+            let sendPeople = document.getElementById('order_people').innerText;
+            let sendCar = document.getElementById('order_car').innerText;
+            let sendSeat = document.getElementById('order_seat').innerText;
+            let sendDessert1 = document.getElementById('order_dessert1').innerText;
+            let sendDessert2 = document.getElementById('order_dessert2').innerText;
+            let sendPrice = document.getElementById('order_price').innerText;
+
             if (isValid) {
                 console.log('輸入正確');
+                console.log(sendName);
+                console.log(sendPhone);
+                console.log(sendEmail);
+                console.log(sendCreditCard);
+                console.log(sendRoute);
+                console.log(sendStartDate);
+                console.log(sendArriveDate);
+                console.log(sendPeople);
+                console.log(sendCar);
+                console.log(sendSeat);
+                console.log(sendDessert1);
+                console.log(sendDessert2);
+                console.log(sendPrice);
+
+
+                let userOrderInfo = {
+                    name: sendName,
+                    phone: sendPhone,
+                    email: sendEmail,
+                    creditCard: sendCreditCard,
+                    route: sendRoute,
+                    date: sendStartDate,
+                    arrive: sendArriveDate,
+                    people: sendPeople,
+                    carriage: sendCar,
+                    seat: sendSeat,
+                    dessert1: sendDessert1,
+                    dessert2: sendDessert2,
+                    price: sendPrice
+                }
+
+                localStorage.setItem("dataFromUser", JSON.stringify(userOrderInfo));
+
+                console.log(localStorage.getItem("dataFromUser"));
+
                 window.location.href = 'order.html';
             } else {
                 console.log('輸入錯誤');
@@ -927,37 +1004,6 @@
             }
         };
 
-        // ------------ 傳送資料到order.html --------------
-        function saveReservationData() {
-            const route = document.getElementById('orderRoute').value;
-            const startDate = document.getElementById('order_start').value;
-            const arriveDate = document.getElementById('order_arrive').value;
-            const peopleCount = document.getElementById('orderPeople').value;
-            const carType = document.getElementById('orderCar').value;
-            const seat = document.getElementById('orderSeat').value;
-            const dessert1 = document.getElementById('orderDessert1').value;
-            const dessert2 = document.getElementById('orderDessert2').value;
-            const price = document.getElementById('orderPrice').value;
-
-            // 將數據存入 localStorage
-            localStorage.setItem('order_route', route);
-            localStorage.setItem('order_start_date', startDate);
-            localStorage.setItem('order_arrive_date', arriveDate);
-            localStorage.setItem('order_people', peopleCount);
-            localStorage.setItem('order_car', carType);
-            localStorage.setItem('order_seat', seat);
-            localStorage.setItem('order_dessert1', dessert1);
-            localStorage.setItem('order_dessert2', dessert2);
-            localStorage.setItem('order_price', price);
-
-            // 確認數據存儲
-            console.log('Data saved to localStorage:', {
-                route, startDate, arriveDate, peopleCount, carType, seat, dessert1, dessert2, price
-            });
-
-            // 導向到 order.html
-            window.location.href = 'order.html';
-        }
     </script>
 
 

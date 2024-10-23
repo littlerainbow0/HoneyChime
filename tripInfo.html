@@ -59,7 +59,7 @@
             <div>
                 <p id="description">
                     台北出發，搭乘鐵路前往台中，沿途的景色會讓你驚艷不已。列車穿越繁華的都市後，逐漸進入寧靜的山林與田野。你可以看到壯麗的中央山脈在遠方矗立，隨著列車的前行，山谷與河流交織出一幅幅美麗的畫面。</p>
-                <a href="/reservation.html">行程預約</a>
+                <button id="goReservation" onclick="toReservation()">行程預約</button>
             </div>
         </div>
         <!-- 風景介紹 -->
@@ -96,20 +96,15 @@
 
             <div>
                 <div class="dessert_section">
-                    <h5 id="mealName1">舒芙雷套餐（含飲料）</h5>
-                    <span id="mealContent1">舒芙蕾：<br>
-                        由新鮮的雞蛋和高品質的牛奶製成，外層金黃酥脆，內裡則柔軟綿密。
-                        <br>配料選擇：<br>
-                        我們提供多種配料選擇，包括香滑的鮮奶油、時令水果（如草莓、藍莓）、以及自製的焦糖醬或抹茶醬，讓您根據個人口味自由搭配，增添風味。
-                        <br>飲品搭配：<br>
-                        精選香醇的日式綠茶，與舒芙蕾相輔相成。</span>
+                    <h5 id="mealName1">舒芙蕾佐時令水果</h5>
+                    <span
+                        id="mealContent1">舒芙蕾：<br>由新鮮的雞蛋和高品質的牛奶製成，外層金黃酥脆，內裡則柔軟綿密。<br>時令水果：<br>我們提供多種配料選擇，包括香滑的鮮奶油、時令水果（如草莓、藍莓）、以及自製的焦糖醬或抹茶醬，讓您根據個人口味自由搭配，增添風味。<br>日式綠茶：<br>精選香醇的日式綠茶，與舒芙蕾相輔相成。</span>
                     <img id="mealImg1" src="/src/assets/images/dessert/dessert_newDessert.jpg" alt="">
                 </div>
                 <div class="dessert_section">
-                    <h5 id="mealName2">日式和菓子套餐（含飲料）</h5>
-                    <span id="mealContent2">日式菓子：<br>
-                        和菓子：選用當季新鮮食材，製作出色彩繽紛的和菓子，像是細膩的麻糬、香甜的紅豆糕和繽紛的水果羊羹，無論是口感還是外觀都讓人驚喜。
-                        <br>靜岡抹茶：<br>
+                    <h5 id="mealName2">日式和菓子佐綠茶羊羹</h5>
+                    <span
+                        id="mealContent2">日式和菓子：<br>選用當季新鮮食材，製作出色彩繽紛的和菓子，像是細膩的麻糬、香甜的紅豆糕和繽紛的水果羊羹，無論是口感還是外觀都讓人驚喜。<br><br>靜岡抹茶：<br>
                         提供選自日本優質茶園，茶香濃郁，口感清新，完美搭配各式和菓子。</span>
                     <img id="mealImg2" src="/src/assets/images/dessert/tripInfo_Jp02.png" alt="">
                 </div>
@@ -124,6 +119,7 @@
         Top
     </a>
     <script>
+
         // --------------- 抓路線與風景圖片 ----------------
         getRouteData =
             [
@@ -206,8 +202,8 @@
             { "DessertTypeID": 2, "DessertType": "TW", "DessertTitle": "台式甜點" },
             { "DessertTypeID": 3, "DessertType": "EU", "DessertTitle": "歐式甜點" }
         ];
-// ---------- 抓甜點內容 ---------
-getMeals =
+        // ---------- 抓甜點內容 ---------
+        const getMeals =
             [
                 {
                     MealID: 1,
@@ -221,7 +217,7 @@ getMeals =
                     MealName: "日式和菓子佐綠茶羊羹",
                     MealImagePath: "/src/assets/images/dessert/tripInfo_Jp02.png",
                     MealContent: "日式和菓子, 綠茶羊羹, 靜岡抹茶",
-                    MealDescription: "日式和菓子：<br>選用當季新鮮食材，製作出色彩繽紛的和菓子，像是細膩的麻糬、香甜的紅豆糕和繽紛的水果羊羹，無論是口感還是外觀都讓人驚喜。<br>靜岡抹茶：<br> 提供選自日本優質茶園，茶香濃郁，口感清新，完美搭配各式和菓子。"
+                    MealDescription: "日式和菓子：<br>選用當季新鮮食材，製作出色彩繽紛的和菓子，像是細膩的麻糬、香甜的紅豆糕和繽紛的水果羊羹，無論是口感還是外觀都讓人驚喜。<br><br>靜岡抹茶：<br> 提供選自日本優質茶園，茶香濃郁，口感清新，完美搭配各式和菓子。"
                 },
 
                 {
@@ -260,10 +256,35 @@ getMeals =
             if (route) {
                 displayRouteInfo(route);
                 displayDessertType(routeId); // 同時顯示甜點類型
+
+                let sendStartRoute = document.getElementById('stopStart').innerText;
+                let sendEndRoute = document.getElementById('stopEnd').innerText;
+                let sendImg = document.getElementById('routeImg').src;
+
+                document.getElementById('goReservation').onclick = function () {
+                    toReservation(sendStartRoute, sendEndRoute, sendImg);
+                }
+
             } else {
                 console.error("找不到該路線的資料");
             }
+
+
         }
+
+        // 傳路線及圖片資料到reservation ---------------------
+        function toReservation(startRoute, endRoute, img) {
+            console.log(startRoute);
+            console.log(endRoute);
+            console.log(img);
+            
+            let routeTypeData = { start: startRoute, end: endRoute, image: img}
+            localStorage.setItem("routeType", JSON.stringify(routeTypeData));
+            console.log(localStorage.getItem("routeType"));
+
+            window.location.href = 'reservation.html';
+        }
+        // -------------------------------------------------
 
         function displayRouteInfo(data) {
             document.getElementById('stopStart').innerText = data.StopStartName;
@@ -294,25 +315,53 @@ getMeals =
         }
 
         // 將每個按鈕與相應的 RouteID 連結
-        document.querySelectorAll('.itinerary_btn').forEach(button => {
+        document.querySelectorAll('.itinerary_btn', '#goReservation').forEach(button => {
             button.onclick = () => getRoute(parseInt(button.id));
         });
 
-        
 
-        // function displayMeal(mealID) {
-        //     const meal = getMealData.find(m => m.MealID === mealID);
-        //     if (meal) {
-        //         document.getElementById("mealName1").innerText = meal.MealName;
-        //         document.getElementById("mealContent1").innerHTML = meal.MealDescription;
-        //         document.getElementById("mealImg1").src = meal.MealImage;
-        //     }
-        // }
+        // 甜點 ------------------
 
-        // // 假設有一個按鈕用來顯示甜點
-        // document.getElementById("someButton").onclick = function () {
-        //     displayMeal(1); // 顯示 MealID 為 1 的資料
-        // };
+        // 更新 displayDessertType 函數
+        function displayDessertType(routeId) {
+            let dessertType;
+            let meal1, meal2;
+
+            // 根據 RouteID 設定甜點類型和甜點
+            if (routeId === 1 || routeId === 2) {
+                dessertType = getDessertType.find(type => type.DessertTypeID === 1); // 日式甜點
+                meal1 = getMeals.find(meal => meal.MealID === 1); // 取得第一個甜點
+                meal2 = getMeals.find(meal => meal.MealID === 2); // 取得第二個甜點
+            } else if (routeId === 3 || routeId === 4) {
+                dessertType = getDessertType.find(type => type.DessertTypeID === 2); // 台式甜點
+                meal1 = getMeals.find(meal => meal.MealID === 3); // 取得第三個甜點
+                meal2 = getMeals.find(meal => meal.MealID === 4); // 取得第四個甜點
+            } else if (routeId === 5 || routeId === 6) {
+                dessertType = getDessertType.find(type => type.DessertTypeID === 3); // 歐式甜點
+                meal1 = getMeals.find(meal => meal.MealID === 5); // 取得第五個甜點
+                meal2 = getMeals.find(meal => meal.MealID === 6); // 取得第六個甜點
+            } else {
+                dessertType = { DessertTitle: "未知甜點類型" };
+            }
+
+            // 更新甜點類型顯示
+            document.getElementById('dessertType').innerText = dessertType.DessertTitle;
+
+            // 更新甜點資訊顯示
+            if (meal1) {
+                document.getElementById('mealName1').innerText = meal1.MealName;
+                document.getElementById('mealContent1').innerHTML = meal1.MealDescription;
+                document.getElementById('mealImg1').src = meal1.MealImagePath;
+            }
+            if (meal2) {
+                document.getElementById('mealName2').innerText = meal2.MealName;
+                document.getElementById('mealContent2').innerHTML = meal2.MealDescription;
+                document.getElementById('mealImg2').src = meal2.MealImagePath;
+            }
+        }
+
+
+
     </script>
 </body>
 

@@ -42,7 +42,7 @@
   letter-spacing: 2%;
 }
 
-.trip_title div:last-of-type a {
+.trip_title div:last-of-type button {
   font-family: "Noto Sans TC";
   font-size: 16px;
   font-weight: 500;
@@ -115,7 +115,7 @@ main {
   flex-direction: column;
   justify-content: space-between;
 }
-.trip_title div:last-of-type a {
+.trip_title div:last-of-type button {
   text-align: center;
   text-decoration: none;
   background-color: #093B4F;
@@ -124,8 +124,9 @@ main {
   line-height: 56px;
   letter-spacing: 4px;
   border: 1px solid #1F1F1F;
+  cursor: pointer;
 }
-.trip_title div:last-of-type a:hover {
+.trip_title div:last-of-type button:hover {
   background-color: #15959C;
 }
 
