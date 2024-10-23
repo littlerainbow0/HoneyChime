@@ -32,7 +32,7 @@ const HomeHeader=()=>{
                 {/* 右側旋轉圖標 */}
                 <div
                 className="h-5 transform -rotate-90 bg-center bg-no-repeat bg-contain cursor-pointer w-14 bg-custom-icon2 hover:bg-custom-icon"
-                onClick={() => window.location.href = '#about'}
+                onClick={() => window.location.href = '/admin/news'}
                 />
             </header>
     

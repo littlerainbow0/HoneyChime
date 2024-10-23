@@ -1,0 +1,109 @@
+const newsData = [
+    { "Date": "2024.10.18",  "Category": "甜點活動", "Content": "星鳴號甜點特別活動即將開始，敬請期待！" },
+    { "Date": "2024.10.12",  "Category": "列車服務", "Content": "甜點列車新增VIP包廂服務，讓旅客享受更私密的甜點旅程。" },
+    { "Date": "2024.10.05",  "Category": "甜點新作", "Content": "全新巧克力熔岩蛋糕限時推出，口感濃郁！" },
+    { "Date": "2024.09.30",  "Category": "旅遊諮詢", "Content": "九州七星颱風營運計畫已恢復，列車正常運行。" },
+    { "Date": "2024.09.22",  "Category": "甜點新作", "Content": "秋季限定南瓜派正式上架，享受秋天的味道。" },
+    { "Date": "2024.09.18",  "Category": "員工部落格", "Content": "甜點列車廚師團隊部落格更新，分享創意甜點背後故事。" },
+    { "Date": "2024.09.12",  "Category": "優惠活動", "Content": "預訂星鳴號旅程，享受雙人甜點套餐85折優惠。" },
+    { "Date": "2024.09.05",  "Category": "列車服務", "Content": "甜點列車新增免費Wi-Fi服務，讓旅客隨時分享甜蜜時光。" },
+    { "Date": "2024.09.01",  "Category": "旅程介紹", "Content": "星鳴號將開通新的觀光路線，途經更多甜點特色景點。" },
+    { "Date": "2024.08.28",  "Category": "甜點活動", "Content": "中秋節期間，甜點列車將提供特製月餅，敬請品嚐！" }
+    { "Date": "2024.10.18",  "Category": "甜點活動", "Content": "星鳴號甜點特別活動即將開始，敬請期待！" },
+    { "Date": "2024.10.12",  "Category": "列車服務", "Content": "甜點列車新增VIP包廂服務，讓旅客享受更私密的甜點旅程。" },
+    { "Date": "2024.10.05",  "Category": "甜點新作", "Content": "全新巧克力熔岩蛋糕限時推出，口感濃郁！" },
+    { "Date": "2024.09.30",  "Category": "旅遊諮詢", "Content": "九州七星颱風營運計畫已恢復，列車正常運行。" },
+    { "Date": "2024.09.22",  "Category": "甜點新作", "Content": "秋季限定南瓜派正式上架，享受秋天的味道。" },
+    { "Date": "2024.09.18",  "Category": "員工部落格", "Content": "甜點列車廚師團隊部落格更新，分享創意甜點背後故事。" },
+    { "Date": "2024.09.12",  "Category": "優惠活動", "Content": "預訂星鳴號旅程，享受雙人甜點套餐85折優惠。" },
+    { "Date": "2024.09.05",  "Category": "列車服務", "Content": "甜點列車新增免費Wi-Fi服務，讓旅客隨時分享甜蜜時光。" },
+    { "Date": "2024.09.01",  "Category": "旅程介紹", "Content": "星鳴號將開通新的觀光路線，途經更多甜點特色景點。" },
+    { "Date": "2024.08.28",  "Category": "甜點活動", "Content": "中秋節期間，甜點列車將提供特製月餅，敬請品嚐！" },
+    { "Date": "2024.08.20",  "Category": "營運資訊", "Content": "甜點列車將於9月進行例行維護，部分路線暫停運行。" },
+    { "Date": "2024.08.15",  "Category": "甜點新作", "Content": "藍莓乳酪蛋糕系列正式登場，香甜濃郁不容錯過。" },
+    { "Date": "2024.08.10",  "Category": "旅程介紹", "Content": "甜點列車新增環島甜點之旅，沿途欣賞壯麗風景。" },
+    { "Date": "2024.08.05",  "Category": "優惠活動", "Content": "8月特別優惠，凡預訂甜點列車，享受雙人同行85折。" },
+    { "Date": "2024.07.30",  "Category": "甜點新作", "Content": "夏日限定芒果雪糕推出，讓您感受沁涼的美味。" },
+    { "Date": "2024.07.25",  "Category": "列車服務", "Content": "新增兒童遊戲區，讓家庭旅客享受更多樂趣。" },
+    { "Date": "2024.07.20",  "Category": "員工部落格", "Content": "甜點列車團隊參加了甜點製作大賽，獲得殊榮。" },
+    { "Date": "2024.07.15",  "Category": "甜點活動", "Content": "甜點製作教學活動將於8月開放報名，限額20人。" },
+    { "Date": "2024.07.10",  "Category": "旅遊諮詢", "Content": "甜點列車新增夜間甜點遊，旅程中欣賞浪漫夜景。" },
+    { "Date": "2024.07.05",  "Category": "營運資訊", "Content": "由於例行保養，7月10日至15日部分班次暫停服務。" },
+    { "Date": "2024.06.30",  "Category": "甜點新作", "Content": "巧克力馬卡龍將於7月登場，滿足您的甜點需求。" },
+    { "Date": "2024.06.25",  "Category": "列車服務", "Content": "新增咖啡師服務，讓旅客享受現場手沖咖啡。" },
+    { "Date": "2024.06.20",  "Category": "甜點活動", "Content": "夏季特別活動，參加有機會贏得免費甜點之旅。" },
+    { "Date": "2024.06.15",  "Category": "旅程介紹", "Content": "新增甜點列車豪華包廂服務，提供高端客戶專屬體驗。" },
+    { "Date": "2024.06.10",  "Category": "員工部落格", "Content": "甜點列車內部裝潢大改造，邀請設計師分享創作過程。" },
+    { "Date": "2024.06.05",  "Category": "優惠活動", "Content": "預訂7月甜點列車班次，享受免費甜點飲品套餐。" },
+    { "Date": "2024.06.01",  "Category": "營運資訊", "Content": "甜點列車將於7月推出全新行程，包含特別甜點活動。" },
+    { "Date": "2024.05.25",  "Category": "甜點新作", "Content": "玫瑰草莓千層蛋糕登場，限量供應，敬請品嚐。" },
+    { "Date": "2024.05.20",  "Category": "甜點活動", "Content": "母親節特別活動，參加有機會贏得精美甜點禮盒。" },
+    { "Date": "2024.05.15",  "Category": "員工部落格", "Content": "甜點列車員工心得分享：在列車上的日常生活。" }
+];
+
+
+
+old
+
+import '../assets/css/style.css'
+
+const NewsNews =()=>{
+    return(
+        <div>
+                <div className="container flex p-5 mx-auto mt-6 border">
+                {/* 左側標題與全部資訊  */}
+                <div className="w-1/4 pr-5">
+                    <h1 className="text-h2 font-bold font-titleFont mb-5 text-[#634A34]">最新消息</h1>
+                    <a className="hidden pt-5 font-medium text-gray-600 no-underline pl-14 text-h4 font-bodyFont sm:block">全部資訊 &#9651;</a>
+                </div>
+                {/* 右側消息區塊  */}
+        <div className="flex-1 border border-dashed border-[#4a3f35] p-5 overflow-y-auto max-h-[500px] mt-20">
+                {/* 右側內容  */}
+            <div className="mb-5">
+                <p className="text-p-1 leading-relaxed text-[#4a3f35] font-bodyFont">2024.09.17. &#x2022; icon 員工部落格<br/>員工部落格已更新</p>
+            </div>
+            <div className="mb-5">
+                <p className="text-p-1 leading-relaxed text-[#4a3f35] font-bodyFont">2024.08.29. &#x2022; icon 營運資訊 旅遊諮詢台信息<br/>關於因10號颱風逼近「九州七星」營運計畫後續及旅遊諮詢台暫時關閉的通知</p>
+            </div>
+            <div className="mb-5">
+                <p className="text-p-1 leading-relaxed text-[#4a3f35] font-bodyFont">2024.08.17. &#x2022; icon 員工部落格<br/>員工部落格已更新</p>
+            </div>
+            <div className="mb-5">
+                <p className="text-p-1 leading-relaxed text-[#4a3f35] font-bodyFont">2024.09.17. &#x2022; icon 員工部落格<br/>員工部落格已更新</p>
+            </div>
+            <div className="mb-5">
+                <p className="text-p-1 leading-relaxed text-[#4a3f35] font-bodyFont">2024.08.29. &#x2022; icon 營運資訊 旅遊諮詢台信息<br/>關於因10號颱風逼近「九州七星」營運計畫（後續）及旅遊諮詢台暫時關閉的通知</p>
+            </div>
+            <div className="mb-5">
+                <p className="text-p-1 leading-relaxed text-[#4a3f35] font-bodyFont">2024.08.17. &#x2022; icon 員工部落格<br/>員工部落格已更新</p>
+            </div>
+            <div className="mb-5">
+                <p className="text-p-1 leading-relaxed text-[#4a3f35] font-bodyFont">2024.09.17. &#x2022; icon 員工部落格<br/>員工部落格已更新</p>
+            </div>
+            <div className="mb-5">
+                <p className="text-p-1 leading-relaxed text-[#4a3f35] font-bodyFont">2024.08.29. &#x2022; icon 營運資訊 旅遊諮詢台信息<br/>關於因10號颱風逼近「九州七星」營運計畫（後續）及旅遊諮詢台暫時關閉的通知</p>
+            </div>
+            <div className="mb-5">
+                <p className="text-p-1 leading-relaxed text-[#4a3f35] font-bodyFont">2024.08.17. &#x2022; icon 員工部落格<br/>員工部落格已更新</p>
+            </div>
+            <div className="mb-5">
+                <p className="text-p-1 leading-relaxed text-[#4a3f35] font-bodyFont">2024.09.17. &#x2022; icon 員工部落格<br/>員工部落格已更新</p>
+            </div>
+            <div className="mb-5">
+                <p className="text-p-1 leading-relaxed text-[#4a3f35] font-bodyFont">2024.08.29. &#x2022; icon 營運資訊 旅遊諮詢台信息<br/>關於因10號颱風逼近「九州七星」營運計畫（後續）及旅遊諮詢台暫時關閉的通知</p>
+            </div>
+            <div className="mb-5">
+                <p className="text-p-1 leading-relaxed text-[#4a3f35] font-bodyFont">2024.08.17. &#x2022; icon 員工部落格<br/>員工部落格已更新</p>
+            </div>
+             {/* 滾動提示  */}
+             {/* <p className="scroll-hint absolute bottom-2 right-5 text-[14px] text-[#4a3f35] italic">滾動查看更多資訊</p>  */}
+        </div>
+    </div>
+    <span className="mt-5">
+        <img src="../../src/assets/img/icon/icon_polygonLine.png" alt="navbar"/>
+    </span>
+        </div>
+    )
+
+}
+export default NewsNews;

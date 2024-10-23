@@ -8,6 +8,9 @@ import '../assets/css/style.css'
 const Home =()=>{
     return(
         <div>
+            
+            
+            
             <HomeHeader/>
             <HomeCarousel/>
             <HomeIntroduce/>

@@ -1,0 +1,71 @@
+NewsModal.jsx
+// eslint-disable-next-line no-unused-vars
+import React from "react";
+import ReactDOM from 'react-dom';
+
+const Modal=({ isOpen , onClose }) =>{
+    if(! isOpen )return null;
+    //createPortal重點
+    return ReactDOM.createPortal(
+        <div style={backdropStyle}>
+            <div style={modalStyle}>
+                <h2>投票確認</h2>
+                <p>確認投嗎？？</p>
+                <button onClick={onClose}>關閉</button>
+            </div>
+        </div>,
+        //createPortal重點第二個跟目錄
+        document.getElementById('modal-root')
+    );
+};
+
+const backdropStyle={
+    position:'fixed',
+    top:0,
+    left:0,
+    right:0,
+    bottom:0,
+    backgroundColor:'rgba(0,0,0,0.5)',
+    display:'flex',
+    justifyContent:'center',
+    alignItems:'center'
+};
+const modalStyle={
+    backgroundColor:'#fff',
+    padding:'20px',
+    borderRadius:'5px',
+    width:'300px',
+    textAlign:'center'
+};
+export default Modal;
+
+
+
+
+
+
+vote.jsx
+
+import React, { useState } from 'react';
+import Modal from './NewsModal';
+
+const VoteComponent = () => {
+const [isModalOpen, setModalOpen] = useState(false);
+
+setModalOpen(true);
+};
+
+const handleCloseModal = () => {
+setModalOpen(false);
+};
+
+return (
+    <div>
+        <h1>投票系統</h1>
+        <button onClick={handleOpenModal}>提交投票</button>
+        <Modal isOpen={isModalOpen} onClose={handleCloseModal} />
+    </div>
+);
+};
+
+export default VoteComponent;
