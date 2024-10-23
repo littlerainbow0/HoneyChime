@@ -92,24 +92,26 @@ const AdminSchedule = () => {
     };
 
     return (
-        <div className="flex flex-row">
+        <div className="flex flex-row h-screen">
             <Navbar />
-            <div className='ml-10 text-left w-full'>
-                <RouteName />
-                <FilterCard data={filterCardName} />
-                <BtnLightBrown btnText={isDataByBtnFilter ? 
-                (<>
-                <MdFilterListOff />取消篩選
-                </>) : 
-                (<>
-                <MdFilterList />狀態篩選
-                </>)}
-                    onClick={btnFilterClick} />
-                <DataFetcher setDataFromServer={setDataFromServer} />
-                <TableDefault
-                    columns={columns}
-                    data={dataByBtnFilter.length > 0 ? dataByBtnFilter : dataFromServer}
-                    columnNames={columnNames} />
+            <div className='flex-grow pl-40 md:pl-64 xl:pl-0 text-left w-full'>
+                <div className='max-w-[1800px] mx-auto'> {/* 設定最大寬度並居中 */}
+                    <RouteName content="您的路由名稱" /> {/* 確保傳遞內容 */}
+                    <FilterCard data={filterCardName} />
+                    <hr className='mt-12 mb-2'/>
+                    <BtnLightBrown
+                        btnText={isDataByBtnFilter ? 
+                            (<><MdFilterListOff />取消篩選</>) : 
+                            (<><MdFilterList />狀態篩選</>)}
+                        onClick={btnFilterClick}
+                    />
+                    <DataFetcher setDataFromServer={setDataFromServer} />
+                    <TableDefault
+                        columns={columns}
+                        data={dataByBtnFilter.length > 0 ? dataByBtnFilter : dataFromServer}
+                        columnNames={columnNames}
+                    />
+                </div>
             </div>
         </div>
     );

@@ -65,6 +65,14 @@ const detailColumns = [
     "menuName2",
     "menuContent2",
 ]
+const detailColumnsName = [
+    "模板ID",
+    "甜點風格",
+    "菜單1",
+    "菜單1內容",
+    "菜單2",
+    "菜單2內容",
+]
 const detailData = [
     {
         templateId: 1,
@@ -122,7 +130,7 @@ const AdminTemplate = () => {
             <BtnBrown btnText="新建一筆模板" onClick={clickShowModal} />
             {showModal && <Modal onClose={clickShowModal} />} {/* 传递 onClose 函数 */}
                 </div>
-                <TableDefault columns={detailColumns} data={detailData} />
+                <TableDefault columns={detailColumns} data={detailData} columnNames={detailColumnsName} />
             </div>
         </div>
     );

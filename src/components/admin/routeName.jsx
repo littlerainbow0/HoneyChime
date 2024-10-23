@@ -26,5 +26,8 @@ export default function RouteName() {
             break;
     }
 
-    return <div className='bg-dark font-titleFont p-5 text-h5 text-lightyellow'>{content}</div>;
+    return <div className='font-titleFont p-5 text-h6 font-bold text-lightbrown w-full'>
+    {content}
+    <hr className='my-3' />
+</div>
 }

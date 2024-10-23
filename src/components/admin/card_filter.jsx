@@ -6,31 +6,27 @@ export default function App({ data }) {
             {data.map((elem, index) => (
                 <button
                     key={index}
-                    className="flex-grow" // 使用 flex-grow 使按鈕能自動調整大小
+                    className="flex-grow hover:opacity-80 transition-all
+                    lg:text-h3 lg:p-6 text-h6 text-lightyellow hover:text-dark hover:scale-105" // 使用 flex-grow 使按鈕能自動調整大小
                     style={{ minWidth: '150px' }} // 可以設置最小寬度
                 >
                     <Card
-                        className="flex-auto h-[120px] items-center p-1  rounded-full"
+                        className="flex-auto h-[60px] font-bold rounded-full
+                        lg:h-[120px] pt-2 lg:pt-1"
                         style={{ backgroundImage: `url(${elem.imgSrc})`,
-                    boxShadow: '0 0 4px #B1B1B1' }}
+                    boxShadow: '0 0 8px #B1B1B1' }}
                     >
-                        <CardHeader className="flex-col">
+                        <CardBody className="flex-col justify-center items-center">
                             <h4
-                                className="text-lightyellow font-titleFont text-h3 font-bold p-6"
+                                className="font-titleFont px-2 lg:p-4"
                                 style={{
                                     borderRadius: '3rem',
-                                    backdropFilter: 'blur(8px)',
+                                    backdropFilter: 'blur(16px)',
                                 }}
                             >
                                 {elem.dessertType}
                             </h4>
-                        </CardHeader>
-                        <Image
-                            removeWrapper
-                            alt="Card background"
-                            className="z-0 w-full h-full object-cover"
-                            src={elem.imgSrc}
-                        />
+                        </CardBody>
                     </Card>
                 </button>
             ))}

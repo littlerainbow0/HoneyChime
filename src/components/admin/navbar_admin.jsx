@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Navbar,
   NavbarBrand,
@@ -65,37 +65,43 @@ const navText = [
 ]
 
 // 側邊欄內容
-const Sidebar = () => {
-  return (
-    <div className="flex-col justify-center w-64 p-5 h-screen 
-    bg-gradient-to-b from-dark to-brown
-    overflow-y-auto text-clip min-w-[170px]">
-      <Link href="#">
-        <div className="mb-10 p-5">
-          <Logo color="rgb(255,245,245)"></Logo>
-          <h2 className="font-titleFont text-h3 font-bold mt-10 mb-2 text-lightyellow">
-            後臺管理
-          </h2>
-          <p className="text-brown text-p-3 font-bodyFont">
-            推薦使用電腦版
-          </p>
-        </div>
-      </Link>
-      <div className="font-titleFont flex flex-col text-lightbrown items-center">
-        {/* function() => () 這個等於有callback
-            = function() {return} */}
-        {navText.map((elem, index) => (
-          <div className="flex items-center mb-5" key={index}>
-            {elem.icon}
-            <Link href="#" className="ml-2 text-h6 font-semibold ">
-              {elem.item}
-            </Link>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
 
+const Sidebar = () => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  return (
+    <>
+
+      <div className={`flex-col justify-center p-5 
+        bg-gradient-to-br from-gray-200 to-transparent
+        overflow-y-auto text-clip min-w-[170px] 
+        absolute top-0 left-0 h-screen 
+        w-0 md:w-64 transition-all duration-300`}>
+        <Link href="#">
+          <div className="mb-10 p-5">
+            <Logo color="rgb(32,30,30)"></Logo>
+            <h2 className="font-titleFont text-h3 font-bold mt-10 mb-2 text-darkbrown">
+              後臺管理
+            </h2>
+            <p className="text-brown text-p-3 font-bodyFont">
+              推薦使用電腦版
+            </p>
+          </div>
+        </Link>
+        <div className="font-titleFont flex flex-col items-center ">
+          {navText.map((elem, index) => (
+            <div className="flex items-center mb-5 text-h6" key={index}>
+              {elem.icon}
+              <Link href="#" className="ml-2 font-semibold text-brown
+              hover:text-lightbrown">
+                {elem.item}
+              </Link>
+            </div>
+          ))}
+        </div>
+      </div>
+    </>
+  );
 };
 
 export default function App() {
