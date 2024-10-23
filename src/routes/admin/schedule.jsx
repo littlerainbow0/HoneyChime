@@ -49,7 +49,7 @@ const columns = [
     "status"];
 const columnNames = {
     ScheduleID: "行程ID",
-    
+
     DepartureDate: "出發日期",
     DepartureTime: "出發時間",
     DessertTitle: "甜點標題",
@@ -99,16 +99,18 @@ const AdminSchedule = () => {
             <div className='background-circle'></div>
             <div className='background-circle2'></div>
             <div className='flex-grow pl-40 md:pl-64 3xl:pl-0 text-left w-full'>
-                <div className='max-w-[1800px] mx-auto'> {/* 設定最大寬度並居中 */}
-                    <RouteName content="您的路由名稱" /> {/* 確保傳遞內容 */}
+                <div className='max-w-[1800px] mx-auto'>
+                    <RouteName />
                     <FilterCard data={filterCardName} />
-                    <hr className='mt-12 mb-2'/>
-                    <BtnLightBrown
-                        btnText={isDataByBtnFilter ? 
-                            (<><MdFilterListOff />取消篩選</>) : 
-                            (<><MdFilterList />狀態篩選</>)}
-                        onClick={btnFilterClick}
-                    />
+                    <hr className='mt-12 mb-2' />
+                    <div className='text-left'>
+                        <BtnLightBrown
+                            btnText={isDataByBtnFilter ?
+                                (<><MdFilterListOff />取消篩選</>) :
+                                (<><MdFilterList />狀態篩選</>)}
+                            onClick={btnFilterClick}
+                        />
+                    </div>
                     <DataFetcher setDataFromServer={setDataFromServer} />
                     <TableDefault
                         columns={columns}
