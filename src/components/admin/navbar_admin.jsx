@@ -72,11 +72,11 @@ const Sidebar = () => {
   return (
     <>
 
-      <div className={`flex-col justify-center p-5 
+      <div className={`flex-col justify-center px-5 py-40
         bg-gradient-to-br from-gray-200 to-transparent
         overflow-y-auto text-clip min-w-[170px] 
         absolute top-0 left-0 h-screen 
-        w-0 md:w-64 transition-all duration-300`}>
+        w-0 md:w-64 transition-all duration-300 rounded-r-full`}>
         <Link href="#">
           <div className="mb-10 p-5">
             <Logo color="rgb(32,30,30)"></Logo>

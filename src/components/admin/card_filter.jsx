@@ -2,7 +2,7 @@ import { Card, CardHeader, CardBody, CardFooter, Image, Button, button } from "@
 
 export default function App({ data }) {
     return (
-        <div className="my-5 flex flex-wrap justify-center  gap-3">
+        <div className="lg:my-5 my-2 flex flex-wrap justify-center  gap-3">
             {data.map((elem, index) => (
                 <button
                     key={index}

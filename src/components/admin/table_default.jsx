@@ -26,7 +26,7 @@ const TableDefault = ({ columns, data, columnNames }) => {
 
   return (
     <div className="my-5" style={{ width: '100%' }}>
-      <Table className="bg-dark text-center" style={{ width: '100%' }}>
+      <Table className=" text-center bg-gray-50 rounded-3xl" style={{ width: '100%' }}>
         <TableHeader className="flex-col">
           {columns.map((column) => (
             <TableColumn key={column}>
@@ -41,7 +41,7 @@ const TableDefault = ({ columns, data, columnNames }) => {
             <TableRow key={index}>
               {columns.map((column) => (
                 <TableCell key={column}>
-                  <p className="text-lightyellow font-bodyFont text-p-3 mx-5 mb-2">
+                  <p className="text-dark font-bodyFont text-p-3 mx-5 mb-2">
                     {item[column]}
                   </p>
                 </TableCell>
@@ -58,7 +58,9 @@ const TableDefault = ({ columns, data, columnNames }) => {
           <Button
             key={index + 1}
             onClick={() => handlePageChange(index + 1)}
-            className={`mx-1 ${currentPage === index + 1 ? 'bg-lightbrown' : ''}`}
+            className={`font-bodyFont text-p-3 mx-1 rounded-full transition-all 
+              hover:text-lightbrown hover:shadow-md
+              ${currentPage === index + 1 ? 'bg-lightbrown rounded-full font-bold hover:text-lightyellow shadow-md' : ''}`}
           >
             {index + 1}
           </Button>

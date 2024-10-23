@@ -7,6 +7,7 @@ import FilterCard from '../../components/admin/card_filter.jsx'
 import { div } from 'framer-motion/m';
 import DataFetcher from '../../dataProcessing/admin/data_schedule.jsx'
 import BtnLightBrown from '../../components/user/btn_lightbrown.jsx';
+import './adminBackground.css'
 
 import {
     Table,
@@ -94,7 +95,10 @@ const AdminSchedule = () => {
     return (
         <div className="flex flex-row h-screen">
             <Navbar />
-            <div className='flex-grow pl-40 md:pl-64 xl:pl-0 text-left w-full'>
+            <div className='background-radius'></div>
+            <div className='background-circle'></div>
+            <div className='background-circle2'></div>
+            <div className='flex-grow pl-40 md:pl-64 3xl:pl-0 text-left w-full'>
                 <div className='max-w-[1800px] mx-auto'> {/* 設定最大寬度並居中 */}
                     <RouteName content="您的路由名稱" /> {/* 確保傳遞內容 */}
                     <FilterCard data={filterCardName} />
