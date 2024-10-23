@@ -5,10 +5,9 @@ export default function btn_lightbrown({ btnText, onClick }) {
             radius="full"
             className=" border border-lightbrown
             mr-5 text-p-3 font-bodyFont
-            hover:bg-lightbrown hover:text-dark
-            text-brown 
-            bg-lightyellow
-            hover:border-darkbrown hover:border
+            hover:bg-lightyellow hover:text-brown hover:border-brown hover:border-2
+            text-lightyellow
+            bg-lightbrown
             hover:font-bold
             duration-200 transition-all"
             onClick={onClick}>
