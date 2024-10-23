@@ -1,19 +1,6 @@
-// components/DataFetcher.jsx
 import React, { useState, useEffect } from 'react';
 import api from '../../api.jsx';
 
-// table_default假資料格式
-// const data = [
-//   {
-//       ScheduleID: 1,
-//       DepartureDate: "2024/11/13",
-//       DepartureTime: "09:00",
-//       TemplateDescription: "台中高雄",
-//       DessertTitle: "日式甜點",
-//       status: "已過期"
-//       // 已過期, 即將到來
-//   },
-// ];
 
 const DataFetcher = ({ setDataFromServer }) => {
   const [loading, setLoading] = useState(true); // 加載狀態
@@ -24,17 +11,17 @@ const DataFetcher = ({ setDataFromServer }) => {
 
     const fetchData = async () => {
       try {
-        const response = await api.get('/getSchedules');
+        const response = await api.get('/getTemplates');
         const myData = response.data.map((elem) => (
           {
             TemplateID: elem.TemplateID,
-            ScheduleID: elem.ScheduleID,
-            DepartureDate: elem.DepartureDate.substring(0,10),
-            DepartureTime: elem.DepartureTime,
-            
-            TemplateDescription:elem.TemplateDescription,
-            DessertTitle:elem.DessertTitle,
-            status: new Date(elem.DepartureDate) > new Date() ? "即將到來" : "已過期" 
+            DessertTitle: elem.DessertTitle,
+            MenuFirstID: elem.MenuFirstID,
+            MenuFirstName: elem.MenuFirstName,
+            MenuFirstImage: elem.MenuFirstImage,
+            MenuSecondID: elem.MenuSecondID,
+            MenuSecondName: elem.MenuSecondName,
+            MenuSecondImage: elem.MenuSecondImage,
           }
         ))
 

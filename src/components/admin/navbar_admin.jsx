@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useLocation } from "react-router-dom"
 import {
   Navbar,
   NavbarBrand,
@@ -16,10 +17,11 @@ import {
 import { BsCalendar2Range } from "react-icons/bs";
 import { BsCalendar2Week } from "react-icons/bs";
 import { BsJournals } from "react-icons/bs";
-import { BsJournalBookmarkFill } from "react-icons/bs";
 import { BsWindowPlus } from "react-icons/bs";
 import { BsFillPeopleFill } from "react-icons/bs";
 import { BsEnvelopeAt } from "react-icons/bs";
+import { ImSpoonKnife } from "react-icons/im";
+
 // -- icons /*
 
 // /* icon指定統一格式
@@ -33,41 +35,60 @@ import Logo from "../../honeyChimeLogo.jsx"
 // tailwind設定: https://www.creative-tim.com/twcomponents/cheatsheet/
 // flex-col = flex-direction: column;
 
-const navText = [
-  {
-    icon: <BsCalendar2Range />,
-    item: "訂單管理"
-  },
+export const navText = [
   {
     icon: <BsCalendar2Week />,
-    item: "訂位狀態"
+    item: "訂位狀態",
+    path: "",
+  },
+  {
+    icon: <BsCalendar2Range />,
+    item: "旅程管理",
+    path: "/admin/schedule",
   },
   {
     icon: <BsJournals />,
-    item: "旅程管理"
+    item: "訂單管理",
+    path: ""
   },
   {
-    icon: <BsJournalBookmarkFill />,
-    item: "旅程範本"
+    icon: <ImSpoonKnife />,
+    item: "路線管理",
+    path: "/admin/menu",
+  },
+  {
+    icon: <ImSpoonKnife />,
+    item: "餐點管理",
+    path: "/admin/menu",
   },
   {
     icon: <BsWindowPlus />,
-    item: "最新消息"
+    item: "最新消息",
+    path: "",
   },
   {
     icon: <BsFillPeopleFill />,
-    item: "會員管理"
+    item: "會員管理",
+    path: "/admin/member",
   },
   {
     icon: <BsEnvelopeAt />,
-    item: "會員諮詢"
+    item: "會員諮詢",
+    path: "/admin/question",
   },
 ]
 
 // 側邊欄內容
 
 const Sidebar = () => {
-  const [isOpen, setIsOpen] = useState(false);
+
+  const location = useLocation();
+
+  const [isRoute, setIsRoute] = useState(false);
+
+  const handleRoute = () => {
+    setIsRoute(!isRoute);
+  }
 
   return (
     <>
@@ -77,7 +98,7 @@ const Sidebar = () => {
         overflow-y-auto text-clip min-w-[170px] 
         absolute top-0 left-0 h-screen 
         w-0 md:w-64 transition-all duration-300 rounded-r-full`}>
-        <Link href="#">
+        <Link href="/admin">
           <div className="mb-10 p-5">
             <Logo color="rgb(32,30,30)"></Logo>
             <h2 className="font-titleFont text-h3 font-bold mt-10 mb-2 text-darkbrown">
@@ -88,12 +109,15 @@ const Sidebar = () => {
             </p>
           </div>
         </Link>
-        <div className="font-titleFont flex flex-col items-center ">
+        <div className="font-titleFont flex flex-col md:pl-14 pl-4">
           {navText.map((elem, index) => (
-            <div className="flex items-center mb-5 text-h6" key={index}>
+            <div className="flex items-center md:my-2 my-1  md:text-h6 text-p-1
+            font-semibold text-brown
+            hover:text-lightbrown gap-2 transition-all" key={index}>
+                {location.pathname === elem.path && 
+                <div className="bg-lightbrown w-1 h-8 mr-2" />}
               {elem.icon}
-              <Link href="#" className="ml-2 font-semibold text-brown
-              hover:text-lightbrown">
+              <Link href={elem.path} className="">
                 {elem.item}
               </Link>
             </div>
@@ -104,8 +128,4 @@ const Sidebar = () => {
   );
 };
 
-export default function App() {
-  return (
-    <Sidebar />
-  );
-}
+export default Sidebar;

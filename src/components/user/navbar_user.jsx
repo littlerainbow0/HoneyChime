@@ -12,7 +12,7 @@ export default function UserNavbar({ userId }) {
                 Hello! 您好
             </h3>
             <nav className="bg-dark flex justify-center">
-                <ul className="p-3 flex space-x-20">
+                <ul className="p- flex space-x-20">
                     {navbarUserText.map((elem, index) => (
                         <li key={index}>
                             <Link 

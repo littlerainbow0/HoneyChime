@@ -42,7 +42,7 @@ function App() {
       <Route path="/admin/member" element={<AdminMember />} />
       <Route path="/admin/question" element={<AdminQAmail />} />
       <Route path="/admin/schedule" element={<Schedule />} exact />
-      <Route path="/admin/template" element={<AdminTemplate />} />
+      <Route path="/admin/menu" element={<AdminTemplate />} />
 
       <Route path="/login" element={<Login />} exact />
       <Route path="/signin" element={<Signin />} exact />

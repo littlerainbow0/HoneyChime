@@ -2,12 +2,12 @@ import { Card, CardHeader, CardBody, CardFooter, Image, Button, button } from "@
 
 export default function App({ data }) {
     return (
-        <div className="lg:my-5 my-2 flex flex-wrap justify-center  gap-3">
+        <div className="lg:my-5 my-2 flex flex-wrap justify-center md:gap-10 gap-5">
             {data.map((elem, index) => (
                 <button
                     key={index}
                     className="flex-grow hover:opacity-80 transition-all
-                    lg:text-h3 lg:p-6 text-h6 text-lightyellow hover:text-dark hover:scale-105" // 使用 flex-grow 使按鈕能自動調整大小
+                    lg:text-h3 text-h6 text-lightyellow hover:text-dark hover:scale-105" // 使用 flex-grow 使按鈕能自動調整大小
                     style={{ minWidth: '150px' }} // 可以設置最小寬度
                 >
                     <Card

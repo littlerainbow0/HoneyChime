@@ -5,9 +5,10 @@ import TableDefault from '../../components/admin/table_default.jsx' // 確保導
 import RouteName from '../../components/admin/routeName.jsx'
 import FilterCard from '../../components/admin/card_filter.jsx'
 import { div } from 'framer-motion/m';
-import DataFetcher from '../../dataProcessing/admin/data_schedule.jsx'
+import DataFetcher from '../../dataProcessing/admin/GET_schedule.jsx'
 import BtnLightBrown from '../../components/user/btn_lightbrown.jsx';
-import './adminBackground.css'
+import Background from '../../components/admin/background_admin.jsx';
+import Modal from '../../components/admin/modal_createSchedule.jsx'
 
 import {
     Table,
@@ -49,10 +50,11 @@ const columns = [
     "status"];
 const columnNames = {
     ScheduleID: "行程ID",
-
+    StopStartName: "起點站",
+    StopEndName: "終點站",
     DepartureDate: "出發日期",
     DepartureTime: "出發時間",
-    DessertTitle: "甜點標題",
+    DessertTitle: "甜點風格",
     status: "狀態",
 };
 
@@ -77,6 +79,12 @@ const templateDetailData = [
 
 const AdminSchedule = () => {
 
+    const [showModal, setShowModal] = useState(false);
+
+    const clickShowModal = () => {
+        setShowModal(prev => !prev); // 切換 Modal 顯示狀態
+    };
+
     const [dataFromServer, setDataFromServer] = useState([]) // 儲存API資料用
 
     const [dataByBtnFilter, setDataByBtnFilter] = useState([]) // data BTN篩選器
@@ -95,14 +103,12 @@ const AdminSchedule = () => {
     return (
         <div className="flex flex-row h-screen">
             <Navbar />
-            <div className='background-radius'></div>
-            <div className='background-circle'></div>
-            <div className='background-circle2'></div>
+            <Background />
             <div className='flex-grow pl-40 md:pl-64 3xl:pl-0 text-left w-full'>
                 <div className='max-w-[1800px] mx-auto'>
                     <RouteName />
                     <FilterCard data={filterCardName} />
-                    <hr className='mt-12 mb-2' />
+                    <hr className='my-12 mb-6' />
                     <div className='text-left'>
                         <BtnLightBrown
                             btnText={isDataByBtnFilter ?
@@ -110,6 +116,10 @@ const AdminSchedule = () => {
                                 (<><MdFilterList />狀態篩選</>)}
                             onClick={btnFilterClick}
                         />
+                    </div>
+                    <div className='justify-between'>
+                        <BtnLightBrown btnText="新建一筆模板" onClick={clickShowModal} />
+                        {showModal && <Modal onClose={clickShowModal} />} {/* 传递 onClose 函数 */}
                     </div>
                     <DataFetcher setDataFromServer={setDataFromServer} />
                     <TableDefault

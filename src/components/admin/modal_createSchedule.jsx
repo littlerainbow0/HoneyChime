@@ -109,6 +109,31 @@ let templateContent = {
     ],
 }
 
+
+const data = [
+    {
+        "出發日期　　": "",
+        "出發時間　　": "",
+    },
+    {
+        "起點　　　　": "",
+        "終點　　　　": "",
+    },
+    {
+        "甜點風格　　": "",
+        "供餐": "",
+    },
+    {
+        "上傳路線圖片": "",
+        "上傳風景圖片": "",
+    },
+    {
+        "旅程介紹　　": "",
+        "景觀介紹": "",
+    },
+]
+
+
 const BackDrop = () => {
     return <div className={classes.backdrop}></div>
 }
@@ -130,80 +155,68 @@ const ModalOverLay = (props) => {
 
     return (
         <div className={classes.modal}>
-            <Card className="rounded-lg">
+            <Card className="rounded-lg transition-all">
                 <CardHeader className="justify-between bg-darkbrown">
                     <h3 className="font-titleFont font-bold text-h3 mx-2 text-lightyellow pl-5 py-3">
                         模板新增/修改
                     </h3>
                     <BtnLightbrown btnText="×" onClick={props.onClose} />
                 </CardHeader>
-                <CardBody className="pl-10 bg-lightyellow">
-                    <div className="flex flex-row gap-10">
-                        <div>
-                            <h3 className="font-titleFont font-bold text-h6 py-2 pl-1">
-                                風格
-                            </h3>
-                            <select name="" id="" className="
+                <CardBody className="pl-10 bg-lightyellow ">
+                    {data.map((elem, index) => (
+                        <div className="flex flex-row gap-2 pb-5">
+                            <div>
+                                <h3 className="font-titleFont font-bold text-h6 py-2 pl-1">
+                                    {Object.keys(elem)[0]}
+                                </h3>
+                                <select name="" id="" className="
                         font-bodyFont font-bold
                         bg-transparent" onChange={handleThemeChange}>
-                                {templateContent.theme.map((item) => (
-                                    <option value={item.themeId} key={item.themeId}>{item.themeName}</option>
-                                ))}
-                            </select>
-                        </div>
-                        <div>
-                            <h3 className="font-titleFont font-bold text-h6 py-2 pl-1">
-                                路線
-                            </h3>
-                            <select name="" id="" className="font-bodyFont
-                        bg-transparent">
-                                {templateContent.route.map((item) => (
-                                    <option value={item.routeId} key={item.routeId}>{item.routeName}</option>
-                                ))}
-                            </select>
-                        </div>
-                        <div>
-                            <h3 className="font-titleFont font-bold text-h6 py-2 pl-1">
-                                菜單
-                            </h3>
-                            <div className="flex flex-row gap-2">
-                                <div>
-                                    <select name="" id="" className="font-bodyFont
-                            bg-transparent">
-                                        {filteredMenu1 != [] || filteredMenu1 ? (
-                                            filteredMenu1.map((item) => (
-                                                <option value={item.menuId} key={item.menuId}>{item.menuName}</option>
-                                            ))
-                                        ) :
+                                    {templateContent.theme.map((item) => (
+                                        <option value={item.themeId} key={item.themeId}>{item.themeName}</option>
+                                    ))}
+                                </select>
+                                <hr />
+                            </div>
+                            <div>
+                                <h3 className="font-titleFont font-bold text-h6 py-2 pl-1">
+                                    {Object.keys(elem)[1]}
+                                </h3>
+                                <div className="flex flex-row gap-2">
+                                    <div>
+                                        <select name="" id="" className="font-bodyFont bg-transparent">
+                                            {filteredMenu2 != [] ? (
+                                                filteredMenu2.map((item) => (
+                                                    <option value={item.menuId} key={item.menuId}>{item.menuName}</option>
+                                                ))
+                                            ) :
+                                                (
+                                                    <option value="">無項目</option>
+                                                )}
+                                        </select>
+                                        {Object.keys(elem)[1] === "供餐" ?
                                             (
-                                                <option value="">無項目</option>
+                                                <select name="" id="" className="font-bodyFont bg-transparent">
+                                                    {filteredMenu2 != [] ? (
+                                                        filteredMenu2.map((item) => (
+                                                            <option value={item.menuId} key={item.menuId}>{item.menuName}</option>
+                                                        ))
+                                                    ) :
+                                                        (
+                                                            <option value="">無項目</option>
+                                                        )}
+                                                </select>
+                                            ) : (
+                                                ""
                                             )}
-                                    </select>
-                                </div>
-                                <div>
-                                    <select name="" id="" className="font-bodyFont
-                            bg-transparent">
-                                        {filteredMenu2 != [] ? (
-                                            filteredMenu2.map((item) => (
-                                                <option value={item.menuId} key={item.menuId}>{item.menuName}</option>
-                                            ))
-                                        ) :
-                                            (
-                                                <option value="">無項目</option>
-                                            )}
-                                    </select>
+                                        <hr />
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div className="">
-                    </div>
+                    ))}
                 </CardBody>
-                <CardFooter className="bg-darkbrown py-10 pl-10 items-end justify-between">
-                    <input type="text" placeholder="請輸入行程敘述"
-                        className="text-lightyellow font-bodyFont card_footer input-large"
-                        value={templateContent.description}
-                        style={{ width: '65%', boxSizing: 'border-box' }} />
+                <CardFooter className="bg-darkbrown items-end justify-end">
                     <BtnLightbrown btnText="確定送出" />
                     <BtnLightbrown btnText="取消" onClick={props.onClose} />
                 </CardFooter>
