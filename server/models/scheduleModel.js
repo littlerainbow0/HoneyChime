@@ -30,8 +30,9 @@ LEFT JOIN
 
     try {
         const { results } = await query(sql);
-        console.log(results);
-
+        results.forEach((value, index) => {
+            results[index].DepartureDate = modelFuns.dateFormat(value.DepartureDate);
+        });
         return { results };
     } catch (error) {
         console.log('查詢旅程資料錯誤：', error);
@@ -66,6 +67,9 @@ WHERE
 
     try {
         const { results } = await query(sql, [dessertType]);  // 使用 dessertType 參數進行查詢
+        results.forEach((value, index) => {
+            results[index].DepartureDate = modelFuns.dateFormat(value.DepartureDate);
+        });
         return { results };
     } catch (error) {
         console.log('查詢特定甜點之旅程資料錯誤：', error);

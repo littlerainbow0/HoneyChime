@@ -1,9 +1,16 @@
 import query from '../db.js';  // 引入資料庫查詢函數
+import * as modelFuns from './modelFuns.js';
 
 // 取得所有使用者
 export const getAllUsers = async () => {
     const sql = 'SELECT * FROM USERS';  // 查詢所有使用者的 SQL 語句
-    return query(sql);  // 使用 query 函數執行查詢
+    const { results } = await query(sql);
+
+    results.forEach((value, index) => {
+        results[index].Birth = modelFuns.dateFormat(value.Birth);
+        results[index].RegistrationTime = modelFuns.dateTimeFormat(value.RegistrationTime);
+    });
+    return { results };  // 使用 query 函數執行查詢
 };
 
 export const getUserByUserID = async (userID) => {
@@ -12,6 +19,10 @@ FROM USERS
 WHERE userID = ?`;
     try {
         const { results } = await query(sql, [userID]);  // 使用 userID 參數進行查詢
+        results.forEach((value, index) => {
+            results[index].Birth = modelFuns.dateFormat(value.Birth);
+            results[index].RegistrationTime = modelFuns.dateTimeFormat(value.RegistrationTime);
+        });
         return { results };
     } catch (error) {
         console.log('查詢特定ID之使用者資料錯誤：', error);

@@ -56,6 +56,10 @@ LEFT JOIN
 
     try {
         const { results } = await query(sql);
+        results.forEach((value, index) => {
+            results[index].OrderTime = modelFuns.dateTimeFormat(value.OrderTime);
+            results[index].DepartureDate = modelFuns.dateFormat(value.DepartureDate);
+        });
         return { results };
     } catch (error) {
         console.log('查詢訂單資料錯誤：', error);
@@ -118,7 +122,11 @@ LEFT JOIN
  	O.UserID=?;`;
 
     try {
-        const { results } = await query(sql, [userID]);  // 使用 userID 參數進行查詢
+        const { results } = await query(sql, [userID]);  // 使用 userID 參數進行查詢   
+        results.forEach((value, index) => {
+            results[index].OrderTime = modelFuns.dateTimeFormat(value.OrderTime);
+            results[index].DepartureDate = modelFuns.dateFormat(value.DepartureDate);
+        });
         return { results };
     } catch (error) {
         console.log('查詢特定使用者ID之訂單資料錯誤：', error);

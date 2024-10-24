@@ -7,9 +7,8 @@ export const getAllNews = async () => {
     const { results } = await query(sql);
 
     results.forEach((value, index) => {
-        results[index].Date = modelFuns.dateTypeConvert(value.Date);
+        results[index].Date = modelFuns.dateFormat(value.Date);
     });
-    
     return { results };  // 傳給db
 };
 
