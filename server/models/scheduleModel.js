@@ -31,6 +31,7 @@ LEFT JOIN
     try {
         const { results } = await query(sql);
         results.forEach((value, index) => {
+            results[index].Expired = modelFuns.isExpired(results[index].DepartureDate);
             results[index].DepartureDate = modelFuns.dateFormat(value.DepartureDate);
         });
         return { results };
@@ -68,6 +69,7 @@ WHERE
     try {
         const { results } = await query(sql, [dessertType]);  // 使用 dessertType 參數進行查詢
         results.forEach((value, index) => {
+            results[index].Expired = modelFuns.isExpired(results[index].DepartureDate);
             results[index].DepartureDate = modelFuns.dateFormat(value.DepartureDate);
         });
         return { results };
