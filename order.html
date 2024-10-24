@@ -141,6 +141,7 @@
             document.getElementById('orderDessert2').innerText = l;
             document.getElementById('orderPrice').innerText = m;
 
+            // ============ 將日期轉為post所需格式 ===============
             function formatDateTime(date) {
                 const yyyy = date.getFullYear();
                 const mm = String(date.getMonth() + 1).padStart(2, '0'); // 月份從 0 開始
@@ -154,6 +155,8 @@
 
             const orderTime = formatDateTime(new Date()); // 獲取格式化的日期時間
 
+            // ============ 將人數轉為post所需格式 ===============
+
             function postPeople() {
                 let h = parseInt(reservationData.people, 10) || 0;
                 console.log(h);
@@ -161,6 +164,7 @@
             }
             const people = postPeople();
 
+            // ============ 將信用卡號轉為post所需格式 ===============
             function postPayment() {
                 if (d) {
                     d = "已付款";
@@ -174,39 +178,97 @@
             const payment = postPayment();
             console.log(payment);
 
+            // ============ 將甜點數量轉為post所需格式 ===============
             function postDessert() {
                 function extractNumber(dessert) {
                     const parts = dessert.split('*');
                     return parts.length > 1 ? parseInt(parts[1].trim(), 10) : 0; // 確保有數字部分
                 }
 
-                let k = extractNumber(reservationData.dessert1) || 0; // 提取 dessert1 的數字
-                let l = extractNumber(reservationData.dessert2) || 0; // 提取 dessert2 的數字
+                let k = extractNumber(reservationData.dessert1) || 0; // dessert1 的數字
+                let l = extractNumber(reservationData.dessert2) || 0; // dessert2 的數字
 
                 let mealData = {
-                    MealFirst: k >= 1 ? 1 : 2,
-                    MealSecond: (k < 2 && l >= 1) ? 2 : 1,
-                    MealThird: (k < 3 && l >= 3) ? 2 : 1,
-                    MealFourth: (k < 4 && l >= 0) ? 2 : null
+                    MealFirst: null,
+                    MealSecond: null,
+                    MealThird: null,
+                    MealFourth: null,
                 };
+
+                // 根據 k 和 l 的值設定 MealFirst
+                if (k >= 1) {
+                    mealData.MealFirst = 1;
+                } else {
+                    mealData.MealFirst = 2;
+                }
+
+                // 根據 k 和 l 的值設定 MealSecond
+                if (k >= 2) {
+                    mealData.MealSecond = 1;
+                } else if (k >= 1 && l == 1 || l >= 2) {
+                    mealData.MealSecond = 2;
+                } else { mealData.MealSecond = null; }
+
+                // 根據 k 和 l 的值設定 MealThird
+                if (k >= 3) {
+                    mealData.MealThird = 1;
+                } else if (k >= 2 && l == 1 || k > 0 && l >= 2 || l >= 3) {
+                    mealData.MealThird = 2;
+                } else { mealData.MealThird = null; }
+
+                // 根據 k 和 l 的值設定 MealFourth
+                if (k >= 4) {
+                    mealData.MealFourth = 1;
+                } else if (k >= 3 && l == 1 && l >= 2 || k > 0 && l >= 3 || l >= 4) {
+                    mealData.MealFourth = 2;
+                } else { mealData.MealFourth = null; }
+
                 return mealData;
             }
             const dessert = postDessert();
             console.log(dessert);
+        
 
+            axios.get('http://localhost:8000/getSeats')
+                .then((Response) => {
+                    seatArray = Response.data;
+                    console.log(Response)
+                    // return Response.data;
+                    // console.log(seatArray);
+                    // seatArray.forEach(seats => {
+                    //     console.log(seats.SeatID, seats.SeatName);
+                    //     return seats.SeatID, seats.SeatName;
+                    // });
+                    // console.log(j);
 
-            // axios.post('http://localhost:8000/postOrder', {
-            //     UserID: "3",
-            //     ScheduleID: "3",
-            //     OrderTime: orderTime,
-            //     PaymentStatus: payment,
-            //     SeatID: 2,
-            //     PeopleNum: people,
-            //     ...dessert
+                    let jToSeatID = j;
+                    const matchingSeat = seatArray.find(seat => seat.SeatName === jToSeatID);
+                    if (matchingSeat) {
+                        console.log(matchingSeat.SeatID, "is SeatID");
+                        console.log(j, "is original j");
+                        let nameToID = matchingSeat.SeatID;
+                        console.log(nameToID, "is name turn to ID");
 
-            // })
-            //     .then((Response) => console.log(Response))
-            //     .catch((error) => console.log(error));
+                        // ============ 將 座位名稱 轉換為 座位ID 成為post所需格式 ===============
+                        return axios.post('http://localhost:8000/postOrder', {
+                            UserID: "4",
+                            ScheduleID: "3",
+                            OrderTime: orderTime,
+                            PaymentStatus: payment,
+                            SeatID: nameToID,
+                            PeopleNum: people,
+                            ...dessert
+
+                        })
+                        
+
+                    } else {
+                        console.log("找不到對應的座位 ID:", jToSeatID.SeatID);
+                    }
+
+                })
+                .then((Response) => console.log(Response))
+                .catch((error) => console.log(error));
 
         });
 

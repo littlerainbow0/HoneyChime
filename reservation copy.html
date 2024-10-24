@@ -11,8 +11,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <!-- 引入 Flatpickr 的 JavaScript -->
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-
+    <script src="https://cdn.jsdelivr.net/npm/axios@1.1.2/dist/axios.min.js"></script>
 
     <title>預約行程</title>
 </head>
@@ -73,6 +72,7 @@
             <div>
                 <label for="departure_time">出發時間：</label>
                 <select name="" id="departure_time">
+                    <option value="0">選擇出發時間</option>
                     <option value="13:00">13:00</option>
                     <option value="17:00">17:00</option>
                 </select>
@@ -82,22 +82,14 @@
                 <label for="route_start">起站：</label>
                 <select name="" id="route_start">
                     <option value="0">請選擇站點</option>
-                    <option value="2">台北</option>
-                    <option value="3">台中</option>
-                    <option value="1">台南</option>
-                    <option value="5">高雄</option>
-                    <option value="4">花蓮</option>
+
                 </select>
             </div>
             <div>
                 <label for="route_end">迄站：</label>
                 <select name="" id="route_end">
                     <option value="0">請選擇站點</option>
-                    <option value="2">台北</option>
-                    <option value="3">台中</option>
-                    <option value="1">台南</option>
-                    <option value="5">高雄</option>
-                    <option value="4">花蓮</option>
+
                 </select>
             </div>
         </div>
@@ -107,24 +99,14 @@
                 <div>
                     <label for="car_type">車廂類型：</label>
                     <select name="" id="car_type">
-                        <option value="f">景觀車廂Ｆ - 雙人座</option>
-                        <option value="e">景觀車廂Ｅ - 四人座</option>
-                        <option value="d">景觀車廂Ｄ - 雙人包廂</option>
-                        <option value="a">豪華景觀車廂Ａ - VIP 四人席</option>
+
                     </select>
                 </div>
                 <div>
                     <label for="seat">座位：</label>
                     <select name="" id="seat">
                         <option value="0">請選擇座位</option>
-                        <option value="f1">F1</option>
-                        <option value="f2">F2</option>
-                        <option value="f3">F3</option>
-                        <option value="f4">F4</option>
-                        <option value="f5">F5</option>
-                        <option value="f6">F6</option>
-                        <option value="f7">F7</option>
-                        <option value="f8">F8</option>
+
                     </select>
                 </div>
             </div>
@@ -148,8 +130,8 @@
                     行程
                 </h6>
                 <div>
-                    <img src="/src/assets/images/train_exterior/tripInfo_train01.png" alt="">
-                    <p>台北⭢台中</p>
+                    <img id="tripRouteImg" src="/src/assets/images/train_exterior/tripInfo_train01.png" alt="">
+                    <p id="tripRoute">台北⭢台中</p>
                 </div>
             </div>
 
@@ -159,11 +141,11 @@
                 </h6>
                 <div>
                     <div>
-                        <img src="/src/assets/images/dessert/trip_Jp.png" alt="">
+                        <img id="dessert_img1" src="/src/assets/images/dessert/dessert_newDessert.jpg" alt="">
                         <label for="dessert_jpA_qty">
-                            套餐名稱：<span id="dessert_title1">舒芙蕾套餐</span>
+                            套餐名稱：<span id="dessert_title1">舒芙蕾佐時令水果</span>
                             <br>
-                            <span>套餐內容：舒芙蕾, 抹茶</span>
+                            套餐內容：<span id="dessert_content1">舒芙蕾, 時令水果, 日本綠茶</span>
                         </label>
                         <select name="" id="dessert_jpA_qty">
                             <option value="0">0</option>
@@ -175,11 +157,11 @@
                     </div>
 
                     <div>
-                        <img src="/src/assets/images/dessert/tripInfo_Jp02.png" alt="">
+                        <img id="dessert_img2" src="/src/assets/images/dessert/tripInfo_Jp02.png" alt="">
                         <label for="dessert_jpB_qty">
-                            套餐名稱：<span id="dessert_title2">日式和菓子</span>
+                            套餐名稱：<span id="dessert_title2">日式和菓子佐綠茶羊羹</span>
                             <br>
-                            <span>套餐內容：日式和菓子, 煎茶</span>
+                            套餐內容：<span id="dessert_content2">日式和菓子, 綠茶羊羹, 靜岡抹茶</span>
                         </label>
                         <select name="" id="dessert_jpB_qty">
                             <option value="0">0</option>
@@ -224,12 +206,16 @@
             </p>
             <p>
                 <span>餐點</span>
-                <span id="order_dessert"> 日式舒芙蕾套餐*1, <br>
-                    日式菓子套餐*1</span>
+                <span>
+                    <span id="order_dessert1"> </span>
+                    <br>
+                    <span id="order_dessert2"> </span>
+                </span>
+
             </p>
             <p>
                 <span>金額</span>
-                <span id="order_price">$4000</span>
+                <span id="order_price">$0</span>
             </p>
         </div>
         <!-- 右側訂單明細結束 -->
@@ -242,25 +228,25 @@
         <h6>訂位人資料</h6>
         <label for="lastName">姓名</label>
         <br>
-        <input type="text" id="Name" placeholder="請輸入姓名" minlength="2" required>
+        <input type="text" id="Name" placeholder="請輸入姓名" minlength="2" value="dd" required>
         <span class="error"></span>
 
         <br>
         <label for="phone">手機號碼</label>
         <br>
-        <input type="tel" id="phone" pattern="09[0-9]{10}" placeholder="請輸入手機號碼" required>
+        <input type="tel" id="phone" pattern="09[0-9]{10}" placeholder="請輸入手機號碼" value="0911222333" required>
         <span class="error"></span>
         <br>
         <label for="email">電子郵件</label>
         <br>
-        <input type="email" id="email" placeholder="請輸入電子郵件" required>
+        <input type="email" id="email" placeholder="請輸入電子郵件" value="abc@gmail.com" required>
         <span class="error"></span>
 
         <br>
         <label for="creditCard">信用卡號</label>
         <br>
         <input type="text" id="creditCard" pattern="[0-9]{4}-[0-9]{4}-[0-9]{4}-[0-9]{4}"
-            placeholder="xxxx-xxxx-xxxx-xxxx" required>
+            placeholder="xxxx-xxxx-xxxx-xxxx" value="1111-2222-3333-4444" required>
         <span class="error"></span>
 
         <button type="submit" onclick="userInfoCheck()" id="complete">下一步</button>
@@ -273,193 +259,409 @@
         Top
     </a>
     <script>
+        // var dessertTypeUrl = "http://localhost:8000/getTemplates";
+        // var scheduleUrl = "http://localhost:8000/getSchedules";
+        // departure_date.onclick = async function () {
+        //     // let dessertType = await axios.get(dessertTypeUrl);
+        //     let schedule = await axios.get(scheduleUrl);
+        //     // console.log(dessertType.data);
+        //     console.log(schedule.data); // 輸出整個行程資料
+        //     // console.log(typeof schedule);
+        //     console.log(schedule.DepartureDate);
+        //     // 提取所有 DepartureDate
+        // const departureDates = schedule.data.map(item => item.DepartureDate);
+        // departureDates.forEach(date => {
+        //     console.log(date);
+        // });
+        // const departureTimes = schedule.data.map(item => item.DepartureTime);
+        // departureDates.forEach(time => {
+        //     console.log(time);
+        // });
+        // }
+
+        // json.parse(apple)
+        // json(apple[0].title)
+
+        axios.get('http://localhost:8000/getSchedules/:dessertType')
+        .then((Response) => console.log(Response)
+        .catch((error) => console.log(error)
+        ));
+
+
+        // ------------ 抓到路線 ------------
+        let tripInfoData = JSON.parse(localStorage.getItem("routeType"));
+        let start = tripInfoData.start;
+        let end = tripInfoData.end;
+        let img = tripInfoData.image;
+        console.log(start, " ⭢ ", end);
+        console.log(img);
+
+        document.addEventListener('DOMContentLoaded', function () {
+            document.getElementById('tripRoute').innerText = `${start} ⭢ ${end}`;
+            document.getElementById('tripRouteImg').src = img;
+        });
+
+        // -------- 旅客人數與車廂選項邏輯 ---------
+        document.addEventListener('DOMContentLoaded', function () {
+            const peopleSelect = document.getElementById('people');
+            const carTypeSelect = document.getElementById('car_type');
+            const carImage = document.getElementById('car_image');
+            const seatSelect = document.getElementById('seat');
+
+            const carOptions = {
+                low: [
+                    { value: 'f', text: '景觀車廂Ｆ - 雙人座' },
+                    { value: 'd', text: '景觀車廂Ｄ - 雙人包廂' }
+                ],
+                high: [
+                    { value: 'e', text: '景觀車廂Ｅ - 四人座' },
+                    { value: 'a', text: '豪華景觀車廂Ａ - VIP 四人席' }
+                ]
+            };
+
+            function updateCarOptions() {
+                const peopleCount = parseInt(peopleSelect.value);
+
+                // 清空目前的選項
+                carTypeSelect.innerHTML = '';
+                seatSelect.innerHTML = ''; // 清空座位選項
+
+                if (peopleCount <= 2) {
+                    carOptions.low.forEach(option => {
+                        const opt = document.createElement('option');
+                        opt.value = option.value;
+                        opt.textContent = option.text;
+                        carTypeSelect.appendChild(opt);
+                    });
+                    carImage.setAttribute('data', '/src/assets/images/plan/F.svg'); // 更新圖片
+                    // 添加座位選項
+                    seatSelect.innerHTML += '<option value="f1">F1</option>';
+                    seatSelect.innerHTML += '<option value="f2">F2</option>';
+                    seatSelect.innerHTML += '<option value="f3">F3</option>';
+                    seatSelect.innerHTML += '<option value="f4">F4</option>';
+                    seatSelect.innerHTML += '<option value="f5">F5</option>';
+                    seatSelect.innerHTML += '<option value="f6">F6</option>';
+                    seatSelect.innerHTML += '<option value="f7">F7</option>';
+                    seatSelect.innerHTML += '<option value="f8">F8</option>';
+                } else {
+                    carOptions.high.forEach(option => {
+                        const opt = document.createElement('option');
+                        opt.value = option.value;
+                        opt.textContent = option.text;
+                        carTypeSelect.appendChild(opt);
+                    });
+                    carImage.setAttribute('data', '/src/assets/images/plan/E.svg'); // 更新圖片
+                    // 添加座位選項
+                    seatSelect.innerHTML += '<option value="e2">E2</option>';
+                    seatSelect.innerHTML += '<option value="e3">E3</option>';
+                    seatSelect.innerHTML += '<option value="e4">E4</option>';
+                }
+            }
+
+            // 監聽人數選擇變化
+            peopleSelect.addEventListener('change', updateCarOptions);
+
+            // 初始化選項
+            updateCarOptions();
+        });
+
+
+
+
+        //------- 計算車廂價格 ----------
+        document.addEventListener('DOMContentLoaded', function () {
+            const carTypeSelect = document.getElementById('car_type');
+            const peopleSelect = document.getElementById('people');
+            const orderPriceDisplay = document.getElementById('order_price'); // 用於顯示價格的元素
+
+            const carData = [
+                { CarriageID: 'f', Price: 2000 },
+                { CarriageID: 'e', Price: 2000 },
+                { CarriageID: 'd', Price: 6000 },
+                { CarriageID: 'a', Price: 12000 }
+            ];
+
+            function updatePrice() {
+                const selectedCarType = carTypeSelect.value;
+                const peopleCount = parseInt(peopleSelect.value) || 0;
+
+                // 找到對應的價格
+                const carInfo = carData.find(car => car.CarriageID === selectedCarType);
+                let totalPrice = 0;
+
+                if (carInfo) {
+                    totalPrice = (selectedCarType === 'f' || selectedCarType === 'e')
+                        ? carInfo.Price * peopleCount
+                        : carInfo.Price;
+                }
+
+                // 更新價格顯示在 order_price
+                orderPriceDisplay.innerText = `$${totalPrice}`;
+            }
+
+            // 監聽選擇變化
+            carTypeSelect.addEventListener('change', updatePrice);
+            peopleSelect.addEventListener('change', updatePrice); // 當人數改變時也更新價格
+
+            // 初始化價格顯示
+            updatePrice();
+        });
+
+
+
+
+        //------- 當甜點類型或旅客人數改變時的處理函數 ----------
+        function resetFormFields() {
+            // 重置出發日期
+            document.getElementById("departure_date").value = "";
+
+            // 其他表單元素可以在這裡重置
+            document.getElementById("car_type").value = "f"; // 假設預設為第一個選項
+            document.getElementById("seat").value = "f1"; // 假設預設為請選擇座位
+        }
+
+        // 監聽甜點類型和旅客人數的變化
+        document.getElementById("dessert_type").addEventListener("change", resetFormFields);
+        document.getElementById("people").addEventListener("change", resetFormFields);
+
+
+
+
+        // ---------- 取得甜點類型匯出甜點選項 -----------
+        const dessertData =
+        {
+            jp: {
+                ScheduleID: 1,
+                DepartureDate: "2024-10-10",
+                DepartureTime: "13:00",
+                StopStart: "台北",
+                StopEnd: "台中",
+                MenuFirstID: 1,
+                MenuFirst: "舒芙蕾佐時令水果",
+                MenuFirstContent: "舒芙蕾, 時令水果, 日本綠茶",
+                MenuFirstImg: "/src/assets/images/dessert/dessert_newDessert.jpg",
+                MenuSecondID: 2,
+                MenuSecond: "日式和菓子佐綠茶羊羹",
+                MenuSecondContent: "日式和菓子, 綠茶羊羹, 靜岡抹茶",
+                MenuSecondImg: "/src/assets/images/dessert/tripInfo_Jp02.png"
+            },
+            tw: {
+                ScheduleID: 2,
+                DepartureDate: "2024-10-11",
+                DepartureTime: "13:00",
+                StopStart: "台北",
+                StopEnd: "台中",
+                MenuFirstID: 1,
+                MenuFirst: "麻薏蛋糕佐焦糖鳳梨",
+                MenuFirstContent: "麻薏蛋糕, 炙烤焦糖鳳梨, 高山茶",
+                MenuFirstImg: "/src/assets/images/dessert/tripInfo_Tw01.png",
+                MenuSecondID: 2,
+                MenuSecond: "地瓜涼菓佐高山茶糕",
+                MenuSecondContent: "地瓜涼菓, 高山茶糕, 凍頂烏龍茶",
+                MenuSecondImg: "/src/assets/images/dessert/tripInfo_Tw04.png"
+            },
+            eu: {
+                ScheduleID: 2,
+                DepartureDate: "2024-10-12",
+                DepartureTime: "17:00",
+                StopStart: "台北",
+                StopEnd: "台中",
+                MenuFirstID: 1,
+                MenuFirst: "蒙布朗佐馬卡龍",
+                MenuFirstContent: "蒙布朗, 馬卡龍, 卡布奇諾",
+                MenuFirstImg: "/src/assets/images/dessert/trip_Eur.png",
+                MenuSecondID: 2,
+                MenuSecond: "草莓塔佐馬卡龍",
+                MenuSecondContent: "草莓塔, 馬卡龍, 精品拿鐵",
+                MenuSecondImg: "/src/assets/images/dessert/tripInfo_Eur04.png"
+            }
+        };
+        // 當甜點類型改變時調用此函數
+        function updateDessertInfo() {
+            const dessertType = document.getElementById("dessert_type").value;
+            const dessert = dessertData[dessertType];
+
+            // 更新第一道甜點資訊
+            document.getElementById("dessert_title1").innerText = dessert.MenuFirst;
+            document.getElementById("dessert_content1").innerText = dessert.MenuFirstContent;
+            document.getElementById("dessert_img1").src = dessert.MenuFirstImg;
+
+            // 更新第二道甜點資訊
+            document.getElementById("dessert_title2").innerText = dessert.MenuSecond;
+            document.getElementById("dessert_content2").innerText = dessert.MenuSecondContent;
+            document.getElementById("dessert_img2").src = dessert.MenuSecondImg;
+        }
+
+        // 監聽甜點類型的變化
+        document.getElementById("dessert_type").addEventListener("change", updateDessertInfo);
 
         // -------------------------------------------
-        // const scheduleData =
-        //     [
-        //         {
-        //             SchedulesID: 1,
-        //             DepartureDate: "2024-10-10",
-        //             DepartureTime: "13:00",
-        //             RouteStart: "台北",
-        //             RouteEnd: "台中",
-        //             Duration: 121,
-        //         },
-        //         {
-        //             SchedulesID: 2,
-        //             DepartureDate: "2024-10-10",
-        //             DepartureTime: "17:00",
-        //             RouteStart: "台北",
-        //             RouteEnd: "台中",
-        //             Duration: 121
-        //         },
-        //         {
-        //             SchedulesID: 3,
-        //             DepartureDate: "2025-11-14",
-        //             DepartureTime: "13:00",
-        //             RouteStart: "台北",
-        //             RouteEnd: "台中",
-        //             Duration: 121
-        //         },
-        //         {
-        //             SchedulesID: 4,
-        //             DepartureDate: "2025-11-14",
-        //             DepartureTime: "17:00",
-        //             RouteStart: "台北",
-        //             RouteEnd: "台中",
-        //             Duration: 121
-        //         },
-        //         {
-        //             SchedulesID: 5,
-        //             DepartureDate: "2025-11-14",
-        //             DepartureTime: "13:00",
-        //             RouteStart: "台北",
-        //             RouteEnd: "花蓮",
-        //             Duration: 150
-        //         }
+        // ---------- 起迄站與出發日期 ------------
+        const scheduleData =
+            [
+                {
+                    "ScheduleID": 8,
+                    "DepartureDate": "2025-11-13",
+                    "DepartureTime": "17:00",
+                    "Duration": 154,
+                    "StartStopName": "高雄",
+                    "EndStopName": "台中"
+                },
+                {
+                    "ScheduleID": 17,
+                    "DepartureDate": "2025-11-12",
+                    "DepartureTime": "17:00",
+                    "Duration": 154,
+                    "StartStopName": "高雄",
+                    "EndStopName": "台中"
+                },
+                {
+                    "ScheduleID": 9,
+                    "DepartureDate": "2025-11-13",
+                    "DepartureTime": "17:00",
+                    "Duration": 240,
+                    "StartStopName": "高雄",
+                    "EndStopName": "花蓮"
+                },
+                {
+                    "ScheduleID": 18,
+                    "DepartureDate": "2025-11-12",
+                    "DepartureTime": "17:00",
+                    "Duration": 240,
+                    "StartStopName": "高雄",
+                    "EndStopName": "花蓮"
+                },
+                // {
+                //     SchedulesID: 7,
+                //     DepartureDate: "2024-11-14",
+                //     DepartureTime: "17:00",
+                //     RouteStart: "台中",
+                //     RouteEnd: "台南",
+                //     Duration: 150
+                // }
 
-        //         //用日期去判斷日曆能點擊的部分(有行程且時間是未來)
-        //     ]
+                //用日期去判斷日曆能點擊的部分(有行程且時間是未來)
+            ]
 
-        // // 抓日曆去選擇出發時間、起站、迄站與抵達時間
-        // document.addEventListener('DOMContentLoaded', () => {
-        //     const departureTimeSelect = document.getElementById('departure_time');
-        //     const orderStartDate = document.getElementById('order_start_date');
-        //     const orderArriveDate = document.getElementById('order_arrive_date');
-        //     const routeStartSelect = document.getElementById('route_start');
-        //     const routeEndSelect = document.getElementById('route_end');
 
-        //     // 提取可用日期
-        //     const availableDates = scheduleData.map(schedule => schedule.DepartureDate);
+        // 抓日曆去選擇出發時間、起站、迄站與抵達時間
+        document.addEventListener('DOMContentLoaded', () => {
+            const departureTimeSelect = document.getElementById('departure_time');
+            const orderStartDate = document.getElementById('order_start_date');
+            const orderArriveDate = document.getElementById('order_arrive_date');
+            const routeStartSelect = document.getElementById('route_start');
+            const routeEndSelect = document.getElementById('route_end');
 
-        //     // 初始化 Flatpickr
-        //     flatpickr("#departure_date", {
-        //         dateFormat: "Y-m-d",
-        //         enable: availableDates,
-        //         disable: [
-        //             function (date) {
-        //                 return !availableDates.includes(date.toISOString().split('T')[0]);
-        //             }
-        //         ],
-        //         onChange: function (selectedDates, dateStr) {
-        //             setDepartureDetails(dateStr);
-        //         }
-        //     });
+            // 提取可用日期
+            const availableDates = scheduleData.map(schedule => schedule.DepartureDate);
 
-        //     // 設置出發詳情
-        //     const setDepartureDetails = (selectedDate) => {
-        //         const selectedTime = departureTimeSelect.value;
 
-        //         // 查找匹配的排程
-        //         const schedule = scheduleData.find(s => s.DepartureDate === selectedDate && s.DepartureTime === selectedTime);
+            // 初始化 Flatpickr
+            flatpickr("#departure_date", {
+                dateFormat: "Y-m-d",
+                enable: availableDates,
+                disable: [
+                    function (date) {
+                        return !availableDates.includes(date.toISOString().split('T')[0]);
+                    }
+                ],
+                onChange: function (selectedDates, dateStr) {
+                    setDepartureDetails(dateStr);
+                }
+            });
 
-        //         if (schedule) {
-        //             orderStartDate.textContent = `${schedule.DepartureDate} ${schedule.DepartureTime}`;
-        //             // 更新起站和迄站選項
-        //             updateRouteOptions(selectedDate, selectedTime);
-        //         } else {
-        //             orderStartDate.textContent = "無可用排程";
-        //             orderArriveDate.textContent = ""; // 清空抵達時間
-        //             clearRouteOptions();
-        //         }
-        //     };
+            // 設置出發詳情
+            const setDepartureDetails = (selectedDate) => {
+                const selectedTime = departureTimeSelect.value;
 
-        //     // 計算抵達時間
-        //     function calculateArrivalTime(departureTime, duration) {
-        //         const [hours, minutes] = departureTime.split(':').map(Number);
-        //         const departureDateTime = new Date();
-        //         departureDateTime.setHours(hours);
-        //         departureDateTime.setMinutes(minutes);
+                // 查找匹配的排程
+                const schedule = scheduleData.find(s => s.DepartureDate === selectedDate && s.DepartureTime === selectedTime);
 
-        //         // 加上持續時間
-        //         departureDateTime.setMinutes(departureDateTime.getMinutes() + duration);
+                if (schedule) {
+                    orderStartDate.textContent = `${schedule.DepartureDate} ${schedule.DepartureTime}`;
+                    // 更新起站和迄站選項
+                    updateRouteOptions(selectedDate, selectedTime);
+                } else {
+                    orderStartDate.textContent = "無可用排程";
+                    orderArriveDate.textContent = ""; // 清空抵達時間
+                    clearRouteOptions();
+                }
+            };
 
-        //         const arrivalHours = departureDateTime.getHours().toString().padStart(2, '0');
-        //         const arrivalMinutes = departureDateTime.getMinutes().toString().padStart(2, '0');
+            // 計算抵達時間
+            function calculateArrivalTime(departureTime, duration) {
+                const [hours, minutes] = departureTime.split(':').map(Number);
+                const departureDateTime = new Date();
+                departureDateTime.setHours(hours);
+                departureDateTime.setMinutes(minutes);
 
-        //         return `${arrivalHours}:${arrivalMinutes}`;
-        //     }
+                // 加上持續時間
+                departureDateTime.setMinutes(departureDateTime.getMinutes() + duration);
 
-        //     // 更新路線選項
-        //     function updateRouteOptions(selectedDate, selectedTime) {
-        //         // 清空選項
-        //         clearRouteOptions();
+                const arrivalHours = departureDateTime.getHours().toString().padStart(2, '0');
+                const arrivalMinutes = departureDateTime.getMinutes().toString().padStart(2, '0');
 
-        //         // 收集所有起站和迄站
-        //         const routes = scheduleData.filter(schedule => schedule.DepartureDate === selectedDate && schedule.DepartureTime === selectedTime);
+                return `${arrivalHours}:${arrivalMinutes}`;
+            }
 
-        //         const startRoutes = new Set();
-        //         const endRoutes = new Set();
+            // 更新路線選項
+            function updateRouteOptions(selectedDate, selectedTime) {
+                // 清空選項
+                clearRouteOptions();
 
-        //         routes.forEach(route => {
-        //             startRoutes.add(route.RouteStart);
-        //             endRoutes.add(route.RouteEnd);
-        //         });
+                // 收集所有起站和迄站
+                const routes = scheduleData.filter(schedule => schedule.DepartureDate === selectedDate && schedule.DepartureTime === selectedTime);
 
-        //         // 更新起站選項
-        //         startRoutes.forEach(route => {
-        //             routeStartSelect.innerHTML += `<option value="${route}">${route}</option>`;
-        //         });
+                const startRoutes = new Set();
+                const endRoutes = new Set();
 
-        //         // 更新迄站選項
-        //         endRoutes.forEach(route => {
-        //             routeEndSelect.innerHTML += `<option value="${route}">${route}</option>`;
-        //         });
+                routes.forEach(route => {
+                    startRoutes.add(route.StartStopName);
+                    endRoutes.add(route.EndStopName);
+                });
 
-        //         // 添加監聽器到迄站選擇
-        //         routeEndSelect.addEventListener('change', () => {
-        //             const selectedRouteEnd = routeEndSelect.value;
-        //             const schedule = routes.find(s => s.RouteEnd === selectedRouteEnd);
+                // 更新起站選項
+                startRoutes.forEach(route => {
+                    routeStartSelect.innerHTML += `<option value="${route}">${route}</option>`;
+                });
 
-        //             if (schedule) {
-        //                 const arrivalTime = calculateArrivalTime(schedule.DepartureTime, schedule.Duration);
-        //                 orderArriveDate.textContent = arrivalTime;
-        //             } else {
-        //                 orderArriveDate.textContent = ""; // 清空抵達時間
-        //             }
-        //         });
-        //     }
+                // 更新迄站選項
+                endRoutes.forEach(route => {
+                    routeEndSelect.innerHTML += `<option value="${route}">${route}</option>`;
+                });
 
-        //     // 清空路線選項
-        //     function clearRouteOptions() {
-        //         routeStartSelect.innerHTML = `<option value="0">請選擇站點</option>`;
-        //         routeEndSelect.innerHTML = `<option value="0">請選擇站點</option>`;
-        //     }
+                // 添加監聽器到迄站選擇
+                routeEndSelect.addEventListener('change', () => {
+                    const selectedRouteEnd = routeEndSelect.value;
+                    const schedule = routes.find(s => s.EndStopName === selectedRouteEnd);
 
-        //     // 監聽出發時間變化事件
-        //     departureTimeSelect.addEventListener('change', () => {
-        //         const selectedDate = document.getElementById('departure_date').value;
-        //         setDepartureDetails(selectedDate);
-        //     });
+                    if (schedule) {
+                        const arrivalTime = calculateArrivalTime(schedule.DepartureTime, schedule.Duration);
+                        orderArriveDate.textContent = arrivalTime;
+                    } else {
+                        orderArriveDate.textContent = ""; // 清空抵達時間
+                    }
+                });
+            }
 
-        //     // 監聽出發日期變化事件
-        //     document.getElementById('departure_date').addEventListener('change', (event) => {
-        //         setDepartureDetails(event.target.value);
-        //     });
-        // });
+            // 清空路線選項
+            function clearRouteOptions() {
+                routeStartSelect.innerHTML = `<option value="0">請選擇站點</option>`;
+                routeEndSelect.innerHTML = `<option value="0">請選擇站點</option>`;
+            }
 
-        const scheduleUrl = "http://localhost:8000/getSchedules";
-const departure_date = document.getElementById('departure_date');
+            // 監聽出發時間變化事件
+            departureTimeSelect.addEventListener('change', () => {
+                const selectedDate = document.getElementById('departure_date').value;
+                setDepartureDetails(selectedDate);
+            });
 
-departure_date.onclick = async function () {
-    try {
-        let schedule = await axios.get(scheduleUrl);
-        console.log(schedule.data); // 輸出整個行程資料
-
-        // 提取所有 DepartureDate 並格式化
-        const departureDates = schedule.data.map(item => {
-            return item.DepartureDate.split('T')[0]; // 只保留日期部分
+            // 監聽出發日期變化事件
+            document.getElementById('departure_date').addEventListener('change', (event) => {
+                setDepartureDetails(event.target.value);
+            });
         });
 
-        // 初始化 Flatpickr
-        flatpickr("#departure_date", {
-            dateFormat: "Y-m-d", // 設定日期格式
-            disable: departureDates, // 禁用的日期
-        });
-    } catch (error) {
-        console.error("Error fetching schedule:", error);
-    }
-};
 
 
         // ----------- order detail 抓客人填寫的資料 ------------
@@ -550,9 +752,9 @@ departure_date.onclick = async function () {
 
             if (this.value === 'e') {
                 seatSelect.innerHTML += '<option value="0">請選擇座位</option>';
-                seatSelect.innerHTML += '<option value="e1">E2</option>';
-                seatSelect.innerHTML += '<option value="e2">E3</option>';
-                seatSelect.innerHTML += '<option value="e3">E4</option>';
+                seatSelect.innerHTML += '<option value="e2">E2</option>';
+                seatSelect.innerHTML += '<option value="e3">E3</option>';
+                seatSelect.innerHTML += '<option value="e4">E4</option>';
                 carImage.data = '/src/assets/images/plan/E.svg';
             } else if (this.value === 'd') {
                 seatSelect.innerHTML += '<option value="0">請選擇座位</option>';
@@ -587,18 +789,48 @@ departure_date.onclick = async function () {
         });
 
         // -------------------------------------------
-        // 甜點數量綁定人數
+        // ------- 抓客人選擇的甜點到order detail --------
+        function updateOrderSummary() {
+            // 取得第一道甜點的標題和數量
+            const dessertTitle1 = document.getElementById("dessert_title1").innerText;
+            const dessertQty1 = document.getElementById("dessert_jpA_qty").value;
+
+            // 根據數量更新顯示的內容
+            const orderDessert1 = dessertQty1 > 0 ? `${dessertTitle1} * ${dessertQty1}` : "";
+            document.getElementById("order_dessert1").innerText = orderDessert1;
+
+            // 清空第二道甜點的訂單摘要
+            document.getElementById("order_dessert2").innerText = "";
+
+            // 取得第二道甜點的標題和數量
+            const dessertTitle2 = document.getElementById("dessert_title2").innerText;
+            const dessertQty2 = document.getElementById("dessert_jpB_qty").value;
+
+            // 根據數量更新顯示的內容
+            // 如果 dessertQty1 被改變，這裡可以直接判斷 dessertQty2 是否大於 0
+            const orderDessert2 = dessertQty2 > 0 ? `${dessertTitle2} * ${dessertQty2}` : "";
+            document.getElementById("order_dessert2").innerText = orderDessert2;
+        }
+
+        // 監聽數量選擇器的變化，當數量改變時更新摘要
+        document.getElementById("dessert_jpA_qty").addEventListener("change", updateOrderSummary);
+        document.getElementById("dessert_jpB_qty").addEventListener("change", updateOrderSummary);
+
+
+
+
+
+
+        // -------------- 甜點綁定人數 -----------------
+        // 甜點綁定人數
         document.addEventListener('DOMContentLoaded', function () {
             const dessertA = document.getElementById('dessert_jpA_qty');
             const dessertB = document.getElementById('dessert_jpB_qty');
             const people = document.getElementById('people');
 
             function updateDessertAOptions() {
-                // 清空 dessertA 的選項
                 dessertA.innerHTML = '';
-
-                // 根據 people 的值添加選項到 dessertA
-                const peopleCount = parseInt(people.value);
+                const peopleCount = parseInt(people.value) || 0;
 
                 for (let i = 0; i <= peopleCount; i++) {
                     const option = document.createElement('option');
@@ -607,21 +839,16 @@ departure_date.onclick = async function () {
                     dessertA.appendChild(option);
                 }
 
-                // 更新 dessertB 的選項
                 updateDessertBOptions();
             }
 
             function updateDessertBOptions() {
-                const peopleCount = parseInt(people.value);
-                const dessertAValue = parseInt(dessertA.value);
-
-                // 計算 dessertB 的最大可選數量
+                const peopleCount = parseInt(people.value) || 0;
+                const dessertAValue = parseInt(dessertA.value) || 0;
                 const maxDessertBValue = peopleCount - dessertAValue;
 
-                // 清空 dessertB 的選項
                 dessertB.innerHTML = '';
 
-                // 根據計算出的最大值添加選項
                 for (let i = 0; i <= maxDessertBValue; i++) {
                     const option = document.createElement('option');
                     option.value = i;
@@ -630,19 +857,46 @@ departure_date.onclick = async function () {
                 }
             }
 
-            // 監聽 people 的選擇項改變事件
+            // 監聽人數和甜點A的變化
             people.addEventListener('change', updateDessertAOptions);
-
-            // 監聽 dessertA 的選擇項改變事件
             dessertA.addEventListener('change', updateDessertBOptions);
 
-            // 初始化選項
+            // 初始化甜點選項
             updateDessertAOptions();
         });
 
+        // 更新訂單摘要的函數
+        function updateOrderSummary() {
+            const dessertTitle1 = document.getElementById("dessert_title1").innerText;
+            const dessertQty1 = parseInt(document.getElementById("dessert_jpA_qty").value) || 0;
+
+            const orderDessert1 = dessertQty1 > 0 ? `${dessertTitle1} * ${dessertQty1}` : "";
+            document.getElementById("order_dessert1").innerText = orderDessert1;
+
+            const dessertTitle2 = document.getElementById("dessert_title2").innerText;
+            const dessertQty2 = parseInt(document.getElementById("dessert_jpB_qty").value) || 0;
+
+            const orderDessert2 = dessertQty2 > 0 ? `${dessertTitle2} * ${dessertQty2}` : "";
+            document.getElementById("order_dessert2").innerText = orderDessert2;
+
+            // 取得旅客人數
+            const people = parseInt(document.getElementById("people").value) || 0;
+
+            // 只在 dessertQty2 被選取後才進行檢查
+            if (dessertQty2 > 0 && dessertQty1 + dessertQty2 !== people) {
+                alert("旅客人數應等於餐點份數");
+            }
+        }
+
+        // 監聽甜點A和甜點B的變化以更新訂單摘要
+        document.getElementById("dessert_jpA_qty").addEventListener("change", updateOrderSummary);
+        document.getElementById("dessert_jpB_qty").addEventListener("change", updateOrderSummary);
+
+
+
 
         // ---------------------------------------------------
-        // 訂位資料判斷
+        // -------------- 訂位資料判斷 ----------------
         function userInfoCheck(event) {
 
             // 取得輸入框
@@ -691,14 +945,66 @@ departure_date.onclick = async function () {
                 isValid = false;
             }
 
+            // -------------- send data -------------------------------
+
+            let sendName = document.getElementById('Name').value;
+            let sendPhone = document.getElementById('phone').value;
+            let sendEmail = document.getElementById('email').value;
+            let sendCreditCard = document.getElementById('creditCard').value;
+            let sendRoute = document.getElementById('order_route').innerText;
+            let sendStartDate = document.getElementById('order_start_date').innerText;
+            let sendArriveDate = document.getElementById('order_arrive_date').innerText;
+            let sendPeople = document.getElementById('order_people').innerText;
+            let sendCar = document.getElementById('order_car').innerText;
+            let sendSeat = document.getElementById('order_seat').innerText;
+            let sendDessert1 = document.getElementById('order_dessert1').innerText;
+            let sendDessert2 = document.getElementById('order_dessert2').innerText;
+            let sendPrice = document.getElementById('order_price').innerText;
+
             if (isValid) {
                 console.log('輸入正確');
-                // window.location.href = 'order.html';
+                console.log(sendName);
+                console.log(sendPhone);
+                console.log(sendEmail);
+                console.log(sendCreditCard);
+                console.log(sendRoute);
+                console.log(sendStartDate);
+                console.log(sendArriveDate);
+                console.log(sendPeople);
+                console.log(sendCar);
+                console.log(sendSeat);
+                console.log(sendDessert1);
+                console.log(sendDessert2);
+                console.log(sendPrice);
+
+
+                let userOrderInfo = {
+                    name: sendName,
+                    phone: sendPhone,
+                    email: sendEmail,
+                    creditCard: sendCreditCard,
+                    route: sendRoute,
+                    date: sendStartDate,
+                    arrive: sendArriveDate,
+                    people: sendPeople,
+                    carriage: sendCar,
+                    seat: sendSeat,
+                    dessert1: sendDessert1,
+                    dessert2: sendDessert2,
+                    price: sendPrice
+                }
+
+                localStorage.setItem("dataFromUser", JSON.stringify(userOrderInfo));
+
+                console.log(localStorage.getItem("dataFromUser"));
+
+                window.location.href = 'order.html';
             } else {
                 console.log('輸入錯誤');
 
             }
         };
+
     </script>
 
 
