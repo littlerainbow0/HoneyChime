@@ -31,7 +31,7 @@ const TableDefault = ({ columns, data, columnNames }) => {
     setCurrentItem(item); // 設定當前編輯的項目
     setShowModal(true);
   };
-  
+
 
   const [currentPage, setCurrentPage] = useState(1);
   const rowsPerPage = 7;
@@ -57,13 +57,19 @@ const TableDefault = ({ columns, data, columnNames }) => {
                   </p>
                 </TableColumn>
               ))}
-              <TableColumn></TableColumn>
+              {location.pathname === navText[1].path
+                || location.pathname === navText[3].path
+                || location.pathname === navText[4].path
+                ? (
+                  <TableColumn />
+                ) : (<></>)}
             </TableHeader>
             <TableBody>
               {currentRows.map((item, index) => (
                 <TableRow key={index} className={`
-                  rounded-3xl hover:bg-gray-200 hover:scale-105
-                  transition-all"
+                  transition-all rounded-3xl
+                  hover:bg-gray-200 hover:translate-y-1
+                  "
                 ${index % 2 === 0 ? "bg-lightyellow" : ""}`}>
 
                   {columns.map((column) => (
@@ -73,12 +79,12 @@ const TableDefault = ({ columns, data, columnNames }) => {
                       </p>
                     </TableCell>
                   ))}
-                  <TableCell>
-                    {location.pathname === navText[1].path
-                      || location.pathname === navText[3].path
-                      || location.pathname === navText[4].path
-                      ? (
-                        <>
+
+                  {location.pathname === navText[1].path
+                    || location.pathname === navText[3].path
+                    || location.pathname === navText[4].path
+                    ? (
+                      <TableCell>
                         <Button id={item[Object.keys(item)[0]]} className='
                         text-brown bolder border-transparent rounded-full 
                         transition-all
@@ -86,10 +92,10 @@ const TableDefault = ({ columns, data, columnNames }) => {
                           onClick={() => clickShowModalToEdit(item)}>
                           <RiEdit2Fill />
                         </Button>
-                        </>
-                      ) : ("")
-                    }
-                  </TableCell>
+                      </TableCell>
+                    ) : (<></>)
+                  }
+
                 </TableRow>
               ))}
             </TableBody>

@@ -47,7 +47,7 @@ const columns = [
     "StopStartName",
     "StopEndName",
     "DessertTitle",
-    "status"];
+    "Expired"];
 const columnNames = {
     ScheduleID: "行程ID",
     StopStartName: "起點站",
@@ -55,7 +55,7 @@ const columnNames = {
     DepartureDate: "出發日期",
     DepartureTime: "出發時間",
     DessertTitle: "甜點風格",
-    status: "狀態",
+    Expired: "狀態",
 };
 
 const templateDetailColumns = [
@@ -94,7 +94,7 @@ const AdminSchedule = () => {
         if (isDataByBtnFilter) {
             setDataByBtnFilter([])
         } else {
-            const filteredData = dataFromServer.filter(data => data.status === "即將到來");
+            const filteredData = dataFromServer.filter(data => data.Expired === "即將到來");
             setDataByBtnFilter(filteredData); // 確保這個函數接收過濾後的數據
         }
         setIsDataByBtnFilter(!isDataByBtnFilter);

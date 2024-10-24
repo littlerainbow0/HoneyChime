@@ -24,19 +24,10 @@ const DataFetcher = ({ setDataFromServer }) => {
     const fetchData = async () => {
       try {
         const response = await api.get('/getSchedules');
-        const myData = response.data.map((elem) => (
-          {
-            ScheduleID: elem.ScheduleID,
-            TemplateID: elem.TemplateID,
-            DepartureDate: elem.DepartureDate.substring(0,10),
-            DepartureTime: elem.DepartureTime,
-            StopStartName:elem.StopStartName,
-            StopEndName:elem.StopEndName,
-            TemplateDescription:elem.TemplateDescription,
-            DessertTitle:elem.DessertTitle,
-            status: new Date(elem.DepartureDate) > new Date() ? "即將到來" : "已過期" 
-          }
-        ))
+        const myData = response.data.map(item => ({
+          ...item,
+          Expired: item.Expired ? "已過期" : "即將到來"
+        }));
 
         setDataFromServer(myData);
 
