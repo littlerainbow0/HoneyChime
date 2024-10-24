@@ -109,17 +109,15 @@ const AdminSchedule = () => {
                     <RouteName />
                     <FilterCard data={filterCardName} />
                     <hr className='my-12 mb-6' />
-                    <div className='text-left'>
+                    <div className='flex justify-between'>
+                        <BtnLightBrown btnText="新建一筆模板" onClick={clickShowModal} />
+                        {showModal && <Modal onClose={clickShowModal} />} {/* 传递 onClose 函数 */}
                         <BtnLightBrown
                             btnText={isDataByBtnFilter ?
                                 (<><MdFilterListOff />取消篩選</>) :
                                 (<><MdFilterList />狀態篩選</>)}
                             onClick={btnFilterClick}
                         />
-                    </div>
-                    <div className='justify-between'>
-                        <BtnLightBrown btnText="新建一筆模板" onClick={clickShowModal} />
-                        {showModal && <Modal onClose={clickShowModal} />} {/* 传递 onClose 函数 */}
                     </div>
                     <DataFetcher setDataFromServer={setDataFromServer} />
                     <TableDefault

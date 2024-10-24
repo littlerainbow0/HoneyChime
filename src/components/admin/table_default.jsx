@@ -1,5 +1,8 @@
 // src/components/CustomTable.jsx
 import React, { useState } from 'react';
+import { useLocation } from "react-router-dom"
+import { navText } from './navbar_admin';
+
 import {
   Table,
   TableHeader,
@@ -9,13 +12,17 @@ import {
   TableCell,
   Button,
 } from "@nextui-org/react";
+
+
 import { MdEdit } from "react-icons/md";
 
 
 const TableDefault = ({ columns, data, columnNames }) => {
-  const [currentPage, setCurrentPage] = useState(1);
-  const rowsPerPage = 7; // 每页显示的行数
 
+  const location = useLocation();
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const rowsPerPage = 7;
   const handlePageChange = (page) => {
     setCurrentPage(page);
   };
@@ -42,19 +49,31 @@ const TableDefault = ({ columns, data, columnNames }) => {
             </TableHeader>
             <TableBody>
               {currentRows.map((item, index) => (
-                <TableRow key={index}>
+                <TableRow key={index} className={`
+                  rounded-3xl hover:bg-gray-200 hover:scale-105
+                  transition-all"
+                ${index % 2 === 0 ? "bg-lightyellow" : ""}`}>
 
                   {columns.map((column) => (
-                    <TableCell key={column} className={`rounded-3xl" ${index % 2 === 0 ? "bg-lightyellow" : ""}`}>
+                    <TableCell key={column} >
                       <p className="text-dark font-bodyFont text-p-3 mb-1">
                         {item[column]}
                       </p>
                     </TableCell>
                   ))}
                   <TableCell>
-                    <Button id={item[Object.keys(item)[0]]} className='text-brown'>
-                      <MdEdit />{item[Object.keys(item)[0]]}
-                    </Button>
+                    {location.pathname === navText[1].path
+                    || location.pathname === navText[3].path 
+                    || location.pathname === navText[4].path 
+                    ? (
+                        <Button id={item[Object.keys(item)[0]]} className='
+                        text-brown bolder border-transparent rounded-full 
+                        transition-all
+                        hover:text-lightyellow hover:shadow-md hover:bg-lightbrown'>
+                          <MdEdit />
+                        </Button>
+                      ) : ("")
+                    }
                   </TableCell>
                 </TableRow>
               ))}

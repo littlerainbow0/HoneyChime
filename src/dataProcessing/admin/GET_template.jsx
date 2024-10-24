@@ -12,20 +12,20 @@ const DataFetcher = ({ setDataFromServer }) => {
     const fetchData = async () => {
       try {
         const response = await api.get('/getTemplates');
-        const myData = response.data.map((elem) => (
-          {
-            TemplateID: elem.TemplateID,
-            DessertTitle: elem.DessertTitle,
-            MenuFirstID: elem.MenuFirstID,
-            MenuFirstName: elem.MenuFirstName,
-            MenuFirstImage: elem.MenuFirstImage,
-            MenuSecondID: elem.MenuSecondID,
-            MenuSecondName: elem.MenuSecondName,
-            MenuSecondImage: elem.MenuSecondImage,
-          }
-        ))
+        // const myData = response.data.map((elem) => (
+        //   {
+        //     TemplateID: elem.TemplateID,
+        //     DessertTitle: elem.DessertTitle,
+        //     MenuFirstID: elem.MenuFirstID,
+        //     MenuFirstName: elem.MenuFirstName,
+        //     MenuFirstImage: elem.MenuFirstImage,
+        //     MenuSecondID: elem.MenuSecondID,
+        //     MenuSecondName: elem.MenuSecondName,
+        //     MenuSecondImage: elem.MenuSecondImage,
+        //   }
+        // ))
 
-        setDataFromServer(myData);
+        setDataFromServer(response.data);
 
       } catch (error) {
         console.error('Failed to get data from server/getSchedules', error);
