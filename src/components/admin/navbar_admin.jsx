@@ -93,15 +93,15 @@ const Sidebar = () => {
   return (
     <>
 
-      <div className={`flex-col justify-center px-5 py-40
+      <div className={`flex-col justify-center px-5 py-24
         bg-gradient-to-br from-gray-200 to-transparent
         overflow-y-auto text-clip min-w-[170px] 
         absolute top-0 left-0 h-screen 
         w-0 md:w-64 transition-all duration-300 rounded-r-full`}>
         <Link href="/admin">
-          <div className="mb-10 p-5">
+          <div className="mb-5 p-5">
             <Logo color="rgb(32,30,30)"></Logo>
-            <h2 className="font-titleFont text-h3 font-bold mt-10 mb-2 text-darkbrown">
+            <h2 className="font-titleFont text-h3 font-bold mt-5 mb-2 text-darkbrown">
               後臺管理
             </h2>
             <p className="text-brown text-p-3 font-bodyFont">

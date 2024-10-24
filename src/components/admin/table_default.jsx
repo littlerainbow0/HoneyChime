@@ -4,7 +4,6 @@ import { useLocation } from "react-router-dom"
 import { navText } from './navbar_admin';
 import ModalSchedule from './modal_schedule.jsx';
 
-
 import {
   Table,
   TableHeader,
@@ -13,11 +12,11 @@ import {
   TableRow,
   TableCell,
   Button,
+  Accordion,
 } from "@nextui-org/react";
 
-
 import { RiEdit2Fill } from "react-icons/ri";
-
+import { IoIosArrowDown } from "react-icons/io";
 
 const TableDefault = ({ columns, data, columnNames }) => {
 
@@ -57,12 +56,14 @@ const TableDefault = ({ columns, data, columnNames }) => {
                   </p>
                 </TableColumn>
               ))}
-              {location.pathname === navText[1].path
-                || location.pathname === navText[3].path
-                || location.pathname === navText[4].path
-                ? (
-                  <TableColumn />
-                ) : (<></>)}
+              {(location.pathname === navText[1].path
+                    || location.pathname === navText[3].path
+                    || location.pathname === navText[4].path) ? (
+              <TableColumn />):(<TableColumn className='hidden' />)}
+              {(location.pathname === navText[1].path
+                    || location.pathname === navText[2].path
+                    || location.pathname === navText[7].path) ? (
+              <TableColumn />):(<TableColumn className='hidden' />)}
             </TableHeader>
             <TableBody>
               {currentRows.map((item, index) => (
@@ -79,44 +80,47 @@ const TableDefault = ({ columns, data, columnNames }) => {
                       </p>
                     </TableCell>
                   ))}
-
-                  {location.pathname === navText[1].path
+                  {(location.pathname === navText[1].path
                     || location.pathname === navText[3].path
-                    || location.pathname === navText[4].path
-                    ? (
-                      <TableCell>
-                        <Button id={item[Object.keys(item)[0]]} className='
-                        text-brown bolder border-transparent rounded-full 
-                        transition-all
-                        hover:text-lightyellow hover:shadow-md hover:bg-lightbrown'
-                          onClick={() => clickShowModalToEdit(item)}>
-                          <RiEdit2Fill />
-                        </Button>
-                      </TableCell>
-                    ) : (<></>)
-                  }
-
-                </TableRow>
+                    || location.pathname === navText[4].path) ? (
+                    <TableCell>
+                      <Button id={item[Object.keys(item)[0]]} className='text-brown bolder border-transparent rounded-full transition-all hover:text-lightyellow hover:shadow-md hover:bg-lightbrown'
+                        onClick={() => clickShowModalToEdit(item)}>
+                        <RiEdit2Fill />
+                      </Button>
+                    </TableCell>
+                  ) : (<TableCell className='hidden' />)}
+                  {(location.pathname === navText[1].path
+                    || location.pathname === navText[2].path
+                    || location.pathname === navText[7].path) ? (
+                    <TableCell>
+                      <Button id={item[Object.keys(item)[0]]} className='
+                      text-brown bolder border-transparent rounded-full transition-all 
+                      hover:text-lightbrown hover:shadow-md'
+                        onClick={() => clickShowModalToEdit(item)}>
+                        <IoIosArrowDown />
+                      </Button>
+                    </TableCell>
+                  ) : (<TableCell className='hidden' />)}
+                </TableRow>               
               ))}
             </TableBody>
           </Table>
         </div>
       </div>
       {showModal && <ModalSchedule item={currentItem} onClose={() => setShowModal(false)} />}
-      <div className="mt-4 border-t pt-2"> {/* 添加分隔线 */}
-        <div className="flex justify-center">
-          {Array.from({ length: totalPages }, (_, index) => (
-            <Button
-              key={index + 1}
-              onClick={() => handlePageChange(index + 1)}
-              className={`font-bodyFont text-p-3 mx-1 rounded-full transition-all 
-                hover:text-lightbrown hover:shadow-md hover:font-bold
+      <div className="flex justify-center">
+        {Array.from({ length: totalPages }, (_, index) => (
+          <Button
+            key={index + 1}
+            onClick={() => handlePageChange(index + 1)}
+            className={`font-bodyFont text-p-3 mx-1 rounded-full transition-all 
+                hover:text-lightbrown hover:shadow-md hover:font-bold hover:translate-y-1
                 ${currentPage === index + 1 ? 'bg-lightbrown rounded-full text-lightyellow shadow-md' : ''}`}
-            >
-              {index + 1}
-            </Button>
-          ))}
-        </div>
+          >
+            {index + 1}
+          </Button>
+        ))}
       </div>
     </>
   );
