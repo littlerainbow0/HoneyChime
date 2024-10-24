@@ -259,30 +259,40 @@
         Top
     </a>
     <script>
-        var schedule = "http://localhost:8000/getTemplates/:scheduleID";
-        var dessertType = "http://localhost:8000//getSchedules/:dessertType";
-        departure_date.onclick = async function () {
-            let data = await axios.get(dessertType);
-            let data1 = await axios.get(schedule);
-            console.log(data.data);
-            console.log(data1.data);
-        }
+        // var dessertTypeUrl = "http://localhost:8000/getTemplates";
+        // var scheduleUrl = "http://localhost:8000/getSchedules";
+        // departure_date.onclick = async function () {
+        //     // let dessertType = await axios.get(dessertTypeUrl);
+        //     let schedule = await axios.get(scheduleUrl);
+        //     // console.log(dessertType.data);
+        //     console.log(schedule.data); // 輸出整個行程資料
+        //     // console.log(typeof schedule);
+        //     console.log(schedule.DepartureDate);
+        //     // 提取所有 DepartureDate
+        // const departureDates = schedule.data.map(item => item.DepartureDate);
+        // departureDates.forEach(date => {
+        //     console.log(date);
+        // });
+        // const departureTimes = schedule.data.map(item => item.DepartureTime);
+        // departureDates.forEach(time => {
+        //     console.log(time);
+        // });
+        // }
 
-        // log(typeof apple)
         // json.parse(apple)
         // json(apple[0].title)
 
 
         // ------------ 抓到路線 ------------
         let tripInfoData = JSON.parse(localStorage.getItem("routeType"));
-        let start = tripInfoData.start; 
-        let end = tripInfoData.end; 
+        let start = tripInfoData.start;
+        let end = tripInfoData.end;
         let img = tripInfoData.image;
-        console.log(start, " ⭢ " , end);
+        console.log(start, " ⭢ ", end);
         console.log(img);
-        
-        document.addEventListener('DOMContentLoaded', function(){
-            document.getElementById('tripRoute').innerText =`${start} ⭢ ${end}`;
+
+        document.addEventListener('DOMContentLoaded', function () {
+            document.getElementById('tripRoute').innerText = `${start} ⭢ ${end}`;
             document.getElementById('tripRouteImg').src = img;
         });
 
@@ -554,6 +564,7 @@
 
             // 提取可用日期
             const availableDates = scheduleData.map(schedule => schedule.DepartureDate);
+
 
             // 初始化 Flatpickr
             flatpickr("#departure_date", {

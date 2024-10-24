@@ -20,3 +20,17 @@ WHERE
         throw new Error('查詢特定旅程之已預定座位資料錯誤：');
     }
 };
+
+
+// 取得所有座位
+export const getAllSeats = async () => {
+    const sql = `SELECT * FROM SEATS`;
+
+    try {
+        const { results } = await query(sql);
+        return { results };
+    } catch (error) {
+        console.log('查詢座位資料錯誤：', error);
+        throw new Error('查詢座位資料錯誤：');
+    }
+};

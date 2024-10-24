@@ -44,16 +44,17 @@ export const getTemplateByScheduleID = async (scheduleID) => {
     S.ScheduleID,
     S.DepartureDate,
     DT.DepartureTime,
-    StartStop.StopName AS StartStopName,
-    EndStop.StopName AS EndStopName,
-    M1.MealID AS MenuFirstMealID,
-    M1.MealName AS MenuFirstMealName,
+    SS.StopName AS StopStart,
+    SE.StopName AS StopEnd,
+    R.RouteImagePath,
+    M1.MealID AS MenuFirstID,
+    M1.MealName AS MenuFirstName,
     M1.MealImagePath AS MenuFirstImagePath,
-    M1.MealContent AS MenuFirstMealContent,
-    M2.MealID AS MenuSecondMealID,
-    M2.MealName AS MenuSecondMealName,
+    M1.MealContent AS MenuFirstContent,
+    M2.MealID AS MenuSecondID,
+    M2.MealName AS MenuSecondName,
     M2.MealImagePath AS MenuSecondImagePath,
-    M2.MealContent AS MenuSecondMealContent
+    M2.MealContent AS MenuSecondContent
 FROM 
     SCHEDULES S
 JOIN 
@@ -63,15 +64,15 @@ JOIN
 JOIN 
     ROUTES R ON T.RouteID = R.RouteID
 JOIN 
-    STOPS StartStop ON R.StopStart = StartStop.StopID
+    STOPS SS ON R.StopStart = SS.StopID
 JOIN 
-    STOPS EndStop ON R.StopEnd = EndStop.StopID
+    STOPS SE ON R.StopEnd = SE.StopID
 LEFT JOIN 
     MEALS M1 ON T.MenuFirst = M1.MealID
 LEFT JOIN 
     MEALS M2 ON T.MenuSecond = M2.MealID
 WHERE 
-    S.ScheduleID = ?;`;
+    S.ScheduleID = ?`;
 
     try {
         const { results } = await query(sql, [scheduleID]);  // 使用 ScheduleID 參數進行查詢

@@ -11,6 +11,8 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <!-- 引入 Flatpickr 的 JavaScript -->
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
 
     <title>預約行程</title>
 </head>
@@ -273,169 +275,191 @@
     <script>
 
         // -------------------------------------------
-        const scheduleData =
-            [
-                {
-                    SchedulesID: 1,
-                    DepartureDate: "2024-10-10",
-                    DepartureTime: "13:00",
-                    RouteStart: "台北",
-                    RouteEnd: "台中",
-                    Duration: 121,
-                },
-                {
-                    SchedulesID: 2,
-                    DepartureDate: "2024-10-10",
-                    DepartureTime: "17:00",
-                    RouteStart: "台北",
-                    RouteEnd: "台中",
-                    Duration: 121
-                },
-                {
-                    SchedulesID: 3,
-                    DepartureDate: "2025-11-14",
-                    DepartureTime: "13:00",
-                    RouteStart: "台北",
-                    RouteEnd: "台中",
-                    Duration: 121
-                },
-                {
-                    SchedulesID: 4,
-                    DepartureDate: "2025-11-14",
-                    DepartureTime: "17:00",
-                    RouteStart: "台北",
-                    RouteEnd: "台中",
-                    Duration: 121
-                },
-                {
-                    SchedulesID: 5,
-                    DepartureDate: "2025-11-14",
-                    DepartureTime: "13:00",
-                    RouteStart: "台北",
-                    RouteEnd: "花蓮",
-                    Duration: 150
-                }
+        // const scheduleData =
+        //     [
+        //         {
+        //             SchedulesID: 1,
+        //             DepartureDate: "2024-10-10",
+        //             DepartureTime: "13:00",
+        //             RouteStart: "台北",
+        //             RouteEnd: "台中",
+        //             Duration: 121,
+        //         },
+        //         {
+        //             SchedulesID: 2,
+        //             DepartureDate: "2024-10-10",
+        //             DepartureTime: "17:00",
+        //             RouteStart: "台北",
+        //             RouteEnd: "台中",
+        //             Duration: 121
+        //         },
+        //         {
+        //             SchedulesID: 3,
+        //             DepartureDate: "2025-11-14",
+        //             DepartureTime: "13:00",
+        //             RouteStart: "台北",
+        //             RouteEnd: "台中",
+        //             Duration: 121
+        //         },
+        //         {
+        //             SchedulesID: 4,
+        //             DepartureDate: "2025-11-14",
+        //             DepartureTime: "17:00",
+        //             RouteStart: "台北",
+        //             RouteEnd: "台中",
+        //             Duration: 121
+        //         },
+        //         {
+        //             SchedulesID: 5,
+        //             DepartureDate: "2025-11-14",
+        //             DepartureTime: "13:00",
+        //             RouteStart: "台北",
+        //             RouteEnd: "花蓮",
+        //             Duration: 150
+        //         }
 
-                //用日期去判斷日曆能點擊的部分(有行程且時間是未來)
-            ]
+        //         //用日期去判斷日曆能點擊的部分(有行程且時間是未來)
+        //     ]
 
-        // 抓日曆去選擇出發時間、起站、迄站與抵達時間
-        document.addEventListener('DOMContentLoaded', () => {
-            const departureTimeSelect = document.getElementById('departure_time');
-            const orderStartDate = document.getElementById('order_start_date');
-            const orderArriveDate = document.getElementById('order_arrive_date');
-            const routeStartSelect = document.getElementById('route_start');
-            const routeEndSelect = document.getElementById('route_end');
+        // // 抓日曆去選擇出發時間、起站、迄站與抵達時間
+        // document.addEventListener('DOMContentLoaded', () => {
+        //     const departureTimeSelect = document.getElementById('departure_time');
+        //     const orderStartDate = document.getElementById('order_start_date');
+        //     const orderArriveDate = document.getElementById('order_arrive_date');
+        //     const routeStartSelect = document.getElementById('route_start');
+        //     const routeEndSelect = document.getElementById('route_end');
 
-            // 提取可用日期
-            const availableDates = scheduleData.map(schedule => schedule.DepartureDate);
+        //     // 提取可用日期
+        //     const availableDates = scheduleData.map(schedule => schedule.DepartureDate);
 
-            // 初始化 Flatpickr
-            flatpickr("#departure_date", {
-                dateFormat: "Y-m-d",
-                enable: availableDates,
-                disable: [
-                    function (date) {
-                        return !availableDates.includes(date.toISOString().split('T')[0]);
-                    }
-                ],
-                onChange: function (selectedDates, dateStr) {
-                    setDepartureDetails(dateStr);
-                }
-            });
+        //     // 初始化 Flatpickr
+        //     flatpickr("#departure_date", {
+        //         dateFormat: "Y-m-d",
+        //         enable: availableDates,
+        //         disable: [
+        //             function (date) {
+        //                 return !availableDates.includes(date.toISOString().split('T')[0]);
+        //             }
+        //         ],
+        //         onChange: function (selectedDates, dateStr) {
+        //             setDepartureDetails(dateStr);
+        //         }
+        //     });
 
-            // 設置出發詳情
-            const setDepartureDetails = (selectedDate) => {
-                const selectedTime = departureTimeSelect.value;
+        //     // 設置出發詳情
+        //     const setDepartureDetails = (selectedDate) => {
+        //         const selectedTime = departureTimeSelect.value;
 
-                // 查找匹配的排程
-                const schedule = scheduleData.find(s => s.DepartureDate === selectedDate && s.DepartureTime === selectedTime);
+        //         // 查找匹配的排程
+        //         const schedule = scheduleData.find(s => s.DepartureDate === selectedDate && s.DepartureTime === selectedTime);
 
-                if (schedule) {
-                    orderStartDate.textContent = `${schedule.DepartureDate} ${schedule.DepartureTime}`;
-                    // 更新起站和迄站選項
-                    updateRouteOptions(selectedDate, selectedTime);
-                } else {
-                    orderStartDate.textContent = "無可用排程";
-                    orderArriveDate.textContent = ""; // 清空抵達時間
-                    clearRouteOptions();
-                }
-            };
+        //         if (schedule) {
+        //             orderStartDate.textContent = `${schedule.DepartureDate} ${schedule.DepartureTime}`;
+        //             // 更新起站和迄站選項
+        //             updateRouteOptions(selectedDate, selectedTime);
+        //         } else {
+        //             orderStartDate.textContent = "無可用排程";
+        //             orderArriveDate.textContent = ""; // 清空抵達時間
+        //             clearRouteOptions();
+        //         }
+        //     };
 
-            // 計算抵達時間
-            function calculateArrivalTime(departureTime, duration) {
-                const [hours, minutes] = departureTime.split(':').map(Number);
-                const departureDateTime = new Date();
-                departureDateTime.setHours(hours);
-                departureDateTime.setMinutes(minutes);
+        //     // 計算抵達時間
+        //     function calculateArrivalTime(departureTime, duration) {
+        //         const [hours, minutes] = departureTime.split(':').map(Number);
+        //         const departureDateTime = new Date();
+        //         departureDateTime.setHours(hours);
+        //         departureDateTime.setMinutes(minutes);
 
-                // 加上持續時間
-                departureDateTime.setMinutes(departureDateTime.getMinutes() + duration);
+        //         // 加上持續時間
+        //         departureDateTime.setMinutes(departureDateTime.getMinutes() + duration);
 
-                const arrivalHours = departureDateTime.getHours().toString().padStart(2, '0');
-                const arrivalMinutes = departureDateTime.getMinutes().toString().padStart(2, '0');
+        //         const arrivalHours = departureDateTime.getHours().toString().padStart(2, '0');
+        //         const arrivalMinutes = departureDateTime.getMinutes().toString().padStart(2, '0');
 
-                return `${arrivalHours}:${arrivalMinutes}`;
-            }
+        //         return `${arrivalHours}:${arrivalMinutes}`;
+        //     }
 
-            // 更新路線選項
-            function updateRouteOptions(selectedDate, selectedTime) {
-                // 清空選項
-                clearRouteOptions();
+        //     // 更新路線選項
+        //     function updateRouteOptions(selectedDate, selectedTime) {
+        //         // 清空選項
+        //         clearRouteOptions();
 
-                // 收集所有起站和迄站
-                const routes = scheduleData.filter(schedule => schedule.DepartureDate === selectedDate && schedule.DepartureTime === selectedTime);
+        //         // 收集所有起站和迄站
+        //         const routes = scheduleData.filter(schedule => schedule.DepartureDate === selectedDate && schedule.DepartureTime === selectedTime);
 
-                const startRoutes = new Set();
-                const endRoutes = new Set();
+        //         const startRoutes = new Set();
+        //         const endRoutes = new Set();
 
-                routes.forEach(route => {
-                    startRoutes.add(route.RouteStart);
-                    endRoutes.add(route.RouteEnd);
-                });
+        //         routes.forEach(route => {
+        //             startRoutes.add(route.RouteStart);
+        //             endRoutes.add(route.RouteEnd);
+        //         });
 
-                // 更新起站選項
-                startRoutes.forEach(route => {
-                    routeStartSelect.innerHTML += `<option value="${route}">${route}</option>`;
-                });
+        //         // 更新起站選項
+        //         startRoutes.forEach(route => {
+        //             routeStartSelect.innerHTML += `<option value="${route}">${route}</option>`;
+        //         });
 
-                // 更新迄站選項
-                endRoutes.forEach(route => {
-                    routeEndSelect.innerHTML += `<option value="${route}">${route}</option>`;
-                });
+        //         // 更新迄站選項
+        //         endRoutes.forEach(route => {
+        //             routeEndSelect.innerHTML += `<option value="${route}">${route}</option>`;
+        //         });
 
-                // 添加監聽器到迄站選擇
-                routeEndSelect.addEventListener('change', () => {
-                    const selectedRouteEnd = routeEndSelect.value;
-                    const schedule = routes.find(s => s.RouteEnd === selectedRouteEnd);
+        //         // 添加監聽器到迄站選擇
+        //         routeEndSelect.addEventListener('change', () => {
+        //             const selectedRouteEnd = routeEndSelect.value;
+        //             const schedule = routes.find(s => s.RouteEnd === selectedRouteEnd);
 
-                    if (schedule) {
-                        const arrivalTime = calculateArrivalTime(schedule.DepartureTime, schedule.Duration);
-                        orderArriveDate.textContent = arrivalTime;
-                    } else {
-                        orderArriveDate.textContent = ""; // 清空抵達時間
-                    }
-                });
-            }
+        //             if (schedule) {
+        //                 const arrivalTime = calculateArrivalTime(schedule.DepartureTime, schedule.Duration);
+        //                 orderArriveDate.textContent = arrivalTime;
+        //             } else {
+        //                 orderArriveDate.textContent = ""; // 清空抵達時間
+        //             }
+        //         });
+        //     }
 
-            // 清空路線選項
-            function clearRouteOptions() {
-                routeStartSelect.innerHTML = `<option value="0">請選擇站點</option>`;
-                routeEndSelect.innerHTML = `<option value="0">請選擇站點</option>`;
-            }
+        //     // 清空路線選項
+        //     function clearRouteOptions() {
+        //         routeStartSelect.innerHTML = `<option value="0">請選擇站點</option>`;
+        //         routeEndSelect.innerHTML = `<option value="0">請選擇站點</option>`;
+        //     }
 
-            // 監聽出發時間變化事件
-            departureTimeSelect.addEventListener('change', () => {
-                const selectedDate = document.getElementById('departure_date').value;
-                setDepartureDetails(selectedDate);
-            });
+        //     // 監聽出發時間變化事件
+        //     departureTimeSelect.addEventListener('change', () => {
+        //         const selectedDate = document.getElementById('departure_date').value;
+        //         setDepartureDetails(selectedDate);
+        //     });
 
-            // 監聽出發日期變化事件
-            document.getElementById('departure_date').addEventListener('change', (event) => {
-                setDepartureDetails(event.target.value);
-            });
+        //     // 監聽出發日期變化事件
+        //     document.getElementById('departure_date').addEventListener('change', (event) => {
+        //         setDepartureDetails(event.target.value);
+        //     });
+        // });
+
+        const scheduleUrl = "http://localhost:8000/getSchedules";
+const departure_date = document.getElementById('departure_date');
+
+departure_date.onclick = async function () {
+    try {
+        let schedule = await axios.get(scheduleUrl);
+        console.log(schedule.data); // 輸出整個行程資料
+
+        // 提取所有 DepartureDate 並格式化
+        const departureDates = schedule.data.map(item => {
+            return item.DepartureDate.split('T')[0]; // 只保留日期部分
         });
 
+        // 初始化 Flatpickr
+        flatpickr("#departure_date", {
+            dateFormat: "Y-m-d", // 設定日期格式
+            disable: departureDates, // 禁用的日期
+        });
+    } catch (error) {
+        console.error("Error fetching schedule:", error);
+    }
+};
 
 
         // ----------- order detail 抓客人填寫的資料 ------------

@@ -5,7 +5,7 @@ import * as cardsModel from '../models/cardModel.js';  // 引入模型層
 export const getAllNews = async (req, res) => {
     try {
         const { results } = await newsModel.getAllNews();
-        res.json(results);  // 返回 JSON 格式的使用者資料
+        res.json(results);  // 返回 JSON 格式的資料
     } catch (error) {
         console.error('取得news資料錯誤：', error);
         res.status(500).json({ message: '伺服器錯誤，無法取得使用者資料' });
@@ -16,7 +16,7 @@ export const getAllNews = async (req, res) => {
 export const getAllCards = async (req, res) => {
     try {
         const { results } = await cardsModel.getAllCards();
-        res.json(results);  // 返回 JSON 格式的使用者資料
+        res.json(results);  // 返回 JSON 格式的資料
     } catch (error) {
         console.error('取得cards資料錯誤：', error);
         res.status(500).json({ message: '伺服器錯誤，無法取得使用者資料' });

@@ -16,10 +16,10 @@ const router = express.Router();
 router.use('/', frontPageRoutes);
 router.use('/', mealRoutes);
 router.use('/', userRoutes);
-router.use('/getRoutes', routeRoutes);
+router.use('/', routeRoutes);
 router.use('/', scheduleRoutes);
 router.use('/', templateRoutes);
-router.use('/getSeats', seatRoutes);
+router.use('/', seatRoutes);
 router.use('/getPrice', priceRoutes);
 router.use('/', orderRoutes);
 
