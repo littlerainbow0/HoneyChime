@@ -19,7 +19,7 @@ router.use('/', userRoutes);
 router.use('/', routeRoutes);
 router.use('/', scheduleRoutes);
 router.use('/', templateRoutes);
-router.use('/getSeats', seatRoutes);
+router.use('/', seatRoutes);
 router.use('/getPrice', priceRoutes);
 router.use('/', orderRoutes);
 

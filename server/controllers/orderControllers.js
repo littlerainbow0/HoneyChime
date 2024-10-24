@@ -4,7 +4,7 @@ import * as orderModel from '../models/orderModel.js';  // 引入模型層
 export const getAllOrders = async (req, res) => {
     try {
         const { results } = await orderModel.getAllOrders();
-        res.json(results);  // 返回 JSON 格式的路徑資料
+        res.json(results);  // 返回 JSON 格式的資料
     } catch (error) {
         console.error('取得訂單資料錯誤：', error);
         res.status(500).json({ message: '伺服器錯誤，無法取得訂單資料' });
@@ -16,7 +16,7 @@ export const getOrderByUserID = async (req, res) => {
     const { userID } = req.params;  // 從 URL 獲取 userID 參數
     try {
         const { results } = await orderModel.getOrderByUserID(userID);
-        res.json(results);  // 返回 JSON 格式的路徑資料
+        res.json(results);  // 返回 JSON 格式的資料
     } catch (error) {
         console.error('取得特定使用者ID之訂單資料錯誤：', error);
         res.status(500).json({ message: '伺服器錯誤，無法取得特定使用者ID之訂單資料' });

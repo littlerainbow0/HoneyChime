@@ -4,7 +4,7 @@ import * as scheduleModel from '../models/scheduleModel.js';  // 引入模型層
 export const getAllSchedules = async (req, res) => {
     try {
         const { results } = await scheduleModel.getAllSchedules();
-        res.json(results);  // 返回 JSON 格式的路徑資料
+        res.json(results);  // 返回 JSON 格式的資料
     } catch (error) {
         console.error('取得旅程資料錯誤：', error);
         res.status(500).json({ message: '伺服器錯誤，無法取得旅程資料' });
@@ -16,7 +16,7 @@ export const getScheduleByDessertType = async (req, res) => {
     const { dessertType } = req.params;  // 從 URL 獲取 dessertType 參數
     try {
         const { results } = await scheduleModel.getScheduleByDessertType(dessertType);
-        res.json(results);  // 返回 JSON 格式的路徑資料
+        res.json(results);  // 返回 JSON 格式的資料
     } catch (error) {
         console.error('取得特定甜點之旅程資料錯誤：', error);
         res.status(500).json({ message: '伺服器錯誤，無法取得特定甜點之旅程資料' });
