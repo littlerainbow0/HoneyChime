@@ -1,4 +1,5 @@
-import  query  from '../db.js';  // 引入資料庫查詢函數
+import query from '../db.js';  // 引入資料庫查詢函數
+import * as modelFuns from './modelFuns.js';
 
 // 取得所有訂單
 export const getAllOrders = async () => {
@@ -130,8 +131,8 @@ export const postOrder = async (data) => {
     PaymentStatus, SeatID, PeopleNum, MealFirst, MealSecond, MealThird, MealFourth) 
     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
     try {
-        const result = await query(sql, [data.UserID, data.BookerDetailID ,data.ScheduleID, data.OrderTime, data.PaymentStatus, data.SeatID, data.PeopleNum, data.MealFirst, data.MealSecond, data.MealThird, data.MealFourth]);
-        return { orderID: result.results.insertId };
+        const { results } = await query(sql, [data.UserID, data.BookerDetailID, data.ScheduleID, data.OrderTime, data.PaymentStatus, data.SeatID, data.PeopleNum, data.MealFirst, data.MealSecond, data.MealThird, data.MealFourth]);
+        return { orderID: results.insertId };
     } catch (error) {
         console.error('新增訂單資料錯誤：', error);
         throw new Error('新增訂單資料錯誤');
@@ -145,8 +146,8 @@ SET PaymentStatus = ?, MealFirst = ?, MealSecond = ?, MealThird = ?, MealFourth 
 WHERE orderID = ?;`;
 
     try {
-        const result = await query(sql, [data.PaymentStatus, data.MealFirst, data.MealSecond, data.MealThird, data.MealFourth, orderID]);
-        return result.results.affectedRows;
+        const { results } = await query(sql, [data.PaymentStatus, data.MealFirst, data.MealSecond, data.MealThird, data.MealFourth, orderID]);
+        return results.affectedRows;
     } catch (error) {
         console.error('更新訂單資料錯誤：', error);
         throw new Error('更新訂單資料錯誤');

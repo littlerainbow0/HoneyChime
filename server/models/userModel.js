@@ -1,4 +1,4 @@
-import  query  from '../db.js';  // 引入資料庫查詢函數
+import query from '../db.js';  // 引入資料庫查詢函數
 
 // 取得所有使用者
 export const getAllUsers = async () => {
@@ -24,8 +24,8 @@ export const signIn = async (data) => {
     Password, Sex, Birth, RegistrationTime) 
     VALUES (?, ?, ?, ?, ?, ?, ?)`;
     try {
-        const result = await query(sql, [data.UserName, data.UserPhone, data.UserMail, data.Password, data.Sex, data.Birth, data.RegistrationTime]);        
-        return { userID: result.results.insertId};  // 返回新增使用者的 ID
+        const { results } = await query(sql, [data.UserName, data.UserPhone, data.UserMail, data.Password, data.Sex, data.Birth, data.RegistrationTime]);
+        return { userID: results.insertId };  // 返回新增使用者的 ID
     } catch (error) {
         console.error('新增註冊資料錯誤：', error);
         throw new Error('新增註冊資料錯誤');
@@ -40,8 +40,8 @@ Sex = ?
 WHERE userID = ?;`;
 
     try {
-        const result = await query(sql, [data.UserName, data.UserPhone, data.UserMail, data.Password, data.Birth, data.Sex, userID]);
-        return result.results.affectedRows;  // 返回受影響的行數
+        const { results } = await query(sql, [data.UserName, data.UserPhone, data.UserMail, data.Password, data.Birth, data.Sex, userID]);
+        return results.affectedRows;  // 返回受影響的行數
     } catch (error) {
         console.error('更新使用者資料錯誤：', error);
         throw new Error('更新使用者資料錯誤');
@@ -54,8 +54,8 @@ export const updateUserLogInTime = async (userID, data) => {
 SET LatestLogin = ?
 WHERE userID = ?;`;
     try {
-        const result = await query(sql, [data.LatestLogin, userID]);
-        return result.results.affectedRows;  // 返回受影響的行數
+        const { results } = await query(sql, [data.LatestLogin, userID]);
+        return results.affectedRows;  // 返回受影響的行數
     } catch (error) {
         console.error('更新使用者最近登入時間錯誤：', error);
         throw new Error('更新使用者最近登入時間錯誤');
