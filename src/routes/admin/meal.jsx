@@ -5,10 +5,10 @@ import TableDefault from '../../components/admin/table_default.jsx'; // 確保�
 import TableCollapse from '../../components/admin/table_collapse.jsx'; // 確保導入的是正確的路徑
 import RouteName from '../../components/admin/routeName.jsx'
 import FilterCard from '../../components/admin/card_filter.jsx'
-import Modal from '../../components/admin/modal_createSchedule.jsx'
+import ModalMenu from '../../components/admin/modal_menu.jsx'
 import { Button } from '@nextui-org/react';
 import BtnBrown from '../../components/user/btn_brown.jsx'
-import DataFetcher from '../../dataProcessing/admin/GET_template.jsx';
+import DataFetcher from '../../dataProcessing/admin/GET_menu.jsx';
 import Background from '../../components/admin/background_admin.jsx'
 
 const filterCardName = [
@@ -59,7 +59,7 @@ const AdminTemplate = () => {
                     <FilterCard data={filterCardName} />
                     <div className='justify-between'>
                         <BtnBrown btnText="新建一筆模板" onClick={clickShowModal} />
-                        {showModal && <Modal onClose={clickShowModal} />} {/* 传递 onClose 函数 */}
+                        {showModal && <ModalMenu onClose={clickShowModal} />} {/* 传递 onClose 函数 */}
                     </div>
                     <DataFetcher setDataFromServer={setDataFromServer} />
                     <TableDefault columns={detailColumns} data={dataFromServer} columnNames={detailColumnsName} />

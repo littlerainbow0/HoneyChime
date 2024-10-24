@@ -8,7 +8,7 @@ import { div } from 'framer-motion/m';
 import DataFetcher from '../../dataProcessing/admin/GET_schedule.jsx'
 import BtnLightBrown from '../../components/user/btn_lightbrown.jsx';
 import Background from '../../components/admin/background_admin.jsx';
-import Modal from '../../components/admin/modal_createSchedule.jsx'
+import ModalSchedule from '../../components/admin/modal_schedule.jsx'
 
 import {
     Table,
@@ -111,7 +111,7 @@ const AdminSchedule = () => {
                     <hr className='my-12 mb-6' />
                     <div className='flex justify-between'>
                         <BtnLightBrown btnText="新建一筆模板" onClick={clickShowModal} />
-                        {showModal && <Modal onClose={clickShowModal} />} {/* 传递 onClose 函数 */}
+                        {showModal && <ModalSchedule onClose={clickShowModal} />} {/* 传递 onClose 函数 */}
                         <BtnLightBrown
                             btnText={isDataByBtnFilter ?
                                 (<><MdFilterListOff />取消篩選</>) :

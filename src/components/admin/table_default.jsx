@@ -2,6 +2,8 @@
 import React, { useState } from 'react';
 import { useLocation } from "react-router-dom"
 import { navText } from './navbar_admin';
+import ModalSchedule from './modal_schedule.jsx';
+
 
 import {
   Table,
@@ -14,12 +16,22 @@ import {
 } from "@nextui-org/react";
 
 
-import { MdEdit } from "react-icons/md";
+import { RiEdit2Fill } from "react-icons/ri";
 
 
 const TableDefault = ({ columns, data, columnNames }) => {
 
   const location = useLocation();
+
+  const [showModal, setShowModal] = useState(false);
+  const [currentItem, setCurrentItem] = useState(null); // 新增一個狀態來追踪當前行
+
+  const clickShowModalToEdit = (item) => {
+    console.log('Item to edit:', item);
+    setCurrentItem(item); // 設定當前編輯的項目
+    setShowModal(true);
+  };
+  
 
   const [currentPage, setCurrentPage] = useState(1);
   const rowsPerPage = 7;
@@ -63,15 +75,18 @@ const TableDefault = ({ columns, data, columnNames }) => {
                   ))}
                   <TableCell>
                     {location.pathname === navText[1].path
-                    || location.pathname === navText[3].path 
-                    || location.pathname === navText[4].path 
-                    ? (
+                      || location.pathname === navText[3].path
+                      || location.pathname === navText[4].path
+                      ? (
+                        <>
                         <Button id={item[Object.keys(item)[0]]} className='
                         text-brown bolder border-transparent rounded-full 
                         transition-all
-                        hover:text-lightyellow hover:shadow-md hover:bg-lightbrown'>
-                          <MdEdit />
+                        hover:text-lightyellow hover:shadow-md hover:bg-lightbrown'
+                          onClick={() => clickShowModalToEdit(item)}>
+                          <RiEdit2Fill />
                         </Button>
+                        </>
                       ) : ("")
                     }
                   </TableCell>
@@ -81,6 +96,7 @@ const TableDefault = ({ columns, data, columnNames }) => {
           </Table>
         </div>
       </div>
+      {showModal && <ModalSchedule item={currentItem} onClose={() => setShowModal(false)} />}
       <div className="mt-4 border-t pt-2"> {/* 添加分隔线 */}
         <div className="flex justify-center">
           {Array.from({ length: totalPages }, (_, index) => (

@@ -21,7 +21,7 @@ import { BsWindowPlus } from "react-icons/bs";
 import { BsFillPeopleFill } from "react-icons/bs";
 import { BsEnvelopeAt } from "react-icons/bs";
 import { ImSpoonKnife } from "react-icons/im";
-
+import { MdAltRoute } from "react-icons/md";
 // -- icons /*
 
 // /* icon指定統一格式
@@ -49,22 +49,22 @@ export const navText = [
   {
     icon: <BsJournals />,
     item: "訂單管理",
-    path: ""
+    path: "/admin/order"
   },
   {
-    icon: <ImSpoonKnife />,
+    icon: <MdAltRoute />,
     item: "路線管理",
-    path: "/admin/menu",
+    path: "/admin/route",
   },
   {
     icon: <ImSpoonKnife />,
     item: "餐點管理",
-    path: "/admin/menu",
+    path: "/admin/meal",
   },
   {
     icon: <BsWindowPlus />,
     item: "最新消息",
-    path: "",
+    path: "/admin/news",
   },
   {
     icon: <BsFillPeopleFill />,

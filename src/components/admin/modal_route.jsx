@@ -110,22 +110,18 @@ let templateContent = {
 }
 
 
-const data = [
-    {
-        "出發日期　　": "",
-        "出發時間　　": "",
-    },
+const modalItemsTitle = [
     {
         "起點　　　　": "",
         "終點　　　　": "",
     },
     {
-        "甜點風格　　": "",
+        "車程　　　　": "",
         "供餐": "",
     },
     {
-        "上傳路線圖片": "",
-        "上傳風景圖片": "",
+        "上傳路線圖片×1": "",
+        "上傳風景圖片×3": "",
     },
     {
         "旅程介紹　　": "",
@@ -139,6 +135,11 @@ const BackDrop = () => {
 }
 const ModalOverLay = (props) => {
 
+    const { item } = props;
+    console.log(item);
+
+    // if (!item) return null;
+
     const [isModalVisible, setIsModalVisible] = useState(false);
     const openModal = () => setIsModalVisible(true);
     const closeModal = () => setIsModalVisible(false);
@@ -147,6 +148,10 @@ const ModalOverLay = (props) => {
     const handleThemeChange = (event) => {
         setSelectedTheme(Number(event.target.value));
     }
+
+
+    console.log("我的", Object.keys(modalItemsTitle[0])[0]);
+
 
     const filteredMenu1 = selectedTheme ?
         templateContent.menu1.filter(menu => menu.themeId === selectedTheme) : [];
@@ -163,19 +168,34 @@ const ModalOverLay = (props) => {
                     <BtnLightbrown btnText="×" onClick={props.onClose} />
                 </CardHeader>
                 <CardBody className="pl-10 bg-lightyellow ">
-                    {data.map((elem, index) => (
+                    {modalItemsTitle.map((elem, index) => (
                         <div className="flex flex-row gap-2 pb-5">
                             <div>
                                 <h3 className="font-titleFont font-bold text-h6 py-2 pl-1">
                                     {Object.keys(elem)[0]}
                                 </h3>
-                                <select name="" id="" className="
-                        font-bodyFont font-bold
-                        bg-transparent" onChange={handleThemeChange}>
-                                    {templateContent.theme.map((item) => (
-                                        <option value={item.themeId} key={item.themeId}>{item.themeName}</option>
-                                    ))}
-                                </select>
+                                {Object.keys(elem)[0] === (Object.keys(modalItemsTitle[0])[0]) ?
+                                    (
+                                        123
+                                    ) : (
+                                        Object.keys(elem)[0] === (Object.keys(modalItemsTitle[1])[0]) ?
+                                            (456) : (
+                                                Object.keys(elem)[0] === (Object.keys(modalItemsTitle[2])[0]) ?
+                                                    (
+                                                        <select name="" id="" className="
+                                                            font-bodyFont font-bold
+                                                            bg-transparent" onChange={handleThemeChange}>
+                                                            {templateContent.theme.map((meal) => (
+                                                                <option value={meal.themeId} key={meal.themeId}>{meal.themeName}</option>
+                                                            ))}
+                                                        </select>
+                                                    ) : (
+                                                        null
+                                                    )
+                                            )
+
+                                    )}
+
                                 <hr />
                             </div>
                             <div>
@@ -228,7 +248,7 @@ const portalElement = document.getElementById("overlay")
 const Modal = props => {
     return <Fragment>
         {ReactDom.createPortal(<BackDrop />, portalElement)}
-        {ReactDom.createPortal(<ModalOverLay onClose={props.onClose}>{props.children}</ModalOverLay>, portalElement)}
+        {ReactDom.createPortal(<ModalOverLay item={props.item} onClose={props.onClose}>{props.children}</ModalOverLay>, portalElement)}
 
     </Fragment>
 }
