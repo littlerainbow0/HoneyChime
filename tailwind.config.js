@@ -1,10 +1,13 @@
+
+import { nextui } from "@nextui-org/react";
 /** @type {import('tailwindcss').Config} */
 export default {
   content: [
     // 必須在 content 陣列中定位，確保相對應檔案能夠解讀 tailwind 的樣式
     './**/*.html', // 包含專案中的所有 html 文件 (排除 node_modules)
     '!./node_modules/**/*', // 排除 node_modules
-    './src/**/*.{js,jsx,ts,tsx,css,scss}' // 包含 src 資料夾下的所有 JS, CSS, SCSS JSX文件
+    './node_modules/@nextui-org/react/**/*.{js,ts,jsx,tsx}',
+    './src/**/*.{js,css,scss,jsx}' // 包含 src 資料夾下的所有 JS, CSS, SCSS 文件
   ],
   theme: {
     screen: {
@@ -27,8 +30,14 @@ export default {
         '3xl':'3.75rem',
       },
     },
-
     extend: {
+      colors: {
+        dark: 'rgb(32,30,30)',
+        darkbrown: 'rgb(38,33,33)',
+        brown: 'rgb(138,110,110)',
+        lightbrown: 'rgb(187,155,155)',
+        lightyellow: 'rgb(255,245,245)'
+      },
       width:{
         '135':'540px',
       },
@@ -55,22 +64,23 @@ export default {
       },
       translate: {
         '1/5': '20%', // 定義對應的值
-        '1/10': '10%',   
+        '1/10': '10%',
       },
       spacing: {
         'containerF': '0rem', // 為所有斷點定義統一的 padding 值
       },
       backgroundImage: {
-        'custom-icon': "url('../../src/assets/images/icon/polygonWhite.svg')",
-        'custom-icon2': "url('../../src/assets/images/icon/polygonWhiteLine.svg')",
-        'custom-icon3': "url('../../src/assets/images/icon/polygonBlackLine.svg')",
-        'custom-icon4': "url('../../src/assets/images/icon/Polygon5.png')",
+        'custom-icon': "url('../../src/assets/img/icon/polygonWhite.svg')",
+        'custom-icon2': "url('../../src/assets/img/icon/polygonWhiteLine.svg')",
+        'custom-icon3': "url('../../src/assets/img/icon/polygonBlackLine.svg')",
+        'custom-icon4': "url('../../src/assets/img/icon/Polygon5.png')",
       },
       aspectRatio: {
         '4/4.5': '4 / 4.5',
       },
     },
   },
+  darkMode: "class",
   plugins: [
     function ({ addUtilities }) {
       const newUtilities = {
@@ -87,6 +97,7 @@ export default {
       // 添加自定義工具類，並支持響應式和 hover 狀態
       addUtilities(newUtilities, ['responsive', 'hover']);
     },
+    nextui(),
   ],
 }
 

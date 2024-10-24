@@ -13,6 +13,7 @@ import News from './routes/News.jsx';
 import About from './routes/About.jsx';
 import Menu from './routes/Menu.jsx';
 import AdminNewsPage from './routes/AdminNews.jsx';
+import Calendarr from './components/admin/Calendarr.jsx';
 import { BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 
 
@@ -27,6 +28,7 @@ const App=()=>{
         <Route path='/news' element={<News></News>}></Route>
         <Route path='/about' element={<About></About>}></Route>
         <Route path='/menu' element={<Menu></Menu>}></Route>
+        <Route path='/calendar' element={<Calendarr/>}></Route>
         <Route path='/admin/news' element={<AdminNewsPage/>}></Route>
       </Routes>
     </Router>
