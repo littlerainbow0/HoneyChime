@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import api from '../../api.jsx';
 
 
-const DataFetcher = ({ setDataFromServer }) => {
+const DataFetcher = ({ setGetMenuDataFromServer }) => {
   const [loading, setLoading] = useState(true); // 加載狀態
 
   useEffect(() => {
@@ -25,7 +25,7 @@ const DataFetcher = ({ setDataFromServer }) => {
         //   }
         // ))
 
-        setDataFromServer(response.data);
+        setGetMenuDataFromServer(response.data);
 
       } catch (error) {
         console.error('Failed to get data from server/getSchedules', error);
@@ -34,7 +34,7 @@ const DataFetcher = ({ setDataFromServer }) => {
       }
     };
     fetchData();
-  }, [setDataFromServer]); // 確保只執行一次
+  }, [setGetMenuDataFromServer]); // 確保只執行一次
 
   return loading ? <div>Loading...</div> : null; // 加載中顯示
 };

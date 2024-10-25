@@ -8,7 +8,7 @@ import FilterCard from '../../components/admin/card_filter.jsx'
 import Modal from '../../components/admin/modal_schedule.jsx'
 import { Button } from '@nextui-org/react';
 import BtnBrown from '../../components/user/btn_brown.jsx'
-import DataFetcher from '../../dataProcessing/admin/GET_orders.jsx';
+import DataFetcherOrder from '../../dataProcessing/admin/GET_order.jsx';
 import Background from '../../components/admin/background_admin.jsx'
 
 const filterCardName = [
@@ -28,16 +28,47 @@ const filterCardName = [
 
 const columns = [
     "OrderID",
-    "UserID",
+    "DepartureDate",
+    "DepartureTime",
+    "StopStartName",
+    "StopEndName",
+    "DessertTitle",
+    "PeopleNum",
+    "SeatName",
+    "Price",
     "OrderTime",
     "PaymentStatus",
 ]
 const columnNames = {
-    OrdersID:"訂單ID",
-    UserID:"會員ID",
-    OrderTime:"訂單時間",
-    PaymentStatus:"訂單狀態",
+    OrderID: "訂單ID",
+    DepartureDate: "發車日期" ,
+    DepartureTime: "發車時間",
+    StopStartName: "起點站",
+    StopEndName: "終點站",
+    DessertTitle: "甜點風格",
+    PeopleNum: "人數",
+    SeatName: "桌號",
+    Price: "總金額",
+    OrderTime: "下單時間",
+    PaymentStatus: "訂單狀態",
 }
+
+const detailColumns = [
+    
+    "MealFirstName",
+    "MealSecondName",
+    "MealThirdName",
+    "MealFourthName",
+];
+const detailColumnNames = [
+    {
+
+    MealFirstName: "本桌餐點1",
+    MealSecondName: "本桌餐點2",
+    MealThirdName: "本桌餐點3",
+    MealFourthName: "本桌餐點4",
+    }
+];
 
 const AdminTemplate = () => {
     const [showModal, setShowModal] = useState(false);
@@ -46,7 +77,7 @@ const AdminTemplate = () => {
         setShowModal(prev => !prev); // 切換 Modal 顯示狀態
     };
 
-    const [dataFromServer, setDataFromServer] = useState([]) // 儲存API資料用
+    const [getOrderDataFromServer, setGetScheduleDataFromServer] = useState([]) // 儲存API資料用
 
 
     return (
@@ -58,11 +89,18 @@ const AdminTemplate = () => {
                     <RouteName />
                     <FilterCard data={filterCardName} />
                     <div className='justify-between'>
-                        <BtnBrown btnText="新建一筆模板" onClick={clickShowModal} />
-                        {showModal && <Modal onClose={clickShowModal} />} {/* 传递 onClose 函数 */}
+                        {/* <BtnBrown btnText="新建一筆模板" onClick={clickShowModal} />
+                        {showModal && <Modal onClose={clickShowModal} />} */}
                     </div>
-                    <DataFetcher setDataFromServer={setDataFromServer} />
-                    <TableDefault columns={columns} data={dataFromServer} columnNames={columnNames} />
+                    <DataFetcherOrder setDataFromServer={setGetScheduleDataFromServer} />
+                    <TableDefault 
+                    columns={columns}
+                    columnNames={columnNames}
+                    detailColumns={detailColumns}
+                    detailColumnNames={detailColumnNames}
+                    data1={getOrderDataFromServer}
+                    data2={getOrderDataFromServer}
+                     />
                 </div>
             </div>
         </div>

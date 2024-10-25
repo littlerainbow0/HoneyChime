@@ -5,7 +5,10 @@ import TableDefault from '../../components/admin/table_default.jsx' // 確保導
 import RouteName from '../../components/admin/routeName.jsx'
 import FilterCard from '../../components/admin/card_filter.jsx'
 import { div } from 'framer-motion/m';
-import DataFetcher from '../../dataProcessing/admin/GET_schedule.jsx'
+
+import DataFetcherSchedule from '../../dataProcessing/admin/GET_schedule.jsx'
+import DataFetcherMenu from '../../dataProcessing/admin/GET_menu.jsx';
+
 import BtnLightBrown from '../../components/user/btn_lightbrown.jsx';
 import Background from '../../components/admin/background_admin.jsx';
 import ModalSchedule from '../../components/admin/modal_schedule.jsx'
@@ -58,22 +61,16 @@ const columnNames = {
     Expired: "狀態",
 };
 
-const templateDetailColumns = [
-    "templateId",
+const detailColumns = [
     "DessertTitle",
-    "TemplateDescription",
-    "themeName",
-    "menuName1",
-    "menuName2",
+    "MenuFirstName",
+    "MenuSecondName",
 ];
-const templateDetailData = [
+const detailColumnNames = [
     {
-        templateId: 1,
-        DessertTitle: "日式甜點",
-        TemplateDescription: "台中高雄",
-        themeName: "日式",
-        menuName1: "日式練切",
-        menuName2: "日式團子",
+    DessertTitle:"甜點風格",
+    MenuFirstName:"供餐1",
+    MenuSecondName:"供餐2",
     }
 ];
 
@@ -85,7 +82,8 @@ const AdminSchedule = () => {
         setShowModal(prev => !prev); // 切換 Modal 顯示狀態
     };
 
-    const [dataFromServer, setDataFromServer] = useState([]) // 儲存API資料用
+    const [getScheduleDataFromServer, setGetScheduleDataFromServer] = useState([]) // 儲存API資料用
+    const [getMenuDataFromServer, setGetMenuDataFromServer] = useState([]) // 儲存API資料用
 
     const [dataByBtnFilter, setDataByBtnFilter] = useState([]) // data BTN篩選器
     const [isDataByBtnFilter, setIsDataByBtnFilter] = useState(false) // data BTN篩選器
@@ -94,7 +92,7 @@ const AdminSchedule = () => {
         if (isDataByBtnFilter) {
             setDataByBtnFilter([])
         } else {
-            const filteredData = dataFromServer.filter(data => data.Expired === "即將到來");
+            const filteredData = getScheduleDataFromServer.filter(data => data.Expired === "即將到來");
             setDataByBtnFilter(filteredData); // 確保這個函數接收過濾後的數據
         }
         setIsDataByBtnFilter(!isDataByBtnFilter);
@@ -119,11 +117,15 @@ const AdminSchedule = () => {
                             onClick={btnFilterClick}
                         />
                     </div>
-                    <DataFetcher setDataFromServer={setDataFromServer} />
+                    <DataFetcherSchedule setGetScheduleDataFromServer={setGetScheduleDataFromServer} />
+                    <DataFetcherMenu setGetMenuDataFromServer={setGetMenuDataFromServer} />
                     <TableDefault
                         columns={columns}
-                        data={dataByBtnFilter.length > 0 ? dataByBtnFilter : dataFromServer}
                         columnNames={columnNames}
+                        detailColumns={detailColumns}
+                        detailColumnNames={detailColumnNames}
+                        data1={dataByBtnFilter.length > 0 ? dataByBtnFilter : getScheduleDataFromServer}
+                        data2={getMenuDataFromServer}
                     />
                 </div>
             </div>
