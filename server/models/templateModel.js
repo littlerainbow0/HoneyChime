@@ -1,4 +1,4 @@
-import  query  from '../db.js';  // 引入資料庫查詢函數
+import query from '../db.js';  // 引入資料庫查詢函數
 
 // 取得所有範本
 export const getAllTemplate = async () => {
@@ -87,10 +87,10 @@ export const postTemplate = async (data) => {
     const sql = `INSERT INTO TEMPLATES (DessertTypeID, RouteID, TemplateDescription, 
     MenuFirst, MenuSecond) 
     VALUES (?, ?, ?, ?, ?)`;
-    
+
     try {
-        const result = await query(sql, [data.DessertTypeID, data.RouteID, data.TemplateDescription, data.MenuFirst, data.MenuSecond]);
-        return { templateID: result.results.insertId };
+        const { results } = await query(sql, [data.DessertTypeID, data.RouteID, data.TemplateDescription, data.MenuFirst, data.MenuSecond]);
+        return { templateID: results.insertId };
     } catch (error) {
         console.error('新增範本資料錯誤：', error);
         throw new Error('新增範本資料錯誤');
@@ -104,8 +104,8 @@ SET DessertTypeID = ?, RouteID = ?, MenuFirst = ?, MenuSecond = ?, TemplateDescr
 WHERE templateID = ?;`;
 
     try {
-        const result = await query(sql, [data.DessertTypeID, data.RouteID, data.MenuFirst, data.MenuSecond, data.TemplateDescription, templateID]);
-        return result.results.affectedRows;
+        const { results } = await query(sql, [data.DessertTypeID, data.RouteID, data.MenuFirst, data.MenuSecond, data.TemplateDescription, templateID]);
+        return results.affectedRows;
     } catch (error) {
         console.error('更新範本資料錯誤：', error);
         throw new Error('更新範本資料錯誤');

@@ -1,4 +1,5 @@
-import  query  from '../db.js';  // 引入資料庫查詢函數
+import query from '../db.js';  // 引入資料庫查詢函數
+import * as modelFuns from './modelFuns.js';
 
 // 取得所有旅程
 export const getAllSchedules = async () => {
@@ -29,6 +30,9 @@ LEFT JOIN
 
     try {
         const { results } = await query(sql);
+        results.forEach((value, index) => {
+            results[index].DepartureDate = modelFuns.dateFormat(value.DepartureDate);
+        });
         return { results };
     } catch (error) {
         console.log('查詢旅程資料錯誤：', error);
@@ -60,9 +64,12 @@ JOIN
     STOPS EndStop ON R.StopEnd = EndStop.StopID
 WHERE 
     D.DessertType = ?;`;
-    
+
     try {
         const { results } = await query(sql, [dessertType]);  // 使用 dessertType 參數進行查詢
+        results.forEach((value, index) => {
+            results[index].DepartureDate = modelFuns.dateFormat(value.DepartureDate);
+        });
         return { results };
     } catch (error) {
         console.log('查詢特定甜點之旅程資料錯誤：', error);
@@ -73,8 +80,8 @@ WHERE
 export const postSchedule = async (data) => {
     const sql = `INSERT INTO SCHEDULES (TemplateID, DepartureDate, DepartureTimeID) VALUES (?, ?, ?)`;
     try {
-        const result = await query(sql, [data.TemplateID, data.DepartureDate, data.DepartureTimeID]);
-        return { scheduleID: result.results.insertId };
+        const { results } = await query(sql, [data.TemplateID, data.DepartureDate, data.DepartureTimeID]);
+        return { scheduleID: results.insertId };
     } catch (error) {
         console.error('新增旅程資料錯誤：', error);
         throw new Error('新增旅程資料錯誤');
@@ -86,8 +93,8 @@ export const updateSchedule = async (scheduleID, data) => {
 SET TemplateID = ?, DepartureDate = ?, DepartureTimeID = ?
 WHERE scheduleID = ?;`;
     try {
-        const result = await query(sql, [data.TemplateID, data.DepartureDate, data.DepartureTimeID, scheduleID]);
-        return result.results.affectedRows;
+        const { results } = await query(sql, [data.TemplateID, data.DepartureDate, data.DepartureTimeID, scheduleID]);
+        return results.affectedRows;
     } catch (error) {
         console.error('更新旅程資料錯誤：', error);
         throw new Error('更新旅程資料錯誤');
