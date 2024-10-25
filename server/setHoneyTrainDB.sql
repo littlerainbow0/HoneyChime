@@ -135,7 +135,7 @@ INSERT INTO `ROUTES` (`StopStart`, `StopEnd`, `RouteImagePath`, `Duration`,`Desc
 "/src/assets/images/train_exterior/tripInfo_MountainLg02.png",
 "/src/assets/images/train_exterior/tripInfo_GrassLg02.png",
 "春天的櫻花、夏天的綠意、秋天的紅葉，還是冬天的雲霧，每個季節都有其獨特的風貌。這段旅程不僅是從台中到台南的移動，更是一場視覺與心靈的饗宴，讓你在車窗外的美景中，感受到台灣的自然魅力與文化深度。"),
-(3, 5, "/src/assets/images/train_exterior/train_exterior_4.png.png", 145, 
+(3, 5, "/src/assets/images/train_exterior/train_exterior_4.png", 145, 
 "台中出發，搭乘鐵路前往高雄，沿途的景色會讓你驚艷不已。列車穿越繁華的都市後，逐漸進入寧靜的山林與田野。你可以看到壯麗的中央山脈在遠方矗立，隨著列車的前行，山谷與河流交織出一幅幅美麗的畫面。",
 "/src/assets/images/train_exterior/tripInfo_train01.png",
 "/src/assets/images/train_exterior/tripInfo_MountainLg03.png",

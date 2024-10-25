@@ -112,6 +112,7 @@
         let k = reservationData.dessert1 || "";
         let l = reservationData.dessert2 || "";
         let m = reservationData.price;
+        let n = reservationData.scheduleID;
 
         console.log(a);
         console.log(b);
@@ -126,6 +127,7 @@
         console.log(k);
         console.log(l);
         console.log(m);
+        console.log(n, "is scheduleID");
 
         // 取得reservation的資料
         document.addEventListener('DOMContentLoaded', function () {
@@ -227,32 +229,25 @@
             }
             const dessert = postDessert();
             console.log(dessert);
-        
+
 
             axios.get('http://localhost:8000/getSeats')
                 .then((Response) => {
                     seatArray = Response.data;
                     console.log(Response)
-                    // return Response.data;
-                    // console.log(seatArray);
-                    // seatArray.forEach(seats => {
-                    //     console.log(seats.SeatID, seats.SeatName);
-                    //     return seats.SeatID, seats.SeatName;
-                    // });
-                    // console.log(j);
 
                     let jToSeatID = j;
                     const matchingSeat = seatArray.find(seat => seat.SeatName === jToSeatID);
                     if (matchingSeat) {
                         console.log(matchingSeat.SeatID, "is SeatID");
-                        console.log(j, "is original j");
+                        // console.log(j, "is original j");
                         let nameToID = matchingSeat.SeatID;
                         console.log(nameToID, "is name turn to ID");
 
                         // ============ 將 座位名稱 轉換為 座位ID 成為post所需格式 ===============
                         return axios.post('http://localhost:8000/postOrder', {
-                            UserID: "4",
-                            ScheduleID: "3",
+                            UserID: "1",
+                            ScheduleID: n,
                             OrderTime: orderTime,
                             PaymentStatus: payment,
                             SeatID: nameToID,
@@ -260,7 +255,7 @@
                             ...dessert
 
                         })
-                        
+
 
                     } else {
                         console.log("找不到對應的座位 ID:", jToSeatID.SeatID);

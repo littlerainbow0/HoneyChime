@@ -259,28 +259,34 @@
         Top
     </a>
     <script>
-        // var dessertTypeUrl = "http://localhost:8000/getTemplates";
-        // var scheduleUrl = "http://localhost:8000/getSchedules";
-        // departure_date.onclick = async function () {
-        //     // let dessertType = await axios.get(dessertTypeUrl);
-        //     let schedule = await axios.get(scheduleUrl);
-        //     // console.log(dessertType.data);
-        //     console.log(schedule.data); // 輸出整個行程資料
-        //     // console.log(typeof schedule);
-        //     console.log(schedule.DepartureDate);
-        //     // 提取所有 DepartureDate
-        // const departureDates = schedule.data.map(item => item.DepartureDate);
-        // departureDates.forEach(date => {
-        //     console.log(date);
-        // });
-        // const departureTimes = schedule.data.map(item => item.DepartureTime);
-        // departureDates.forEach(time => {
-        //     console.log(time);
-        // });
-        // }
-
-        // json.parse(apple)
-        // json(apple[0].title)
+        // 選擇起站與迄站改變 - 行程 - 中的圖片與 起點 ⭢ 終點
+        const routeStart = document.getElementById('route_start');
+        const routeEnd = document.getElementById('route_end');
+        const tripImg = document.getElementById('tripRouteImg');
+        const tripRoute = document.getElementById('tripRoute');
+        function updateTripDetail() {
+            if (routeStart.value == "台北" && routeEnd.value == "台中") {
+                tripImg.src = '/src/assets/images/train_exterior/tripInfo_train01.png';
+                tripRoute.textContent = `${routeStart.value} ⭢ ${routeEnd.value}`;
+            } else if (routeStart.value == "台北" && routeEnd.value == "花蓮") {
+                tripImg.src = '/src/assets/images/train_exterior/Facilities_train.png';
+                tripRoute.textContent = `${routeStart.value} ⭢ ${routeEnd.value}`;
+            } else if (routeStart.value == "台中" && routeEnd.value == "台南") {
+                tripImg.src = '/src/assets/images/train_exterior/tripInfo_MountainSm03.png';
+                tripRoute.textContent = `${routeStart.value} ⭢ ${routeEnd.value}`;
+            } else if (routeStart.value == "台中" && routeEnd.value == "高雄") {
+                tripImg.src = '/src/assets/images/train_exterior/train_exterior_4.png';
+                tripRoute.textContent = `${routeStart.value} ⭢ ${routeEnd.value}`;
+            } else if (routeStart.value == "高雄" && routeEnd.value == "台中") {
+                tripImg.src = '/src/assets/images/train_exterior/train_exterior_hero.png';
+                tripRoute.textContent = `${routeStart.value} ⭢ ${routeEnd.value}`;
+            } else if (routeStart.value == "高雄" && routeEnd.value == "花蓮") {
+                tripImg.src = '/src/assets/images/train_exterior/train_exterior_7.png';
+                tripRoute.textContent = `${routeStart.value} ⭢ ${routeEnd.value}`;
+            }
+        }
+        routeStart.addEventListener('change', updateTripDetail);
+        routeEnd.addEventListener('change', updateTripDetail);
 
 
         // ------------ 抓到路線 ------------
@@ -295,6 +301,9 @@
             document.getElementById('tripRoute').innerText = `${start} ⭢ ${end}`;
             document.getElementById('tripRouteImg').src = img;
         });
+
+
+
 
         // -------- 旅客人數與車廂選項邏輯 ---------
         document.addEventListener('DOMContentLoaded', function () {
@@ -405,6 +414,10 @@
 
 
 
+
+
+
+
         //------- 當甜點類型或旅客人數改變時的處理函數 ----------
         function resetFormFields() {
             // 重置出發日期
@@ -418,6 +431,9 @@
         // 監聽甜點類型和旅客人數的變化
         document.getElementById("dessert_type").addEventListener("change", resetFormFields);
         document.getElementById("people").addEventListener("change", resetFormFields);
+
+
+
 
 
 
@@ -490,81 +506,56 @@
         // 監聽甜點類型的變化
         document.getElementById("dessert_type").addEventListener("change", updateDessertInfo);
 
+
+
+
+
+
+
         // -------------------------------------------
         // ---------- 起迄站與出發日期 ------------
-        const scheduleData =
-            [
-                {
-                    SchedulesID: 1,
-                    DepartureDate: "2024-10-10",
-                    DepartureTime: "13:00",
-                    RouteStart: "台北",
-                    RouteEnd: "台中",
-                    Duration: 121,
-                },
-                {
-                    SchedulesID: 2,
-                    DepartureDate: "2024-10-10",
-                    DepartureTime: "17:00",
-                    RouteStart: "台北",
-                    RouteEnd: "台中",
-                    Duration: 121
-                },
-                {
-                    SchedulesID: 3,
-                    DepartureDate: "2025-11-14",
-                    DepartureTime: "13:00",
-                    RouteStart: "台北",
-                    RouteEnd: "台中",
-                    Duration: 121
-                },
-                {
-                    SchedulesID: 4,
-                    DepartureDate: "2025-11-14",
-                    DepartureTime: "17:00",
-                    RouteStart: "台北",
-                    RouteEnd: "台中",
-                    Duration: 121
-                },
-                {
-                    SchedulesID: 5,
-                    DepartureDate: "2025-11-14",
-                    DepartureTime: "13:00",
-                    RouteStart: "台北",
-                    RouteEnd: "花蓮",
-                    Duration: 150
-                },
-                {
-                    SchedulesID: 6,
-                    DepartureDate: "2024-11-14",
-                    DepartureTime: "13:00",
-                    RouteStart: "台北",
-                    RouteEnd: "花蓮",
-                    Duration: 150
-                },
-                {
-                    SchedulesID: 7,
-                    DepartureDate: "2024-11-14",
-                    DepartureTime: "17:00",
-                    RouteStart: "台中",
-                    RouteEnd: "台南",
-                    Duration: 150
-                }
+        let scheduleData = []; // 宣告全局變數以儲存排程資料
+        let selectedScheduleID = null; // 宣告全局變數以儲存選擇的 ScheduleID
 
-                //用日期去判斷日曆能點擊的部分(有行程且時間是未來)
-            ]
-
-        // 抓日曆去選擇出發時間、起站、迄站與抵達時間
         document.addEventListener('DOMContentLoaded', () => {
+            const dessertTypeElement = document.getElementById('dessert_type');
+            const dessertType = dessertTypeElement.value;
+            const scheduleDessertUrl = `http://localhost:8000/getSchedules/${dessertType}`;
+
+            // 初始獲取排程
+            fetchSchedules(scheduleDessertUrl);
+
+            // 監聽甜點類型變化
+            dessertTypeElement.addEventListener('change', () => {
+                const newDessertType = dessertTypeElement.value;
+                const newUrl = `http://localhost:8000/getSchedules/${newDessertType}`;
+                fetchSchedules(newUrl);
+            });
+        });
+
+        // 獲取排程並更新 scheduleData 的函數
+        function fetchSchedules(url) {
+            axios.get(url)
+                .then((response) => {
+                    scheduleData = response.data; // 將資料存儲在全局變數中
+                    console.log(scheduleData); // 顯示獲取的排程
+
+                    // 調用以初始化日曆或更新相關 UI 元件
+                    initializeCalendar();
+                })
+                .catch((error) => { console.log(error); });
+        }
+
+        // 日曆初始化函數
+        function initializeCalendar() {
             const departureTimeSelect = document.getElementById('departure_time');
             const orderStartDate = document.getElementById('order_start_date');
             const orderArriveDate = document.getElementById('order_arrive_date');
             const routeStartSelect = document.getElementById('route_start');
             const routeEndSelect = document.getElementById('route_end');
 
-            // 提取可用日期
-            const availableDates = scheduleData.map(schedule => schedule.DepartureDate);
-
+            // 從 scheduleData 提取可用日期
+            const availableDates = [...new Set(scheduleData.map(schedule => schedule.DepartureDate))];
 
             // 初始化 Flatpickr
             flatpickr("#departure_date", {
@@ -580,7 +571,7 @@
                 }
             });
 
-            // 設置出發詳情
+            // 設置出發詳情的函數
             const setDepartureDetails = (selectedDate) => {
                 const selectedTime = departureTimeSelect.value;
 
@@ -589,46 +580,44 @@
 
                 if (schedule) {
                     orderStartDate.textContent = `${schedule.DepartureDate} ${schedule.DepartureTime}`;
-                    // 更新起站和迄站選項
+                    selectedScheduleID = schedule.ScheduleID; // 儲存選擇的 ScheduleID
+                    console.log(`選擇的 Schedule ID: ${selectedScheduleID}`); // 在控制台顯示
                     updateRouteOptions(selectedDate, selectedTime);
                 } else {
                     orderStartDate.textContent = "無可用排程";
-                    orderArriveDate.textContent = ""; // 清空抵達時間
+                    orderArriveDate.textContent = "";
                     clearRouteOptions();
                 }
             };
 
-            // 計算抵達時間
-            function calculateArrivalTime(departureTime, duration) {
-                const [hours, minutes] = departureTime.split(':').map(Number);
-                const departureDateTime = new Date();
-                departureDateTime.setHours(hours);
-                departureDateTime.setMinutes(minutes);
-
-                // 加上持續時間
-                departureDateTime.setMinutes(departureDateTime.getMinutes() + duration);
-
-                const arrivalHours = departureDateTime.getHours().toString().padStart(2, '0');
-                const arrivalMinutes = departureDateTime.getMinutes().toString().padStart(2, '0');
-
-                return `${arrivalHours}:${arrivalMinutes}`;
-            }
-
-            // 更新路線選項
+            // 更新路線選項的函數
             function updateRouteOptions(selectedDate, selectedTime) {
-                // 清空選項
                 clearRouteOptions();
 
-                // 收集所有起站和迄站
-                const routes = scheduleData.filter(schedule => schedule.DepartureDate === selectedDate && schedule.DepartureTime === selectedTime);
+                const routes = scheduleData.filter(schedule =>
+                    schedule.DepartureDate === selectedDate && schedule.DepartureTime === selectedTime
+                );
+
+                console.log(routes); // 調試：檢查過濾後的排程
+
+                // 輸出每個排程的 ScheduleID
+                routes.forEach(route => {
+                    console.log(`Schedule ID: ${route.ScheduleID}`);
+                });
 
                 const startRoutes = new Set();
                 const endRoutes = new Set();
 
                 routes.forEach(route => {
-                    startRoutes.add(route.RouteStart);
-                    endRoutes.add(route.RouteEnd);
+                    startRoutes.add(route.StartStopName);
+                    endRoutes.add(route.EndStopName);
                 });
+
+                // 如果沒有可選的起站或迄站
+                if (startRoutes.size === 0 && endRoutes.size === 0) {
+                    console.log("沒有可選擇的起站或迄站");
+                    return; // 不執行後續操作
+                }
 
                 // 更新起站選項
                 startRoutes.forEach(route => {
@@ -640,37 +629,53 @@
                     routeEndSelect.innerHTML += `<option value="${route}">${route}</option>`;
                 });
 
-                // 添加監聽器到迄站選擇
+                // 監聽迄站選擇變化
                 routeEndSelect.addEventListener('change', () => {
                     const selectedRouteEnd = routeEndSelect.value;
-                    const schedule = routes.find(s => s.RouteEnd === selectedRouteEnd);
+                    const schedule = routes.find(s => s.EndStopName === selectedRouteEnd);
 
                     if (schedule) {
                         const arrivalTime = calculateArrivalTime(schedule.DepartureTime, schedule.Duration);
                         orderArriveDate.textContent = arrivalTime;
                     } else {
-                        orderArriveDate.textContent = ""; // 清空抵達時間
+                        orderArriveDate.textContent = "";
                     }
                 });
             }
 
-            // 清空路線選項
+            // 清空路線選項的函數
             function clearRouteOptions() {
                 routeStartSelect.innerHTML = `<option value="0">請選擇站點</option>`;
                 routeEndSelect.innerHTML = `<option value="0">請選擇站點</option>`;
             }
 
-            // 監聽出發時間變化事件
+            // 計算抵達時間的函數
+            function calculateArrivalTime(departureTime, duration) {
+                const [hours, minutes] = departureTime.split(':').map(Number);
+                const departureDateTime = new Date();
+                departureDateTime.setHours(hours);
+                departureDateTime.setMinutes(minutes);
+                departureDateTime.setMinutes(departureDateTime.getMinutes() + duration);
+
+                const arrivalHours = departureDateTime.getHours().toString().padStart(2, '0');
+                const arrivalMinutes = departureDateTime.getMinutes().toString().padStart(2, '0');
+
+                return `${arrivalHours}:${arrivalMinutes}`;
+            }
+
+            // 監聽出發時間和日期的變化事件
             departureTimeSelect.addEventListener('change', () => {
                 const selectedDate = document.getElementById('departure_date').value;
                 setDepartureDetails(selectedDate);
             });
 
-            // 監聽出發日期變化事件
             document.getElementById('departure_date').addEventListener('change', (event) => {
                 setDepartureDetails(event.target.value);
             });
-        });
+        }
+
+
+
 
 
 
@@ -752,6 +757,10 @@
 
 
 
+
+
+
+
         // ----- 車廂選項綁定車廂座位與車廂圖片 -----
         document.getElementById('car_type').addEventListener('change', function () {
             var seatSelect = document.getElementById('seat');
@@ -797,6 +806,9 @@
                 carImage.data = '/src/assets/images/plan/F.svg';
             }
         });
+
+
+
 
         // -------------------------------------------
         // ------- 抓客人選擇的甜點到order detail --------
@@ -1001,8 +1013,11 @@
                     seat: sendSeat,
                     dessert1: sendDessert1,
                     dessert2: sendDessert2,
-                    price: sendPrice
+                    price: sendPrice,
+                    scheduleID: selectedScheduleID
                 }
+
+                console.log(selectedScheduleID, "ScheduleID to order");
 
                 localStorage.setItem("dataFromUser", JSON.stringify(userOrderInfo));
 

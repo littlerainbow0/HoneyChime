@@ -37,10 +37,10 @@ const Trip = () => {
             <html>
 
             
-            <header className="trip_hero">
+            <div className="trip_hero">
             <Header/>
 
-            </header>
+            </div>
             <main>
                 <div className="trip_section">
                     <div className="slider_info">
