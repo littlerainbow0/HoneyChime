@@ -6,7 +6,7 @@ const HomeIntroduce2=()=>{
             <div className="mx-auto mt-40 mb-10 containerF sm:containerF"> 
             <h1 className="text-[#634A34] mb-6 text-center font-titleFont text-h2 font-bold">設施介紹</h1>
         
-            <div className="grid grid-cols-3 gap-0.5">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-0.5">
                 {/* 商店  */}
                 <div className="relative max-w-[720px] max-h-[900px] overflow-hidden cursor-pointer drink-item group" >
                     <img className="object-cover w-full h-full transition-transform duration-300 ease-in-out group-hover:brightness-50" 

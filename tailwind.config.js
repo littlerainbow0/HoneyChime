@@ -1,6 +1,8 @@
 
 import { nextui } from "@nextui-org/react";
+
 /** @type {import('tailwindcss').Config} */
+
 export default {
   content: [
     // 必須在 content 陣列中定位，確保相對應檔案能夠解讀 tailwind 的樣式
@@ -11,7 +13,7 @@ export default {
   ],
   theme: {
     screen: {
-      'none': '375px',
+      'xs': '375px',
       'sm': '640px',
       'md': '768px',
       'lg': '1024px',
@@ -21,8 +23,8 @@ export default {
     },
     container: {
       padding:{
-        none:'1.25rem',
-        sm:'2.5rem',
+        xs:'1.25rem',
+        sm:'2rem',
         md:'2.5rem',
         lg:'3.75rem',
         xl:'3.75rem',
@@ -70,10 +72,10 @@ export default {
         'containerF': '0rem', // 為所有斷點定義統一的 padding 值
       },
       backgroundImage: {
-        'custom-icon': "url('../../src/assets/img/icon/polygonWhite.svg')",
-        'custom-icon2': "url('../../src/assets/img/icon/polygonWhiteLine.svg')",
-        'custom-icon3': "url('../../src/assets/img/icon/polygonBlackLine.svg')",
-        'custom-icon4': "url('../../src/assets/img/icon/Polygon5.png')",
+        'custom-icon': "url('../../src/assets/images/icon/polygonWhite.svg')",
+        'custom-icon2': "url('../../src/assets/images/icon/polygonWhiteLine.svg')",
+        'custom-icon3': "url('../../src/assets/images/icon/polygonBlackLine.svg')",
+        'custom-icon4': "url('../../src/assets/images/icon/Polygon5.png')",
       },
       aspectRatio: {
         '4/4.5': '4 / 4.5',

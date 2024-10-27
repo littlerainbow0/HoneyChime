@@ -2,13 +2,15 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import '../assets/css/style.css';
+import polygonLineIcon from '../assets/images/icon/icon_polygonLine.png';
+
 
 const NewsNews = () => {
     const [news, setNews] = useState([]);
 
     // 從後端 API 獲取資料
     useEffect(() => {
-        axios.get("http://localhost:8000/api/news")
+        axios.get("http://localhost:8000/getNews")
             .then(response => {
                 setNews(response.data);
             })
@@ -40,7 +42,7 @@ const NewsNews = () => {
                 </div>
             </div>
             <span className="mt-5">
-                <img src="../assets/images/icon/icon_polygonLine.png" alt="navbar" />
+                <img src={polygonLineIcon}  alt="navbar" />
             </span>
         </div>
     );

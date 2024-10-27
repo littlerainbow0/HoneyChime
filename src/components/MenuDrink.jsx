@@ -7,9 +7,9 @@ const MenuDrink =()=>{
             <div className="container mx-auto mt-6">
                 <h1 className="text-[#634A34] mb-6 text-center font-titleFont text-h2 font-bold">特調飲品</h1>
             
-                <div className="grid grid-cols-4 gap-6">
+                <div className="container grid grid-cols-1 gap-6 mx-auto md:grid-cols-2 xl:grid-cols-4">
                      {/* 咖啡  */}
-                    <div className="relative max-w-[400px] max-h-[530px] overflow-hidden cursor-pointer drink-item group">
+                    <div className="relative max-w-[400px] max-h-[530px] overflow-hidden cursor-pointer drink-item group col-span-1">
                         <img className="object-cover w-full h-full
                         transition-transform duration-300 ease-in-out group-hover:scale-110 group-hover:blur-[3px]" 
                         src="../../src/assets/images/dessert/dessert_coffee01.jpg" alt="咖啡"/>
@@ -23,7 +23,7 @@ const MenuDrink =()=>{
                     </div>
             
                      {/* 茶  */}
-                    <div className="relative max-w-[400px] max-h-[530px] overflow-hidden cursor-pointer drink-item group">
+                    <div className="relative max-w-[400px] max-h-[530px] overflow-hidden cursor-pointer drink-item group col-span-1">
                         <img className="object-cover w-full h-full
                         transition-transform duration-300 ease-in-out group-hover:scale-110 group-hover:blur-[3px]" 
                         src="../../src/assets/images/dessert/dessert_tea.png" alt="tea"/>
@@ -38,7 +38,7 @@ const MenuDrink =()=>{
 
             
                      {/* 果汁  */}
-                    <div className="relative max-w-[400px] max-h-[530px] overflow-hidden cursor-pointer drink-item group">
+                    <div className="relative max-w-[400px] max-h-[530px] overflow-hidden cursor-pointer drink-item group col-span-1">
                         <img className="object-cover w-full h-full
                         transition-transform duration-300 ease-in-out group-hover:scale-110 group-hover:blur-[3px]" 
                         src="../../src/assets/images/dessert/dessert_juice.jpg" alt="juice"/>
@@ -52,7 +52,7 @@ const MenuDrink =()=>{
                     </div>
             
                      {/* 雞尾酒  */}
-                    <div className="relative max-w-[400px] max-h-[530px] overflow-hidden cursor-pointer drink-item group">
+                    <div className="relative max-w-[400px] max-h-[530px] overflow-hidden cursor-pointer drink-item group col-span-1">
                         <img className="object-cover w-full h-full
                         transition-transform duration-300 ease-in-out group-hover:scale-110 group-hover:blur-[3px]" 
                         src="../../src/assets/images/dessert/dessert_cocktail.png" alt="cocktail"/>

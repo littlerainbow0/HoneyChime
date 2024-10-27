@@ -1,6 +1,6 @@
 import Footerr from "../components/Footerr";
 import NewsNews from "../components/NewsNews";
-import BgImg from '../../src/assets/images/train_exterior/train_exterior_hero.png';
+import BgImg from '../../src/assets/images/landscape/landscape_landscape04.png';
 import '../assets/css/headerr.css'
 import '../assets/css/style.css'
 

@@ -40,7 +40,7 @@ const About =()=>{
             <AboutTitle/>
             <AboutContent/>
             <Footerr/>
-            <h1>About Page</h1>
+            
         </div>
     );
 };

@@ -4,13 +4,13 @@ import '../assets/css/style.css'
 const MenuActivity =()=>{
     return(
         <div>
-            <div className="container mx-auto mt-40">{/* <容器  */}
-            <ul className="grid grid-cols-2 gap-96"> {/* 格線  */}
-                <li className="col-span-1"> {/* 列 */}
-                    <h1 className="font-titleFont text-h2 text-[#634A34] font-bold mt-40 text-center">活動</h1> {/* 標題區塊  */}
+            <div className="container mx-auto mt-10 sm:mt-28 md:mt-40">{/* <容器  */}
+            <ul className="grid grid-cols-1 gap-4 px-4 sm:grid-cols-2 sm:gap-20 md:gap-30 xl:gap-72 2xl:gap-96"> {/* 格線  */}
+                <li className="col-span-1 pl-4"> {/* 列 */}
+                    <h1 className="font-titleFont text-h2 text-[#634A34] font-bold mt-28 text-center mb-4">活動</h1> {/* 標題區塊  */}
                 </li>
-                <li className="col-span-1 pr-20">
-                    <p className="font-normal font-bodyFont text-p-1"> {/* 右側段落文字區 */}
+                <li className="col-span-1 pr-4">
+                    <p className="px-4 font-normal font-bodyFont text-p-1"> {/* 右側段落文字區 */}
                         甜點列車除了帶來豐富的美食體驗外，還為旅客精心安排了多樣化的互動活動，讓旅程更加豐富有趣。
                         從充滿藝術的現場音樂演奏，到悠閒的手作甜點和工藝品的 DIY 課程，每一個活動都讓旅客在旅途中有著更多美好的回憶。
                         此外，特別設計的品酒會與甜點製作體驗，日與夜的美食與風情為旅客提供了享樂的學習與體驗機會。無論您是在享受甜點手作，
