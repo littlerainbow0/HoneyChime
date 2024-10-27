@@ -2,7 +2,7 @@ export const isUser = async (req, res, next) => {
     if (req.session.UserID ) {
         return next();
     }
-    return res.status(403).json({ message: 'not Login!' });
+    return res.status(403).json({ message: '尚未登入!' });
 };
 
 export const isAdmin = async (req, res, next) => {

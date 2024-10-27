@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body>div {
+            overflow-y: auto;
+        }
+
+        body>div>div {
+            margin: auto;
+            width: 18rem;
+            height: 24rem;
+            background-color: #F4F4F4;
+            border-radius: 0 1rem 0 1rem;
+            padding: 2.5rem;
+        }
+
+        body>div>div>div {
+            text-align: center;
+            margin: 0 0 2.5rem 0;
+        }
+
+        p {
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <div>
+            <div>
+                <h3>註冊會員</h3>
+                <h5>建立帳號資訊</h5>
+            </div>
+            <form action="">
+                <div>
+                    <label for="userEmail">電子信箱</label>
+                    <br>
+                    <input id="userEmail" type="email" placeholder="honey@gmail.com">
+                </div>
+                <hr>
+                <div>
+                    <label for="userPWD">密碼</label>
+                    <br>
+                    <input id="userPWD" type="password" placeholder="請輸入密碼">
+                </div>
+                <hr>
+                <div>
+                    <label for="userPWDverify">確認密碼</label>
+                    <br>
+                    <input id="userPWDverify" type="password" placeholder="請輸入密碼">
+                </div>
+                <hr>
+                <div>
+                    <p>
+                        <label for="">已經有會員了嗎？</label>
+                        <a href="">立即登入</a>
+                    </p>
+                </div>
+            </form>
+        </div>
+        <p>↓</p>
+        <div>
+            <div>
+                <h3>註冊會員</h3>
+                <h5>建立個人資訊</h5>
+            </div>
+            <form action="">
+                <div>
+                    <label for="userName">姓名</label>
+                    <br>
+                    <input id="userName" type="text" placeholder="蜂鳴號">
+                </div>
+                <hr>
+                <div>
+                    <label for="userPhone">手機電話</label>
+                    <br>
+                    <input id="userPhone" type="number" placeholder="0912345678">
+                </div>
+                <hr>
+                <div>
+                    <label for="userBirth">生日</label>
+                    <br>
+                    <input id="userBirth" type="date" placeholder="2024/11/13">
+                </div>
+                <hr>
+                <div>
+                    <label for="userAdress">聯絡地址</label>
+                    <br>
+                    <div>
+
+                        <select name="" id="">
+                            <optgroup label="中部">
+                                <option value="">台中市</option>
+                                <option value="">彰化縣</option>
+                                <option value="">南投縣</option>
+                            </optgroup>
+                        </select>
+                        <select name="" id="">
+                            <option value="">南屯區</option>
+                            <option value="">西屯區</option>
+                        </select>
+                    </div>
+                    <div>
+                        <input id="userAdress" type="text" placeholder="請輸入詳細地址">
+                    </div>
+                </div>
+                <hr>
+                <div>
+                    <input type="submit" value="註冊完成">
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+
+</html>

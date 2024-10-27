@@ -1,6 +1,60 @@
 .gitignore  git忽略掉的檔案 原則上是不需要遷入的檔案
 
-
+npm install tailwindcss
+npx tailwindcss init
 
 ＃監聽 tailwindcss 的檔案編譯
 npx tailwindcss -i ./src/all.css -o ./dist/css/style.css --watch
+
+npm install @nextui-org/react
+
+# Vite專案運作
+npm run dev
+
+npm install react-router-dom
+
+在vite專案中查看版本
+npm list vite
+npm list react
+
+git add .
+git commit -m "Initial commit"
+git remote add origin https://github.com/littlerainbow0/HoneyChime.git
+git push -u origin chishauo7
+git push -u origin
+
+npm install autoprefixer --save-dev
+
+拉別人分支的特定檔案
+git branch -a
+git checkout -b HongYu origin/HongYu  
+git restore --source=HongYu -- server
+
+更新別人的檔案
+git fetch origin
+git checkout HongYu
+git pull origin HongYu
+
+開兩個localhost，server已避免CORS問題
+npm install
+cd server 
+nodemon server.js
+
+*** server若沒有接受CORS訪問請參閱以下，由前端Vite.config可以調整
+.1 https://blog.csdn.net/weixin_71579814/article/details/131684885
+.2 https://blog.csdn.net/xiaoxiongxia/article/details/131131860 ←typescript
+.3 https://blog.csdn.net/weixin_44786530/article/details/133378611 路徑參考
+
+參考Vite + React + axios設置
+https://blog.51cto.com/u_16213421/11892761
+
+使用API
+npm install axios
+
+工作區設定
+VScode setting > workbench.tree.indent
+
+在團隊中負責前端，主要以React, NextUI, tailwind, API進行開發
+負責的頁面總共十頁
+前台：登入、註冊、會員訂單、會員資訊、常見問題
+後台：首頁 會員管理 會員諮詢 旅程管理 旅程範本

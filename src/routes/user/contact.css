@@ -1,0 +1,16 @@
+#mailcard{
+    width: 32rem;
+}
+
+.input-large {
+    height: 10rem; /* 設定高度為 300px */
+    resize: none; /* 禁止調整大小（可選） */
+}
+input::placeholder {
+    color: rgb(32,30,30,0.4); /* 你想要的顏色 */
+    position: absolute;
+    /* 以下是為了讓placeholder固定在左上角 */
+    left: 0px; 
+    top: 8px; 
+    transform: translateY(-50%); 
+}

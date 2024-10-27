@@ -9,7 +9,7 @@ const app = express();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(cors());
+// app.use(cors());
 
 dotenv.config();
 
@@ -22,13 +22,14 @@ app.use(session({
         secure: false// 為了在HTTP中測試而不是在HTTPS
     },
 }));
-/*
+
 app.use(cors({
-    origin: 'http://localhost:3000',
+    origin: 'http://localhost:5173',
     methods: ['GET', 'POST', 'PUT'],
-    allowedHeaders: ['Content-Type', 'Authorization']
+    allowedHeaders: ['Content-Type', 'Authorization'],
+    credentials: true // 如果使用 cookie，則需要設置為 true
 }));
-*/
+
 
 app.use('/', index);
 

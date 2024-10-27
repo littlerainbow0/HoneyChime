@@ -2,6 +2,6 @@
 /* 在 base 的區塊，通常是使用 HTML 標籤型的全域樣式 */
 /* 則是針對單一 class 使用"多個"樣式才組成 components (元件) 如btn */
 /* utilities 的部分則強調單一 class 單一樣式，也就是相當於 tailwind 本身預設樣式的寫法 */
-@tailwind base;  
+@tailwind base;
 @tailwind components;
 @tailwind utilities;

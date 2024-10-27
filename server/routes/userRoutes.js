@@ -5,7 +5,7 @@ import * as userController from '../controllers/userController.js';  // 引入�
 
 const router = express.Router();
 
-router.get('/getUsers', authMiddleware.isAdmin, userController.getAllUsers);
+router.get('/getUsers', userController.getAllUsers);
 router.get('/getUsers/:userID', authMiddleware.isUser, userController.getUserByUserID);
 
 router.post('/signIn', authMiddleware.logined, setSessionMiddleware.setSessionMaxAge, userController.signIn);

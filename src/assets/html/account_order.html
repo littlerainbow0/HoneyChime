@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body>div {
+            width: 85rem;
+        }
+
+        #title {
+            text-align: center;
+        }
+
+        #mainbody {
+            /* display: flex; */
+            justify-content: center;
+            margin: auto;
+        }
+
+        nav ul {
+            display: inline-flex;
+            list-style-type: none;
+            padding: 0 2.5rem 0 2.5rem;
+        }
+
+        body>div>div {
+            display: inline-block;
+            vertical-align: top;
+            width: 85rem;
+            height: auto;
+            background-color: #F4F4F4;
+            border-radius: 0 1rem 0 1rem;
+            padding: 2.5rem;
+            margin: 1.25rem;
+        }
+
+        body>div>div>div {
+            /* text-align: center; */
+            margin: 0 0 2.5rem 0;
+        }
+
+        p {
+            text-align: center;
+        }
+
+        img {
+            width: 80px;
+            height: 80px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="title">
+        <h1>Hello! userName</h1>
+        <nav>
+            <ul>
+                <li>
+                    <a href="">管理帳戶</a>
+                </li>
+                <li>
+                    <a href="">檢視已預訂旅程</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+    <div id="mainbody">
+        <div>
+            <div>
+                <select name="" id="">
+                    <option value="">全部</option>
+                    <option value="">已過期</option>
+                    <option value="">即將到來</option>
+                </select>
+            </div>
+            <div id="" style="display: flex;">
+                <img src="" alt="">
+                <div>
+                    <div style="display: flex;">
+                        <h3>日式旅程
+                            <span>TWD </span><span>6,000</span>
+                        </h3>
+                    </div>
+                    <div style="display: flex;">
+                        <div>
+                            台北→台中
+                            <hr>
+                        </div>
+                        <div>
+                            <label for="userPWD">3人</label>
+                            <hr>
+                        </div>
+                        <div>
+                            <label for="userPWDverify">10月22日</label>
+                            <hr>
+                        </div>
+                        <div>
+                            <span>發車時間</span>
+                            <select name="" id="">
+                                <option value="">09:00-12:00</option>
+                                <option value="">12:00-15:00</option>
+                                <option value="">14:00-17:00</option>
+                            </select>
+                            <hr>
+                        </div>
+                        <div>
+                            <span>舒芙蕾套餐</span>
+                            <select name="" id="">
+                                <option value="">1</option>
+                                <option value="">2</option>
+                                <option value="">3</option>
+                            </select>
+                            <hr>
+                        </div>
+                        <div>
+                            <span>布朗尼套餐</span>
+                            <select name="" id="">
+                                <option value="">1</option>
+                                <option value="">2</option>
+                                <option value="">3</option>
+                            </select>
+                            <hr>
+                        </div>
+                        <div>
+                            <input type="submit" value="儲存修改">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

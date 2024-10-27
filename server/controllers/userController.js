@@ -47,10 +47,9 @@ export const signIn = async (req, res) => {
         res.status(500).json({ message: '註冊失敗，請確認傳輸資料內容' });
     }
 };
-
+//登入
 export const logIn = async (req, res) => {
     const { UserMail, Password } = req.body;
-
     try {
         //尋找該用戶是否存在
         const existingUser = await userModel.findByUserMail(UserMail);

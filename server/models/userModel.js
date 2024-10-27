@@ -39,13 +39,13 @@ export const findByUserMail = async (userMail) => {
 };
 
 
-
+//註冊
 export const signIn = async (data) => {
     const sql = `INSERT INTO USERS (UserName, UserPhone, UserMail,  
     Password, Sex, Birth, RegistrationTime) 
     VALUES (?, ?, ?, ?, ?, ?, ?)`;
     try {
-        const { results } = await query(sql, [data.UserName, data.UserPhone, data.UserMail, data.Password, data.Sex, data.Birth, data.RegistrationTime]);
+        const { results } = await query(sql, [data.UserName, data.UserPhone, data.UserMail, data.Password, data.Sex, data.Birth, (new Date())]);
         console.log(results.insertId);
 
         return { userID: results.insertId };  // 返回新增使用者的 ID
@@ -84,5 +84,6 @@ WHERE userID = ?;`;
         throw new Error('更新使用者最近登入時間錯誤');
     }
 };
+
 
 

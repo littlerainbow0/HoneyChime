@@ -1,0 +1,31 @@
+.background-circle {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  width: 50px; /* 根据需要调整大小 */
+  height: 50px; /* 根据需要调整大小 */
+  background-color: rgb(138,110,110); /* 或者其他颜色 */
+  border-bottom-left-radius: 100px;
+  z-index: -1; /* 确保圆形在所有内容下面 */
+}
+.background-circle2 {
+  position: absolute;
+  bottom: 0; 
+  right: 0px; 
+  width: 50px; 
+  height: 50px; 
+  background-color: rgb(138, 110, 110); 
+  border-top-left-radius: 100px; 
+  z-index: -1; 
+}
+
+.background-radius {
+  position: absolute;
+  top: 10px;
+  bottom: 10px;
+  right: 10px;
+  width: 100%; 
+  background-color: rgb(245, 245, 245); 
+  border-radius: 2%;
+  z-index: -2; 
+}

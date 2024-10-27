@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body > div > div {
+            display: inline-block;
+            vertical-align: top;
+        }
+        body div div:first-of-type {
+            width: 50rem;
+        }
+        body div div:last-of-type{
+            width: 30rem;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>聯絡我們</h1>
+    <div>
+        <div>
+            <form action="">
+                <div>
+                    <label for="contactName">姓名</label>
+                    <br>
+                    <input id="contactName" type="text" placeholder="蜂鳴號">
+                </div>
+                <div>
+                    <label for="contactMail">e-mail</label>
+                    <br>
+                    <input id="contactMail" type="email" placeholder="honey@gmail.com">
+                </div>
+                <div>
+                    <label for="contactClass">問題分類</label>
+                    <br>
+                    <select name="" id="ontactClass">
+                        <option value="0">訂單/取消</option>
+                        <option value="1">付款/退款</option>
+                        <option value="2">車廂/設備</option>
+                        <option value="3">旅程相關</option>
+                        <option value="4">菜單成分或內容</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="contactSubjectLine">問題主旨</label>
+                    <br>
+                    <input id="contactSubjectLine" type="text" placeholder="請輸入主旨">
+                </div>
+                <div>
+                    <label for="contactLetterContent">問題描述</label>
+                    <br>
+                    <input id="contactLetterContent" type="text" placeholder="請概述您的問題">
+                </div>
+                <input type="submit" value="寄信">
+            </form>
+        </div>
+        <div>
+            <div>
+                <button>
+                    <h3>車廂及設施</h3>
+                    <span>總覽蜂鳴號的車廂及設施。</span> <i>></i>
+                </button>
+            </div>
+            <hr>
+            <div>
+                <button>
+                    <h3>供餐及活動</h3>
+                    <span>總覽蜂鳴號提供的各式甜點、飲品、活動。</span> <i>></i>
+                </button>
+            </div>
+            <hr>
+            <div>
+                <button>
+                    <h3>行程介紹</h3>
+                    <span>總覽蜂鳴號為旅客規劃各式的甜點行程。</span> <i>></i>
+                </button>
+            </div>
+            <hr>
+            <div>
+                <button>
+                    <h3>常見問題</h3>
+                    <span>收錄乘客提出的常見問題，也許對您有幫助。</span> <i>></i>
+                </button>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
