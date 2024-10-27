@@ -39,7 +39,7 @@ CREATE TABLE `USERS` (
    `UserName` VARCHAR(40) NOT NULL,
    `UserPhone` VARCHAR(20) NOT NULL,
    `UserMail` VARCHAR(50) NOT NULL,
-   `Password` VARCHAR(30) NOT NULL,
+   `Password` VARCHAR(100) NOT NULL,
    `Sex` VARCHAR(10) NOT NULL,
    `Birth` DATE NOT NULL,
    `RegistrationTime` DATE NOT NULL,
@@ -47,10 +47,10 @@ CREATE TABLE `USERS` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 INSERT INTO `USERS` (`UserName`, `UserPhone`, `UserMail`,  `Password`,  `Sex`, `Birth`, `RegistrationTime`) VALUES
-("yeejun", "0903678922", "admin@gmail.com", "admin", "F", "1999-04-01", "2024-10-17"),
-("shaoching", "0994785983", "user1@gmail.com", "user1", "F", "1997-02-22", "2024-10-17"),
-("hsinghui", "0987364923", "user2@gmail.com", "user2", "F", "1999-07-09", "2024-10-17"),
-("hongyu", "0976938475", "user3@gmail.com", "user3", "M", "2005-01-14", "2024-10-17");
+("yeejun", "0903678922", "admin@gmail.com", "$2b$10$ZcWl8HbKWRhX35kVZtkWTuBTxThCilyQEEmrh.Gnc2iIUeU9M5HaW", "F", "1999-04-01", "2024-10-17"),
+("shaoching", "0994785983", "user1@gmail.com", "$2b$10$tVAMd2MHVOVKA6VwURW1AegJkUd0nXZfObTEzS3O2THfXYAt5ysTy", "F", "1997-02-22", "2024-10-17"),
+("hsinghui", "0987364923", "user2@gmail.com", "$2b$10$afIjb5QSlBwz5/MSrG4f7OVMRLtGGVzxwTAC3/K5ZmRE01Idntc.W", "F", "1999-07-09", "2024-10-17"),
+("hongyu", "0976938475", "user3@gmail.com", "$2b$10$XkxQybPUd9b48z2Jhz2z/ujekTqkHqH6AT7xmK/sTp02rCn5YmX3W", "M", "2005-01-14", "2024-10-17");
 
 DROP TABLE IF EXISTS `DESSERTS`;
 CREATE TABLE `DESSERTS` (
