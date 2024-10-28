@@ -46,13 +46,12 @@ class Login extends Component {
 
     handleLogOut = async (e) => {
         e.preventDefault();
-        const { UserMail, Password } = this.state;
 
         try {
             const response = await axios.post('http://localhost:8000/logout', {}, {
                 withCredentials: true // 如果需要攜帶 session前後端都要加
             });
-            this.setState({ message: '登出成功！', userMail: '', password: '' });
+            this.setState({ message: '登出成功！', UserMail: '', Password: '' });
         } catch (error) {
             if (error.response) {
                 // 後端返回的錯誤訊息

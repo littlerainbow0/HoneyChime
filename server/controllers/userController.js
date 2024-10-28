@@ -31,15 +31,17 @@ export const signIn = async (req, res) => {
 
     try {
         const existingUser = await userModel.findByUserMail(UserMail);
-        console.log(existingUser);
-        
+        // console.log(existingUser);
+
         if (existingUser) {
             return res.status(500).json({ message: '該email已註冊' });
         }
         const saltRounds = 10;
         const hashedPassword = await bcrypt.hash(Password, saltRounds);
         data.Password = hashedPassword;
-
+        if (data.UserMail === "" || data.UserPhone === "" || data.UserName === "" || data.Password === "" || data.Birth === "") {
+            return res.status(500).json({ message: '請填入完整資料' });
+        }
         const result = await userModel.signIn(data); // 插入資料  
 
         res.status(201).json({ message: '註冊資料已成功新增', userID: result.userID });

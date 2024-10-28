@@ -19,10 +19,12 @@ export default function RadiusCard({ data }) {
                             <input
                                 id={`${cardElem + cardIndex}`}
                                 type={cardElem.inputType}
-                                defaultValue={cardElem.value}
+                                value={cardElem.value}
                                 placeholder={cardElem.placeholderWords}
                                 readOnly={cardElem.readOnly}
                                 className={`font-bodyFont text-p-3 my-1 text-dark ${cardElem.subtitle === "問題描述" ? "input-large" : ""}`} // 添加条件类名
+                                onChange={(e) => cardElem.onChange(e.target.value)} // 使用 onChange
+
                             />
                         ) : cardElem.tag === "radio" ? (
                             cardElem.options.map((option, optionIndex) => (
@@ -32,8 +34,9 @@ export default function RadiusCard({ data }) {
                                         id={option.value}
                                         name="gender"
                                         value={option.value}
-                                        defaultChecked={option.value === cardElem.selectedValue}
+                                        defaultChecked={option.value === cardElem.value}
                                         readOnly={cardElem.readOnly}
+                                        onChange={(e) => cardElem.onChange(e.target.value)} // 使用 onChange
                                     />
                                     <label htmlFor={option.value} className="font-bodyFont text-p-3 my-1">
                                         {option.label}
@@ -55,15 +58,16 @@ export default function RadiusCard({ data }) {
                 ))}
                 <div className="flex justify-center">
                     {data.title !== "註冊會員" && (
-                            <BtnLightbrown btnText={
-                                data.title === "會員登入" ? "登入" :
+                        <BtnLightbrown btnText={
+                            data.title === "會員登入" ? "登入" :
                                 data.title === "建立個人資訊" ? "加入會員" :
                                     data.title === "修改密碼" || data.title === "基本資料" ? "儲存資料" :
-                                    data.title === "郵件聯繫"? <BsFillSendFill /> : null
-                            } />
+                                        data.title === "郵件聯繫" ? <BsFillSendFill /> : null
+                        }
+                            onClick={data.handleSubmit} />
                     )}
                     {data.title === "會員登入" ? (
-                        <Link href="#" className="font-bodyFont text-p-3 underline">
+                        <Link href="/signin" className="font-bodyFont text-p-3 underline">
                             註冊會員
                         </Link>
                     )
