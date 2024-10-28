@@ -23,7 +23,9 @@ import AdminOrder from './routes/admin/orders.jsx'
 // -- admin pages /*
 
 // */ user pages
-import Login from './routes/user/Login.jsx'
+import Login_ from './routes/user/Login_n.jsx'
+import Login from './routes/user/login.jsx'
+import Signin_ from './routes/user/Signin_n.jsx'
 import Signin from './routes/user/Signin.jsx'
 import UserBias from './routes/user/userBias.jsx'
 import UserOrder from './routes/user/userOrders.jsx'
@@ -49,7 +51,9 @@ function App() {
         <Route path="/admin/route" element={<AdminRoute />} />
         <Route path="/admin/order" element={<AdminOrder />} />
 
+        <Route path="/login/n" element={<Login_ />} exact />
         <Route path="/login" element={<Login />} exact />
+        <Route path="/signin/n" element={<Signin_ />} exact />
         <Route path="/signin" element={<Signin />} exact />
         {/* <Route path="/user/info" element={<Userinfo />} /> */}
         <Route path="/contact" element={<Contact />} />
