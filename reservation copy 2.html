@@ -259,6 +259,97 @@
         Top
     </a>
     <script>
+let bookedSeats = []; // 已預訂的座位列表
+
+function getCarSeat() {
+    let date = document.getElementById('departure_date').value.replace('/', '-');
+    let time = document.getElementById('departure_time').value;
+    let stopStart = document.getElementById('route_start').value;
+    let stopEnd = document.getElementById('route_end').value;
+
+    axios.get('http://localhost:8000/getOrders')
+    .then((response) => {
+        let res = response.data;
+        // console.log("get schedule", res);
+
+        // 找到符合條件的預訂
+        let foundSeat = res.filter(schedule =>
+            date === schedule.DepartureDate &&
+            time === schedule.DepartureTime &&
+            stopStart === schedule.StopStartName &&
+            stopEnd === schedule.StopEndName
+        );
+
+        // 更新已預訂座位列表
+        bookedSeats = foundSeat.map(schedule => schedule.SeatName);
+
+        if (foundSeat.length > 0) {
+            foundSeat.forEach(schedule => {
+                console.log("此座位已被預訂 ", schedule.SeatName);
+            });
+        } else {
+            console.log("沒有被預訂");
+        }
+
+        // 更新座位選項
+        updateSeatOptions();
+    })
+    .catch((error) => { console.log(error); });
+}
+
+// 更新座位選項的函數
+function updateSeatOptions() {
+    const carTypeSelect = document.getElementById('car_type');
+    const seatSelect = document.getElementById('seat');
+    const carImage = document.getElementById('car_image');
+
+    // 清空座位選項
+    seatSelect.innerHTML = '';
+    seatSelect.innerHTML += '<option value="0">請選擇座位</option>';
+
+    if (carTypeSelect.value === 'e') {
+        carImage.data = '/src/assets/images/plan/E.svg';
+        ['E2', 'E3', 'E4'].forEach(seat => {
+            if (!bookedSeats.includes(seat)) {
+                seatSelect.innerHTML += `<option value="${seat}">${seat}</option>`;
+            }
+        });
+    } else if (carTypeSelect.value === 'd') {
+        carImage.data = '/src/assets/images/plan/D.svg';
+        ['D1', 'D2', 'D3', 'D4', 'D5', 'D6'].forEach(seat => {
+            if (!bookedSeats.includes(seat)) {
+                seatSelect.innerHTML += `<option value="${seat}">${seat}</option>`;
+            }
+        });
+    } else if (carTypeSelect.value === 'a') {
+        carImage.data = '/src/assets/images/plan/A.svg';
+        ['A1'].forEach(seat => {
+            if (!bookedSeats.includes(seat)) {
+                seatSelect.innerHTML += `<option value="${seat}">${seat}</option>`;
+            }
+        });
+    } else if (carTypeSelect.value === 'f') {
+        carImage.data = '/src/assets/images/plan/F.svg';
+        ['F1', 'F2', 'F3', 'F4', 'F5', 'F6', 'F7', 'F8'].forEach(seat => {
+            if (!bookedSeats.includes(seat)) {
+                seatSelect.innerHTML += `<option value="${seat}">${seat}</option>`;
+            }
+        });
+    }
+}
+
+// 當車型改變時更新座位選項
+document.getElementById('car_type').addEventListener('change', updateSeatOptions);
+
+// 監聽出發日期、時間及路線改變
+document.getElementById('departure_date').addEventListener('change', getCarSeat);
+document.getElementById('departure_time').addEventListener('change', getCarSeat);
+document.getElementById('route_start').addEventListener('change', getCarSeat);
+document.getElementById('route_end').addEventListener('change', getCarSeat);
+
+// 初始獲取座位資訊
+getCarSeat();
+
 
 
 
@@ -422,19 +513,19 @@
 
 
 
-        //------- 當甜點類型或旅客人數改變時的處理函數 ----------
-        function resetFormFields() {
-            // 重置出發日期
-            document.getElementById("departure_date").value = "";
+        // // ------- 當甜點類型或旅客人數改變時的處理函數 ----------
+        // function resetFormFields() {
+        //     // 重置出發日期
+        //     document.getElementById("departure_date").value = "";
 
-            // 其他表單元素可以在這裡重置
-            document.getElementById("car_type").value = "f"; // 假設預設為第一個選項
-            document.getElementById("seat").value = "f1"; // 假設預設為請選擇座位
-        }
+        //     // 其他表單元素可以在這裡重置
+        //     document.getElementById("car_type").value = "f"; // 假設預設為第一個選項
+        //     document.getElementById("seat").value = "f1"; // 假設預設為請選擇座位
+        // }
 
-        // 監聽甜點類型和旅客人數的變化
-        document.getElementById("dessert_type").addEventListener("change", resetFormFields);
-        document.getElementById("people").addEventListener("change", resetFormFields);
+        // // 監聽甜點類型和旅客人數的變化
+        // document.getElementById("dessert_type").addEventListener("change", resetFormFields);
+        // document.getElementById("people").addEventListener("change", resetFormFields);
 
 
 
@@ -586,8 +677,6 @@
                     orderStartDate.textContent = `${schedule.DepartureDate} ${schedule.DepartureTime}`;
                     selectedScheduleID = schedule.ScheduleID; // 儲存選擇的 ScheduleID
                     console.log(`選擇的 Schedule ID: ${selectedScheduleID}`); // 在控制台顯示
-                    fetchSeats(selectedScheduleID); // 立即獲取座位資料 傳到
-
                     updateRouteOptions(selectedDate, selectedTime);
                 } else {
                     orderStartDate.textContent = "無可用排程";
@@ -767,98 +856,7 @@
 
 
 
-        // ----- 車廂選項綁定車廂座位與車廂圖片 -----
 
-        // let selectedScheduleID; // 宣告選擇的 ScheduleID
-
-
-
-// ===============================
-// 獲取座位資料的函數
-// function fetchSeats(scheduleID) {
-//     axios.get(`http://localhost:8000/getSeats/${scheduleID}`)
-//         .then((response) => {
-//             console.log("Get unavailable seat",response);
-//             const unavailableSeats = response.data.map(seat => seat.SeatName); 
-//             console.log("this is SeatName" , unavailableSeats);
-
-//             // 更新座位選項
-//             updateSeatOptions(unavailableSeats);
-//         })
-//         .catch((error) => {
-//             console.log(error);
-//         });
-// }
-// ===============================
-
- // 更新座位選項和車廂圖片的函數
-function updateCarAndSeats() {
-    const seatSelect = document.getElementById('seat');
-    const carImage = document.getElementById('car_image');
-    const carType = document.getElementById('car_type').value;
-
-    // 清空座位選項
-    seatSelect.innerHTML = '<option value="0">請選擇座位</option>';
-
-    // 根據車廂類型設置可用座位和圖片
-    let availableSeats = []; // 確保這裡初始化為空數組
-    if (carType === 'e') {
-        availableSeats = ['E2', 'E3', 'E4'];
-        carImage.src = '/src/assets/images/plan/E.svg';
-    } else if (carType === 'd') {
-        availableSeats = ['D1', 'D2', 'D3', 'D4', 'D5', 'D6'];
-        carImage.src = '/src/assets/images/plan/D.svg';
-    } else if (carType === 'a') {
-        availableSeats = ['A1'];
-        carImage.src = '/src/assets/images/plan/A.svg';
-    } else if (carType === 'f') {
-        availableSeats = ['F1', 'F2', 'F3', 'F4', 'F5', 'F6', 'F7', 'F8'];
-        carImage.src = '/src/assets/images/plan/F.svg';
-    }
-
-    // 獲取座位資料
-    fetchSeats(selectedScheduleID, availableSeats);
-}
-
-// 獲取座位資料的函數
-function fetchSeats(scheduleID, availableSeats) {
-    axios.get(`http://localhost:8000/getSeats/${scheduleID}`)
-        .then((response) => {
-            console.log("Get unavailable seat", response);
-            const unavailableSeats = response.data.map(seat => seat.SeatName); // 提取 SeatName
-            
-            // 更新座位選項
-            updateSeatOptions(unavailableSeats, availableSeats);
-        })
-        .catch((error) => {
-            console.log(error);
-        });
-}
-
-// 更新座位選項的函數
-function updateSeatOptions(unavailableSeats, availableSeats) {
-    const seatSelect = document.getElementById('seat');
-
-    // 只添加未被佔用的座位選項
-    if (Array.isArray(availableSeats) && availableSeats.length > 0) {
-        availableSeats.forEach(seat => {
-            if (!unavailableSeats.includes(seat)) {
-                const opt = document.createElement('option');
-                opt.value = seat;
-                opt.textContent = seat;
-                seatSelect.appendChild(opt);
-            }
-        });
-    } else {
-        console.error("availableSeats is not an array or is empty:", availableSeats);
-    }
-}
-
-// 監聽車廂選項變化
-document.getElementById('car_type').addEventListener('change', updateCarAndSeats);
-
-// 初始獲取座位
-updateCarAndSeats();
 
 
 
@@ -1075,7 +1073,7 @@ updateCarAndSeats();
 
                 console.log(localStorage.getItem("dataFromUser"));
 
-                // window.location.href = 'order.html';
+                window.location.href = 'order.html';
             } else {
                 console.log('輸入錯誤');
 

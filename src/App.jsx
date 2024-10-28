@@ -10,7 +10,7 @@ import Header from './components/admin/Header.jsx';
 import Facilities from './routes/admin/Facilities.jsx';
 import Trip from './routes/admin/Trip.jsx'; // 根據你的文件結構調整路徑
 import './assets/css/header.css';
-import Reservation from './routes/admin/Reservation.jsx';
+import Reservation_00 from './routes/admin/Reservation.jsx';
 import TripInfo from './routes/admin/TripInfo.jsx';
 
 class App extends Component {
@@ -21,9 +21,8 @@ class App extends Component {
           <Routes>
             <Route path="/Facilities" element={<Facilities/>} exact />
             <Route path="/Trip" element={<Trip/>} exact />
-            <Route path="/tripInfo.html" element={<TripInfo/>} exact />
+            <Route path="/tripInfo.html" />
             <Route path="/reservation.html"/>
-            {/* <Route path="/reservation.html" element={<Reservation/>} exact /> */}
           </Routes>
         </div>
       </BrowserRouter>

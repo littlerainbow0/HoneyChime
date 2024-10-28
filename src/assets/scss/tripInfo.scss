@@ -33,7 +33,7 @@ main {
         }
 
         button {
-            @extend %h5;
+            @extend %body2;
             display: block;
             text-decoration: none;
             color: $secondary_50;
@@ -41,11 +41,14 @@ main {
             border: 1px solid $gray_800;
             border-bottom: none;
             border-radius: 15px 15px 0 0;
-            padding: 16px;
+            padding: 8px 16px;
             cursor: pointer;
 
             &:hover {
                 background-color: $secondary_600;
+            }
+            span{
+                @extend %h5;
             }
         }
     }

@@ -16,7 +16,7 @@
   letter-spacing: 10%;
 }
 
-.itinerary .top_nav ul li button {
+.itinerary .top_nav ul li button span {
   font-family: "Noto Serif TC", "Noto Sans TC";
   font-size: 20px;
   font-weight: 600;
@@ -37,6 +37,14 @@
 .dessert_info .view_info_content > div:first-of-type p, .trip_title div:last-of-type p {
   font-family: "Noto Sans TC";
   font-size: 16px;
+  font-weight: 400;
+  line-height: 150%;
+  letter-spacing: 2%;
+}
+
+.itinerary .top_nav ul li button {
+  font-family: "Noto Sans TC";
+  font-size: 14px;
   font-weight: 400;
   line-height: 150%;
   letter-spacing: 2%;
@@ -82,13 +90,12 @@ main {
   border: 1px solid #1F1F1F;
   border-bottom: none;
   border-radius: 15px 15px 0 0;
-  padding: 16px;
+  padding: 8px 16px;
   cursor: pointer;
 }
 .itinerary .top_nav ul li button:hover {
   background-color: #15959C;
 }
-
 .trip_title {
   width: 1024px;
   margin: 52px auto;

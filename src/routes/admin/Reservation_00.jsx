@@ -3,7 +3,7 @@ import '../../assets/css/header.css';
 import Header from '../../components/admin/Header.jsx'
 import '../../assets/css/reservation.css';
 
-const Reservation = () => {
+const Reservation_00 = () => {
   const [passengerCount, setPassengerCount] = useState(2);
   const [dessertAOptions, setDessertAOptions] = useState([]);
   const [dessertBOptions, setDessertBOptions] = useState([]);
@@ -256,4 +256,4 @@ const Reservation = () => {
   );
 };
 
-export default Reservation;
+export default Reservation_00;

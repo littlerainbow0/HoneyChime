@@ -40,7 +40,7 @@
   border-radius: 50px;
 }
 .trip_section a:hover svg {
-  animation: fadeIn 1.5s;
+  animation: fadeIn 1s;
   opacity: 1;
   left: 240px;
 }
@@ -130,7 +130,7 @@
 
 .slowShow, main {
   animation-name: slowShow;
-  animation-duration: 3s;
+  animation-duration: 2.5s;
 }
 
 @keyframes slowShow {
