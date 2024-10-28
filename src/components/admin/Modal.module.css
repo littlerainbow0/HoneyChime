@@ -22,8 +22,8 @@
 }
 
 .modal-content {
-  max-width: 90%; /* 最大寬度 */
-  width: 600px; /* 固定寬度 */
+  max-width: 100%; /* 最大寬度 */
+  /* width: 600px;  */
   max-height: 90vh; /* 最大高度限制 */
   overflow-y: auto; /* 允許垂直滾動 */
   background-color: white; /* 背景顏色 */
@@ -34,8 +34,9 @@
 
 @media (min-width: 768px) {
   .modal {
-    width: 28rem;
-    left: calc(50% - 15rem);
+    /* overflow-x: hidden; */
+    width: 38rem;
+    left: calc(50% - 10rem);
   }
 }
 
@@ -56,4 +57,22 @@ input::placeholder {
 
 input:focus {
   outline: none; /* 移除默认的轮廓 */
+}
+
+::-webkit-scrollbar {
+  width: 8px; /* 垂直滚动条的宽度 */
+}
+
+::-webkit-scrollbar-track {
+  background: rgb(138,110,110); /* 轨道背景颜色 */
+  border-radius: 10px; /* 圆角 */
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgb(187,155,155); /* 滑块颜色 */
+  border-radius: 10px; /* 圆角 */
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgb(255,245,245); /* 滑块 hover 时的颜色 */
 }

@@ -11,7 +11,9 @@ export const getAllRoute = async () => {
     R.LandScapeImage2,
     R.LandScapeImage3,
     R.LandScapeDescription,
+    S1.StopID AS StopStartID,
     S1.StopName AS StopStartName,
+    S2.StopID AS StopEndID,
     S2.StopName AS StopEndName
 FROM 
     ROUTES R

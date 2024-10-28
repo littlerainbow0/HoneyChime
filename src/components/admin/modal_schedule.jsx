@@ -7,6 +7,7 @@ import { CalendarDate } from "@internationalized/date";
 import DataFetcherMeals from '../../dataProcessing/admin/GET_meal.jsx'
 import DataFetcherDesserType from '../../dataProcessing/admin/GET_dessertType.jsx'
 import DataFetcherMenu from '../../dataProcessing/admin/GET_menu.jsx'
+import DataFetcherStops from '../../dataProcessing/admin/GET_stops.jsx'
 
 import { navText } from "./navbar_admin.jsx";
 
@@ -28,7 +29,8 @@ const ScheduleModalItems = (locationPath, item = null) => {
     const [getMenuDataFromServer, setGetMenuDataFromServer] = useState([]) // 儲存API資料用
 
     // 從table那邊拿到的item
-    const [scheduleId, setScheduleId] = useState(item ? item.ScheduleID : "")
+    const [scheduleId, setScheduleId] = useState
+        (item ? item.ScheduleID : "")
     const [departureDate, setDepartureDate] = useState(item ? item.DepartureDate : "");
     const [departureTime, setDepartureTime] = useState(item ? item.DepartureTime : "");
     const [templateId, setTemplateId] = useState(item ? item.TemplateID : "");
@@ -133,7 +135,9 @@ const ScheduleModalItems = (locationPath, item = null) => {
                     <DataFetcherMeals setDataFromServer={setGetMealDataFromServer} />
                     <DataFetcherDesserType setDataFromServer={setGetDessertTypeDataFromServer} />
                     <DataFetcherMenu setDataFromServer={setGetMenuDataFromServer} />
-                    {scheduleId}
+                    <span className="font-bold">
+                        {scheduleId}
+                    </span>
                 </>
             )
         },
@@ -141,7 +145,7 @@ const ScheduleModalItems = (locationPath, item = null) => {
             title: "路線與供餐模板",
             content: () =>
                 <>
-                    <select className="font-bodyFont font-bold bg-transparent"
+                    <select className="focus:text-dark bg-gray-200 rounded-full p-2 font-bodyFont font-bold "
                         value={templateId}
                         onChange={handleTemplateChange}>
                         {/* <option value={templateId}>目前鎖定：{templateId}</option> */}
@@ -158,7 +162,10 @@ const ScheduleModalItems = (locationPath, item = null) => {
         },
         {
             title: "路線",
-            content: () => <input type="text" value={route} onChange={(e) => setRoute(e.target.value)} />,
+            content: () =>
+                <input type="text"
+                    value={route}
+                    onChange={(e) => setRoute(e.target.value)} />,
         },
         {
             title: "甜點風格",
@@ -229,16 +236,19 @@ const ScheduleModalItems = (locationPath, item = null) => {
             title: "出發日期",
             content: () => (
                 <>
-                    {departureDate}
                     <input type="date"
                         value={departureDate}
+                        className="focus:text-dark bg-gray-200 rounded-full p-2"
                         onChange={(e) => setDepartureDate(e.target.value)} />
                 </>
             ),
         },
         {
             title: "出發時間",
-            content: () => <input type="time" value={departureTime} onChange={(e) => setDepartureTime(e.target.value)} />,
+            content: () => <input className="focus:text-dark bg-gray-200 rounded-full p-2"
+                type="time"
+                value={departureTime}
+                onChange={(e) => setDepartureTime(e.target.value)} />,
         },
     ];
 
@@ -247,29 +257,118 @@ const ScheduleModalItems = (locationPath, item = null) => {
 
 const RouteModalItems = (locationPath, item = null) => {
 
+    // 新拿到的data
+    const [getStopsDataFromServer, setGetStopsDataFromServer] = useState([])
+
+    // 從table那邊拿到的item
+    const [routeId, setrouteId] = useState(item ? item.RouteID : "")
+    const [routeImagePath, setRouteImagePath] = useState(item ? item.RouteImagePath : "")
+    const [duration, setDuration] = useState(item ? item.Duration : "")
+    const [description, setDescription] = useState(item ? item.Description : "")
+    const [landScapeImage1, setLandScapeImage1] = useState(item ? item.LandScapeImage1 : "")
+    const [landScapeImage2, setLandScapeImage2] = useState(item ? item.LandScapeImage2 : "")
+    const [landScapeImage3, setLandScapeImage3] = useState(item ? item.LandScapeImage3 : "")
+    const [landScapeDescription, setLandScapeDescription] = useState(item ? item.LandScapeDescription : "")
+    const [stopStartId, setStopStartId] = useState(item ? item.StopStartID : "")
+    const [stopStartName, setStopStartName] = useState(item ? item.StopStartName : "")
+    const [stopEndId, setStopEndId] = useState(item ? item.StopEndID : "")
+    const [stopEndName, setStopEndName] = useState(item ? item.StopEndName : "")
+
+    // 從使用者那邊拿到的data
+    const [selectedStop1Id, setSelectedStop1Id] = useState('');
+    const [selectedStop2Id, setSelectedStop2Id] = useState('');
+
+    const isRouteExist = (stop1Id, stop2Id) => {
+        return (item.StopStartID === stop1Id && item.StopEndID === stop2Id);
+    };
+
+    const handleStop1Change = (event) => {
+        const value = event.target.value;
+        // 如果選擇的值與 stop2 的選擇相同，則清空 stop2 的選擇
+        // if (value === selectedStop2Id) {
+        //     setSelectedStop2('');
+        // }
+        // if (isRouteExist(value, selectedStop2Id)) {
+        //     alert("該路線已存在，請選擇其他站點！");
+        //     return; // 不更新 selectedStop1
+        // }
+        setSelectedStop1Id(value);
+    }
+    const handleStop2Change = (event) => {
+        const value = event.target.value;
+        // 如果選擇的值與 stop1 的選擇相同，則清空 stop1 的選擇
+        // if (value === selectedStop1Id) {
+        //     setSelectedStop1Id('');
+        // }
+        // if (isRouteExist(selectedStop1Id, value)) {
+        //     alert("該路線已存在，請選擇其他站點！");
+        //     return; // 不更新 selectedStop2
+        // }
+
+        setSelectedStop2Id(value);
+    }
+
     const modalItemsInRoute = [
         {
             title: "路線ID",
             content: () => (
-                ""
+                <>
+                    <DataFetcherStops setDataFromServer={setGetStopsDataFromServer} />
+                    {routeId}
+                </>
             ),
         },
         {
-            title: "起點站",
+            title: "起迄站",
             content: () => (
-                ""
-            ),
-        },
-        {
-            title: "終點站",
-            content: () => (
-                ""
+                <>
+                    <select className="
+                    focus:text-dark bg-gray-200 rounded-full p-2 font-bodyFont "
+                        value={selectedStop1Id}
+                        onChange={handleStop1Change}>
+                        {routeId ? (
+                            <option value={stopStartId}>{stopStartName}</option>
+                        ) : (
+                            <>
+                                <option value="" disabled hidden>選擇站點</option>
+                                {getStopsDataFromServer.map((data) => (
+                                    <option key={data.StopID} value={data.StopID}>
+                                        {data.StopName}
+                                    </option>
+                                ))}
+                            </>
+                        )}
+                    </select>
+                    &emsp;到&emsp;
+                    <select className="
+                    focus:text-dark bg-gray-200 rounded-full p-2 font-bodyFont"
+                        value={selectedStop2Id}
+                        onChange={handleStop2Change} >
+                        {routeId ? (
+                            <option value={stopEndId}>{stopEndName}</option>
+                        ) : (
+                            <>
+                                <option value="" disabled hidden>選擇站點</option>
+                                {getStopsDataFromServer.map((data) => (
+                                    <option key={data.StopID} value={data.StopID}>
+                                        {data.StopName}
+                                    </option>
+                                ))}
+                            </>
+                        )}
+                    </select>
+                </>
             ),
         },
         {
             title: "車程(分)",
             content: () => (
-                ""
+                <input type="number"
+                    className="focus:text-lightyellow"
+                    value={duration}
+                    onChange={(e) => setDuration(e.target.value)}
+                    readOnly={!!routeId} // 雙重否定
+                />
             ),
         },
         {
@@ -280,28 +379,42 @@ const RouteModalItems = (locationPath, item = null) => {
             ),
             content: () => (
                 <>
-                <input type="file" accept="image/png, image/jpeg" 
-                id="imgInputRoute"
-                onChange={()=>{getImgFile(img1_Route)}}
-                />
-                <input type="file" accept="image/png, image/jpeg" multiple 
-                id="imgInputLandScape"
-                // onChange={()=>{getImgFile(img3
-                //     _LandScape)}}
-                />
+                    <input type="file" accept="image/png, image/jpeg"
+                        id="imgInputRoute"
+                        onChange={() => { getImgFile(img1_Route) }}
+                    />
+                    <input type="file" accept="image/png, image/jpeg" multiple
+                        id="imgInputLandScape"
+                    // onChange={()=>{getImgFile(img3
+                    //     _LandScape)}}
+                    />
                 </>
             ),
         },
         {
             title: "路線介紹",
             content: () => (
-                ""
+                <textarea
+                    type="text"
+                    className="w-64 text-ellipsis bg-transparent 
+                focus:text-lightyellow"
+                    rows="5"
+                    value={description}
+                    onChange={(e) => setLandScapeDescription(e.target.value)}
+                />
             ),
         },
         {
             title: "風景介紹",
             content: () => (
-                ""
+                <textarea
+                    type="text"
+                    className="w-64 text-ellipsis bg-transparent
+                focus:text-lightyellow"
+                    rows="5"
+                    value={landScapeDescription}
+                    onChange={(e) => setLandScapeDescription(e.target.value)}
+                />
             ),
         },
     ]
@@ -382,12 +495,12 @@ const ModalOverLay = (props) => {
                         grid grid-cols-2 gap-4 items-center">
                             <div className="text-right">
                                 <h3 className="font-titleFont font-bold text-p-1 px-6 py-2 rounded-full">
-                                {typeof elem.title === 'function' ? elem.title() : elem.title}
+                                    {typeof elem.title === 'function' ? elem.title() : elem.title}
                                 </h3>
                             </div>
                             <div>
-                                <p className="pl-2 font-bodyFont text-p-2">
-                                {typeof elem.content === 'function' ? elem.content() : elem.content}
+                                <p className="font-bodyFont text-p-2 pb-2">
+                                    {typeof elem.content === 'function' ? elem.content() : elem.content}
                                 </p>
                                 <hr />
                             </div>

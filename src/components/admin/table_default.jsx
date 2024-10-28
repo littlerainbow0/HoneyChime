@@ -85,11 +85,7 @@ const TableDefault = ({ columns, columnNames, data1, detailColumns, detailColumn
                   hover:bg-gray-200 hover:translate-y-1 ${index % 2 === 0 ? "bg-lightyellow" : ""}`}>
                     {columns.map((column, colIndex) => (
                       <td key={colIndex} className="">
-                        {column === 'RouteImagePath' ||
-                          column === 'LandScapeImage1' ||
-                          column === 'LandScapeImage2' ||
-                          column === 'LandScapeImage3'
-                          ? (
+                        {column.includes('Image')? (
                             <div className=''>
                               <img
                                 src={item[column]}
@@ -104,9 +100,7 @@ const TableDefault = ({ columns, columnNames, data1, detailColumns, detailColumn
                           )}
                       </td>
                     ))}
-                    {(location.pathname === navText[1].path
-                      || location.pathname === navText[3].path
-                      || location.pathname === navText[4].path) ? (
+                    {(location.pathname === navText[1].path) ? (
                       <td>
                         <Button className='text-brown bolder border-transparent rounded-full transition-all hover:text-lightyellow hover:shadow-md hover:bg-lightbrown' onClick={() => clickShowModalToEdit(item)}>
                           <RiEdit2Fill />

@@ -63,7 +63,7 @@ const AdminTemplate = () => {
                     <FilterCard data={filterCardName} />
                     <div className='justify-between'>
                         <BtnBrown btnText="新建一筆模板" onClick={clickShowModal} />
-                        {showModal && <ModalMenu onClose={clickShowModal} />} {/* 传递 onClose 函数 */}
+                        {showModal && <ModalMenu onClose={clickShowModal} />}
                     </div>
                     <DataFetcher setDataFromServer={setDataFromServer} />
                     <TableDefault
