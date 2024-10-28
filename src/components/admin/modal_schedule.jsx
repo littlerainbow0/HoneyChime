@@ -20,7 +20,7 @@ const BackDrop = () => {
 };
 
 // 
-const ScheduleModalItems = (locationPath, item) => {
+const ScheduleModalItems = (locationPath, item = null) => {
 
     // 新拿到的data
     const [getMealDataFromServer, setGetMealDataFromServer] = useState([]) // 儲存API資料用
@@ -36,21 +36,21 @@ const ScheduleModalItems = (locationPath, item) => {
 
     // 從table那邊拿到的relatedDetailItem
     const [dessertTypeId, setDessertTypeId]
-        = useState(item.relatedDetailItem ? item.relatedDetailItem[0].DessertTypeId : "");
+        = useState(item?.relatedDetailItem?.[0]?.DessertTypeId || "");
     const [dessertTitle, setDessertTitle]
-        = useState(item.relatedDetailItem ? item.relatedDetailItem[0].DessertTitle : "");
+        = useState(item?.relatedDetailItem?.[0]?.DessertTitle || "");
     const [menuFirstID, setMenuFirstID]
-        = useState(item.relatedDetailItem ? item.relatedDetailItem[0].MenuFirstID : "");
+        = useState(item?.relatedDetailItem?.[0]?.MenuFirstID || "");
     const [menuFirstName, setMenuFirstName]
-        = useState(item.relatedDetailItem ? item.relatedDetailItem[0].MenuFirstName : "");
+        = useState(item?.relatedDetailItem?.[0]?.MenuFirstName || "");
     const [menuSecondID, setMenuSecondID]
-        = useState(item.relatedDetailItem ? item.relatedDetailItem[0].MenuSecondID : "");
+        = useState(item?.relatedDetailItem?.[0]?.MenuSecondID || "");
     const [menuSecondName, setMenuSecondName]
-        = useState(item.relatedDetailItem ? item.relatedDetailItem[0].MenuSecondName : "");
+        = useState(item?.relatedDetailItem?.[0]?.MenuSecondName || "");
     const [stopEndName, setStopEndName]
-        = useState(item.relatedDetailItem ? item.relatedDetailItem[0].StopEndName : "");
+        = useState(item?.relatedDetailItem?.[0]?.StopEndName || "");
     const [stopStartName, setStopStartName]
-        = useState(item.relatedDetailItem ? item.relatedDetailItem[0].StopStartName : "");
+        = useState(item?.relatedDetailItem?.[0]?.StopStartName || "");
 
     // 從使用者那邊拿到的data
     const [selectedTemplateData, setSelectedTemplateData] = useState(null);
@@ -116,11 +116,11 @@ const ScheduleModalItems = (locationPath, item) => {
     };
 
     // 供餐的過濾
-    const filteredMenu1 = selectedDessertType
+    const filteredMenu1 = (selectedDessertType ?? null) // 使用 null-coalescing operator
         ? getMealDataFromServer.filter((menu) => menu.DessertTypeID === selectedDessertType) // 假設 meal 數據中有 DessertTypeId
         : []; // 若未選擇主題，顯示所有餐點
 
-    const filteredMenu2 = selectedDessertType
+    const filteredMenu2 = (selectedDessertType ?? null)
         ? getMealDataFromServer.filter((menu) => menu.DessertTypeID === selectedDessertType) // 假設 meal 數據中有 DessertTypeId
         : [];
 
@@ -193,7 +193,8 @@ const ScheduleModalItems = (locationPath, item) => {
                                 </option>
                             ))
                         ) : (
-                            item.DessertTypeID === item.relatedDetailItem.DessertTypeID ? (
+                            item && item.relatedDetailItem && item.DessertTypeID
+                                === item.relatedDetailItem.DessertTypeID ? (
                                 <option value={menuFirstID}>{menuFirstName}</option>
                             ) : (
                                 <option value="">選擇餐點</option>
@@ -211,7 +212,8 @@ const ScheduleModalItems = (locationPath, item) => {
                                 </option>
                             ))
                         ) : (
-                            item.DessertTypeID === item.relatedDetailItem.DessertTypeID ? (
+                            item && item.relatedDetailItem && item.DessertTypeID
+                                === item.relatedDetailItem.DessertTypeID ? (
                                 <option value={menuSecondID}>{menuSecondName}</option>
                             ) : (
                                 <option value="">選擇餐點</option>
@@ -243,44 +245,76 @@ const ScheduleModalItems = (locationPath, item) => {
     return modalItemsInSchedule;
 }
 
+const RouteModalItems = (locationPath, item = null) => {
+
+    const modalItemsInRoute = [
+        {
+            title: "路線ID",
+            content: () => (
+                ""
+            ),
+        },
+        {
+            title: "起點站",
+            content: () => (
+                ""
+            ),
+        },
+        {
+            title: "終點站",
+            content: () => (
+                ""
+            ),
+        },
+        {
+            title: "車程(分)",
+            content: () => (
+                ""
+            ),
+        },
+        {
+            title: () => (
+                <>
+                    {"路線圖×1"}<br />{"風景圖×3"}
+                </>
+            ),
+            content: () => (
+                <>
+                <input type="file" accept="image/png, image/jpeg" 
+                id="imgInputRoute"
+                onChange={()=>{getImgFile(img1_Route)}}
+                />
+                <input type="file" accept="image/png, image/jpeg" multiple 
+                id="imgInputLandScape"
+                // onChange={()=>{getImgFile(img3
+                //     _LandScape)}}
+                />
+                </>
+            ),
+        },
+        {
+            title: "路線介紹",
+            content: () => (
+                ""
+            ),
+        },
+        {
+            title: "風景介紹",
+            content: () => (
+                ""
+            ),
+        },
+    ]
+
+    return modalItemsInRoute;
+}
+
 // Modal
 const ModalOverLay = (props) => {
     const { item } = props;
     const location = useLocation();
 
 
-    const modalItemsInRoute = [
-        {
-            title: "餐點ID",
-            content: () => (
-                ""
-            ),
-        },
-        {
-            title: "餐點名稱",
-            content: () => (
-                ""
-            ),
-        },
-        {
-            title: "餐點圖片",
-            content: () => (
-                ""
-            ),
-        },
-        {
-            title: "餐點內容",
-            content: () => (
-                ""
-            ),
-        },
-        {
-            title: "餐點描述",
-            content: () => (
-                ""
-            ),
-        },
-    ]
 
     const modalItemsInMeal = [
         {
@@ -321,6 +355,9 @@ const ModalOverLay = (props) => {
             return ScheduleModalItems(location.pathname, item);
         }
         // 路線管理
+        if (location.pathname === navText[3].path) {
+            return RouteModalItems(location.pathname, item)
+        }
         // 餐點管理
         if (location.pathname === navText[4].path) {
             return modalItemsInMeal;
@@ -345,12 +382,12 @@ const ModalOverLay = (props) => {
                         grid grid-cols-2 gap-4 items-center">
                             <div className="text-right">
                                 <h3 className="font-titleFont font-bold text-p-1 px-6 py-2 rounded-full">
-                                    {elem.title}
+                                {typeof elem.title === 'function' ? elem.title() : elem.title}
                                 </h3>
                             </div>
                             <div>
                                 <p className="pl-2 font-bodyFont text-p-2">
-                                    {elem.content && elem.content()}
+                                {typeof elem.content === 'function' ? elem.content() : elem.content}
                                 </p>
                                 <hr />
                             </div>
