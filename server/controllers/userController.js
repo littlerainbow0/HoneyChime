@@ -31,7 +31,8 @@ export const signIn = async (req, res) => {
 
     try {
         const existingUser = await userModel.findByUserMail(UserMail);
-
+        console.log(existingUser);
+        
         if (existingUser) {
             return res.status(500).json({ message: '該email已註冊' });
         }
