@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import api from '../../api.jsx';
 
-
 const DataFetcher = ({ setDataFromServer }) => {
   const [loading, setLoading] = useState(true); // 加載狀態
 
@@ -11,24 +10,11 @@ const DataFetcher = ({ setDataFromServer }) => {
 
     const fetchData = async () => {
       try {
-        const response = await api.get('/getTemplates');
-        // const myData = response.data.map((elem) => (
-        //   {
-        //     TemplateID: elem.TemplateID,
-        //     DessertTitle: elem.DessertTitle,
-        //     MenuFirstID: elem.MenuFirstID,
-        //     MenuFirstName: elem.MenuFirstName,
-        //     MenuFirstImage: elem.MenuFirstImage,
-        //     MenuSecondID: elem.MenuSecondID,
-        //     MenuSecondName: elem.MenuSecondName,
-        //     MenuSecondImage: elem.MenuSecondImage,
-        //   }
-        // ))
-
+        const response = await api.get('/getUsers');
         setDataFromServer(response.data);
 
       } catch (error) {
-        console.error('Failed to get data from server/getSchedules', error);
+        console.error('Failed to get data from server/getUsers', error);
       } finally {
         setLoading(false);
       }

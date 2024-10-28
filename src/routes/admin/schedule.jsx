@@ -66,13 +66,12 @@ const detailColumns = [
     "MenuFirstName",
     "MenuSecondName",
 ];
-const detailColumnNames = [
-    {
-    DessertTitle:"甜點風格",
-    MenuFirstName:"供餐1",
-    MenuSecondName:"供餐2",
-    }
-];
+const detailColumnNames =
+{
+    DessertTitle: "甜點風格",
+    MenuFirstName: "供餐1",
+    MenuSecondName: "供餐2",
+};
 
 const AdminSchedule = () => {
 
@@ -117,8 +116,8 @@ const AdminSchedule = () => {
                             onClick={btnFilterClick}
                         />
                     </div>
-                    <DataFetcherSchedule setGetScheduleDataFromServer={setGetScheduleDataFromServer} />
-                    <DataFetcherMenu setGetMenuDataFromServer={setGetMenuDataFromServer} />
+                    <DataFetcherSchedule setDataFromServer={setGetScheduleDataFromServer} />
+                    <DataFetcherMenu setDataFromServer={setGetMenuDataFromServer} />
                     <TableDefault
                         columns={columns}
                         columnNames={columnNames}

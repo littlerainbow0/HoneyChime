@@ -6,6 +6,7 @@ export const getAllTemplate = async () => {
     T.TemplateID,
     T.TemplateDescription,
     T.RouteID,
+    D.DessertTypeID,
     D.DessertTitle,
     S1.StopName AS StopStartName,
     S2.StopName AS StopEndName,

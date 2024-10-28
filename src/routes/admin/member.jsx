@@ -1,69 +1,88 @@
 // components/home.jsx
-import React from 'react';
-import { DropdownItem, DropdownTrigger, Dropdown, DropdownMenu } from "@nextui-org/react";
+import React, { useState, useEffect } from 'react';
+
 import Navbar from '../../components/admin/navbar_admin.jsx';
 import TableDefault from '../../components/admin/table_default.jsx'; // 確保導入的是正確的路徑
-import TableCollapse from '../../components/admin/table_collapse.jsx'; // 確保導入的是正確的路徑
 import RouteName from '../../components/admin/routeName.jsx'
+import FilterCard from '../../components/admin/card_filter.jsx'
+import BtnLightBrown from '../../components/user/btn_lightbrown.jsx';
+import Background from '../../components/admin/background_admin.jsx';
 
-var columns = ["userId", "level", "numberOfRides", "abandonedOrders", "registrationTime", "latestLogin"];
-const data = [
+import DataFetcherMember from '../../dataProcessing/admin/GET_members.jsx';
+import DataFetcherOrder from '../../dataProcessing/admin/GET_order.jsx';
+
+const filterCardName = [
     {
-        userId: 1,
-        level: "VIP",
-        numberOfRides: "2",
-        // 不同訂單日期計算次數
-        abandonedOrders: "0",
-        // 訂單狀態計算超過發車日期狀態未匯款
-        registrationTime: "2024/06/28 09:00",
-        latestLogin: "2024/11/13 16:30",
+        dessertType: "VIP",
+        imgSrc: "/src/assets/images/people/people_activity04.png",
     },
     {
-        userId: 1,
-        level: "VIP",
-        numberOfRides: "2",
-        // 不同訂單日期計算次數
-        abandonedOrders: "0",
-        // 訂單狀態計算超過發車日期狀態未匯款
-        registrationTime: "2024/06/28 09:00",
-        latestLogin: "2024/11/13 16:30",
+        dessertType: "一般會員",
+        imgSrc: "/src/assets/images/people/people_activity03.png",
     },
+]
+
+var columns = [
+    "UserID",
+    "UserName",
+    "UserPhone",
+    "UserMail",
+    "Sex",
+    "Birth",
+    "RegistrationTime",
+    "LatestLogin",
 ];
-const individualInformationColumns = ["userId", "name", "email", "phone", "birth", "county", "dist", "address"];
-const individualInformationData = [
-    {
-        userId: 1,
-        name: "林少晴",
-        email: "onoyi17@gmail.com",
-        phone: "0912345678",
-        birth: "1997/02/22",
-        county: "台中市",
-        dist: "南屯區",
-        address: "公益路二段51號18樓"
-    },
-];
-const historyOrdersColumns = ["orderId", "orderDate", "departureDate", "orderStatus", "updateTime", "totalAmount"];
-const historyOrdersData = [
-    {
-        orderId: 1,
-        orderDate: "2024/10/10",
-        departureDate: "2024/11/11",
-        orderStatus: "已付款",
-        // 已付款 / 未付款 / 已取消 / 棄單
-        updateTime: "2024/10/11",
-        totalAmount: "4000",
-    },
-];
+
+var columnNames = {
+    UserID: "會員ID",
+    UserName: "會員",
+    UserPhone: "聯絡電話",
+    UserMail: "郵件",
+    Sex: "性別",
+    Birth: "生日",
+    RegistrationTime: "註冊時間",
+    LatestLogin: "最新登入時間",
+};
+
+const detailColumns = [
+    "OrderID",
+    "PaymentStatus",
+    "Price",
+    "OrderTime",
+]
+const detailColumnNames = {
+    OrderID: "歷史訂單ID",
+    PaymentStatus: "訂單狀態",
+    Price: "總金額",
+    OrderTime: "下單時間",
+}
+
 
 const AdminMember = () => {
+
+    const [getMembersDataFromServer, setGetMembersDataFromServer] = useState([])
+    const [getOrderDataFromServer, setGetOrderDataFromServer] = useState([])
+
     return (
         <div className="flex flex-row">
             <Navbar />
-            <div className='ml-10 text-left w-full'>
-                <RouteName />
-                <TableCollapse columns={columns} data={data} />
-                <TableDefault columns={individualInformationColumns} data={individualInformationData} />
-                <TableDefault columns={historyOrdersColumns} data={historyOrdersData} />
+            <Background />
+            <div className='flex-grow pl-40 md:pl-64 3xl:pl-0 text-left w-full'>
+                <div className='max-w-[1800px] mx-auto'>
+                    <RouteName />
+                    <FilterCard data={filterCardName} />
+                    <hr className='my-12 mb-6' />
+                    <DataFetcherMember setDataFromServer={setGetMembersDataFromServer} />
+                    <DataFetcherOrder setDataFromServer={setGetOrderDataFromServer} />
+                    <TableDefault
+                        columns={columns}
+                        columnNames={columnNames}
+                        detailColumns={detailColumns}
+                        detailColumnNames={detailColumnNames}
+                        data1={getMembersDataFromServer}
+                        data2={getOrderDataFromServer}
+                    />
+                </div>
             </div>
         </div >
     );

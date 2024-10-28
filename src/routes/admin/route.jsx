@@ -8,8 +8,9 @@ import FilterCard from '../../components/admin/card_filter.jsx'
 import Modal from '../../components/admin/modal_schedule.jsx'
 import { Button } from '@nextui-org/react';
 import BtnBrown from '../../components/user/btn_brown.jsx'
-import DataFetcher from '../../dataProcessing/admin/GET_menu.jsx';
 import Background from '../../components/admin/background_admin.jsx'
+
+import DataFetcherRoute from '../../dataProcessing/admin/GET_route.jsx';
 
 const filterCardName = [
     {
@@ -26,17 +27,33 @@ const filterCardName = [
     },
 ]
 
-const detailColumns = [
-    "TemplateID",
-    "DessertTitle",
-    "MenuFirstName",
-    "MenuSecondName",
+const columns = [
+    "RouteID",
+    "StopStartName",
+    "StopEndName",
+    "Duration",
+    "RouteImagePath",
+    "Description",
+    "LandScapeImage1",
+    "LandScapeImage2",
+    "LandScapeImage3",
+    "LandScapeDescription",
 ]
-const detailColumnsName = {
-    TemplateID: "模板ID",
-    DessertTitle: "甜點風格",
-    MenuFirstName: "供餐1",
-    MenuSecondName: "供餐2",
+const columnNames = {
+    RouteID: "路線ID",
+    StopStartName: "起點站",
+    StopEndName: "終點站",
+    Duration: "車程(分)",
+    RouteImagePath: "路線圖",
+    Description: "路線介紹",
+    LandScapeImage1:"風景圖1",
+    LandScapeImage2:"風景圖2",
+    LandScapeImage3:"風景圖3",
+    LandScapeDescription:"風景介紹",
+}
+const detailColumns = [
+]
+const detailColumnNames = {
 }
 
 const AdminTemplate = () => {
@@ -46,7 +63,7 @@ const AdminTemplate = () => {
         setShowModal(prev => !prev); // 切換 Modal 顯示狀態
     };
 
-    const [dataFromServer, setDataFromServer] = useState([]) // 儲存API資料用
+    const [routeDataFromServer, setRouteDataFromServer] = useState([]) // 儲存API資料用
 
 
     return (
@@ -61,9 +78,15 @@ const AdminTemplate = () => {
                         <BtnBrown btnText="新建一筆模板" onClick={clickShowModal} />
                         {showModal && <Modal onClose={clickShowModal} />} {/* 传递 onClose 函数 */}
                     </div>
-                    <DataFetcher setDataFromServer={setDataFromServer} />
-                    <TableDefault columns={detailColumns} data={dataFromServer} columnNames={detailColumnsName} />
-                </div>
+                    <DataFetcherRoute setDataFromServer={setRouteDataFromServer} />
+                    <TableDefault
+                        columns={columns}
+                        columnNames={columnNames}
+                        detailColumns={detailColumns}
+                        detailColumnNames={detailColumnNames}
+                        data1={routeDataFromServer}
+                        data2={routeDataFromServer}
+                    />                </div>
             </div>
         </div>
     );

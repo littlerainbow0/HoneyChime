@@ -1,4 +1,4 @@
-import  query  from '../db.js';  // 引入資料庫查詢函數
+import query from '../db.js';  // 引入資料庫查詢函數
 
 export const getMealsByDessertType = async (dessertType) => {
     const sql = `SELECT 
@@ -19,6 +19,28 @@ WHERE
     } catch (error) {
         console.log('查詢特定甜點之餐點資料錯誤：', error);
         throw new Error('查詢特定甜點之餐點資料錯誤：');
+    }
+};
+
+export const getAllMeals = async () => {
+    const sql = `SELECT 
+    M.MealID,
+    M.DessertTypeID,
+    D.DessertTitle,
+    M.MealName,
+    M.MealImagePath,
+    M.MealContent,
+    M.MealDescription
+FROM 
+    DESSERTS D
+JOIN 
+    MEALS M ON D.DessertTypeID = M.DessertTypeID;`;
+    try {
+        const { results } = await query(sql);  // 使用 dessertType 參數進行查詢
+        return { results };
+    } catch (error) {
+        console.log('查詢所有餐點資料錯誤：', error);
+        throw new Error('查詢所有餐點資料錯誤：');
     }
 };
 
@@ -54,7 +76,7 @@ export const getAllDessertType = async () => {
     const sql = `SELECT * FROM DESSERTS`;
 
     try {
-        const { results } = await query(sql);  
+        const { results } = await query(sql);
         return { results };
     } catch (error) {
         console.log('查詢甜點類型資料錯誤：', error);

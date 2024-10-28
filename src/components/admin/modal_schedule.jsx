@@ -1,6 +1,12 @@
-import { Fragment, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import ReactDom from "react-dom";
 import { useLocation } from "react-router-dom";
+import { DateInput } from "@nextui-org/react";
+import { CalendarDate } from "@internationalized/date";
+
+import DataFetcherMeals from '../../dataProcessing/admin/GET_meal.jsx'
+import DataFetcherDesserType from '../../dataProcessing/admin/GET_dessertType.jsx'
+import DataFetcherMenu from '../../dataProcessing/admin/GET_menu.jsx'
 
 import { navText } from "./navbar_admin.jsx";
 
@@ -8,145 +14,269 @@ import classes from "./Modal.module.css";
 import { Card, CardHeader, CardBody, CardFooter } from "@nextui-org/react";
 import BtnLightbrown from "../user/btn_lightbrown";
 
-let meal = {
-    theme: [
-        { themeId: 1, themeName: "歐式" },
-        { themeId: 2, themeName: "日式" },
-        { themeId: 3, themeName: "台式" },
-    ],
-    menu1: [
-        { themeId: 1, menuId: 1, menuName: "歐式巧克力" },
-        { themeId: 1, menuId: 2, menuName: "歐式黑醋栗" },
-        { themeId: 2, menuId: 3, menuName: "日式和菓子" },
-        { themeId: 2, menuId: 4, menuName: "日式舒芙蕾" },
-        { themeId: 3, menuId: 5, menuName: "台式月餅" },
-        { themeId: 3, menuId: 6, menuName: "台式鳳梨酥" },
-    ],
-    menu2: [
-        { themeId: 1, menuId: 1, menuName: "歐式巧克力" },
-        { themeId: 1, menuId: 2, menuName: "歐式黑醋栗" },
-        { themeId: 2, menuId: 3, menuName: "日式和菓子" },
-        { themeId: 2, menuId: 4, menuName: "日式舒芙蕾" },
-        { themeId: 3, menuId: 5, menuName: "台式月餅" },
-        { themeId: 3, menuId: 6, menuName: "台式鳳梨酥" },
-    ],
-};
-
+// 背景層
 const BackDrop = () => {
     return <div className={classes.backdrop}></div>;
 };
 
-const ModalOverLay = (props) => {
-    const { item } = props;
-    const location = useLocation();
+// 
+const ScheduleModalItems = (locationPath, item) => {
 
-    const [selectedTheme, setSelectedTheme] = useState(null);
+    // 新拿到的data
+    const [getMealDataFromServer, setGetMealDataFromServer] = useState([]) // 儲存API資料用
+    const [getDessertTypeDataFromServer, setGetDessertTypeDataFromServer] = useState([]) // 儲存API資料用
+    const [getMenuDataFromServer, setGetMenuDataFromServer] = useState([]) // 儲存API資料用
 
-    const handleThemeChange = (event) => {
-        setSelectedTheme(Number(event.target.value));
+    // 從table那邊拿到的item
+    const [scheduleId, setScheduleId] = useState(item ? item.ScheduleID : "")
+    const [departureDate, setDepartureDate] = useState(item ? item.DepartureDate : "");
+    const [departureTime, setDepartureTime] = useState(item ? item.DepartureTime : "");
+    const [templateId, setTemplateId] = useState(item ? item.TemplateID : "");
+    const [route, setRoute] = useState(item ? item.StopStartName + " 到 " + item.StopEndName : "");
+
+    // 從table那邊拿到的relatedDetailItem
+    const [dessertTypeId, setDessertTypeId]
+        = useState(item.relatedDetailItem ? item.relatedDetailItem[0].DessertTypeId : "");
+    const [dessertTitle, setDessertTitle]
+        = useState(item.relatedDetailItem ? item.relatedDetailItem[0].DessertTitle : "");
+    const [menuFirstID, setMenuFirstID]
+        = useState(item.relatedDetailItem ? item.relatedDetailItem[0].MenuFirstID : "");
+    const [menuFirstName, setMenuFirstName]
+        = useState(item.relatedDetailItem ? item.relatedDetailItem[0].MenuFirstName : "");
+    const [menuSecondID, setMenuSecondID]
+        = useState(item.relatedDetailItem ? item.relatedDetailItem[0].MenuSecondID : "");
+    const [menuSecondName, setMenuSecondName]
+        = useState(item.relatedDetailItem ? item.relatedDetailItem[0].MenuSecondName : "");
+    const [stopEndName, setStopEndName]
+        = useState(item.relatedDetailItem ? item.relatedDetailItem[0].StopEndName : "");
+    const [stopStartName, setStopStartName]
+        = useState(item.relatedDetailItem ? item.relatedDetailItem[0].StopStartName : "");
+
+    // 從使用者那邊拿到的data
+    const [selectedTemplateData, setSelectedTemplateData] = useState(null);
+    const [selectedDessertType, setSelectedDessertType] = useState(null);
+    const [selectedMeal1, setSelectedMeal1] = useState('');
+    const [selectedMeal2, setSelectedMeal2] = useState('');
+
+    // 狀態更新
+    const handleTemplateChange = (event) => {
+        const selectedTemplateID = Number(event.target.value);
+
+        // 查找所選模板的資料
+        const selectedTemplate = getMenuDataFromServer.find(template => template.TemplateID === selectedTemplateID);
+
+        if (selectedTemplate) {
+            setSelectedTemplateData(selectedTemplate);
+            console.log(selectedTemplate);
+
+            // 更新相關狀態
+            setTemplateId(selectedTemplate.TemplateID);
+            setRoute(`${selectedTemplate.StopStartName} 到 ${selectedTemplate.StopEndName}`);
+            setDessertTypeId(selectedTemplate.DessertTypeID);
+            setDessertTitle(selectedTemplate.DessertTitle);
+            setMenuFirstID(selectedTemplate.MenuFirstID);
+            setMenuFirstName(selectedTemplate.MenuFirstName);
+            setMenuSecondID(selectedTemplate.MenuSecondID);
+            setMenuSecondName(selectedTemplate.MenuSecondName);
+        } else {
+            // 若未選擇模板，則重置
+            setSelectedTemplateData(null);
+            setRoute("");
+            setDessertTypeId("");
+            setDessertTitle("");
+            setMenuFirstID("");
+            setMenuFirstName("");
+            setMenuSecondID("");
+            setMenuSecondName("");
+        }
     };
 
-    // 根據選擇的主題過濾菜單
-    const filteredMenu1 = selectedTheme
-        ? meal.menu1.filter((menu) => menu.themeId === selectedTheme)
-        : [];
-    const filteredMenu2 = selectedTheme
-        ? meal.menu2.filter((menu) => menu.themeId === selectedTheme)
+    const handleMeal1Change = (event) => {
+        const value = event.target.value;
+        setSelectedMeal1(value);
+
+        // 如果選擇的值與 Menu2 的選擇相同，則清空 Menu2 的選擇
+        if (value === selectedMeal2) {
+            setSelectedMeal2('');
+        }
+    };
+
+    const handleMeal2Change = (event) => {
+        const value = event.target.value;
+        setSelectedMeal2(value);
+
+        // 如果選擇的值與 Menu1 的選擇相同，則清空 Menu1 的選擇
+        if (value === selectedMeal1) {
+            setSelectedMeal1('');
+        }
+    };
+
+    const handleDessertTypeChange = (event) => {
+        setSelectedDessertType(Number(event.target.value));
+    };
+
+    // 供餐的過濾
+    const filteredMenu1 = selectedDessertType
+        ? getMealDataFromServer.filter((menu) => menu.DessertTypeID === selectedDessertType) // 假設 meal 數據中有 DessertTypeId
+        : []; // 若未選擇主題，顯示所有餐點
+
+    const filteredMenu2 = selectedDessertType
+        ? getMealDataFromServer.filter((menu) => menu.DessertTypeID === selectedDessertType) // 假設 meal 數據中有 DessertTypeId
         : [];
 
+    // 行程：行程ID、出發日期、出發時間、模板、路線、甜點風格、供餐
     const modalItemsInSchedule = [
         {
-            title: "出發日期",
-            content: () => <input type="date" />,
+            title: "行程ID",
+            content: () => (
+                <>
+                    <DataFetcherMeals setDataFromServer={setGetMealDataFromServer} />
+                    <DataFetcherDesserType setDataFromServer={setGetDessertTypeDataFromServer} />
+                    <DataFetcherMenu setDataFromServer={setGetMenuDataFromServer} />
+                    {scheduleId}
+                </>
+            )
         },
         {
-            title: "出發時間",
-            content: () => <input type="time" />,
-        },
-        {
-            title: "模板",
-            content: () => <input type="text" />,
+            title: "路線與供餐模板",
+            content: () =>
+                <>
+                    <select className="font-bodyFont font-bold bg-transparent"
+                        value={templateId}
+                        onChange={handleTemplateChange}>
+                        {/* <option value={templateId}>目前鎖定：{templateId}</option> */}
+                        {getMenuDataFromServer.map((data) => (
+                            <option
+                                value={data.TemplateID}
+                                key={data.TemplateID}
+                            >
+                                {data.TemplateID}：{data.DessertTitle}
+                            </option>
+                        ))}
+                    </select>
+                </>
         },
         {
             title: "路線",
-            content: () => <input type="text" />,
+            content: () => <input type="text" value={route} onChange={(e) => setRoute(e.target.value)} />,
         },
         {
             title: "甜點風格",
             content: () => (
-                <select className="font-bodyFont font-bold bg-transparent" onChange={handleThemeChange}>
-                    <option value="">選擇甜點風格</option>
-                    {meal.theme.map((theme) => (
-                        <option value={theme.themeId} key={theme.themeId}>
-                            {theme.themeName}
-                        </option>
-                    ))}
-                </select>
+                <>
+                    <select className="font-bodyFont font-bold bg-transparent"
+                        value={dessertTypeId}
+                        onChange={handleDessertTypeChange}>
+                        {getDessertTypeDataFromServer.map((data) => (
+                            <option
+                                value={data.DessertTypeID}
+                                key={data.DessertTypeID}
+                            >
+                                {data.DessertTitle}
+                            </option>
+                        ))}
+                    </select>
+                </>
             ),
         },
         {
             title: "供餐",
             content: () => (
                 <>
-                    <select className="font-bodyFont bg-transparent">
+                    <select className="font-bodyFont bg-transparent"
+                        value={selectedMeal1}
+                        onChange={handleMeal1Change}>
                         {filteredMenu1.length > 0 ? (
                             filteredMenu1.map((item) => (
-                                <option value={item.menuId} key={item.menuId}>
-                                    {item.menuName}
+                                <option value={item.MealID} key={item.MealID}>
+                                    {item.MealName}
                                 </option>
                             ))
                         ) : (
-                            <option value="">無項目</option>
+                            item.DessertTypeID === item.relatedDetailItem.DessertTypeID ? (
+                                <option value={menuFirstID}>{menuFirstName}</option>
+                            ) : (
+                                <option value="">選擇餐點</option>
+                            )
                         )}
                     </select>
-                    <select className="font-bodyFont bg-transparent">
+                    <br />
+                    <select className="font-bodyFont bg-transparent"
+                        value={selectedMeal2}
+                        onChange={handleMeal2Change}>
                         {filteredMenu2.length > 0 ? (
                             filteredMenu2.map((item) => (
-                                <option value={item.menuId} key={item.menuId}>
-                                    {item.menuName}
+                                <option value={item.MealID} key={item.MealID}>
+                                    {item.MealName}
                                 </option>
                             ))
                         ) : (
-                            <option value="">無項目</option>
+                            item.DessertTypeID === item.relatedDetailItem.DessertTypeID ? (
+                                <option value={menuSecondID}>{menuSecondName}</option>
+                            ) : (
+                                <option value="">選擇餐點</option>
+                            )
                         )}
                     </select>
+
+                </>
+            ),
+        },
+
+        {
+            title: "出發日期",
+            content: () => (
+                <>
+                    {departureDate}
+                    <input type="date"
+                        value={departureDate}
+                        onChange={(e) => setDepartureDate(e.target.value)} />
                 </>
             ),
         },
         {
-            title: "找不到模板?　新建一個！",
-            content: null,
+            title: "出發時間",
+            content: () => <input type="time" value={departureTime} onChange={(e) => setDepartureTime(e.target.value)} />,
         },
     ];
 
+    return modalItemsInSchedule;
+}
+
+// Modal
+const ModalOverLay = (props) => {
+    const { item } = props;
+    const location = useLocation();
+
+
     const modalItemsInRoute = [
         {
-            title:"餐點ID",
-            content:()=>(
+            title: "餐點ID",
+            content: () => (
                 ""
             ),
         },
         {
-            title:"餐點名稱",
-            content:()=>(
+            title: "餐點名稱",
+            content: () => (
                 ""
             ),
         },
         {
-            title:"餐點圖片",
-            content:()=>(
+            title: "餐點圖片",
+            content: () => (
                 ""
             ),
         },
         {
-            title:"餐點內容",
-            content:()=>(
+            title: "餐點內容",
+            content: () => (
                 ""
             ),
         },
         {
-            title:"餐點描述",
-            content:()=>(
+            title: "餐點描述",
+            content: () => (
                 ""
             ),
         },
@@ -154,32 +284,32 @@ const ModalOverLay = (props) => {
 
     const modalItemsInMeal = [
         {
-            title:"餐點ID",
-            content:()=>(
+            title: "餐點ID",
+            content: () => (
                 ""
             ),
         },
         {
-            title:"餐點名稱",
-            content:()=>(
+            title: "餐點名稱",
+            content: () => (
                 ""
             ),
         },
         {
-            title:"餐點圖片",
-            content:()=>(
+            title: "餐點圖片",
+            content: () => (
                 ""
             ),
         },
         {
-            title:"餐點內容",
-            content:()=>(
+            title: "餐點內容",
+            content: () => (
                 ""
             ),
         },
         {
-            title:"餐點描述",
-            content:()=>(
+            title: "餐點描述",
+            content: () => (
                 ""
             ),
         },
@@ -188,8 +318,8 @@ const ModalOverLay = (props) => {
     const modalItems = () => {
         // 旅程管理
         if (location.pathname === navText[1].path) {
-            return modalItemsInSchedule;
-        } 
+            return ScheduleModalItems(location.pathname, item);
+        }
         // 路線管理
         // 餐點管理
         if (location.pathname === navText[4].path) {
@@ -201,16 +331,29 @@ const ModalOverLay = (props) => {
         <div className={classes.modal}>
             <Card className="rounded-lg transition-all">
                 <CardHeader className="justify-between bg-darkbrown">
-                    <h3 className="font-titleFont font-bold text-h3 mx-2 text-lightyellow pl-5 py-3">
-                        模板新增/修改
+                    <h3 className="
+                    font-titleFont font-bold text-h4 mx-2 text-lightyellow pl-5 py-2
+                    ">
+                        新增/修改
                     </h3>
                     <BtnLightbrown btnText="×" onClick={props.onClose} />
                 </CardHeader>
-                <CardBody className="pl-10 bg-lightyellow ">
+                <CardBody className="bg-dark text-lightbrown pr-10">
                     {modalItems().map((elem, index) => (
-                        <div key={index}>
-                            <h3 className="">{elem.title}</h3>
-                            {elem.content && elem.content()}
+                        <div key={index} className="
+                        py-1 
+                        grid grid-cols-2 gap-4 items-center">
+                            <div className="text-right">
+                                <h3 className="font-titleFont font-bold text-p-1 px-6 py-2 rounded-full">
+                                    {elem.title}
+                                </h3>
+                            </div>
+                            <div>
+                                <p className="pl-2 font-bodyFont text-p-2">
+                                    {elem.content && elem.content()}
+                                </p>
+                                <hr />
+                            </div>
                         </div>
                     ))}
                 </CardBody>

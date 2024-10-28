@@ -14,7 +14,7 @@ import api from '../../api.jsx';
 //   },
 // ];
 
-const DataFetcher = ({ setGetScheduleDataFromServer }) => {
+const DataFetcher = ({ setDataFromServer }) => {
   const [loading, setLoading] = useState(true); // 加載狀態
 
   useEffect(() => {
@@ -29,7 +29,7 @@ const DataFetcher = ({ setGetScheduleDataFromServer }) => {
           Expired: item.Expired ? "已過期" : "即將到來"
         }));
 
-        setGetScheduleDataFromServer(myData);
+        setDataFromServer(myData);
 
       } catch (error) {
         console.error('Failed to get data from server/getSchedules', error);
@@ -38,7 +38,7 @@ const DataFetcher = ({ setGetScheduleDataFromServer }) => {
       }
     };
     fetchData();
-  }, [setGetScheduleDataFromServer]); // 確保只執行一次
+  }, [setDataFromServer]); // 確保只執行一次
 
   return loading ? <div>Loading...</div> : null; // 加載中顯示
 };

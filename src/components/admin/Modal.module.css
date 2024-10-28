@@ -10,18 +10,32 @@
 
 .modal {
   position: fixed;
-  top: 20vh;
-  left: 5%;
-  /* width: 90%; */
-  height: auto;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   z-index: 30;
   animation: slide-down 300ms ease-out forwards;
 }
 
+.modal-content {
+  max-width: 90%; /* 最大寬度 */
+  width: 600px; /* 固定寬度 */
+  max-height: 90vh; /* 最大高度限制 */
+  overflow-y: auto; /* 允許垂直滾動 */
+  background-color: white; /* 背景顏色 */
+  border-radius: 8px; /* 邊角圓滑 */
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); /* 陰影效果 */
+  padding: 20px; /* 內邊距 */
+}
+
 @media (min-width: 768px) {
   .modal {
-    width: 40rem;
-    left: calc(50% - 20rem);
+    width: 28rem;
+    left: calc(50% - 15rem);
   }
 }
 
@@ -30,7 +44,6 @@
     opacity: 0;
     transform: translateY(-3rem);
   }
-
   to {
     opacity: 1;
     transform: translateY(0);
@@ -39,11 +52,6 @@
 
 input::placeholder {
   color: rgb(187, 155, 155) !important;
-  position: absolute;
-  /* 以下是為了讓placeholder固定在左上角 */
-  left: 0px; 
-  top: 8px; 
-  transform: translateY(-50%); 
 }
 
 input:focus {

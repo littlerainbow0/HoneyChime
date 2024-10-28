@@ -26,17 +26,21 @@ const filterCardName = [
     },
 ]
 
-const detailColumns = [
+const columns = [
     "TemplateID",
     "DessertTitle",
     "MenuFirstName",
     "MenuSecondName",
 ]
-const detailColumnsName = {
+const columnNames = {
     TemplateID: "模板ID",
     DessertTitle: "甜點風格",
     MenuFirstName: "供餐1",
     MenuSecondName: "供餐2",
+}
+const detailColumns = [
+]
+const detailColumnNames = {
 }
 
 const AdminTemplate = () => {
@@ -62,8 +66,14 @@ const AdminTemplate = () => {
                         {showModal && <ModalMenu onClose={clickShowModal} />} {/* 传递 onClose 函数 */}
                     </div>
                     <DataFetcher setDataFromServer={setDataFromServer} />
-                    <TableDefault columns={detailColumns} data={dataFromServer} columnNames={detailColumnsName} />
-                </div>
+                    <TableDefault
+                        columns={columns}
+                        columnNames={columnNames}
+                        detailColumns={detailColumns}
+                        detailColumnNames={detailColumnNames}
+                        data1={dataFromServer}
+                        data2={dataFromServer}
+                    />                </div>
             </div>
         </div>
     );

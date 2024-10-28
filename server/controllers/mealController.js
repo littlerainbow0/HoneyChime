@@ -34,3 +34,14 @@ export const getAllDessertType = async (req, res) => {
         res.status(500).json({ message: '伺服器錯誤，無法取得甜點類型資料' });
     }
 };
+
+// 取得所有甜點資料
+export const getAllMeals = async (req, res) => {
+    try {
+        const { results } = await mealModel.getAllMeals();
+        res.json(results);  // 返回 JSON 格式的資料
+    } catch (error) {
+        console.error('取得甜點類型資料錯誤：', error);
+        res.status(500).json({ message: '伺服器錯誤，無法取得甜點類型資料' });
+    }
+};

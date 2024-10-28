@@ -32,6 +32,9 @@ export default {
       },
     },
     extend: {
+      lineClamp: {
+        2: '2' // 這將允許你使用 `line-clamp-2`
+      },
       colors: {
         dark: 'rgb(32,30,30)',
         darkbrown: 'rgb(38,33,33)',
@@ -99,5 +102,6 @@ export default {
       addUtilities(newUtilities, ['responsive', 'hover']);
     },
     nextui(),
+    require('@tailwindcss/line-clamp'),
   ],
 }
