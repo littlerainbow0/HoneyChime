@@ -5,6 +5,7 @@ import RadiusCard from '../../components/user/card_radius.jsx';
 import { useNavigate } from 'react-router-dom';
 import '@arco-design/web-react/dist/css/arco.css';
 import { VerificationCode, Message } from '@arco-design/web-react';
+import BtnLightbrown from '../../components/user/btn_lightbrown.jsx'
 
 const VerifyCode = () => {
     const [message, setMessage] = useState('');
@@ -16,9 +17,26 @@ const VerifyCode = () => {
 
     const navigate = useNavigate();
 
+    const resendMail = () => {
 
+
+        axios.post('http://localhost:8000/resendMail', {}, {
+            withCredentials: true // 如果需要攜帶 session前後端都要加
+        })
+            .then(response => {
+                console.log('驗證成功:', response.data.message);
+                alert(response.data.message);
+            })
+            .catch(error => {
+                if (error.response) {
+                    alert(error.response.data.message);
+                } else {
+                    alert('發生錯誤，請稍後再試。');
+                }
+            });
+    }
     const handleSubmit = (result) => {
-    
+
         const verifyCode = {
             inputCode: result
         };
@@ -51,10 +69,14 @@ const VerifyCode = () => {
                     }}
                 />
                 <VerificationCode
-                    style={{ width: 100, paddingTop: 60 }}
+                    style={{ paddingTop: 6, marginBottom: 60 }}
                     onFinish={v => {
                         handleSubmit(v)
                     }}
+                />
+                <BtnLightbrown
+                    btnText={"重寄驗證信"}
+                    onClick={resendMail}
                 />
 
             </div>

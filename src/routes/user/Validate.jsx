@@ -4,7 +4,6 @@ import axios from 'axios';
 import RadiusCard from '../../components/user/card_radius.jsx';
 import { useNavigate } from 'react-router-dom';
 import '@arco-design/web-react/dist/css/arco.css';
-import { VerificationCode, Message } from '@arco-design/web-react';
 
 const Validate = () => {
     const [message, setMessage] = useState('');
@@ -61,10 +60,10 @@ const Validate = () => {
             withCredentials: true // 如果需要攜帶 session前後端都要加
         })
             .then(response => {
-            
+
                 console.log('驗證成功:', response.data.Message);
                 setMessage(response.data.message);
-                alert(response.data.message+'即將跳轉');
+                alert(response.data.message + '即將跳轉');
                 navigate("/verifyCode");
             })
             .catch(error => {
