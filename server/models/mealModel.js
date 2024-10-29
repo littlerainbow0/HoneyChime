@@ -1,6 +1,6 @@
 import  query  from '../db.js';  // 引入資料庫查詢函數
 
-export const getMealsByDessertType = async (dessertType) => {
+export const getMealsByDessertType = async (dessertType) => { 
     const sql = `SELECT 
     M.MealID,
     M.MealName,

@@ -72,7 +72,7 @@ export default function RadiusCard({ data }) {
                         </Link>
                     )
                         : data.title === "註冊會員" ? (
-                            <Link href="#" className="font-bodyFont text-p-3 underline">
+                            <Link href="/login" className="font-bodyFont text-p-3 underline">
                                 已有會員？
                             </Link>
                         ) :

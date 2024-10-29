@@ -7,6 +7,8 @@ const router = express.Router();
 
 router.get('/getUsers', userController.getAllUsers);
 router.get('/getUsers/:userID', authMiddleware.isUser, userController.getUserByUserID);
+router.get('/checkLogIn', authMiddleware.checkLogin);
+router.get('/checkAdmin', authMiddleware.checkAdmin);
 
 router.post('/signIn', authMiddleware.logined, setSessionMiddleware.setSessionMaxAge, userController.signIn);
 router.post('/LogIn', authMiddleware.logined, setSessionMiddleware.setSessionMaxAge, userController.logIn);

@@ -1,199 +1,174 @@
-// components/home.jsx
-import React, { Component } from 'react';
+import React, { useEffect, useState } from 'react';
 import './signin.css';
-
-// */ Components
 import RadiusCard from '../../components/user/card_radius.jsx';
-// -- Components /*
 import axios from 'axios';
-
-// */ icons
 import { BsArrowDownCircleFill } from "react-icons/bs";
-// -- icons /*
+import { useNavigate } from 'react-router-dom';
 
-class SignIn extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            message: '',
-            cardBodyUser: {
-                title: "註冊會員",
-                items: [
-                    {
-                        tag: "input",
-                        subtitle: "電子信箱",
-                        inputType: "email",
-                        value: "",
-                        placeholderWords: "honey@gmail.com",
-                        readOnly: false,
-                    },
-                    {
-                        tag: "input",
-                        subtitle: "密碼",
-                        inputType: "password",
-                        value: "",
-                        placeholderWords: "請輸入密碼",
-                        readOnly: false,
-                    },
-                    {
-                        tag: "input",
-                        subtitle: "確認密碼",
-                        inputType: "password",
-                        value: "",
-                        placeholderWords: "請再次輸入密碼",
-                        readOnly: false,
-                    },
-                ],
+const SignIn = () => {
+    const [message, setMessage] = useState('');
+    const [cardBodyUser, setCardBodyUser] = useState({
+        title: "註冊會員",
+        items: [
+            {
+                tag: "input",
+                subtitle: "電子信箱",
+                inputType: "email",
+                value: "",
+                placeholderWords: "honey@gmail.com",
+                readOnly: false
             },
-            cardBodyInfo: {
-                title: "建立個人資訊",
-                items: [
-                    {
-                        tag: "input",
-                        subtitle: "姓名",
-                        inputType: "text",
-                        value: "",
-                        placeholderWords: "蜂鳴號",
-                        readOnly: false,
-                    },
-                    {
-                        tag: "radio",
-                        subtitle: "性別",
-                        options: [
-                            { label: "M", value: "M" },
-                            { label: "F", value: "F" }
-                        ],
-                        value: "F", // 預設選中的值
-                        readOnly: false,
-                    },
-                    {
-                        tag: "input",
-                        subtitle: "手機電話",
-                        inputType: "tel",
-                        value: "",
-                        placeholderWords: "09123456789",
-                        readOnly: false,
-                    },
-                    {
-                        tag: "input",
-                        subtitle: "生日",
-                        inputType: "date",
-                        value: "",
-                        placeholderWords: "",
-                        readOnly: false,
-                    },
-                ]
-            }
-        };
-    }
+            {
+                tag: "input",
+                subtitle: "密碼",
+                inputType: "password",
+                value: "",
+                placeholderWords: "請輸入密碼",
+                readOnly: false
+            },
+            {
+                tag: "input",
+                subtitle: "確認密碼",
+                inputType: "password",
+                value: "",
+                placeholderWords: "請再次輸入密碼",
+                readOnly: false
+            },
+        ],
+    });
+    const [cardBodyInfo, setCardBodyInfo] = useState({
+        title: "建立個人資訊",
+        items: [
+            {
+                tag: "input",
+                subtitle: "姓名",
+                inputType: "text",
+                value: "",
+                placeholderWords: "蜂鳴號",
+                readOnly: false
+            },
+            {
+                tag: "radio",
+                subtitle: "性別",
+                options: [
+                    { label: "M", value: "M" },
+                    { label: "F", value: "F" }
+                ],
+                value: "F",
+                readOnly: false
+            },
+            {
+                tag: "input",
+                subtitle: "手機電話",
+                inputType: "tel",
+                value: "",
+                placeholderWords: "09123456789",
+                readOnly: false
+            },
+            {
+                tag: "input",
+                subtitle: "生日",
+                inputType: "date",
+                value: "",
+                placeholderWords: "",
+                readOnly: false
+            },
+        ]
+    });
 
-    handleChange = (source, index, value) => {
-        console.log(`Source: ${source}, Index: ${index}, New Value: ${value}`);
+    const navigate = useNavigate();
 
+    useEffect(() => {
+        // 檢查用戶是否已經登入
+        axios.get('http://localhost:8000/checklogin', { withCredentials: true })
+            .then(response => {
+                if (response.data.islogin) {
+                    // 如果已經登入，跳轉到首頁
+                    navigate("/contact");
+                }
+            })
+            .catch(error => {
+                console.error('檢查登入狀態時出錯:', error);
+            });
+    }, [navigate]);
+
+
+    const handleChange = (source, index, value) => {
         if (source === "user") {
-            const updatedItems = this.state.cardBodyUser.items.map((item, i) => {
+            const updatedItems = cardBodyUser.items.map((item, i) => {
                 if (i === index) {
                     return { ...item, value: value };
                 }
                 return item;
             });
-
-            this.setState(prevState => ({
-                cardBodyUser: {
-                    ...prevState.cardBodyUser,
-                    items: updatedItems,
-                }
-            }));
+            setCardBodyUser(prevState => ({ ...prevState, items: updatedItems }));
         } else if (source === "info") {
-            const updatedItems = this.state.cardBodyInfo.items.map((item, i) => {
+            const updatedItems = cardBodyInfo.items.map((item, i) => {
                 if (i === index) {
                     return { ...item, value: value };
                 }
                 return item;
             });
-
-            this.setState(prevState => ({
-                cardBodyInfo: {
-                    ...prevState.cardBodyInfo,
-                    items: updatedItems,
-                }
-            }));
+            setCardBodyInfo(prevState => ({ ...prevState, items: updatedItems }));
         }
     };
-    handleSubmit = () => {
 
-        const { items: userItems } = this.state.cardBodyUser;
-        const { items: infoItems } = this.state.cardBodyInfo;
-
+    const handleSubmit = () => {
         const signinData = {
-            UserMail: userItems[0].value,
-            Password: userItems[1].value,
-            UserName: infoItems[0].value,
-            Sex: infoItems[1].value,
-            UserPhone: infoItems[2].value,
-            Birth: infoItems[3].value
+            UserMail: cardBodyUser.items[0].value,
+            Password: cardBodyUser.items[1].value,
+            UserName: cardBodyInfo.items[0].value,
+            Sex: cardBodyInfo.items[1].value,
+            UserPhone: cardBodyInfo.items[2].value,
+            Birth: cardBodyInfo.items[3].value
         };
-        const PasswordConfirm = userItems[2].value;
 
-        // console.log(PasswordConfirm);
-        console.log(signinData.Sex);
-
-
-        axios.post('http://localhost:8000/signin', signinData, {
-            withCredentials: true // 如果需要攜帶 session前後端都要加
+        if (signinData.Password !== cardBodyUser.items[2].value) {
+            alert("確認密碼與輸入密碼不符!");
+            return;
         }
-        ).then(response => {
-            console.log('註冊成功:', response.data);
-            this.setState({ message: response.data.message });
-        })
+
+        axios.post('http://localhost:8000/signin', signinData, { withCredentials: true })
+            .then(response => {
+                setMessage(response.data.message);
+                alert(response.data.message + '，即將跳轉至登入頁面');
+                navigate("/login"); // 註冊完成後跳轉至登入頁面
+            })
             .catch(error => {
                 if (error.response) {
-                    // 後端返回的錯誤訊息
-                    this.setState({ message: error.response.data.message });
+                    setMessage(error.response.data.message);
+                    alert(error.response.data.message);
                 } else {
-                    // 其他錯誤
-                    this.setState({ message: '發生錯誤，請稍後再試。' });
+                    setMessage('發生錯誤，請稍後再試。');
                 }
             });
     };
 
-    render() {
-        const { cardBodyUser, cardBodyInfo } = this.state;
-
-        return (
-            <div id="main">
-                {/* <RadiusCard data={cardBodyUser} /> */}
-                <RadiusCard
-                    data={{
-                        ...cardBodyUser,
-                        items: cardBodyUser.items.map((item, index) => ({
-                            ...item,
-                            onChange: (value) => this.handleChange("user", index, value) // 傳遞 onChange 函數
-                        })),
-                    }}
-                />
-
-
-                <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', margin: '1rem 0' }}>
-                    <BsArrowDownCircleFill />
-                </div>
-
-                <RadiusCard
-                    data={{
-                        ...cardBodyInfo,
-                        items: cardBodyInfo.items.map((item, index) => ({
-                            ...item,
-                            onChange: (value) => this.handleChange("info", index, value) // 傳遞 onChange 函數
-                        })),
-                        handleSubmit: this.handleSubmit // 傳遞 handleSubmit
-                    }}
-                />
-                {this.state.message && <p>{this.state.message}</p>}
-
-                <div className="full-background"></div>
+    return (
+        <div id="main">
+            <RadiusCard data={
+                {
+                    ...cardBodyUser,
+                    items: cardBodyUser.items.map(
+                        (item, index) => ({ ...item, onChange: (value) => handleChange("user", index, value) })
+                    )
+                }
+            } />
+            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', margin: '1rem 0' }}>
+                <BsArrowDownCircleFill />
             </div>
-        );
-    }
-}
+            <RadiusCard data={
+                {
+                    ...cardBodyInfo,
+                    items: cardBodyInfo.items.map(
+                        (item, index) => ({ ...item, onChange: (value) => handleChange("info", index, value) })
+                    ),
+                    handleSubmit: handleSubmit
+                }
+            } />
+            <div className="full-background"></div>
+        </div>
+    );
+};
 
 export default SignIn;
