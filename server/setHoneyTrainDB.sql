@@ -43,7 +43,9 @@ CREATE TABLE `USERS` (
    `Sex` VARCHAR(10) NOT NULL,
    `Birth` DATE NOT NULL,
    `RegistrationTime` DATE NOT NULL,
-   `LatestLogin` DATETIME DEFAULT NULL
+   `LatestLogin` DATETIME DEFAULT NULL,
+   `Validity` VARCHAR(100) DEFAULT NULL,
+   `ValidityExpired` DATETIME DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 INSERT INTO `USERS` (`UserName`, `UserPhone`, `UserMail`,  `Password`,  `Sex`, `Birth`, `RegistrationTime`) VALUES

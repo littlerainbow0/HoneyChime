@@ -46,7 +46,7 @@ export const signIn = async (data) => {
     VALUES (?, ?, ?, ?, ?, ?, ?)`;
     try {
         const { results } = await query(sql, [data.UserName, data.UserPhone, data.UserMail, data.Password, data.Sex, data.Birth, (new Date())]);
-        console.log(results.insertId);
+        // console.log(results.insertId);
 
         return { userID: results.insertId };  // 返回新增使用者的 ID
     } catch (error) {
@@ -84,6 +84,44 @@ WHERE userID = ?;`;
         throw new Error('更新使用者最近登入時間錯誤');
     }
 };
+//取得驗證碼與時效
+export const getValidity = async (userID) => {
+    const sql = `SELECT Validity,
+    ValidityExpired
+    FROM USERS 
+    WHERE userID = ?`; // 查詢所有使用者的 SQL 語句
+    const { results } = await query(sql, [userID]);
+    return { results };  // 使用 query 函數執行查詢
+};
 
+//更新驗證碼與有效期限
+export const updateUserValidate = async (userID, hashedCode, expirationTime) => {
+    const exptime = new Date(expirationTime);
+    const sql = `UPDATE USERS
+    SET Validity = ?,
+    ValidityExpired = ?
+WHERE userID = ?;`;
+    try {
+        const { results } = await query(sql, [hashedCode, exptime, userID]);
+        return results.affectedRows;  // 返回受影響的行數
+    } catch (error) {
+        console.error('更新驗證碼錯誤：', error);
+        throw new Error('更新驗證碼錯誤');
+    }
+};
+
+//更新密碼
+export const updateUserPassword = async (userID, hashedCode) => {
+    const sql = `UPDATE USERS
+    SET Password = ?
+WHERE userID = ?;`;
+    try {
+        const { results } = await query(sql, [hashedCode.Password, userID]);
+        return results.affectedRows;  // 返回受影響的行數
+    } catch (error) {
+        console.error('更新密碼錯誤：', error);
+        throw new Error('更新密碼錯誤');
+    }
+};
 
 

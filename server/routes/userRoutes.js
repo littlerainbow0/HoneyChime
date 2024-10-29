@@ -14,7 +14,9 @@ router.post('/signIn', authMiddleware.logined, setSessionMiddleware.setSessionMa
 router.post('/LogIn', authMiddleware.logined, setSessionMiddleware.setSessionMaxAge, userController.logIn);
 router.post('/logOut', authMiddleware.isUser, userController.logOut);
 router.post('/validate', userController.Validate);
+router.post('/verifyCode', userController.VerifyCode);
 
+router.post('/updatePassword', userController.updateUserPassword);
 router.put('/updateUserInfo', setSessionMiddleware.setSessionMaxAge, userController.updateUserInfo);
 
 export default router;

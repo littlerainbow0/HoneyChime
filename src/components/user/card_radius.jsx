@@ -58,14 +58,16 @@ export default function RadiusCard({ data }) {
                 ))}
                 <div className="flex justify-center mt-5">
                     {data.title !== "註冊會員" && (
-                        <BtnLightbrown btnText={
-                            data.title === "會員登入" ? "登入" :
-                                data.title === "忘記密碼" ? "送出" :
-                                    data.title === "建立個人資訊" ? "加入會員" :
-                                        data.title === "修改密碼" || data.title === "基本資料" ? "儲存資料" :
-                                            data.title === "郵件聯繫" ? <BsFillSendFill /> : null
-                        }
-                            onClick={data.handleSubmit} />
+                        data.title === "輸入驗證碼" ? null :
+                            <BtnLightbrown btnText={
+                                data.title === "會員登入" ? "登入" :
+                                    data.title === "重設密碼" ? "確認" :
+                                        data.title === "忘記密碼" ? "發送驗證信" :
+                                            data.title === "建立個人資訊" ? "加入會員" :
+                                                data.title === "修改密碼" || data.title === "基本資料" ? "儲存資料" :
+                                                    data.title === "郵件聯繫" ? <BsFillSendFill /> : null
+                            }
+                                onClick={data.handleSubmit} />
                     )}
                     {data.title === "會員登入" ? (
                         <Link href="/signin" className="font-bodyFont text-p-3 underline">
@@ -73,7 +75,7 @@ export default function RadiusCard({ data }) {
                         </Link>
 
                     )
-                        : data.title === "註冊會員"  ? (
+                        : data.title === "註冊會員" ? (
                             <Link href="/login" className="font-bodyFont text-p-3 underline">
                                 已有會員？
                             </Link>
@@ -82,7 +84,7 @@ export default function RadiusCard({ data }) {
                     }
                 </div>
                 {data.title === "會員登入" ? (
-                    <Link href="/validate" className="font-bodyFont text-p-3 text-gray-100 underline mt-10 ">
+                    <Link href="/validate" className="font-bodyFont text-p-3 underline mt-10 ">
                         忘記密碼？
                     </Link>) : null
                 }

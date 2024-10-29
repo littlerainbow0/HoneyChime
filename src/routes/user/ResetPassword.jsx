@@ -4,26 +4,25 @@ import axios from 'axios';
 import RadiusCard from '../../components/user/card_radius.jsx';
 import { useNavigate } from 'react-router-dom';
 
-const Login = () => {
-    const [message, setMessage] = useState('');
+const ResetPassword = () => {
     const [cardBody, setCardBody] = useState({
-        title: "會員登入",
+        title: "重設密碼",
         items: [
-            {
-                tag: "input",
-                subtitle: "帳號",
-                inputType: "text",
-                value: "",
-                placeholderWords: "honey@gmail.com",
-                readOnly: false,
-            },
             {
                 tag: "input",
                 subtitle: "密碼",
                 inputType: "password",
                 value: "",
                 placeholderWords: "請輸入密碼",
-                readOnly: false,
+                readOnly: false
+            },
+            {
+                tag: "input",
+                subtitle: "確認密碼",
+                inputType: "password",
+                value: "",
+                placeholderWords: "請再次輸入密碼",
+                readOnly: false
             },
         ],
     });
@@ -60,56 +59,31 @@ const Login = () => {
 
 
     const handleSubmit = () => {
-        const loginData = {
-            UserMail: cardBody.items[0].value,
-            Password: cardBody.items[1].value,
+        const passwordData = {
+            Password: cardBody.items[0].value,
         };
 
-        axios.post('http://localhost:8000/login', loginData, {
+        if (passwordData.Password !== cardBody.items[1].value) {
+            alert("確認密碼與輸入密碼不符!");
+            return;
+        }
+
+        axios.post('http://localhost:8000/updatePassword', passwordData, {
             withCredentials: true // 如果需要攜帶 session前後端都要加
         })
             .then(response => {
-                console.log('登入成功:', response.data);
-                setMessage(response.data.message);
-                alert(response.data.message);
-
-                navigate("/contact");
+                console.log('重設密碼成功:', response.data);
+                alert(response.data.message+ '，返回登入頁面');
+          
+                navigate("/login");
             })
             .catch(error => {
                 if (error.response) {
-                    setMessage(error.response.data.message);
                     alert(error.response.data.message);
                 } else {
-                    setMessage('發生錯誤，請稍後再試。');
+                    alert('發生錯誤，請稍後再試。');
                 }
             });
-    };
-
-    const handleLogOut = async (e) => {
-        e.preventDefault();
-
-        await axios.post('http://localhost:8000/logout', {}, {
-            withCredentials: true // 如果需要攜帶 session前後端都要加
-        }).then(response => {
-            const updatedItems = cardBody.items.map(item => ({
-                ...item,
-                value: ''
-            }));
-
-            setCardBody(prevState => ({
-                ...prevState,
-                items: updatedItems,
-            }));
-            setMessage('登出成功！');
-            alert("成功登出!");
-        }).catch(error => {
-            if (error.response) {
-                setMessage(error.response.data.message);
-                alert(error.response.data.message);
-            } else {
-                alert('發生錯誤，請稍後再試。');
-            }
-        });
     };
 
     return (
@@ -126,10 +100,9 @@ const Login = () => {
                         handleSubmit: handleSubmit // 傳遞 handleSubmit
                     }}
                 />
-                <button onClick={handleLogOut}>登出</button>
             </div>
         </div>
     );
 };
 
-export default Login;
+export default ResetPassword;

@@ -6,7 +6,6 @@ import { BsArrowDownCircleFill } from "react-icons/bs";
 import { useNavigate } from 'react-router-dom';
 
 const SignIn = () => {
-    const [message, setMessage] = useState('');
     const [cardBodyUser, setCardBodyUser] = useState({
         title: "註冊會員",
         items: [
@@ -130,16 +129,14 @@ const SignIn = () => {
 
         axios.post('http://localhost:8000/signin', signinData, { withCredentials: true })
             .then(response => {
-                setMessage(response.data.message);
                 alert(response.data.message + '，即將跳轉至登入頁面');
                 navigate("/login"); // 註冊完成後跳轉至登入頁面
             })
             .catch(error => {
                 if (error.response) {
-                    setMessage(error.response.data.message);
                     alert(error.response.data.message);
                 } else {
-                    setMessage('發生錯誤，請稍後再試。');
+                    alert('發生錯誤，請稍後再試。');
                 }
             });
     };

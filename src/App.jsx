@@ -26,12 +26,13 @@ import AdminOrder from './routes/admin/orders.jsx'
 // */ user pages
 import Validate from './routes/user/Validate.jsx'
 import Login from './routes/user/login.jsx'
-import Signin_ from './routes/user/Signin_n.jsx'
 import Signin from './routes/user/Signin.jsx'
 import UserBias from './routes/user/userBias.jsx'
 import UserOrder from './routes/user/userOrders.jsx'
 import Contact from './routes/user/contact.jsx'
 import FAQ from './routes/user/FAQ.jsx'
+import VerifyCode from './routes/user/VerifyCode.jsx'
+import ResetPassword from './routes/user/ResetPassword.jsx'
 // -- user pages /*
 
 
@@ -53,8 +54,9 @@ function App() {
         <Route path="/admin/order" element={<AdminOrder />} />
 
         <Route path="/validate" element={<Validate />} exact />
+        <Route path="/verifyCode" element={<VerifyCode />} exact />
+        <Route path="/ResetPassword" element={<ResetPassword />} exact />
         <Route path="/login" element={<Login />} exact />
-        <Route path="/signin/n" element={<Signin_ />} exact />
         <Route path="/signin" element={<Signin />} exact />
         {/* <Route path="/user/info" element={<Userinfo />} /> */}
         <Route path="/contact" element={<Contact />} />

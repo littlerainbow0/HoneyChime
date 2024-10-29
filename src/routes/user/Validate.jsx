@@ -22,8 +22,6 @@ const Validate = () => {
         ],
     });
 
-    const navigate = useNavigate();
-
     // useEffect(() => {
     //     // 檢查用戶是否已經登入
     //     axios.get('http://localhost:8000/checklogin', { withCredentials: true })
@@ -52,6 +50,7 @@ const Validate = () => {
         }));
     };
 
+    const navigate = useNavigate();
 
     const handleSubmit = () => {
         const validateData = {
@@ -62,9 +61,11 @@ const Validate = () => {
             withCredentials: true // 如果需要攜帶 session前後端都要加
         })
             .then(response => {
-                console.log('驗證成功:', response.data);
+            
+                console.log('驗證成功:', response.data.Message);
                 setMessage(response.data.message);
-                alert(response.data.message);
+                alert(response.data.message+'即將跳轉');
+                navigate("/verifyCode");
             })
             .catch(error => {
                 if (error.response) {
@@ -88,15 +89,6 @@ const Validate = () => {
                             onChange: (value) => handleChange(index, value) // 傳遞 onChange 函數
                         })),
                         handleSubmit: handleSubmit // 傳遞 handleSubmit
-                    }}
-                />
-                <VerificationCode
-                    style={{ width: 100 }}
-                    onChange={v => {
-                        console.log(v)
-                    }}
-                    onFinish={v => {
-                        Message.info('onFinish: ' + v)
                     }}
                 />
             </div>
