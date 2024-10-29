@@ -158,6 +158,7 @@
 }
 .user_info input {
   margin: 20px auto;
+  width: 200px;
 }
 .user_info button {
   padding: 12px 120px;

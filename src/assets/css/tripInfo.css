@@ -63,75 +63,63 @@
 }
 
 main {
-  margin: 28px auto;
+  @apply mx-auto my-7;
 }
 
 .itinerary {
-  margin: 28px auto;
-  border-bottom: 2px solid #1F1F1F;
+  @apply mx-auto my-7 border-b-2 border-solid;
+  border-color: #1F1F1F;
 }
 .itinerary .top_nav ul {
-  text-align: center;
+  @apply text-center;
 }
 .itinerary .top_nav ul li {
-  display: inline-block;
+  @apply inline-block;
 }
 .itinerary .top_nav ul li:nth-of-type(even) {
-  margin-right: 28px;
+  @apply mr-7;
 }
 .itinerary .top_nav ul li:last-of-type {
-  margin-right: 0px;
+  @apply mr-0;
 }
 .itinerary .top_nav ul li button {
-  display: block;
-  text-decoration: none;
+  @apply block no-underline border-b-0
+            rounded-t-2xl px-4 py-2 cursor-pointer;
   color: #D8FDFF;
   background-color: #093B4F;
-  border: 1px solid #1F1F1F;
-  border-bottom: none;
-  border-radius: 15px 15px 0 0;
-  padding: 8px 16px;
-  cursor: pointer;
 }
 .itinerary .top_nav ul li button:hover {
   background-color: #15959C;
 }
 .trip_title {
+  @apply flex mx-auto my-14 md:flex-none;
   width: 1024px;
-  margin: 52px auto;
-  display: flex;
 }
 .trip_title > div:first-of-type .dessert_type {
+  @apply text-white p-3 mr-36;
   background-color: #093B4F;
-  color: white;
-  padding: 12px;
-  margin-right: 144px;
 }
 .trip_title > div:first-of-type p {
-  margin-bottom: 24px;
+  @apply mb-6;
 }
 .trip_title > div:first-of-type img {
+  @apply border border-solid;
   width: 550px;
   height: 350px;
-  border: 1px solid #1F1F1F;
+  border-color: #1F1F1F;
 }
 .trip_title div:last-of-type {
-  margin-top: 56px;
-  padding: 0 36px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+  @apply mt-14 flex px-9 py-0 flex-col
+        justify-between;
 }
 .trip_title div:last-of-type button {
-  text-align: center;
-  text-decoration: none;
+  @apply text-center no-underline h-14
+            border border-solid cursor-pointer;
   background-color: #093B4F;
-  height: 56px;
   color: #D8FDFF;
   line-height: 56px;
   letter-spacing: 4px;
-  border: 1px solid #1F1F1F;
-  cursor: pointer;
+  border-color: #1F1F1F;
 }
 .trip_title div:last-of-type button:hover {
   background-color: #15959C;
@@ -140,7 +128,7 @@ main {
 .view_info,
 .dessert_info {
   width: 1024px;
-  margin: auto;
+  @apply m-auto;
 }
 .view_info h3,
 .dessert_info h3 {
@@ -153,9 +141,7 @@ main {
 .view_info .view_info_content,
 .dessert_info .view_info_content {
   width: 1024px;
-  display: flex;
-  margin: auto;
-  gap: 28px;
+  @apply flex m-auto gap-7;
 }
 .view_info .view_info_content > div:first-of-type,
 .dessert_info .view_info_content > div:first-of-type {
@@ -203,22 +189,19 @@ main {
 }
 
 .dessert_info {
-  margin: 28px auto;
+  @apply mx-auto my-7;
   padding-bottom: 100px;
 }
 .dessert_info > div {
-  display: flex;
+  @apply flex;
 }
 .dessert_info .dessert_section {
+  @apply flex flex-col justify-between gap-3;
   width: 50%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  gap: 12px;
 }
 .dessert_info .dessert_section h5 {
-  border-bottom: 2px solid #1F1F1F;
-  padding-top: 28px;
+  @apply border-b-2 border-solid pt-7;
+  border-color: #1F1F1F;
 }
 .dessert_info .dessert_section img {
   width: 100%;
@@ -226,7 +209,7 @@ main {
   border: 1px solid #1F1F1F;
 }
 .dessert_info .dessert_section:last-of-type {
-  padding-left: 28px;
+  @apply pl-7;
 }
 
 .fade, main {
