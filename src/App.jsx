@@ -2,6 +2,7 @@ import '../cssReset.css';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { useState } from 'react'
 import React from 'react';
+import ReactDOM from 'react-dom'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
@@ -23,7 +24,7 @@ import AdminOrder from './routes/admin/orders.jsx'
 // -- admin pages /*
 
 // */ user pages
-import Login_ from './routes/user/Login_n.jsx'
+import Validate from './routes/user/Validate.jsx'
 import Login from './routes/user/login.jsx'
 import Signin_ from './routes/user/Signin_n.jsx'
 import Signin from './routes/user/Signin.jsx'
@@ -51,7 +52,7 @@ function App() {
         <Route path="/admin/route" element={<AdminRoute />} />
         <Route path="/admin/order" element={<AdminOrder />} />
 
-        <Route path="/login/n" element={<Login_ />} exact />
+        <Route path="/validate" element={<Validate />} exact />
         <Route path="/login" element={<Login />} exact />
         <Route path="/signin/n" element={<Signin_ />} exact />
         <Route path="/signin" element={<Signin />} exact />

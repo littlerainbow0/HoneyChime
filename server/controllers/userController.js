@@ -50,6 +50,28 @@ export const signIn = async (req, res) => {
         res.status(500).json({ message: '註冊失敗，請確認傳輸資料內容' });
     }
 };
+
+//登入
+export const Validate = async (req, res) => {
+    const { UserMail } = req.body;
+    try {
+        //尋找該用戶是否存在
+        const existingUser = await userModel.findByUserMail(UserMail);
+        
+        if (!existingUser) {
+            return res.status(401).json({ message: '用戶不存在!' });
+        }
+        res.status(200).json({ message: '確認用戶!', userMail: existingUser.UserMail, userID: existingUser.UserID });
+
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ message: '驗證失敗' });
+    }
+};
+
+
+
+
 //登入
 export const logIn = async (req, res) => {
     const { UserMail, Password } = req.body;

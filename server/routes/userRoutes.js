@@ -13,6 +13,7 @@ router.get('/checkAdmin', authMiddleware.checkAdmin);
 router.post('/signIn', authMiddleware.logined, setSessionMiddleware.setSessionMaxAge, userController.signIn);
 router.post('/LogIn', authMiddleware.logined, setSessionMiddleware.setSessionMaxAge, userController.logIn);
 router.post('/logOut', authMiddleware.isUser, userController.logOut);
+router.post('/validate', userController.Validate);
 
 router.put('/updateUserInfo', setSessionMiddleware.setSessionMaxAge, userController.updateUserInfo);
 
