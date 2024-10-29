@@ -17,7 +17,7 @@ import AdminHome from './routes/admin/home.jsx'
 import AdminMember from './routes/admin/member.jsx'
 import AdminQuestion from './routes/admin/question.jsx'
 import Schedule from './routes/admin/schedule.jsx'
-import AdminMeal from './routes/admin/meal.jsx'
+import AdminTemplate from './routes/admin/template.jsx'
 import AdminRoute from './routes/admin/route.jsx'
 import AdminOrder from './routes/admin/orders.jsx'
 // -- admin pages /*
@@ -45,7 +45,7 @@ function App() {
         <Route path="/admin/member" element={<AdminMember />} />
         <Route path="/admin/question" element={<AdminQuestion />} />
         <Route path="/admin/schedule" element={<Schedule />} exact />
-        <Route path="/admin/meal" element={<AdminMeal />} />
+        <Route path="/admin/template" element={<AdminTemplate />} />
         <Route path="/admin/route" element={<AdminRoute />} />
         <Route path="/admin/order" element={<AdminOrder />} />
 

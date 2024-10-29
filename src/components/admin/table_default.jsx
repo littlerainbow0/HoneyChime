@@ -4,7 +4,7 @@ import { Button } from "@nextui-org/react";
 import { Avatar, AvatarGroup, AvatarIcon } from "@nextui-org/react";
 
 
-import ModalSchedule from './modal_schedule.jsx';
+import Modal from './modal.jsx';
 
 import { navText } from './navbar_admin.jsx';
 
@@ -14,7 +14,7 @@ import { IoIosArrowUp } from "react-icons/io";
 import { div } from 'framer-motion/m';
 
 
-const TableDefault = ({ columns, columnNames, data1, detailColumns, detailColumnNames, data2 }) => {
+const TableDefault = ({ columns, columnNames, data1, detailColumns, detailColumnNames, data2, handleSubmit }) => {
 
 
   const location = useLocation();
@@ -26,7 +26,7 @@ const TableDefault = ({ columns, columnNames, data1, detailColumns, detailColumn
   const clickShowModalToEdit = (item) => {
     const relatedDetailItem = data2.filter(subItem => subItem[data2Id] === item[data2Id]);
     setCurrentItem({ ...item, relatedDetailItem });  // 將 data2 的相關數據合併到 currentItem 中
-    console.log({ ...item, relatedDetailItem });
+    // console.log({ ...item, relatedDetailItem });
     
     setShowModal(true);
 };
@@ -45,6 +45,9 @@ const TableDefault = ({ columns, columnNames, data1, detailColumns, detailColumn
     data1Id = "UserID";
     data2Id = "UserID";
   }
+
+  console.log("1&2:",data1,data2);
+  
 
   const toggleRow = (data1Value, data2Value) => {
     setExpandedRow(prev => (prev === data1Value ? null : data1Value));
@@ -163,8 +166,12 @@ const TableDefault = ({ columns, columnNames, data1, detailColumns, detailColumn
         </div>
       </div>
       {showModal && 
-      <ModalSchedule item={currentItem} data2={currentItem.relatedData2} onClose={() => setShowModal(false)} />
-      }
+      
+      <Modal 
+      item={currentItem} 
+      data2={currentItem.relatedData2} 
+      onClose={() => setShowModal(false)}
+      handleSubmit={handleSubmit} />       }
       <div className="flex justify-center">
         {Array.from({ length: totalPages }, (_, index) => (
           <Button

@@ -2,10 +2,9 @@
 import React, { useState } from 'react'; // 引入 useState
 import Navbar from '../../components/admin/navbar_admin.jsx';
 import TableDefault from '../../components/admin/table_default.jsx'; // 確保導入的是正確的路徑
-import TableCollapse from '../../components/admin/table_collapse.jsx'; // 確保導入的是正確的路徑
 import RouteName from '../../components/admin/routeName.jsx'
 import FilterCard from '../../components/admin/card_filter.jsx'
-import Modal from '../../components/admin/modal_schedule.jsx'
+import Modal from '../../components/admin/modal.jsx'
 import { Button } from '@nextui-org/react';
 import BtnBrown from '../../components/user/btn_brown.jsx'
 import Background from '../../components/admin/background_admin.jsx'
@@ -46,14 +45,18 @@ const columnNames = {
     Duration: "車程(分)",
     RouteImagePath: "路線圖",
     Description: "路線介紹",
-    LandScapeImage1:"風景圖1",
-    LandScapeImage2:"風景圖2",
-    LandScapeImage3:"風景圖3",
-    LandScapeDescription:"風景介紹",
+    LandScapeImage1: "風景圖1",
+    LandScapeImage2: "風景圖2",
+    LandScapeImage3: "風景圖3",
+    LandScapeDescription: "風景介紹",
 }
 const detailColumns = [
 ]
 const detailColumnNames = {
+}
+
+const handleSubmit = {
+
 }
 
 const AdminTemplate = () => {
@@ -65,6 +68,9 @@ const AdminTemplate = () => {
 
     const [routeDataFromServer, setRouteDataFromServer] = useState([]) // 儲存API資料用
 
+    const handleSubmit = (modalData) => {
+        console.log('modal拿到的數據', modalData);
+    };
 
     return (
         <div className="flex flex-row">
@@ -76,7 +82,9 @@ const AdminTemplate = () => {
                     <FilterCard data={filterCardName} />
                     <div className='justify-between'>
                         <BtnBrown btnText="新建一筆模板" onClick={clickShowModal} />
-                        {showModal && <Modal onClose={clickShowModal} />} {/* 传递 onClose 函数 */}
+                        {showModal && 
+                        <Modal onClose={clickShowModal}
+                        handleSubmit={handleSubmit} />} {/* 传递 onClose 函数 */}
                     </div>
                     <DataFetcherRoute setDataFromServer={setRouteDataFromServer} />
                     <TableDefault
@@ -86,6 +94,7 @@ const AdminTemplate = () => {
                         detailColumnNames={detailColumnNames}
                         data1={routeDataFromServer}
                         data2={routeDataFromServer}
+                        handleSubmit={handleSubmit}
                     />                </div>
             </div>
         </div>

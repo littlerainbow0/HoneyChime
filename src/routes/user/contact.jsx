@@ -69,10 +69,17 @@ var cardBody = {
 const Contact = () => {
   return (
     <div>
-      <Header />
-      <div className="flex flex-row py-20 justify-center">
+      <header className="flex-auto font-bold w-full text-center bg-no-repeat bg-cover
+                  overflow-hidden text-clip min-w-[170px] 
+                  absolute top-0 left-0 h-640"
+        style={{
+          background: ` url("/src/assets/images/dessert/tripInfo_Eur04.png")`,
+        }}>
+        <Header />
+      </header>
+      <div className="flex flex-row py-20 justify-center mt-[640px]">
         <RadiusCard data={cardBody} id="" />
-      <BtnContact />
+        <BtnContact />
       </div>
     </div>
   )

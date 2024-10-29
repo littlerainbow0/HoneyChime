@@ -6,7 +6,7 @@ import { CalendarDate } from "@internationalized/date";
 
 import DataFetcherMeals from '../../dataProcessing/admin/GET_meal.jsx'
 import DataFetcherDesserType from '../../dataProcessing/admin/GET_dessertType.jsx'
-import DataFetcherMenu from '../../dataProcessing/admin/GET_menu.jsx'
+import DataFetcherMenu from '../../dataProcessing/admin/GET_template.jsx'
 import DataFetcherStops from '../../dataProcessing/admin/GET_stops.jsx'
 
 import { navText } from "./navbar_admin.jsx";

@@ -7,11 +7,11 @@ import FilterCard from '../../components/admin/card_filter.jsx'
 import { div } from 'framer-motion/m';
 
 import DataFetcherSchedule from '../../dataProcessing/admin/GET_schedule.jsx'
-import DataFetcherMenu from '../../dataProcessing/admin/GET_menu.jsx';
+import DataFetcherMenu from '../../dataProcessing/admin/GET_template.jsx';
 
 import BtnLightBrown from '../../components/user/btn_lightbrown.jsx';
 import Background from '../../components/admin/background_admin.jsx';
-import ModalSchedule from '../../components/admin/modal_schedule.jsx'
+import Modal from '../../components/admin/modal.jsx'
 
 import {
     Table,
@@ -73,6 +73,13 @@ const detailColumnNames =
     MenuSecondName: "供餐2",
 };
 
+const handleSubmit = (modalData) => {
+    console.log('modal拿到的數據', modalData);
+
+    // let modalDataToTemplate
+
+};
+
 const AdminSchedule = () => {
 
     const [showModal, setShowModal] = useState(false);
@@ -108,7 +115,8 @@ const AdminSchedule = () => {
                     <hr className='my-12 mb-6' />
                     <div className='flex justify-between'>
                         <BtnLightBrown btnText="新建一筆模板" onClick={clickShowModal} />
-                        {showModal && <ModalSchedule onClose={clickShowModal} />} {/* 传递 onClose 函数 */}
+                        {showModal && <Modal onClose={clickShowModal}
+                        handleSubmit={handleSubmit} />} 
                         <BtnLightBrown
                             btnText={isDataByBtnFilter ?
                                 (<><MdFilterListOff />取消篩選</>) :
@@ -125,6 +133,7 @@ const AdminSchedule = () => {
                         detailColumnNames={detailColumnNames}
                         data1={dataByBtnFilter.length > 0 ? dataByBtnFilter : getScheduleDataFromServer}
                         data2={getMenuDataFromServer}
+                        handleSubmit={handleSubmit}
                     />
                 </div>
             </div>

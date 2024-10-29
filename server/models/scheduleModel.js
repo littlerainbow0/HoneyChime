@@ -12,6 +12,7 @@ export const getAllSchedules = async () => {
     SStart.StopName AS StopStartName,
     SEnd.StopName AS StopEndName,
     D.DessertTitle,
+    D.DessertTypeID,
     DT.DepartureTime
 FROM 
     SCHEDULES S

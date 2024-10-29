@@ -2,13 +2,12 @@
 import React, { useState } from 'react'; // 引入 useState
 import Navbar from '../../components/admin/navbar_admin.jsx';
 import TableDefault from '../../components/admin/table_default.jsx'; // 確保導入的是正確的路徑
-import TableCollapse from '../../components/admin/table_collapse.jsx'; // 確保導入的是正確的路徑
 import RouteName from '../../components/admin/routeName.jsx'
 import FilterCard from '../../components/admin/card_filter.jsx'
-import ModalMenu from '../../components/admin/modal_menu.jsx'
+import Modal from '../../components/admin/modal.jsx'
 import { Button } from '@nextui-org/react';
 import BtnBrown from '../../components/user/btn_brown.jsx'
-import DataFetcher from '../../dataProcessing/admin/GET_menu.jsx';
+import DataFetcher from '../../dataProcessing/admin/GET_template.jsx';
 import Background from '../../components/admin/background_admin.jsx'
 
 const filterCardName = [
