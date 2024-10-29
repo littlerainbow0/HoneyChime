@@ -35,6 +35,7 @@ const DataFetcher = ({ setDataFromServer }) => {
         console.error('Failed to get data from server/getSchedules', error);
       } finally {
         setLoading(false);
+        
       }
     };
     fetchData();
