@@ -5,14 +5,19 @@ import ReactDOM from 'react-dom';
 import Sidebar from "./navbar_admin";
 import Btn_lightbrown from "../user/btn_lightbrown";
 import Modal from './NewsModal';
-
-// import { Card, CardHeader, CardBody, CardFooter, Avatar, Button } from "@nextui-org/react";
+import Modal2 from "./CardsModal";
+import Bg from "./background_admin"
+import { Card,CardBody } from "@nextui-org/react";
 
 
 const AdminNews = () => {
     const [newsList, setNewsList] = useState([]);
     const [newNews, setNewNews] = useState({Date: '', Category: '', Content: '', NewsID:'',});
     const [selectedNews, setSelectedNews] = useState({Date: '',Category: '',Content: '',});// 用來存當前選中的新聞----------------------------------
+
+    const [cardsList,setCardsList] = useState([]);
+    const [cardNews,setCardNews] = useState({CardImage: '', Title: '',Title2: '', Paragraph: '', CardsID:'',});
+    const [selectedCards,setSelectedCards] = useState({CardImage: '', Title: '',Title2: '', Paragraph: '',});
     
     //1023點編輯按鈕時 打開彈窗並設置要編輯內容
     const [isModalOpen, setModalOpen] = useState(false);
@@ -25,14 +30,34 @@ const AdminNews = () => {
                                     setSelectedNews(null); // 清空選中的新聞
     };
     
+    //1028點編輯按鈕時 打開彈窗並設置要編輯內容
+    const [isModal2Open, setModal2Open] = useState(false);
+    const handleOpenModal2=(cards)=>{   setModal2Open(true);
+                                        setSelectedCards(cards);  // 確保將完整的 cards 資料傳入
+    };
+    const handleCloseModal2 = () => {setModal2Open(false);
+                                    setSelectedCards(null); // 清空選中的新聞
+    };
     
-    // 從 API Ｇet sql現有的資料
+    
+    //最新消息 從 API Ｇet sql現有的資料
     useEffect(() => {
         axios
             .get('http://localhost:8000/getNews') // 調用後端的 GET API
             .then(response => setNewsList(response.data))
             .catch(error => console.error(error));
     }, []);
+    
+    // 首頁消息（有圖）從 API Ｇet sql現有的資料
+    useEffect(()=>{
+            axios
+                .get('http://localhost:8000/getCards') 
+                .then(response=>{
+                    //console.log('Fetched cards data:', response.data[0].CardImage); 
+                    setCardsList(response.data);
+                })
+                .catch(error => console.error(error));
+        },[]);
 
     // 處理 MySQL 日期格式，轉換成 YYYY-MM-DD
     const processDate = (dateString) => {
@@ -59,7 +84,9 @@ const AdminNews = () => {
             .catch((error) => console.error(error));
     };
 
-    // 更新
+
+    
+    // 更新消息
     const updateNews = (newsID) => {
         const processedDate = processDate(newNews.Date); // 處理日期
 
@@ -72,10 +99,25 @@ const AdminNews = () => {
             .then(() => {
                 alert('更新成功')
                 //＋刷新畫面
+                setSelectedNews(null);
                 setModalOpen(false);  // 成功後關閉 Modal
             })
             .catch((error) => console.error(error));
     };
+    
+    //更新首頁消息（有圖）
+    const updateCards=(CardsID)=>{
+        axios
+            .put(`http://localhost:8000/updateCards/${selectedCards.CardsID}`,selectedCards) 
+            .then((response)=>{
+                console.log('PUT response:', response.data); 
+                alert('更新成功')//＋刷新畫面
+                setSelectedCards(null); //重置選中的新聞
+                setModal2Open(false);
+            })
+            .catch((error)=>console.error(error));
+            
+    }
     
     function formatDate(mysqlDate){
         //先切割掉"T"和"Z"部分，只保留日期
@@ -87,28 +129,33 @@ const AdminNews = () => {
 
     
     return (
-        <div className="grid grid-cols-3">
+        
+        <div className="grid grid-cols-5 ">
+            <Bg/>
             <div className="col-span-1">
                 <Sidebar />
             </div>
-            <div className="col-span-2">
+            <div className="col-span-4 ">
                 <h1>最新消息後台管理</h1>
                 {/* 新增最新消息表單 */}
-                <div>
-
+                <div >
                     <input
+                        className="m-4"
                         type="text"
                         placeholder="日期"
                         value={newNews.Date}
                         onChange={(e) => setNewNews({ ...newNews, Date: e.target.value })}
                     />
                     <input
+                    className="m-4"
                         type="text"
                         placeholder="類別"
                         value={newNews.Category}
                         onChange={(e) => setNewNews({ ...newNews, Category: e.target.value })}
                     />
-                    <textarea
+                    <input
+                    className="m-4"
+                        type="text"
                         placeholder="內容"
                         value={newNews.Content}
                         onChange={(e) => setNewNews({ ...newNews, Content: e.target.value })}
@@ -123,21 +170,46 @@ const AdminNews = () => {
                     <Modal isOpen={isModalOpen} onClose={handleCloseModal} />
                     
                 </div>
-            
+                <div className=" overflow-y-auto max-h-[500px]">
+                {/* 列出首頁最新消息表單 */}
+                <div className='flex flex-wrap justify-center gap-4'>
+                    {Array.isArray(cardsList) && cardsList.slice().reverse().map((cards) => (
+                        <div key={cards.CardsID} className=' bg-lightyellow rounded-xl'style={{ flex: "1 1 calc(33% - 1rem)", minWidth: "150px", maxWidth: "200px"}}>
+                            <Card variant="bordered" css={{ padding: "1rem" }}>
+                                <CardBody css={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: '1rem' }}>
+                                <p style={{ fontSize: "16px", color: "#634A34", flexGrow: 1, textAlign: 'left' }}>{cards.Title}</p>
+                                <p style={{ fontSize: "10px", color: "#634A34", flexGrow: 1, textAlign: 'center' }}>{cards.Title2}</p>
+                                <img style={{'object-fit': "fill"}} src={cards.CardImage} alt="Card Image" />
+                                <p style={{ fontSize: "12px", flexShrink: 0, maxWidth: '150px',minHeight: '20px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{cards.Paragraph}</p>
+                                <Btn_lightbrown btnText="編輯" onClick={()=>handleOpenModal2(cards)}/>
+                                </CardBody>
+                            </Card>
+                        </div>
+                ))}
+                </div>
+                
                 {/* 列出最新消息表單 */}
-                <div>
+                <div style={{ display: "flex", flexWrap: "wrap", gap: "1rem", justifyContent: "center" }}>
                     {Array.isArray(newsList) && newsList.slice().reverse().map((news) => (
-                            <div key={news.newsID}>
-                                <p>{news.Category}</p> 
-                                <p>{news.Content}</p>
-                                <p>{formatDate(news.Date)}</p>
-                            <Btn_lightbrown btnText="編輯" onClick={()=>handleOpenModal(news)}/>
-                    </div>
-                    ))}
-                    
+                        <div key={news.newsID}className=' bg-lightbrown rounded-xl' style={{ flex: "1 1 calc(33% - 1rem)", minWidth: "150px" , maxWidth: "200px"}}>
+                            <Card variant="bordered" css={{ padding: "1rem" }}>
+                                <CardBody css={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: '1rem' }}>
+                                    {/* 標題 */}
+                                    <p style={{ fontSize: "16px", color: "#634A34", flexGrow: 1, textAlign: 'left' }}>{news.Category}</p>
+                                    {/* 內容 */}
+                                    <p style={{ fontSize: "12px", flexShrink: 0, maxWidth: '150px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{news.Content}</p>
+                                    {/* 日期 */}
+                                    <p style={{ fontSize: "12px", color: "gray", flexShrink: 0 ,textAlign: 'right'}}>{news.Date}</p>
+                                    {/* 編輯按鈕 */}
+                                    <Btn_lightbrown btnText="編輯" onClick={() => handleOpenModal(news)} />
+                                </CardBody>
+                            </Card>
+                        </div>
+                ))}
+                </div>
                 </div>
 
-                {/* 彈窗 Modal -----------------------------------read*/}
+                {/* News彈窗 Modal -----------------對應表------------------ready*/}
                 {isModalOpen && selectedNews && (
                     <Modal
                         isOpen={isModalOpen}
@@ -147,7 +219,17 @@ const AdminNews = () => {
                         setSelectedNews={setSelectedNews}
                     />
                 )}
-    
+                {/* Cards彈窗 Modal ------------------對應表-----------------ready*/}
+                {isModal2Open && selectedCards && (
+                    <Modal2
+                        isOpen={isModal2Open}
+                        onClose={handleCloseModal2}
+                        cards={selectedCards}
+                        onUpdate={updateCards}
+                        setSelectedCards={setSelectedCards}
+                    />
+                )}
+           
             </div>
         </div>
     );

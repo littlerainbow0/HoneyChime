@@ -25,6 +25,7 @@ import HomeIntroduce from './components/HomeIntroduce.jsx';
 import { BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 import HomeCarousel from './components/HomeCarousel.jsx';
 import HomeHeader from './components/HomeHeader.jsx';
+import Test from './components/admin/test.jsx';
 
 
 
@@ -52,6 +53,7 @@ const App=()=>{
         <Route path='/home3' element={<HomeIntroduce/>}></Route>
         <Route path='/home4' element={<HomeCarousel/>}></Route>
         <Route path='/home5' element={<HomeHeader/>}></Route>
+        <Route path='/test' element={<Test/>}></Route>
         
       </Routes>
     </Router>

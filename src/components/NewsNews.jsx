@@ -32,10 +32,10 @@ const NewsNews = () => {
                 </div>
                 {/* 右側消息 */}
                 <div className="flex-1 border border-dashed border-[#4a3f35] p-5 overflow-y-auto max-h-[500px] mt-20">
-                    {news.map((item, index) => (
-                        <div key={index} className="mb-5">
+                    {news.map((news) => (
+                        <div key={news.newsID} className="mb-5">
                             <p className="text-p-1 leading-relaxed text-[#4a3f35] font-bodyFont">
-                                {item.date} &#x2022; {item.icon} {item.category}<br />{item.content}
+                                {news.Date} &#x2022; {news.Category}<br />{news.Content}
                             </p>
                         </div>
                     ))}

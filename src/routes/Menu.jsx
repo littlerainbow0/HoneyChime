@@ -7,7 +7,7 @@ import Footerr from '../components/Footerr.jsx';
 import BgImg from '../../src/assets/images/dessert/dessert_dessert05.png';
 import '../assets/css/headerr.css'
 import '../assets/css/style.css'
-
+import ScrollToTopButton from '../components/ScrollToTopButton.jsx';
 
 
 const Menu =()=>{
@@ -49,6 +49,7 @@ const Menu =()=>{
             <MenuExperience />
             <MenuActivity />
             <Footerr />
+            <ScrollToTopButton></ScrollToTopButton>
             {/* 可以添加其他組件 */}
         </div>
     );

@@ -4,6 +4,7 @@ import AboutContent from "../components/AboutContent";
 import BgImg from '../../src/assets/images/landscape/landscape_landscape03.png';
 import '../assets/css/headerr.css'
 import '../assets/css/style.css'
+import ScrollToTopButton from "../components/ScrollToTopButton";
 
 const About =()=>{
     return(
@@ -40,6 +41,7 @@ const About =()=>{
             <AboutTitle/>
             <AboutContent/>
             <Footerr/>
+            <ScrollToTopButton></ScrollToTopButton>
             
         </div>
     );

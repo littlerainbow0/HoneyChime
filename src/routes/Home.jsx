@@ -5,6 +5,7 @@ import HomeIntroduce from "../components/HomeIntroduce";
 import HomeIntroduce2 from "../components/HomeIntroduce2";
 import HomeJourney from "../components/HomeJourney";
 import '../assets/css/style.css'
+import ScrollToTopButton from "../components/ScrollToTopButton";
 const Home =()=>{
     return(
         <div>
@@ -17,6 +18,7 @@ const Home =()=>{
             <HomeIntroduce2/>
             <HomeJourney/>
             <Footerr></Footerr>
+            <ScrollToTopButton></ScrollToTopButton>
         </div>
     );
 };

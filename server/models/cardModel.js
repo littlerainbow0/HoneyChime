@@ -9,9 +9,9 @@ export const getAllCards = async () => {
 };
 
 export const postCards = async (data) => {
-    const sql = `INSERT INTO CARDS (CardImage, Title, Paragraph) VALUES (?, ?, ?)`;
+    const sql = `INSERT INTO CARDS (CardImage, Title,Title2, Paragraph) VALUES (?, ?, ?)`;
     try {
-        const { results } = await query(sql, [data.CardImage, data.Title, data.Paragraph]);
+        const { results } = await query(sql, [data.CardImage, data.Title, data.Title2, data.Paragraph]);
         return { cardsID: results.insertId };
     } catch (error) {
         console.error('新增CARDS資料錯誤：', error);
@@ -22,10 +22,10 @@ export const postCards = async (data) => {
 // 更新Cards
 export const updateCards = async (cardsID, data) => {
     const sql = `UPDATE CARDS 
-SET CardImage = ?, Title = ?, Paragraph = ?
+SET CardImage = ?, Title = ?, Title2 = ?, Paragraph = ?
 WHERE cardsID = ?;`;
     try {
-        const { results } = await query(sql, [data.CardImage, data.Title, data.Paragraph, cardsID]);
+        const { results } = await query(sql, [data.CardImage, data.Title,data.Title2, data.Paragraph, cardsID]);
         return results.affectedRows;
     } catch (error) {
         console.error('更新CARDS資料錯誤：', error);

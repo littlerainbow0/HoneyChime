@@ -8,7 +8,7 @@ import '../assets/css/style.css'
         //UI 組件和其內容數據分離
         const slides = [
         {
-            image: "../../src/assets/images/train_exterior/train_exterior_starTrain.png.png",
+            image: "../../src/assets/images/train_exterior/train_exterior_starTrain_png.png",
             title: "星鳴號",
             title2: "即將開駛",
             description: "星星的閃爍：星星在夜空中閃耀，就像是夢想與希望的象徵。火車穿梭於城市與大自然之間，宛如星星閃耀，象徵著追逐美好願望的過程。乘客登上星鳴號，彷彿搭乘一顆流星，朝著甜點之夢前進。",
@@ -46,6 +46,7 @@ import '../assets/css/style.css'
         };
     
         return (
+            
         <div className="relative mx-auto mt-10 overflow-hidden">
             <div className="flex carousel-slides" style={{ transform: `translateX(-${currentSlide * 100}%)`, transition: 'transform 0.5s ease-in-out' }}>
             {slides.map((slide, index) => (
@@ -58,17 +59,24 @@ import '../assets/css/style.css'
                             </div>
                         </div>
                         {/* 文卡片 */}
-                        <div className="absolute left-1/4 w-2/5 bg-[#ffffff] shadow-lg transform -translate-x-1/3 translate-y-[40%] z-20 border border-solid border-[#8F755A] mx-auto hover:opacity-0 md:w-1/3 ">
+                        <div className="absolute left-1/4 w-2/5 bg-[#ffffff] shadow-lg transform -translate-x-1/3 translate-y-[40%] z-20 border border-solid border-[#8F755A] mx-auto  md:w-1/3 m-3 ">
                             <h1 className="text-[#634A34] mx-2 pr-2 text-left font-titleFont text-h5 sm:text-h4 md:text-h3 lg:text-h2 font-bold  mb-1 mt-4 lg:px-5 xl:px-10 xl:py-5">{slide.title}</h1>
                             <h1 className="text-[#634A34] mx-1 px-4 text-right font-titleFont text-h6 sm:text-h5 md:text-h4 lg:text-h3 font-bold mb-1 lg:pt-5 xl:pr-16">{slide.title2}</h1>
-                            <p className="p-2 mb-2 overflow-y-auto font-normal text-left font-bodyFont text-p-3 sm:text-p-3 md:text-p-2 lg:text-p-1 text-indent-1 lg:p-5 xl:px-20 xl:pb-16">{slide.description}</p>
+                            <p className="p-2 mb-6 overflow-y-auto font-normal text-left font-bodyFont text-p-3 sm:text-p-3 md:text-p-2 lg:text-p-1 text-indent-1 lg:p-5 xl:px-20 xl:pb-16">{slide.description}</p>
+                            <button className="absolute flex items-center space-x-2 bottom-1 right-4" onClick={() => window.location.href = '/news'}>
+                                <img className="w-5 h-5" src="../../src/assets/images/icon/icon_ hexagon_fill.svg"/>
+                                <span className="text-[#634A34] font-bodyFont text-p-3">最新消息</span>
+                                
+                            </button>
                         </div>
                     </div>
                 </div>
             ))}
             </div>
+            
     
             {/* 導航按鈕 Navigation Buttons */}
+            
             <button className="absolute w-3 h-3 p-2 transform rotate-90 -translate-y-1/2 bg-opacity-50 bg-center bg-no-repeat bg-contain rounded-full cursor-pointer top-1/2 left-4 bg-custom-icon4" onClick={prevSlide}></button>
             <button className="absolute w-3 h-3 p-2 transform -rotate-90 -translate-y-1/2 bg-opacity-50 bg-center bg-no-repeat bg-contain rounded-full cursor-pointer top-1/2 right-4 bg-custom-icon4" onClick={nextSlide}></button>
     
@@ -81,6 +89,7 @@ import '../assets/css/style.css'
                 onClick={() => updateCarousel(index)}
                 ></div>
             ))}
+            
             </div>
         </div>
         );

@@ -79,11 +79,12 @@ CREATE TABLE `CARDS` (
    `CardsID` INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
    `CardImage` VARCHAR(200) NOT NULL,
    `Title` VARCHAR(20) NOT NULL,
+   `Title2` VARCHAR(20) NOT NULL,
    `Paragraph` VARCHAR(500) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
-INSERT INTO `CARDS` (`CardImage`, `Title`, `Paragraph`) VALUES
-("../../src/assets/img/train_exterior/train_exterior_starTrain.png", "星鳴號 即將推出", "星星的閃爍：星
+INSERT INTO `CARDS` (`CardImage`, `Title`,`Title2`, `Paragraph`) VALUES
+("/src/assets/images/train_exterior/train_exterior_starTrain_png.png", "星鳴號","即將推出", "星星的閃爍：星
 星在夜空中閃耀，就像是夢想與希望的象徵。火車穿梭於城市與大自然
 之間，宛如星星閃耀，象徵著追逐美好願望的過程。乘客登上星鳴號，彷彿搭
 乘一顆流星，朝著甜點之夢前進。流星的速度：火車如流星般劃破天際，象徵
