@@ -63,6 +63,7 @@ const ScheduleModalItems = (locationPath, item = null) => {
                 departureTime: item.DepartureTime,
                 templateId: item.TemplateID,
                 routeId: item ? item.RouteID : "",
+                templateDescription:item? item.TemplateDescription:"",
                 route: `${item.StopStartName} 到 ${item.StopEndName}`,
                 dessertTypeId: item?.DessertTypeID || "",
                 relatedDetailItem: {
