@@ -126,7 +126,7 @@ const Login = () => {
                         handleSubmit: handleSubmit // 傳遞 handleSubmit
                     }}
                 />
-                <button onClick={handleLogOut}>登出</button>
+                {/* <button onClick={handleLogOut}>登出</button> */}
             </div>
         </div>
     );
