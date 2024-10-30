@@ -110,9 +110,28 @@ const UserBias = () => {
             {userId ?
                 (
                     <div>
-                        <div>
-                            <NavbarUser userId={cardBodyInfo.items[0].userId} />
-
+                        <header className="flex-auto font-bold w-full text-center 
+                  overflow-hidden text-clip min-w-[170px] 
+                  absolute top-0 left-0 h-640"
+                            style={{
+                                background: ` url("/src/assets/images/train_interior/train_interior_shop03.png")`,
+                                backgroundRepeat: 'no-repeat',
+                                backgroundSize: 'cover',
+                                backgroundPosition: 'center',
+                            }}>
+                            <Header />
+                            <h3 className="text-lightyellow px-40 py-2 font-titleFont text-h2 font-bold" style={{
+                                zIndex: '1000', position: 'absolute',
+                                top: '60%', left: '50%',
+                                transform: 'translate(-50%, -50%)',
+                                borderRadius: '3rem',
+                                backdropFilter: 'blur(16px)',
+                            }}>
+                                Hello! 您好
+                            </h3>
+                        </header>
+                        <div className='mt-[630px]'>
+                            <NavbarUser />
                         </div>
                         <div id="mainbody">
                             <RadiusCard data={cardBodyPwd} />

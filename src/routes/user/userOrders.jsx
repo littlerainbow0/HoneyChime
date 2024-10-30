@@ -4,6 +4,7 @@ import React from 'react';
 // */ Componenets
 import NavbarUser from '../../components/user/navbar_user.jsx'
 import OrderTable from '../../components/user/table_order.jsx'
+import Header from '../../components/user/header_user.jsx'
 // -- Componenets /*
 
 
@@ -65,13 +66,35 @@ const data = [
     },
 ];
 
-console.log(typeof(data[0].userId)); 
+console.log(typeof (data[0].userId));
 
-const AdminHome = () => {
+const UserOrders = () => {
     return (
         <div>
             <div className='contactTitle'>
-                <NavbarUser userId={data[0].userId}/>
+                <header className="flex-auto font-bold w-full text-center 
+                  overflow-hidden text-clip min-w-[170px] 
+                  absolute top-0 left-0 h-640"
+                    style={{
+                        background: ` url("/src/assets/images/train_interior/train_interior_11.png")`,
+                        backgroundRepeat: 'no-repeat',
+                        backgroundSize: 'cover',
+                        backgroundPosition: 'center',
+                    }}>
+                    <Header />
+                    <h3 className="text-lightyellow px-40 py-2 font-titleFont text-h2 font-bold" style={{
+                        zIndex: '1000', position: 'absolute',
+                        top: '60%', left: '50%',
+                        transform: 'translate(-50%, -50%)',
+                        borderRadius: '3rem',
+                        backdropFilter: 'blur(16px)',
+                    }}>
+                        Hello! 您好
+                    </h3>
+                </header>
+            </div>
+            <div className='mt-[630px]'>
+                <NavbarUser />
             </div>
             <div className="flex items-center ml-40 mt-24"> {/* 將下拉選單與其他內容放在同一行 */}
                 <select name="" id="" className="bg-dark p-2 text-p-3 text-lightbrown"> {/* 加入 margin 右邊的空間 */}
@@ -81,8 +104,9 @@ const AdminHome = () => {
                 </select>
             </div>
             <OrderTable data={data} />
+            <div className='mb-60' />
         </div>
     );
 };
 
-export default AdminHome;
+export default UserOrders;
