@@ -101,7 +101,7 @@ export const updateUserValidate = async (userID, hashedCode, expirationTime) => 
     SET Validity = ?,
     ValidityExpired = ?
 WHERE userID = ?;`;
-    try {
+    try {   
         const { results } = await query(sql, [hashedCode, exptime, userID]);
         return results.affectedRows;  // 返回受影響的行數
     } catch (error) {

@@ -4,6 +4,7 @@ import bcrypt from 'bcrypt'; //密碼加密方式
 import nodemailer from 'nodemailer';//寄信
 import dotenv from 'dotenv'; //使用環境變數
 import process from 'process';
+import crypto from 'crypto';
 
 dotenv.config();
 
@@ -86,7 +87,7 @@ export const Validate = async (req, res) => {
 
         //加密驗證碼
         const hashedCode = await bcrypt.hash(verificationCode, 10);
-        const expirationTime = Date.now() + 10 * 60 ; // 10 分鐘後過期
+        const expirationTime = Date.now() + 10 * 60; // 10 分鐘後過期
         await userModel.updateUserValidate(existingUser.UserID, hashedCode, expirationTime);
 
 
@@ -212,9 +213,6 @@ export const VerifyCode = async (req, res) => {
     }
 };
 
-
-
-
 //登入
 export const logIn = async (req, res) => {
     const { UserMail, Password } = req.body;
@@ -233,14 +231,22 @@ export const logIn = async (req, res) => {
         }
 
         const isUpdated = await userModel.updateUserLogInTime(existingUser.UserID); // 更新最近登入時間
-        if (isUpdated) {
-            req.session.UserID = existingUser.UserID; // 登入成功
-            req.session.UserMail = existingUser.UserMail;
-            res.status(200).json({ message: '登入成功', userMail: req.session.UserMail, userID: req.session.UserID });
-        } else {
+        //更新最近登入時間
+        if (!isUpdated) {
             res.status(404).json({ message: '更新最近登入時間失敗' });
         }
+        try {
 
+            //重新生成session
+            await controllerFuns.regenerateSession(req);
+
+            //設定session變數
+            controllerFuns.setSessionVariables(req, existingUser);
+
+            res.status(200).json({ message: '登入成功', userMail: req.session.UserMail, userID: req.session.UserID });
+        } catch (err) {
+            return res.status(500).json({ message: '登入失敗: 無法重新生成 session' });
+        }
     } catch (err) {
         console.error(err);
         res.status(500).json({ message: '登入失敗' });

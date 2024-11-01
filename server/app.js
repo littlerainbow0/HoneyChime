@@ -4,6 +4,7 @@ import index from './routes/index.js';
 import session from 'express-session';
 import dotenv from 'dotenv';
 import process from 'process';
+import * as controllerFuns from './controllers/controllerFuns.js';
 
 const app = express();
 
@@ -14,12 +15,16 @@ app.use(express.urlencoded({ extended: true }));
 dotenv.config();
 
 app.use(session({
+    genid: (req) => {
+        return controllerFuns.generateSessionId();
+    },
     secret: process.env.SESSION_SECRET,
     resave: false, //資料沒變動不重新保存
     saveUninitialized: true, // 沒有資料也會建立session
     cookie: {
-        maxAge: 999 * 60 * 1000, // 重新設置為 10 分鐘
-        secure: false// 為了在HTTP中測試而不是在HTTPS
+        maxAge: 10 * 60 * 1000, // 重新設置為 10 分鐘
+        secure: false,// 為了在HTTP中測試而不是在HTTPS
+        httpOnly: true
     },
 }));
 
