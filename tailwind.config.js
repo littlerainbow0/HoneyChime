@@ -30,6 +30,7 @@ export default {
         xl:'3.75rem',
         '2xl':'3.75rem',
         '3xl':'3.75rem',
+        
       },
     },
     extend: {
@@ -80,6 +81,10 @@ export default {
       aspectRatio: {
         '4/4.5': '4 / 4.5',
       },
+      padding: {
+        '1/3': '33.33%', // 自定義類名 `pb-1/3`
+        '6/10':  '65%'
+            },
     },
   },
   darkMode: "class",

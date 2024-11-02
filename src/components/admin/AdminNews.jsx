@@ -136,27 +136,27 @@ const AdminNews = () => {
                 <Sidebar />
             </div>
             <div className="col-span-4 ">
-                <h1>最新消息後台管理</h1>
+                <h1 className="font-semibold text-h5 font-titleFont text-[#634A34] mt-10">最新消息後台管理</h1>
                 {/* 新增最新消息表單 */}
                 <div >
                     <input
                         className="m-4"
-                        type="text"
-                        placeholder="日期"
+                        type="date"
+                        placeholder="消息日期"
                         value={newNews.Date}
                         onChange={(e) => setNewNews({ ...newNews, Date: e.target.value })}
                     />
                     <input
                     className="m-4"
                         type="text"
-                        placeholder="類別"
+                        placeholder="消息標題"
                         value={newNews.Category}
                         onChange={(e) => setNewNews({ ...newNews, Category: e.target.value })}
                     />
                     <input
                     className="m-4"
                         type="text"
-                        placeholder="內容"
+                        placeholder="消息內容"
                         value={newNews.Content}
                         onChange={(e) => setNewNews({ ...newNews, Content: e.target.value })}
                     />
@@ -173,7 +173,7 @@ const AdminNews = () => {
                 <div className=" overflow-y-auto max-h-[500px]">
                 {/* 列出首頁最新消息表單 */}
                 <div className='flex flex-wrap justify-center gap-4'>
-                    {Array.isArray(cardsList) && cardsList.slice().reverse().map((cards) => (
+                    {Array.isArray(cardsList) && cardsList.slice().map((cards) => (
                         <div key={cards.CardsID} className=' bg-lightyellow rounded-xl'style={{ flex: "1 1 calc(33% - 1rem)", minWidth: "150px", maxWidth: "200px"}}>
                             <Card variant="bordered" css={{ padding: "1rem" }}>
                                 <CardBody css={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: '1rem' }}>
@@ -199,7 +199,7 @@ const AdminNews = () => {
                                     {/* 內容 */}
                                     <p style={{ fontSize: "12px", flexShrink: 0, maxWidth: '150px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{news.Content}</p>
                                     {/* 日期 */}
-                                    <p style={{ fontSize: "12px", color: "gray", flexShrink: 0 ,textAlign: 'right'}}>{news.Date}</p>
+                                    <p style={{ fontSize: "12px", color: "brown", flexShrink: 0 ,textAlign: 'right'}}>{news.Date}</p>
                                     {/* 編輯按鈕 */}
                                     <Btn_lightbrown btnText="編輯" onClick={() => handleOpenModal(news)} />
                                 </CardBody>

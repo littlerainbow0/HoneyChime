@@ -4,10 +4,10 @@ import '../assets/css/style.css'
 const Footerr =()=>{
     return(
         <div>
-            <footer className="mt-40 relative p-0 bg-[url('../../src/assets/images/icon/icon_footerBG.svg')] bg-no-repeat bg-right-bottom bg-cover m-0"> {/* 底部背景裝飾圖案  */}
+            <footer className="mt-40 relative p-0 bg-[url('../../src/assets/images/icon/icon_footerBG.svg')] bg-no-repeat bg-right-bottom bg-fill m-0"> {/* 底部背景裝飾圖案  */}
                 <div className="container mx-auto mt-6">
                     <ul className="grid gap-4 md:grid-cols-5 sm:grid-cols-2">{/* 格線  */}
-                        <li className="hidden col-span-2 mt-10 mb-40 ml-10 sm:block">{/* 左側裝飾圖案  */}
+                        <li className="hidden col-span-2 mt-10 mb-40 ml-10 md:block">{/* 左側裝飾圖案  */}
                             <img className="w-full h-full" src="../../src/assets/images/icon/LOGO.svg" alt="logo"/>
                         </li>
                         <li className="mt-10 ml-10 text-left md:col-span-1 sm:col-span-2 sm:text-p-3 md:text-p-2"> {/* 中間聯繫資訊  */}
