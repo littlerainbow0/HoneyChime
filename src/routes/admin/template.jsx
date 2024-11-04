@@ -6,9 +6,11 @@ import RouteName from '../../components/admin/routeName.jsx'
 import FilterCard from '../../components/admin/card_filter.jsx'
 import Modal from '../../components/admin/modal.jsx'
 import { Button } from '@nextui-org/react';
-import BtnBrown from '../../components/user/btn_brown.jsx'
+import BtnLightBrown from '../../components/user/btn_lightbrown.jsx';
 import DataFetcher from '../../dataProcessing/admin/GET_meal.jsx';
 import Background from '../../components/admin/background_admin.jsx'
+import { RiAddLargeFill } from "react-icons/ri";
+
 
 const filterCardName = [
     {
@@ -33,11 +35,11 @@ const columns = [
     "MealDescription",
 ]
 const columnNames = {
-    MealID:"甜點ID",
-    DessertTitle:"甜點風格",
-    MealImagePath:"甜點圖片",
-    MealName:"甜點名稱",
-    MealDescription:"甜點描述",
+    MealID: "甜點ID",
+    DessertTitle: "甜點風格",
+    MealImagePath: "甜點圖片",
+    MealName: "甜點名稱",
+    MealDescription: "甜點描述",
 }
 const detailColumns = [
 ]
@@ -62,9 +64,15 @@ const AdminTemplate = () => {
                 <div className='max-w-[1800px] mx-auto'>
                     <RouteName />
                     <FilterCard data={filterCardName} />
+                    <hr className='mt-10 mb-6' />
+
                     <div className='justify-between'>
-                        <BtnBrown btnText="新建一筆模板" onClick={clickShowModal} />
-                        {showModal && <ModalMenu onClose={clickShowModal} />}
+                        <BtnLightBrown btnText={
+                            <>
+                                <RiAddLargeFill />新增餐點
+                            </>
+                        } onClick={clickShowModal} />
+                        {showModal && <Modal onClose={clickShowModal} />}
                     </div>
                     <DataFetcher setDataFromServer={setDataFromServer} />
                     <TableDefault

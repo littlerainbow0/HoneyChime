@@ -13,6 +13,7 @@ const Calendarr = ({selectedDate, setSelectedDate}) => {
     //const previousMonth=new Date(value.getFullYear(),value.getMonth()-1);  // 上個月old
     //const nextMonth=new Date(value.getFullYear(),value.getMonth()+1);      // 下個月old
     const [activeStartDate, setActiveStartDate] = useState(new Date()); // 控制三個日曆的當前月份
+    const [isDateSelected, setIsDateSelected] = useState(false); // 新增狀態來跟蹤選擇狀態
 
     // 從 API Ｇet sql現有的資料 第一步驟＋第二步驟，並解析日期 
     useEffect(() => {
@@ -31,7 +32,18 @@ const Calendarr = ({selectedDate, setSelectedDate}) => {
     const handleDateClick = (date) => {
         // 使用 toLocaleDateString 將日期格式化為 YYYY/MM/DD
         const formattedDate = date.toLocaleDateString('zh-TW'); // 'zh-TW' 是台灣的日期格式 YYYY/MM/DD
-        setSelectedDate(formattedDate); // 更新選中的日期
+        
+        if (isSameDay(date, value) && isDateSelected) {
+            // 如果點擊的日期已選擇，則取消選擇
+            setSelectedDate('');
+            setValue(new Date()); 
+            setIsDateSelected(false);
+        } else {
+            // 否則，設置為選中的日期
+            setSelectedDate(formattedDate);
+            setValue(date);
+            setIsDateSelected(true);
+        }
     };
 
     //第三步驟：自定義顯示樣式 添亮返回日期
@@ -63,9 +75,9 @@ const Calendarr = ({selectedDate, setSelectedDate}) => {
 
 
     return (
-        <Card>
+        <Card className="">
             <CardBody>
-                <div className="flex space-x-6 text-p-2 h-52 scale-95">
+                <div className="flex space-x-6 text-p-2 scale-90">
 
                     <Calendar className="calendar-hidden text-lightbrown"
                         value={new Date(activeStartDate.getFullYear(), activeStartDate.getMonth() - 1)} // 顯示上個月

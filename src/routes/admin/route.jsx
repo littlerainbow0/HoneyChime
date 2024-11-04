@@ -6,8 +6,12 @@ import RouteName from '../../components/admin/routeName.jsx'
 import FilterCard from '../../components/admin/card_filter.jsx'
 import Modal from '../../components/admin/modal.jsx'
 import { Button } from '@nextui-org/react';
-import BtnBrown from '../../components/user/btn_brown.jsx'
+import BtnLightBrown from '../../components/user/btn_lightbrown.jsx'
 import Background from '../../components/admin/background_admin.jsx'
+import { TbPlaylistAdd } from "react-icons/tb";
+import { RiAddLargeFill } from "react-icons/ri";
+
+
 
 import DataFetcherRoute from '../../dataProcessing/admin/GET_route.jsx';
 
@@ -87,8 +91,13 @@ const AdminTemplate = () => {
                 <div className='max-w-[1800px] mx-auto'>
                     <RouteName />
                     <FilterCard data={filterCardName} />
+                    <hr className='mt-10 mb-6' />
                     <div className='justify-between'>
-                        <BtnBrown btnText="新建一筆模板" onClick={clickShowModal} />
+                        <BtnLightBrown btnText={
+                            <>
+                            <RiAddLargeFill />新增路線
+                            </>
+                        } onClick={clickShowModal} />
                         {showModal && 
                         <Modal onClose={clickShowModal}
                         handleSubmit={handleSubmit} />} {/* 传递 onClose 函数 */}

@@ -78,9 +78,9 @@ const AdminTemplate = () => {
     const [getOrderDataFromServer, setGetOrderDataFromServer] = useState([]) // 儲存API資料用
 
     const [selectedDate, setSelectedDate] = useState(""); // 選中的日期，用於顯示在 Input 框-------------
-    const filteredData = selectedDate 
-    ? getOrderDataFromServer.filter(item => item.DepartureDate === selectedDate) 
-    : getOrderDataFromServer;
+    const filteredData = selectedDate
+        ? getOrderDataFromServer.filter(item => item.DepartureDate === selectedDate)
+        : getOrderDataFromServer;
 
     return (
         <div className="flex flex-row">
@@ -89,9 +89,11 @@ const AdminTemplate = () => {
             <div className='flex-grow pl-40 md:pl-64 3xl:pl-0 text-left w-full'>
                 <div className='max-w-[1800px] mx-auto'>
                     <RouteName />
-                    <Calendar 
-                    selectedDate={selectedDate} 
-                    setSelectedDate={setSelectedDate} />
+                    <Calendar
+                        selectedDate={selectedDate}
+                        setSelectedDate={setSelectedDate} />
+                    <hr className='mb-6' />
+
                     {/* <FilterCard data={filterCardName} /> */}
                     <div className='justify-between'>
                         {/* <BtnBrown btnText="新建一筆模板" onClick={clickShowModal} />

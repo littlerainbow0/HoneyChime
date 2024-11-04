@@ -41,7 +41,7 @@ function App() {
     // BrowserRouter > Routes > Route element={別名}
     <BrowserRouter>
       <Routes>
-        <Route path="/admin" element={<AdminHome />} exact />
+        {/* <Route path="/admin" element={<AdminHome />} exact /> */}
         <Route path="/admin/member" element={<AdminMember />} />
         <Route path="/admin/question" element={<AdminQuestion />} />
         <Route path="/admin/schedule" element={<Schedule />} exact />

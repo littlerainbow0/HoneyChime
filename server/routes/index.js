@@ -9,6 +9,7 @@ import mealRoutes from './mealRoutes.js';
 import seatRoutes from './seatRoutes.js';
 import priceRoutes from './priceRoutes.js';
 import orderRoutes from './orderRoutes.js';
+import qustionRoutes from './questionRoutes.js'
 
 const router = express.Router();
 
@@ -22,5 +23,6 @@ router.use('/', templateRoutes);
 router.use('/', seatRoutes);
 router.use('/getPrice', priceRoutes);
 router.use('/', orderRoutes);
+router.use('/', qustionRoutes);
 
 export default router;

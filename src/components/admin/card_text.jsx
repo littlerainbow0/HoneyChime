@@ -34,8 +34,8 @@ export default function App({ columns, data }) {
     return (
         <div>
             {data.map((elem, index) => (
-                <Card key={elem.userId} className="my-5 max-w-[340px] mx-1 rounded-lg">
-                    <CardHeader className="justify-between bg-darkbrown">
+                <Card key={elem.QAID} className="my-5 max-w-[340px] mx-1 rounded-lg">
+                    <CardHeader className="justify-between bg-brown">
                         <div className="flex gap-5">
                             <div className="flex flex-col gap-1 items-start justify-center  text-p-2 mx-2 text-lightyellow py-2">
                                 <h4 className="text-small font-semibold leading-none">
@@ -47,8 +47,7 @@ export default function App({ columns, data }) {
                             </div>
                         </div>
                         <Button
-                            className={elem.reply === "Y" ? "font-bodyFont text-xs py-1 text-lightbrown border-2 border-lightbrown" : "text-brown"}
-                            color="primary"
+                            className={elem.reply === "Y" ? "font-bodyFont text-xs py-1 text-lightbrown border-2 border-lightbrown" : "bg-lightyellow border text-brown"}
                             radius="full"
                             size="sm"
                             variant={elem.reply ? "bordered" : "solid"}
@@ -60,10 +59,10 @@ export default function App({ columns, data }) {
                             {elem.reply === "N" ? "Reply" : "Replied"}
                         </Button>
                     </CardHeader>
-                    <CardBody className="px-3 py-0 font-bodyFont text-p-1 bg-lightbrown text-dark">
-                        <p>
+                    <CardBody className="px-3 py-2 font-bodyFont text-p-1 bg-lightyellow text-dark">
+                        <textarea className="bg-transparent" rows={2}>
                             {elem.content}
-                        </p>
+                        </textarea>
                         <span className="pt-2">
                             #{elem.type}
                             <span className="py-2" aria-label="computer" role="img">

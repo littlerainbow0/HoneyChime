@@ -13,7 +13,7 @@ import BtnLightBrown from '../../components/user/btn_lightbrown.jsx';
 import Background from '../../components/admin/background_admin.jsx';
 import Modal from '../../components/admin/modal.jsx'
 import Calendar from '../../components/admin/calendar.jsx';
-
+import { RiAddLargeFill } from "react-icons/ri";
 
 import {
     Table,
@@ -94,6 +94,11 @@ const AdminSchedule = () => {
     const [getMenuDataFromServer, setGetMenuDataFromServer] = useState([]) // 儲存API資料用
     const [selectedDate, setSelectedDate] = useState(""); // 選中的日期，用於顯示在 Input 框-------------
 
+    const filteredData = selectedDate
+        ? getScheduleDataFromServer.filter(item => item.DepartureDate === selectedDate)
+        : getScheduleDataFromServer;
+
+
     const [dataByBtnFilter, setDataByBtnFilter] = useState([]) // data BTN篩選器
     const [isDataByBtnFilter, setIsDataByBtnFilter] = useState(false) // data BTN篩選器
 
@@ -113,14 +118,18 @@ const AdminSchedule = () => {
             <Background />
             <div className='flex-grow pl-40 md:pl-64 3xl:pl-0 text-left w-full'>
                 <div className='max-w-[1800px] mx-auto'>
-                    <RouteName />
+                    {/* <RouteName /> */}
                     <Calendar
                         selectedDate={selectedDate}
                         setSelectedDate={setSelectedDate} />
                     {/* <FilterCard data={filterCardName} /> */}
                     <hr className='mb-6' />
                     <div className='flex justify-between'>
-                        <BtnLightBrown btnText="新建一筆模板" onClick={clickShowModal} />
+                        <BtnLightBrown btnText={
+                            <>
+                            <RiAddLargeFill />新增旅程
+                            </>
+                        } onClick={clickShowModal} />
                         {showModal && <Modal onClose={clickShowModal}
                             handleSubmit={handleSubmit} />}
                         <BtnLightBrown
@@ -137,7 +146,8 @@ const AdminSchedule = () => {
                         columnNames={columnNames}
                         detailColumns={detailColumns}
                         detailColumnNames={detailColumnNames}
-                        data1={dataByBtnFilter.length > 0 ? dataByBtnFilter : getScheduleDataFromServer}
+                        data1={dataByBtnFilter.length > 0 ? (dataByBtnFilter) : 
+                            (selectedDate ? (filteredData) : (getScheduleDataFromServer))}
                         data2={getMenuDataFromServer}
                         handleSubmit={handleSubmit}
                     />

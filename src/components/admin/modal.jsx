@@ -154,8 +154,8 @@ const ScheduleModalItems = (locationPath, item = null) => {
             }));
         }
         if (name === "templateId") {
-            if (value === "") { 
-                resetForm(); 
+            if (value === "") {
+                resetForm();
                 return; // 提前返回，避免更新其他字段
             } else {
                 const selectedTemplate = getTemplateDataFromServer.find(template => template.TemplateID === Number(value));
@@ -489,9 +489,9 @@ const RouteModalItems = (locationPath, item = null) => {
             content: () => (
                 <input
                     type="number"
-                    className="focus:text-lightyellow border-2 border-lightyellow rounded-3xl pl-3 py-1"
+                    className="focus:text-lightyellow border border-dashed border-brown focus:border-double focus:border-lightyellow rounded-lg w-full pl-3 py-1"
                     value={formData.duration}
-                    onChange={(e) => setFormData(prev => ({ ...prev, duration: e.target.value }))}
+                    onChange={handleChange}
                     readOnly={!!formData.routeId} // 雙重否定
                 />
             ),
@@ -508,7 +508,7 @@ const RouteModalItems = (locationPath, item = null) => {
                         type="file"
                         accept="image/png, image/jpeg"
                         id="imgInputRoute"
-                        onChange={() => { getImgFile(img1_Route) }}
+                        onChange={handleChange}
                     />
                     <input
                         type="file"
@@ -524,10 +524,10 @@ const RouteModalItems = (locationPath, item = null) => {
             content: () => (
                 <textarea
                     type="text"
-                    className="w-64 text-ellipsis bg-transparent focus:text-lightyellow"
+                    className="w-full text-ellipsis bg-transparent border border-dashed border-brown focus:border rounded-lg"
                     rows="5"
                     value={formData.description}
-                    onChange={(e) => setFormData(prev => ({ ...prev, description: e.target.value }))}
+                    onChange={handleChange}
                 />
             ),
         },
@@ -536,10 +536,10 @@ const RouteModalItems = (locationPath, item = null) => {
             content: () => (
                 <textarea
                     type="text"
-                    className="w-64 text-ellipsis bg-transparent focus:text-lightyellow"
+                    className="w-full text-ellipsis bg-transparent border border-dashed border-brown focus:border rounded-lg"
                     rows="5"
                     value={formData.landScapeDescription}
-                    onChange={(e) => setFormData(prev => ({ ...prev, landScapeDescription: e.target.value }))}
+                    onChange={handleChange}
                 />
             ),
         },
@@ -548,38 +548,79 @@ const RouteModalItems = (locationPath, item = null) => {
     return { modalItems: modalItemsInRoute, formData, handleChange }
 }
 
-const MealModalItems = [
-    {
-        title: "餐點ID",
-        content: () => (
-            ""
-        ),
-    },
-    {
-        title: "餐點名稱",
-        content: () => (
-            ""
-        ),
-    },
-    {
-        title: "餐點圖片",
-        content: () => (
-            ""
-        ),
-    },
-    {
-        title: "餐點內容",
-        content: () => (
-            ""
-        ),
-    },
-    {
-        title: "餐點描述",
-        content: () => (
-            ""
-        ),
-    },
-]
+const MealModalItems = (locationPath, item = null) => {
+
+    // 新拿到的data
+    const [getDessertTypeDataFromServer, setGetDessertTypeDataFromServer] = useState([]);
+
+    // 從table那邊拿到的item
+    const [formData, setFormData] = useState({
+        mealId: item ? item.MealID : "",
+        dessertTypeId: item ? item.DessertTypeID : "",
+        dessertTitle: item ? item.DessertTitle : "",
+        mealName: item ? item.MealName : "",
+        mealImagePath: item ? item.MealImagePath : "",
+        mealContent: item ? item.MealContent : "",
+        mealDescription: item ? item.MealDescription : "",
+    });
+
+    const handleChange = (event) => {
+        const { name, value } = event.target;
+        setFormData(prev => ({ ...prev, [name]: value }));
+    };
+
+    const modalItemsInMeal = [
+        {
+            title: "餐點ID",
+            content: () => (
+                <>
+                    <DataFetcherStops setDataFromServer={setGetDessertTypeDataFromServer} />
+                    {formData.mealId}
+                    新增餐點
+                </>
+            ),
+        },
+        {
+            title: "餐點名稱",
+            content: () => (
+                <input type="text"
+                className="focus:text-lightyellow border border-dashed border-brown focus:border-double focus:border-lightyellow rounded-lg w-full pl-3 py-1"
+                />
+            ),
+        },
+        {
+            title: "餐點圖片",
+            content: () => (
+                <input type="file" />
+            ),
+        },
+        {
+            title: "餐點內容",
+            content: () => (
+                <textarea
+                    type="text"
+                    className="w-full text-ellipsis bg-transparent border border-dashed border-brown focus:border rounded-lg"
+                    rows="3"
+                    value={formData.mealContent}
+                    onChange={handleChange}
+                />
+            ),
+        },
+        {
+            title: "餐點描述",
+            content: () => (
+                <textarea
+                    type="text"
+                    className="w-full text-ellipsis bg-transparent border border-dashed border-brown focus:border rounded-lg"
+                    rows="5"
+                    value={formData.mealDescription}
+                    onChange={handleChange}
+                />
+            ),
+        },
+    ]
+    return { modalItems: modalItemsInMeal, formData, handleChange }
+}
 
 // Modal
 const ModalOverLay = (props) => {

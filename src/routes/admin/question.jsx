@@ -1,10 +1,11 @@
 // components/home.jsx
-import React from 'react';
+import React, {useState} from 'react';
 import Navbar from '../../components/admin/navbar_admin.jsx';
 import MailCard from '../../components/admin/card_text.jsx';
 import RouteName from '../../components/admin/routeName.jsx';
 import Background from '../../components/admin/background_admin.jsx'
 import FilterCard from '../../components/admin/card_filter.jsx'
+import DataFetcherQ from '../../dataProcessing/admin/GET_question.jsx';
 
 const filterCardName = [
   {
@@ -29,7 +30,14 @@ const filterCardName = [
   },
 ]
 
-const columns = ["userId", "name", "email", "type", "content", "time", "reply"];
+const columns = [
+  "QAID", 
+  "UserID", 
+  "UserName", 
+  "UserMail", 
+  "Type", 
+  "Content", 
+  "reply"];
 const data = [
   {
     userId: 1,
@@ -45,6 +53,8 @@ const data = [
 ];
 
 const AdminHome = () => {
+  const [qasDataFromServer, setQasDataFromServer] = useState([]) // 儲存API資料用
+
   return (
     <div className="flex flex-row">
       <Navbar />
@@ -53,11 +63,10 @@ const AdminHome = () => {
         <div className='max-w-[1800px] mx-auto'>
           <RouteName />
           <FilterCard data={filterCardName} />
+          <hr className='mt-10 mb-6' />
           <div className='flex flex-row justify-center flex-wrap'>
-            <MailCard columns={columns} data={data} />
-            <MailCard columns={columns} data={data} />
-            <MailCard columns={columns} data={data} />
-            <MailCard columns={columns} data={data} />
+            <DataFetcherQ setDataFromServer={setQasDataFromServer} />
+            <MailCard columns={columns} data={qasDataFromServer} />
           </div>
         </div>
       </div>

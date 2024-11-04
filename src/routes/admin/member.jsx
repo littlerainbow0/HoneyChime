@@ -70,7 +70,7 @@ const AdminMember = () => {
                 <div className='max-w-[1800px] mx-auto'>
                     <RouteName />
                     <FilterCard data={filterCardName} />
-                    <hr className='my-12 mb-6' />
+                    <hr className='mt-10 mb-6' />
                     <DataFetcherMember setDataFromServer={setGetMembersDataFromServer} />
                     <DataFetcherOrder setDataFromServer={setGetOrderDataFromServer} />
                     <TableDefault
