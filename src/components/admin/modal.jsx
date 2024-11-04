@@ -142,7 +142,6 @@ const ScheduleModalItems = (locationPath, item = null) => {
         } else {
             setErrorMessages(prev => ({ ...prev, [name]: "" })); // 清除錯誤信息
         }
-
         if (name === "dessertTypeId") {
             setFormData(prev => ({
                 ...prev,
@@ -399,27 +398,67 @@ const RouteModalItems = (locationPath, item = null) => {
     const [getStopsDataFromServer, setGetStopsDataFromServer] = useState([]);
 
     // 從table那邊拿到的item
-    const [formData, setFormData] = useState({
-        routeId: item ? item.RouteID : "",
-        routeImagePath: item ? item.RouteImagePath : "",
-        duration: item ? item.Duration : "",
-        description: item ? item.Description : "",
-        landScapeImage1: item ? item.LandScapeImage1 : "",
-        landScapeImage2: item ? item.LandScapeImage2 : "",
-        landScapeImage3: item ? item.LandScapeImage3 : "",
-        landScapeDescription: item ? item.LandScapeDescription : "",
-        stopStartId: item ? item.StopStartID : "",
-        stopStartName: item ? item.StopStartName : "",
-        stopEndId: item ? item.StopEndID : "",
-        stopEndName: item ? item.StopEndName : "",
-        selectedStop1Id: '',
-        selectedStop2Id: '',
-    });
-    
+    const initialState = {
+        routeId: item?.RouteID || "",
+        routeImagePath: item?.RouteImagePath || "",
+        duration: item?.Duration || "",
+        description: item?.Description || "",
+        landScapeImage1: item?.LandScapeImage1 || "",
+        landScapeImage2: item?.LandScapeImage2 || "",
+        landScapeImage3: item?.LandScapeImage3 || "",
+        landScapeDescription: item?.LandScapeDescription || "",
+        stopStartId: item?.StopStartID || "",
+        stopStartName: item?.StopStartName || "",
+        stopEndId: item?.StopEndID || "",
+        stopEndName: item?.StopEndName || "",
+    }
+    const [formData, setFormData] = useState(initialState);
+
+    useEffect(() => {
+        if (item) {
+            setFormData(prev => ({
+                ...prev,
+                routeId: item?.RouteID || "",
+                routeImagePath: item?.RouteImagePath || "",
+                duration: item?.Duration || "",
+                description: item?.Description || "",
+                landScapeImage1: item?.LandScapeImage1 || "",
+                landScapeImage2: item?.LandScapeImage2 || "",
+                landScapeImage3: item?.LandScapeImage3 || "",
+                landScapeDescription: item?.LandScapeDescription || "",
+                stopStartId: item?.StopStartID || "",
+                stopStartName: item?.StopStartName || "",
+                stopEndId: item?.StopEndID || "",
+                stopEndName: item?.StopEndName || "",
+            }));
+        }
+    }, [item]);
+
     const handleChange = (event) => {
-        const { name, value, type, file } = event.target;
+        const { name, value, type, files } = event.target;
         if (type === "file") {
-            console.log(files);
+            if (files && files.length == 1) {
+                // file => array，並且將資料以array方式取得檔名
+                const file = Array.from(files).map(file => file.name)
+                setFormData(prev => ({
+                    ...prev,
+                    [name]: `/src/assets/images/train_exterior/${file}` // 將文件的 URL 存入狀態
+                }));
+            }
+            else if (files && files.length == 3) {
+                // file => array，並且將資料以array方式取得檔名
+                const fileList = Array.from(files).map(file => file.name)
+                setFormData(prev => ({
+                    ...prev,
+                    landScapeImage1: `/src/assets/images/train_exterior/${fileList[0]}`,
+                    landScapeImage2: `/src/assets/images/train_exterior/${fileList[1]}`,
+                    landScapeImage3: `/src/assets/images/train_exterior/${fileList[2]}`,
+                }));
+            }
+            else if (files && files.length > 3) {
+                alert("只能選擇3個檔案");
+                event.target.value = "";
+            }
 
             return;
         }
@@ -431,10 +470,10 @@ const RouteModalItems = (locationPath, item = null) => {
             setFormData(prev => ({ ...prev, selectedStop1Id: '' }));
         }
 
-        setFormData(prev => {
-             const newFormData = {...prev, [name]: value};
-             return newFormData;
-            });
+        setFormData(prev => ({
+            ...prev,
+            [name]: value
+        }));
     };
 
     const modalItemsInRoute = [
@@ -454,8 +493,8 @@ const RouteModalItems = (locationPath, item = null) => {
                 <>
                     <select
                         className="focus:text-dark bg-gray-200 rounded-full p-2 font-bodyFont"
-                        name="selectedStop1Id"
-                        value={formData.selectedStop1Id}
+                        name="stopStartId"
+                        value={formData.stopStartId || ""}
                         onChange={handleChange}>
                         {formData.routeId ? (
                             <option value={formData.stopStartId}>{formData.stopStartName}</option>
@@ -473,8 +512,8 @@ const RouteModalItems = (locationPath, item = null) => {
                     &emsp;到&emsp;
                     <select
                         className="focus:text-dark bg-gray-200 rounded-full p-2 font-bodyFont"
-                        name="selectedStop2Id"
-                        value={formData.selectedStop2Id}
+                        name="stopEndId"
+                        value={formData.stopEndId || ""}
                         onChange={handleChange}>
                         {formData.routeId ? (
                             <option value={formData.stopEndId}>{formData.stopEndName}</option>
@@ -495,15 +534,14 @@ const RouteModalItems = (locationPath, item = null) => {
         {
             title: "車程(分)",
             content: () => (
-                <>
-                    <input
-                        type="number"
-                        className="focus:text-lightyellow border border-dashed border-brown focus:border-double focus:border-lightyellow rounded-lg w-full pl-3 py-1"
-                        value={formData.duration}
-                        onChange={handleChange}
-                        readOnly={!!formData.routeId} // 雙重否定
-                    />
-                </>
+                <input
+                    type="number"
+                    className="focus:text-lightyellow border border-dashed border-brown focus:border-double focus:border-lightyellow rounded-lg w-full pl-3 py-1"
+                    name="duration"
+                    defaultValue={formData.duration || ""}
+                    onChange={handleChange}
+                    readOnly={!!formData.routeId} // 雙重否定
+                />
             ),
         },
         {
@@ -516,15 +554,18 @@ const RouteModalItems = (locationPath, item = null) => {
                 <>
                     <input
                         type="file"
+                        name="routeImagePath"
                         accept="image/png, image/jpeg"
-                        id="imgInputRoute"
+                        id="routeImagePath"
                         onChange={handleChange}
                     />
                     <input
                         type="file"
-                        accept="image/png, image/jpeg"
                         multiple
-                        id="imgInputLandScape"
+                        name="landScapeImage1"
+                        accept="image/png, image/jpeg"
+                        onChange={handleChange}
+                        id="landScapeImage1"
                     />
                 </>
             ),
@@ -534,9 +575,10 @@ const RouteModalItems = (locationPath, item = null) => {
             content: () => (
                 <textarea
                     type="text"
+                    name="description"
                     className="w-full text-ellipsis bg-transparent border border-dashed border-brown focus:border rounded-lg"
                     rows="5"
-                    value={formData.description}
+                    defaultValue={formData.description || ""}
                     onChange={handleChange}
                 />
             ),
@@ -546,9 +588,10 @@ const RouteModalItems = (locationPath, item = null) => {
             content: () => (
                 <textarea
                     type="text"
+                    name="landScapeDescription"
                     className="w-full text-ellipsis bg-transparent border border-dashed border-brown focus:border rounded-lg"
                     rows="5"
-                    value={formData.landScapeDescription}
+                    defaultValue={formData.landScapeDescription || ""}
                     onChange={handleChange}
                 />
             ),
@@ -564,7 +607,7 @@ const MealModalItems = (locationPath, item = null) => {
     const [getDessertTypeDataFromServer, setGetDessertTypeDataFromServer] = useState([]);
 
     // 從table那邊拿到的item
-    const [formData, setFormData] = useState({
+    const initialState = {
         mealId: item ? item.MealID : "",
         dessertTypeId: item ? item.DessertTypeID : "",
         dessertTitle: item ? item.DessertTitle : "",
@@ -572,13 +615,41 @@ const MealModalItems = (locationPath, item = null) => {
         mealImagePath: item ? item.MealImagePath : "",
         mealContent: item ? item.MealContent : "",
         mealDescription: item ? item.MealDescription : "",
-    });
+    }
+    const [formData, setFormData] = useState(initialState);
+    useEffect(() => {
+        if (item) {
+            setFormData(prev => ({
+                ...prev,
+                mealId: item ? item.MealID : "",
+                dessertTypeId: item ? item.DessertTypeID : "",
+                dessertTitle: item ? item.DessertTitle : "",
+                mealName: item ? item.MealName : "",
+                mealImagePath: item ? item.MealImagePath : "",
+                mealContent: item ? item.MealContent : "",
+                mealDescription: item ? item.MealDescription : "",
+            }));
+        }
+    }, [item]);
 
     const handleChange = (event) => {
         const { name, value, type, files } = event.target;
 
         if (type === "file") {
+            if (files) {
+                // file => array，並且將資料以array方式取得檔名
+                const file = Array.from(files).map(file => file.name)
+                setFormData(prev => ({
+                    ...prev,
+                    [name]: `/src/assets/images/dessert/${file}` // 將文件的 URL 存入狀態
+                }));
+            }
+            else {
+                alert("只能選擇1個檔案");
+                event.target.value = "";
+            }
 
+            return;
         }
 
         setFormData(prev => ({ ...prev, [name]: value }));
@@ -589,24 +660,49 @@ const MealModalItems = (locationPath, item = null) => {
             title: "餐點ID",
             content: () => (
                 <>
-                    <DataFetcherStops setDataFromServer={setGetDessertTypeDataFromServer} />
-                    {formData.mealId}
+                    <DataFetcherDesserType setDataFromServer={setGetDessertTypeDataFromServer} />
+                    {/* {formData.mealId} */}
                     新增餐點
                 </>
             ),
+        },
+        {
+            title: "甜點風格",
+            content: () => (
+                <select
+                    className="focus:text-dark bg-gray-200 rounded-full p-2 font-bodyFont"
+                    name="dessertTypeId"
+                    defaultValue={formData.dessertTypeId || ""}
+                    onChange={handleChange}>
+                    <option value="" disabled hidden>選擇甜點風格</option>
+                    {getDessertTypeDataFromServer.map((data) => (
+                        <option key={data.DessertTypeID} value={data.DessertTypeID}>
+                            {data.DessertTitle}
+                        </option>
+                    ))}
+                </select>
+            )
         },
         {
             title: "餐點名稱",
             content: () => (
                 <input type="text"
                     className="focus:text-lightyellow border border-dashed border-brown focus:border-double focus:border-lightyellow rounded-lg w-full pl-3 py-1"
+                    name="mealName"
+                    defaultValue={formData.mealName || ""}
+                    onChange={handleChange}
                 />
             ),
         },
         {
             title: "餐點圖片",
             content: () => (
-                <input type="file" />
+                <input type="file"
+                    name="mealImagePath"
+                    id="mealImagePath"
+                    defaultValue={formData.mealImagePath || ""}
+                    onChange={handleChange}
+                />
             ),
         },
         {
@@ -616,7 +712,8 @@ const MealModalItems = (locationPath, item = null) => {
                     type="text"
                     className="w-full text-ellipsis bg-transparent border border-dashed border-brown rounded-lg"
                     rows="3"
-                    value={formData.mealContent}
+                    defaultValuevalue={formData.mealContent}
+                    name="mealContent"
                     onChange={handleChange}
                 />
             ),
@@ -628,6 +725,7 @@ const MealModalItems = (locationPath, item = null) => {
                     type="text"
                     className="w-full text-ellipsis bg-transparent border border-dashed border-brown focus:border rounded-lg"
                     rows="5"
+                    name="mealDescription"
                     value={formData.mealDescription}
                     onChange={handleChange}
                 />
@@ -648,13 +746,13 @@ const ModalOverLay = (props) => {
 
     const handleSubmitClick = () => {
 
-        const isEmpty = Object.values(formData).some(value => value === "" || value === undefined);
-        console.log("modal的data", formData);
+        // const isEmpty = Object.values(formData).some(value => value === "" || value === undefined);
+        // console.log("modal的data", formData);
 
-        if (isEmpty) {
-            alert("請填寫所有欄位！");
-            return;
-        }
+        // if (isEmpty) {
+        //     alert("請填寫所有欄位！");
+        //     return;
+        // }
 
         if (handleSubmit) {
             handleSubmit(formData);

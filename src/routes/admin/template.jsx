@@ -55,6 +55,9 @@ const AdminTemplate = () => {
 
     const [dataFromServer, setDataFromServer] = useState([]) // 儲存API資料用
 
+    const handleSubmit = (modalData) => {
+        console.log('modal拿到的數據', modalData);
+    };
 
     return (
         <div className="flex flex-row">
@@ -72,7 +75,11 @@ const AdminTemplate = () => {
                                 <RiAddLargeFill />新增餐點
                             </>
                         } onClick={clickShowModal} />
-                        {showModal && <Modal onClose={clickShowModal} />}
+                        {showModal && 
+                        <Modal 
+                        onClose={clickShowModal}
+                        handleSubmit={handleSubmit}
+                         />}
                     </div>
                     <DataFetcher setDataFromServer={setDataFromServer} />
                     <TableDefault
@@ -82,6 +89,7 @@ const AdminTemplate = () => {
                         detailColumnNames={detailColumnNames}
                         data1={dataFromServer}
                         data2={dataFromServer}
+                        handleSubmit={handleSubmit}
                     />                </div>
             </div>
         </div>
