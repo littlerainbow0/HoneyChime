@@ -1,10 +1,11 @@
 import '../assets/css/style.css'
 
+
 const HomeHeader=()=>{
 
     const toggleNav = () => {
         const navMenu = document.getElementById('navMenu');
-        navMenu.classList.toggle('hidden');
+        navMenu.classList.toggle('opacity-100');
         };
 
 
@@ -31,23 +32,25 @@ const HomeHeader=()=>{
                     {/* 右側旋轉圖標 */}
                     <div
                     className="h-5 transform -rotate-90 bg-center bg-no-repeat bg-contain cursor-pointer w-14 bg-custom-icon2 hover:bg-custom-icon"
-                    onClick={() => window.location.href = '/admin/news'}
+                    onClick={() => window.location.href = '/login'}
                     />
                 </header>
         
                 {/* Navigation menu */}
-                <div id="navMenu" className="absolute z-10 hidden p-3 text-white bg-black top-12 left-5 bg-opacity-90">
-                    <a href="/news" className="block mb-2">最新消息</a>
-                    <a href="/about" className="block mb-2">概念</a>
-                    <a href="/menu" className="block mb-2">饗宴</a>
-                    <a href="#" className="block mb-2">設施</a>
-                    <a href="#" className="block mb-2">旅程</a>
+                <div id="navMenu" className="absolute z-0 p-3 text-white transition duration-1000 bg-black rounded-lg opacity-0 bg-opacity-60 top-12 left-5 text-h6 font-titleFont ">
+                    <a href="/news" className="block mb-3 opacity-100 "><span className='h-4 bg-custom-icon4'></span>最新消息</a>
+                    <a href="/about" className="block mb-3">概念</a>
+                    <a href="/menu" className="block mb-3">饗宴</a>
+                    <a href="#" className="block mb-3">設施</a>
+                    <a href="#" className="z-20 block mb-3 opacity-100">旅程</a>
+                    <img src="../../src/assets/images/icon/LOGO3.png" alt="LOGO" className="bottom-0 z-10 h-20 pl-5 opacity-100" />
+                    
                 </div>
         
                 {/* 中間 button */}
                 <button
                     className="absolute flex flex-col items-center px-8 py-4 text-white transform -translate-x-1/2 -translate-y-1/2 text-p-1 top-1/2 left-1/2 bg-opacity-70 group font-titleFont"
-                    onClick={() => window.location.href = '#about'}
+                    onClick={() => window.location.href = '/about'}
                 >
                     <img
                     src="../../src/assets/images/icon/icon_ hexagon_whiteline.png"
@@ -57,7 +60,7 @@ const HomeHeader=()=>{
                     <span className="opacity-80">走一趟滋味的探索</span>
                 </button>
         
-                {/* Bottom triangle button */}
+                {/* Bottom triangle button & line*/}
                 <div className="absolute w-full bottom-10">
                     <div className="flex bg-[url('../../src/assets/images/icon/Line1.svg')] bg-no-repeat bg-center opacity-80">
                     <div className="flex-auto group">

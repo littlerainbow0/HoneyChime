@@ -27,6 +27,13 @@ import HomeCarousel from './components/HomeCarousel.jsx';
 import HomeHeader from './components/HomeHeader.jsx';
 import Test from './components/admin/test.jsx';
 
+// */ admin pages
+import AdminHome from './routes/admin/home.jsx'
+
+// */ user pages
+import Validate from './routes/user/Validate.jsx'
+import Login from './routes/user/login.jsx'
+
 
 
 
@@ -36,6 +43,11 @@ const App=()=>{
       
 
       <Routes>
+        <Route path="/admin" element={<AdminHome />} exact />
+
+        <Route path="/validate" element={<Validate />} exact />
+        <Route path="/login" element={<Login />} exact />
+
         <Route path='/' element={<Home></Home>}></Route>
         <Route path='/news' element={<News></News>}></Route>
         <Route path='/about' element={<About></About>}></Route>

@@ -74,9 +74,9 @@ import '../assets/css/style.css'
                         </div>
                         {/* 文卡片 */}
                         <div className="absolute left-1/4 w-2/5 bg-[#ffffff] shadow-lg transform -translate-x-1/3 translate-y-[40%] z-20 border border-solid border-[#8F755A] mx-auto  md:w-1/3 m-3 ">
-                            <h1 className="text-[#634A34] mx-2 pr-2 text-left font-titleFont text-h5 sm:text-h4 md:text-h3 lg:text-h2 font-bold  mb-1 mt-4 lg:px-5 xl:px-10 xl:py-5">{cards.Title}</h1>
+                            <h1 className="text-[#634A34] mx-2 pr-2 text-left font-titleFont text-h5 sm:text-h4 md:text-h3 lg:text-h2 font-bold  mb-1 lg:mt-4 lg:px-5 xl:px-10 xl:py-5">{cards.Title}</h1>
                             <h1 className="text-[#634A34] mx-1 px-4 text-right font-titleFont text-h6 sm:text-h5 md:text-h4 lg:text-h3 font-bold mb-1 lg:pt-5 xl:pr-16">{cards.Title2}</h1>
-                            <p className="p-2 mb-6 overflow-y-auto font-normal text-left font-bodyFont text-p-3 sm:text-p-3 md:text-p-2 lg:text-p-1 text-indent-1 lg:p-5 xl:px-20 xl:pb-16">{cards.Paragraph}</p>
+                            <p className="p-2 mb-6 overflow-y-auto font-normal text-left font-bodyFont text-p-3 md:text-p-2 lg:text-p-1 text-indent-1 lg:p-5 xl:px-20 xl:pb-16">{cards.Paragraph}</p>
                             <button className="absolute flex items-center space-x-2 bottom-1 right-4" onClick={() => window.location.href = '/news'}>
                                 <img className="w-5 h-5" src="../../src/assets/images/icon/icon_ hexagon_fill.svg"/>
                                 <span className="text-[#634A34] font-bodyFont text-p-3">最新消息</span>

@@ -18,7 +18,7 @@ const Headerr=({bgImage})=>{
                         {/* Logo置中 */}
                         <img src="../../../src/assets/images/icon/LOGO.svg" className="h-10 lg:h-16" alt="LOGO"/>
                         {/* 會員頭像 */}
-                        <a href="#" className="absolute text-center right-5 ">
+                        <a href="/login" className="absolute text-center right-5 ">
                             <svg xmlns="http://www.w3.org/2000/svg" style={{ fill: 'rgba(126, 126, 126, 1)' }}
                             width="32" height="32" viewBox="0 0 24 24" className='transition-colors duration-300 group-hover:fill-white '>
                             <path  d="M20 22H4v-2a5 5 0 0 1 5-5h6a5 5 0 0 1 5 5zm-8-9a6 6 0 1 1 0-12a6 6 0 0 1 0 12"/>
@@ -26,9 +26,9 @@ const Headerr=({bgImage})=>{
                         </a>
                         {/* 小螢幕 navbar 注意peer要在兄弟層級*/}
                         <nav
-                            className="absolute hidden top-20 peer-checked:flex "
+                            className="absolute hidden top-16 peer-checked:flex "
                         >
-                            <ul className="space-y-10 font-semibold text-white md:hidden text-h4 font-titleFont">
+                            <ul className="space-y-8 font-semibold text-white md:hidden text-h4 font-titleFont">
                                 <li><a href="/">首頁</a></li>
                                 <li><a href="/about">概念</a></li>
                                 <li><a href="/menu">饗宴</a></li>

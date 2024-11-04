@@ -1,0 +1,23 @@
+.image-container {
+  position: relative;
+  /* width: 300px; 調整成你要的圖片寬度 */
+  /* height: 200px; 調整成你要的圖片高度 */
+  overflow: hidden;
+  
+}
+
+.slideshow-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 1s ease;
+  
+}
+
+.slideshow-image.active {
+  opacity: 1;
+  border: thick double #B69C7C;
+}
