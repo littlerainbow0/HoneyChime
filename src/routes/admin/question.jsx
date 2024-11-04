@@ -2,7 +2,32 @@
 import React from 'react';
 import Navbar from '../../components/admin/navbar_admin.jsx';
 import MailCard from '../../components/admin/card_text.jsx';
-import RouteName from '../../components/admin/routeName.jsx'
+import RouteName from '../../components/admin/routeName.jsx';
+import Background from '../../components/admin/background_admin.jsx'
+import FilterCard from '../../components/admin/card_filter.jsx'
+
+const filterCardName = [
+  {
+    dessertType: "訂單/取消",
+    imgSrc: "/src/assets/images/landscape/landscape_landscape01.png",
+  },
+  {
+    dessertType: "付款/退款",
+    imgSrc: "/src/assets/images/train_exterior/trip_hero.png",
+  },
+  {
+    dessertType: "車廂/設備",
+    imgSrc: "/src/assets/images/train_interior/train_interior_shop05.png",
+  },
+  {
+    dessertType: "旅程相關",
+    imgSrc: "/src/assets/images/train_exterior/train_exterior_1.png",
+  },
+  {
+    dessertType: "菜單成分或內容",
+    imgSrc: "/src/assets/images/dessert/dessert_dessert02.png",
+  },
+]
 
 const columns = ["userId", "name", "email", "type", "content", "time", "reply"];
 const data = [
@@ -23,13 +48,17 @@ const AdminHome = () => {
   return (
     <div className="flex flex-row">
       <Navbar />
-      <div className='flex-col ml-10 text-left w-full'>
-        <RouteName />
-        <div className='flex flex-row justify-center flex-wrap'>
-          <MailCard columns={columns} data={data} />
-          <MailCard columns={columns} data={data} />
-          <MailCard columns={columns} data={data} />
-          <MailCard columns={columns} data={data} />
+      <Background />
+      <div className='flex-grow pl-40 md:pl-64 3xl:pl-0 text-left w-full'>
+        <div className='max-w-[1800px] mx-auto'>
+          <RouteName />
+          <FilterCard data={filterCardName} />
+          <div className='flex flex-row justify-center flex-wrap'>
+            <MailCard columns={columns} data={data} />
+            <MailCard columns={columns} data={data} />
+            <MailCard columns={columns} data={data} />
+            <MailCard columns={columns} data={data} />
+          </div>
         </div>
       </div>
     </div>

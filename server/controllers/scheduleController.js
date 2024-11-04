@@ -22,6 +22,16 @@ export const getScheduleByDessertType = async (req, res) => {
         res.status(500).json({ message: '伺服器錯誤，無法取得特定甜點之旅程資料' });
     }
 };
+// 取得所有發車時間之旅程的資料
+export const getDepartureTimeID = async (req, res) => {
+    try {
+        const { results } = await scheduleModel.getDepartureTimeID();
+        res.json(results);  // 返回 JSON 格式的資料
+    } catch (error) {
+        console.error('取得發車時間資料錯誤：', error);
+        res.status(500).json({ message: '伺服器錯誤，無法取得發車時間資料' });
+    }
+};
 
 // 新增旅程
 export const postSchedule = async (req, res) => {

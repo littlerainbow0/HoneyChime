@@ -2,32 +2,33 @@ import React from "react";
 import { Card, CardHeader, CardBody, CardFooter, Avatar, Button } from "@nextui-org/react";
 import { div } from "framer-motion/m";
 
+export const questionType = function (elem) {
+
+    switch (elem) {
+        case "訂單/取消":
+            return "🎫";
+            break;
+        case "付款/退款":
+            return "💵";
+            break;
+        case "車廂/設備":
+            return "🚂";
+            break;
+        case "旅程相關":
+            return "🗺️";
+            break;
+        case "菜單成分或內容":
+            return "📄";
+            break;
+
+        default:
+            return "***";
+            break;
+    }
+};
+
 export default function App({ columns, data }) {
 
-    var typeIcon = function (elem) {
-
-        switch (elem) {
-            case "訂單/取消":
-                return "🎫";
-                break;
-            case "付款/退款":
-                return "💵";
-                break;
-            case "車廂/設備":
-                return "🚂";
-                break;
-            case "旅程相關":
-                return "🗺️";
-                break;
-            case "菜單成分或內容":
-                return "📄";
-                break;
-
-            default:
-                return "***";
-                break;
-        }
-    };
     // 訂單/取消, 付款/退款, 車廂/設備, 旅程相關, 菜單成分或內容
 
     return (
@@ -66,7 +67,7 @@ export default function App({ columns, data }) {
                         <span className="pt-2">
                             #{elem.type}
                             <span className="py-2" aria-label="computer" role="img">
-                                {typeIcon(elem.type)}
+                                {questionType(elem.type)}
                             </span>
                         </span>
                     </CardBody>

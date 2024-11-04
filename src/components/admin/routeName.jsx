@@ -12,7 +12,7 @@ export default function RouteName() {
         content = `Admin/${matchedRoute.item}`;
     }
 
-    return <div className='font-titleFont py-5 text-h6 font-bold text-lightbrown w-full'>
+    return <div className='font-titleFont pt-5 pb-1 text-h6 font-bold text-lightbrown w-full'>
     {content || "Unknown Route"}
     <hr className='my-3' />
 </div>

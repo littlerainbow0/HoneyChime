@@ -6,6 +6,7 @@ const router = express.Router();
 
 router.get('/getSchedules', scheduleController.getAllSchedules);
 router.get('/getSchedules/:dessertType', scheduleController.getScheduleByDessertType);
+router.get('/getDepartureTime', scheduleController.getDepartureTimeID);
 
 router.post('/postSchedule', scheduleController.postSchedule);
 router.put('/updateSchedule/:scheduleID', scheduleController.updateSchedule);

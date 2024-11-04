@@ -80,6 +80,23 @@ WHERE
     }
 };
 
+export const getDepartureTimeID = async () => {
+    const sql = `
+    SELECT * FROM departuretimes
+    `;
+    try {
+        const { results } = await query(sql); 
+        // results.forEach((value, index) => {
+        //     results[index].Expired = modelFuns.isExpired(results[index].DepartureDate);
+        //     results[index].DepartureDate = modelFuns.dateFormat(value.DepartureDate);
+        // });
+        return { results };
+    } catch (error) {
+        console.log('查詢發車時間之旅程資料錯誤：', error);
+        throw new Error('查詢發車時間之旅程資料錯誤');
+    }
+};
+
 export const postSchedule = async (data) => {
     const sql = `INSERT INTO SCHEDULES (TemplateID, DepartureDate, DepartureTimeID) VALUES (?, ?, ?)`;
     try {

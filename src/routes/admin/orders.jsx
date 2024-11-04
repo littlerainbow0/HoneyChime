@@ -9,6 +9,7 @@ import { Button } from '@nextui-org/react';
 import BtnBrown from '../../components/user/btn_brown.jsx'
 import DataFetcherOrder from '../../dataProcessing/admin/GET_order.jsx';
 import Background from '../../components/admin/background_admin.jsx'
+import Calendar from '../../components/admin/calendar.jsx';
 
 const filterCardName = [
     {
@@ -76,6 +77,10 @@ const AdminTemplate = () => {
 
     const [getOrderDataFromServer, setGetOrderDataFromServer] = useState([]) // 儲存API資料用
 
+    const [selectedDate, setSelectedDate] = useState(""); // 選中的日期，用於顯示在 Input 框-------------
+    const filteredData = selectedDate 
+    ? getOrderDataFromServer.filter(item => item.DepartureDate === selectedDate) 
+    : getOrderDataFromServer;
 
     return (
         <div className="flex flex-row">
@@ -84,7 +89,10 @@ const AdminTemplate = () => {
             <div className='flex-grow pl-40 md:pl-64 3xl:pl-0 text-left w-full'>
                 <div className='max-w-[1800px] mx-auto'>
                     <RouteName />
-                    <FilterCard data={filterCardName} />
+                    <Calendar 
+                    selectedDate={selectedDate} 
+                    setSelectedDate={setSelectedDate} />
+                    {/* <FilterCard data={filterCardName} /> */}
                     <div className='justify-between'>
                         {/* <BtnBrown btnText="新建一筆模板" onClick={clickShowModal} />
                         {showModal && <Modal onClose={clickShowModal} />} */}
@@ -95,8 +103,8 @@ const AdminTemplate = () => {
                         columnNames={columnNames}
                         detailColumns={detailColumns}
                         detailColumnNames={detailColumnNames}
-                        data1={getOrderDataFromServer}
-                        data2={getOrderDataFromServer}
+                        data1={filteredData}
+                        data2={filteredData}
                     />
                 </div>
             </div>

@@ -13,16 +13,20 @@ import DataFetcherRoute from '../../dataProcessing/admin/GET_route.jsx';
 
 const filterCardName = [
     {
-        dessertType: "歐式",
-        imgSrc: "/src/assets/images/dessert/tripInfo_Eur04.png",
+        dessertType: "北部出發",
+        imgSrc: "/src/assets/images/train_exterior/trip_hero.png",
     },
     {
-        dessertType: "日式",
-        imgSrc: "/src/assets/images/dessert/dessert_dessert09.png",
+        dessertType: "中部出發",
+        imgSrc: "/src/assets/images/train_exterior/train_exterior_9.png",
     },
     {
-        dessertType: "台式",
-        imgSrc: "/src/assets/images/dessert/trip_Tw.png",
+        dessertType: "南部出發",
+        imgSrc: "/src/assets/images/train_exterior/tripInfo_hero01.png",
+    },
+    {
+        dessertType: "東部出發",
+        imgSrc: "/src/assets/images/train_exterior/train_exterior_1.png",
     },
 ]
 
@@ -55,9 +59,12 @@ const detailColumns = [
 const detailColumnNames = {
 }
 
-const handleSubmit = {
+const handleSubmit = (modalData) => {
+    console.log('modal拿到的數據', modalData);
 
-}
+    // let modalDataToTemplate
+
+};
 
 const AdminTemplate = () => {
     const [showModal, setShowModal] = useState(false);

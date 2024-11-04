@@ -1,17 +1,19 @@
 // components/home.jsx
 import React, { useState, useEffect } from 'react';
 import Navbar from '../../components/admin/navbar_admin.jsx';
-import TableDefault from '../../components/admin/table_default.jsx' // 確保導入的是正確的路徑
-import RouteName from '../../components/admin/routeName.jsx'
-import FilterCard from '../../components/admin/card_filter.jsx'
 import { div } from 'framer-motion/m';
 
 import DataFetcherSchedule from '../../dataProcessing/admin/GET_schedule.jsx'
 import DataFetcherMenu from '../../dataProcessing/admin/GET_template.jsx';
 
+import TableDefault from '../../components/admin/table_default.jsx' // 確保導入的是正確的路徑
+import RouteName from '../../components/admin/routeName.jsx'
+import FilterCard from '../../components/admin/card_filter.jsx'
 import BtnLightBrown from '../../components/user/btn_lightbrown.jsx';
 import Background from '../../components/admin/background_admin.jsx';
 import Modal from '../../components/admin/modal.jsx'
+import Calendar from '../../components/admin/calendar.jsx';
+
 
 import {
     Table,
@@ -90,6 +92,7 @@ const AdminSchedule = () => {
 
     const [getScheduleDataFromServer, setGetScheduleDataFromServer] = useState([]) // 儲存API資料用
     const [getMenuDataFromServer, setGetMenuDataFromServer] = useState([]) // 儲存API資料用
+    const [selectedDate, setSelectedDate] = useState(""); // 選中的日期，用於顯示在 Input 框-------------
 
     const [dataByBtnFilter, setDataByBtnFilter] = useState([]) // data BTN篩選器
     const [isDataByBtnFilter, setIsDataByBtnFilter] = useState(false) // data BTN篩選器
@@ -111,12 +114,15 @@ const AdminSchedule = () => {
             <div className='flex-grow pl-40 md:pl-64 3xl:pl-0 text-left w-full'>
                 <div className='max-w-[1800px] mx-auto'>
                     <RouteName />
-                    <FilterCard data={filterCardName} />
-                    <hr className='my-12 mb-6' />
+                    <Calendar
+                        selectedDate={selectedDate}
+                        setSelectedDate={setSelectedDate} />
+                    {/* <FilterCard data={filterCardName} /> */}
+                    <hr className='mb-6' />
                     <div className='flex justify-between'>
                         <BtnLightBrown btnText="新建一筆模板" onClick={clickShowModal} />
                         {showModal && <Modal onClose={clickShowModal}
-                        handleSubmit={handleSubmit} />} 
+                            handleSubmit={handleSubmit} />}
                         <BtnLightBrown
                             btnText={isDataByBtnFilter ?
                                 (<><MdFilterListOff />取消篩選</>) :

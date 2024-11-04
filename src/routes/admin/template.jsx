@@ -7,7 +7,7 @@ import FilterCard from '../../components/admin/card_filter.jsx'
 import Modal from '../../components/admin/modal.jsx'
 import { Button } from '@nextui-org/react';
 import BtnBrown from '../../components/user/btn_brown.jsx'
-import DataFetcher from '../../dataProcessing/admin/GET_template.jsx';
+import DataFetcher from '../../dataProcessing/admin/GET_meal.jsx';
 import Background from '../../components/admin/background_admin.jsx'
 
 const filterCardName = [
@@ -26,16 +26,18 @@ const filterCardName = [
 ]
 
 const columns = [
-    "TemplateID",
+    "MealID",
     "DessertTitle",
-    "MenuFirstName",
-    "MenuSecondName",
+    "MealImagePath",
+    "MealName",
+    "MealDescription",
 ]
 const columnNames = {
-    TemplateID: "模板ID",
-    DessertTitle: "甜點風格",
-    MenuFirstName: "供餐1",
-    MenuSecondName: "供餐2",
+    MealID:"甜點ID",
+    DessertTitle:"甜點風格",
+    MealImagePath:"甜點圖片",
+    MealName:"甜點名稱",
+    MealDescription:"甜點描述",
 }
 const detailColumns = [
 ]

@@ -6,8 +6,8 @@ export default function App({ data }) {
             {data.map((elem, index) => (
                 <button
                     key={index}
-                    className="flex-grow hover:opacity-80 transition-all
-                    lg:text-h3 text-h6 text-lightyellow hover:text-dark hover:scale-105" // 使用 flex-grow 使按鈕能自動調整大小
+                    className="flex-1 hover:opacity-80 transition-all
+                    lg:text-h5 text-h6 text-lightyellow hover:text-dark hover:scale-105" // 使用 flex-grow 使按鈕能自動調整大小
                     style={{ minWidth: '150px' }} // 可以設置最小寬度
                 >
                     <Card

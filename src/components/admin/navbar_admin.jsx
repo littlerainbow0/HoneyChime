@@ -58,7 +58,7 @@ export const navText = [
   },
   {
     icon: <ImSpoonKnife />,
-    item: "模板管理",
+    item: "餐點管理",
     path: "/admin/template",
   },
   {
