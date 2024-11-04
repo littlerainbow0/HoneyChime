@@ -12,11 +12,11 @@ import DataFetcherOrder from '../../dataProcessing/admin/GET_order.jsx';
 
 const filterCardName = [
     {
-        dessertType: "VIP",
+        type: "VIP",
         imgSrc: "/src/assets/images/people/people_activity04.png",
     },
     {
-        dessertType: "一般會員",
+        type: "一般會員",
         imgSrc: "/src/assets/images/people/people_activity03.png",
     },
 ]

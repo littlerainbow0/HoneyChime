@@ -415,9 +415,14 @@ const RouteModalItems = (locationPath, item = null) => {
         selectedStop1Id: '',
         selectedStop2Id: '',
     });
-
+    
     const handleChange = (event) => {
-        const { name, value } = event.target;
+        const { name, value, type, file } = event.target;
+        if (type === "file") {
+            console.log(files);
+
+            return;
+        }
 
         if (name === 'selectedStop1Id' && value === formData.selectedStop2Id) {
             setFormData(prev => ({ ...prev, selectedStop2Id: '' }));
@@ -426,7 +431,10 @@ const RouteModalItems = (locationPath, item = null) => {
             setFormData(prev => ({ ...prev, selectedStop1Id: '' }));
         }
 
-        setFormData(prev => ({ ...prev, [name]: value }));
+        setFormData(prev => {
+             const newFormData = {...prev, [name]: value};
+             return newFormData;
+            });
     };
 
     const modalItemsInRoute = [
@@ -435,7 +443,7 @@ const RouteModalItems = (locationPath, item = null) => {
             content: () => (
                 <>
                     <DataFetcherStops setDataFromServer={setGetStopsDataFromServer} />
-                    {formData.routeId}
+                    {/* {formData.routeId} */}
                     建立新的路線
                 </>
             ),
@@ -487,13 +495,15 @@ const RouteModalItems = (locationPath, item = null) => {
         {
             title: "車程(分)",
             content: () => (
-                <input
-                    type="number"
-                    className="focus:text-lightyellow border border-dashed border-brown focus:border-double focus:border-lightyellow rounded-lg w-full pl-3 py-1"
-                    value={formData.duration}
-                    onChange={handleChange}
-                    readOnly={!!formData.routeId} // 雙重否定
-                />
+                <>
+                    <input
+                        type="number"
+                        className="focus:text-lightyellow border border-dashed border-brown focus:border-double focus:border-lightyellow rounded-lg w-full pl-3 py-1"
+                        value={formData.duration}
+                        onChange={handleChange}
+                        readOnly={!!formData.routeId} // 雙重否定
+                    />
+                </>
             ),
         },
         {
@@ -565,7 +575,12 @@ const MealModalItems = (locationPath, item = null) => {
     });
 
     const handleChange = (event) => {
-        const { name, value } = event.target;
+        const { name, value, type, files } = event.target;
+
+        if (type === "file") {
+
+        }
+
         setFormData(prev => ({ ...prev, [name]: value }));
     };
 
@@ -584,7 +599,7 @@ const MealModalItems = (locationPath, item = null) => {
             title: "餐點名稱",
             content: () => (
                 <input type="text"
-                className="focus:text-lightyellow border border-dashed border-brown focus:border-double focus:border-lightyellow rounded-lg w-full pl-3 py-1"
+                    className="focus:text-lightyellow border border-dashed border-brown focus:border-double focus:border-lightyellow rounded-lg w-full pl-3 py-1"
                 />
             ),
         },
@@ -599,7 +614,7 @@ const MealModalItems = (locationPath, item = null) => {
             content: () => (
                 <textarea
                     type="text"
-                    className="w-full text-ellipsis bg-transparent border border-dashed border-brown focus:border rounded-lg"
+                    className="w-full text-ellipsis bg-transparent border border-dashed border-brown rounded-lg"
                     rows="3"
                     value={formData.mealContent}
                     onChange={handleChange}

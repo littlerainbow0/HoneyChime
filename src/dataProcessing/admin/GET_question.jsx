@@ -26,3 +26,11 @@ const DataFetcher = ({ setDataFromServer }) => {
 };
 
 export default DataFetcher;
+
+// SQL篩選
+// export const DataFetcherByType = async (filterType) => {
+//   // 根據 filterType 發送請求並獲取資料
+//   const response = await fetch(`http://your-api-url/qas?filter=${filterType}`);
+//   const data = await response.json();
+//   return data.results; // 返回結果
+// };

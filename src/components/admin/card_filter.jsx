@@ -1,6 +1,6 @@
 import { Card, CardHeader, CardBody, CardFooter, Image, Button, button } from "@nextui-org/react";
 
-export default function App({ data }) {
+export default function App({ data, onFilterSelect  }) {
     return (
         <div className="lg:my-5 my-2 flex flex-wrap justify-center md:gap-10 gap-5">
             {data.map((elem, index) => (
@@ -8,7 +8,8 @@ export default function App({ data }) {
                     key={index}
                     className="flex-1 hover:opacity-80 transition-all
                     lg:text-h5 text-h6 text-lightyellow hover:text-dark hover:scale-105" // 使用 flex-grow 使按鈕能自動調整大小
-                    style={{ minWidth: '150px' }} // 可以設置最小寬度
+                    style={{ minWidth: '150px' }}
+                    onClick={() => onFilterSelect(elem.type) }
                 >
                     <Card
                         className="flex-auto h-[60px] font-bold rounded-full
@@ -24,7 +25,7 @@ export default function App({ data }) {
                                     backdropFilter: 'blur(16px)',
                                 }}
                             >
-                                {elem.dessertType}
+                                {elem.type}
                             </h4>
                         </CardBody>
                     </Card>

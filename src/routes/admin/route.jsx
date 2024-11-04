@@ -17,19 +17,19 @@ import DataFetcherRoute from '../../dataProcessing/admin/GET_route.jsx';
 
 const filterCardName = [
     {
-        dessertType: "北部出發",
+        type: "北部出發",
         imgSrc: "/src/assets/images/train_exterior/trip_hero.png",
     },
     {
-        dessertType: "中部出發",
+        type: "中部出發",
         imgSrc: "/src/assets/images/train_exterior/train_exterior_9.png",
     },
     {
-        dessertType: "南部出發",
+        type: "南部出發",
         imgSrc: "/src/assets/images/train_exterior/tripInfo_hero01.png",
     },
     {
-        dessertType: "東部出發",
+        type: "東部出發",
         imgSrc: "/src/assets/images/train_exterior/train_exterior_1.png",
     },
 ]

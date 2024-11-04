@@ -14,15 +14,15 @@ import { RiAddLargeFill } from "react-icons/ri";
 
 const filterCardName = [
     {
-        dessertType: "歐式",
+        type: "歐式",
         imgSrc: "/src/assets/images/dessert/tripInfo_Eur04.png",
     },
     {
-        dessertType: "日式",
+        type: "日式",
         imgSrc: "/src/assets/images/dessert/dessert_dessert09.png",
     },
     {
-        dessertType: "台式",
+        type: "台式",
         imgSrc: "/src/assets/images/dessert/trip_Tw.png",
     },
 ]
