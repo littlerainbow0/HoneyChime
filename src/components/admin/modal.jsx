@@ -43,6 +43,7 @@ const ScheduleModalItems = (locationPath, item = null) => {
         scheduleId: item ? item.ScheduleID : "",
         departureDate: item ? item.DepartureDate : "",
         departureTime: item ? item.DepartureTime : "",
+        departureTimeId: item ? item.DepartureTimeID : "",
         templateId: item ? item.TemplateID : "",
         routeId: item ? item.RouteID : "",
         route: item ? `${item.StopStartName} 到 ${item.StopEndName}` : "",
@@ -69,8 +70,9 @@ const ScheduleModalItems = (locationPath, item = null) => {
                 scheduleId: item.ScheduleID,
                 // /正規表達式/，\=轉譯，g=global，/\//g為利用正規表達式選擇全部的/取代成-
                 // replace('/', '-') 只會替換第一個斜線
-                departureDate: item.DepartureDate.replace(/\//g, '-'),
+                departureDate: item.DepartureDate.replace(/\//g, '-') ,
                 departureTime: item.DepartureTime,
+                departureTimeId: item.DepartureTimeID,
                 templateId: item.TemplateID,
                 routeId: item ? item.RouteID : "",
                 templateDescription: item ? item.TemplateDescription : "",
@@ -116,7 +118,7 @@ const ScheduleModalItems = (locationPath, item = null) => {
         if (selectedTemplate) {
             setFormData(prev => ({
                 ...prev,
-                routeId: item ? item.RouteID : "",
+                routeId: selectedTemplate.RouteID,
                 route: `${selectedTemplate.StopStartName} 到 ${selectedTemplate.StopEndName}`,
                 dessertTypeId: selectedTemplate.DessertTypeID,
                 templateDescription: selectedTemplate.TemplateDescription,
@@ -162,7 +164,7 @@ const ScheduleModalItems = (locationPath, item = null) => {
                     setFormData(prev => ({
                         ...prev,
                         templateId: selectedTemplate.TemplateID,
-                        routeId: item ? item.RouteID : "",
+                        routeId: selectedTemplate.RouteID,
                         route: `${selectedTemplate.StopStartName} 到 ${selectedTemplate.StopEndName}`,
                         dessertTypeId: selectedTemplate.DessertTypeID,
                         relatedDetailItem: {
@@ -348,7 +350,7 @@ const ScheduleModalItems = (locationPath, item = null) => {
                             <option value={formData.relatedDetailItem.menuSecondID}>{formData.relatedDetailItem.menuSecondName}</option>
                         ) : (
                             <>
-                                <option valu>請選擇餐點</option>
+                                <option value="">請選擇餐點</option>
                                 {filteredMenu2.map(item => (
                                     <option value={item.MealID} key={item.MealID}>
                                         {item.MealName}
@@ -375,13 +377,13 @@ const ScheduleModalItems = (locationPath, item = null) => {
             content: () => (
                 <select
                     className="focus:text-dark bg-gray-200 rounded-full p-2"
-                    name="departureTime"
-                    value={formData.departureTime}
+                    name="departureTimeId"
+                    value={formData.departureTimeId}
                     onChange={handleChange}
                 >
                     <option value="">請選擇出發時間</option>
                     {getDepartureTimeDataFromServer.map(time => (
-                        <option value={time.DepartureTime} key={time.DepartureTimeID}>
+                        <option value={time.DepartureTimeID} key={time.DepartureTimeID}>
                             {time.DepartureTime}
                         </option>
                     ))}
@@ -744,18 +746,16 @@ const ModalOverLay = (props) => {
     let formData = {};
     let handleChange = () => { };
 
-    const handleSubmitClick = () => {
-
-        // const isEmpty = Object.values(formData).some(value => value === "" || value === undefined);
-        // console.log("modal的data", formData);
-
-        // if (isEmpty) {
-        //     alert("請填寫所有欄位！");
-        //     return;
-        // }
-
+    const handleSubmitClick = async () => {
         if (handleSubmit) {
-            handleSubmit(formData);
+            try {
+                await handleSubmit(formData);  // 等待异步操作完成
+                if (props.onClose) {
+                    props.onClose();  // 提交成功后关闭 Modal
+                }
+            } catch (error) {
+                console.error("提交失败", error);  // 错误处理
+            }
         }
     };
 

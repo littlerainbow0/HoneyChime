@@ -73,8 +73,8 @@ const TableDefault = ({ columns, columnNames, data1, detailColumns, detailColumn
           <table className="text-center bg-gray-50 rounded-3xl" style={{ width: '100%', tableLayout: 'fixed' }}>
             <thead>
               <tr>
-                {columns.map((column) => (
-                  <th key={column} className='py-2'>
+                {columns.map((column, index) => (
+                  <th key={'colName'+column+index} className='py-2'>
                     <p className="text-lightbrown font-bodyFont text-p-2 m-1">{columnNames[column] || column}</p>
                   </th>
                 ))}
@@ -82,12 +82,12 @@ const TableDefault = ({ columns, columnNames, data1, detailColumns, detailColumn
             </thead>
             <tbody>
               {currentRows.map((item, index) => (
-                <React.Fragment key={item.ScheduleID}>
+                <React.Fragment key={'thisRowIs'+item.ScheduleID}>
                   <tr className={`
                     transition-all rounded-3xl
                   hover:bg-gray-200 hover:translate-y-1 ${index % 2 === 0 ? "bg-lightyellow" : ""}`}>
                     {columns.map((column, colIndex) => (
-                      <td key={colIndex} className="">
+                      <td key={'toMatchEachTableHead'+colIndex} className="">
                         {column.includes('Image')? (
                             <div className=''>
                               <img
@@ -128,8 +128,8 @@ const TableDefault = ({ columns, columnNames, data1, detailColumns, detailColumn
                           <table className="text-center scale-85" style={{ width: '100%', tableLayout: 'fixed' }}>
                             <thead>
                               <tr>
-                                {detailColumns.map((column) => (
-                                  <th key={column}>
+                                {detailColumns.map((column, index) => (
+                                  <th key={'detailColName'+column}>
                                     <p className="text-gray-500 mx-10 py-1 bg-gray-300 rounded-full font-bodyFont text-p-3 m-1">
                                       {detailColumnNames[column] || column}                                     </p>
                                   </th>
@@ -140,9 +140,9 @@ const TableDefault = ({ columns, columnNames, data1, detailColumns, detailColumn
                               {data2
                                 .filter(subItem => subItem[data2Id] === item[data2Id]) // 仅显示与当前行的 TemplateID 匹配的数据
                                 .map((subItem, subIndex) => (
-                                  <tr key={subIndex}>
+                                  <tr key={'thisDetailRowIs'+subIndex}>
                                     {detailColumns.map((column) => (
-                                      <td key={column} className='rounded-full'>
+                                      <td key={'data2'+column} className='rounded-full'>
                                         <p className="text-gray-500 font-bodyFont text-p-3 mb-1">{subItem[column]}</p>
                                       </td>
                                     ))}

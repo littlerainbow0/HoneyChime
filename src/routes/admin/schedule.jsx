@@ -1,7 +1,9 @@
 // components/home.jsx
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
+import axios from 'axios';
 import Navbar from '../../components/admin/navbar_admin.jsx';
 import { div } from 'framer-motion/m';
+import api from '../../api.jsx';
 
 import DataFetcherSchedule from '../../dataProcessing/admin/GET_schedule.jsx'
 import DataFetcherMenu from '../../dataProcessing/admin/GET_template.jsx';
@@ -75,13 +77,6 @@ const detailColumnNames =
     MenuSecondName: "供餐2",
 };
 
-const handleSubmit = (modalData) => {
-    console.log('modal拿到的數據', modalData);
-
-    // let modalDataToTemplate
-
-};
-
 const AdminSchedule = () => {
 
     const [showModal, setShowModal] = useState(false);
@@ -112,6 +107,72 @@ const AdminSchedule = () => {
         setIsDataByBtnFilter(!isDataByBtnFilter);
     };
 
+    const handleSubmit = (modalData) => {
+        console.log('modal拿到的數據', modalData);
+        if (modalData.scheduleId) {
+            api.put(`/updateSchedule/${modalData.scheduleId}`, {
+                TemplateID: modalData.templateId,
+                DepartureDate: modalData.departureDate,
+                DepartureTimeID: modalData.departureTimeId,
+            })
+                .then((response) => {
+                    // 更新数据
+                    setGetScheduleDataFromServer(prev =>
+                        prev.map(item =>
+                            item.scheduleId === modalData.scheduleId
+                                ? { ...item, ...modalData.data }
+                                : item
+                        )
+                    );
+                    setShowModal(false);
+                    alert("更新旅程成功!");
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+        } else {
+            // 没有 scheduleId，需要新建
+            api.post('/postSchedule', {
+                TemplateID: modalData.templateId,
+                DepartureDate: modalData.departureDate,
+                DepartureTimeID: modalData.departureTimeId,
+            })
+                .then((response) => {
+                    console.log('API 返回資料:', response.data);
+                    setGetScheduleDataFromServer(prev => [
+                        ...prev,
+                        {
+                            scheduleId: response.data.scheduleID,
+                            departureDate: modalData.departureDate,
+                            departureTime: modalData.departureTime,
+                            stopStartName: modalData.stopStartName,
+                            stopEndName: modalData.stopEndName,
+                            dessertTitle: modalData.dessertTitle,
+                            expired: "即將到來"
+                        }
+                    ]);
+                    alert("新增旅程成功!");
+                    setShowModal(false);
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+        }
+    };
+
+    useEffect(() => {
+        if (getScheduleDataFromServer.length > 0) {
+            console.log("有沒有正確存入資料", getScheduleDataFromServer);
+        }
+        setGetScheduleDataFromServer(getScheduleDataFromServer)
+    }, [getScheduleDataFromServer]);
+
+    const filteredDataMemo = useMemo(() => {
+        return selectedDate
+            ? getScheduleDataFromServer.filter(item => item.DepartureDate === selectedDate)
+            : getScheduleDataFromServer;
+    }, [getScheduleDataFromServer, selectedDate]);
+
     return (
         <div className="flex flex-row h-screen">
             <Navbar />
@@ -127,7 +188,7 @@ const AdminSchedule = () => {
                     <div className='flex justify-between'>
                         <BtnLightBrown btnText={
                             <>
-                            <RiAddLargeFill />新增旅程
+                                <RiAddLargeFill />新增旅程
                             </>
                         } onClick={clickShowModal} />
                         {showModal && <Modal onClose={clickShowModal}
@@ -146,8 +207,8 @@ const AdminSchedule = () => {
                         columnNames={columnNames}
                         detailColumns={detailColumns}
                         detailColumnNames={detailColumnNames}
-                        data1={dataByBtnFilter.length > 0 ? (dataByBtnFilter) : 
-                            (selectedDate ? (filteredData) : (getScheduleDataFromServer))}
+                        data1={dataByBtnFilter.length > 0 ? (dataByBtnFilter) :
+                            (selectedDate ? (filteredDataMemo) : (getScheduleDataFromServer))}
                         data2={getMenuDataFromServer}
                         handleSubmit={handleSubmit}
                     />

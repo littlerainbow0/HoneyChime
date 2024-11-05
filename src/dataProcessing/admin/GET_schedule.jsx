@@ -41,7 +41,7 @@ const DataFetcher = ({ setDataFromServer }) => {
     fetchData();
   }, [setDataFromServer]); // 確保只執行一次
 
-  return loading ? <div>Loading...</div> : null; // 加載中顯示
+  return loading ? "Loading..." : null; // 加載中顯示
 };
 
 export default DataFetcher;
