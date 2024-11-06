@@ -2,16 +2,9 @@ import '../cssReset.css';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { useState } from 'react'
 import React from 'react';
-import ReactDOM from 'react-dom'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
 import './assets/css/style.css'
 import './all.css'
-
-// React
-import { motion } from "framer-motion"
-import { navText } from './components/admin/navbar_admin.jsx';
 
 // */ admin pages
 import AdminHome from './routes/admin/home.jsx'

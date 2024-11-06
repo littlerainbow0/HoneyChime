@@ -87,7 +87,7 @@ export const Validate = async (req, res) => {
 
         //加密驗證碼
         const hashedCode = await bcrypt.hash(verificationCode, 10);
-        const expirationTime = Date.now() + 10 * 60; // 10 分鐘後過期
+        const expirationTime = Date.now() + 10 * 60 * 10; // 10 分鐘後過期
         await userModel.updateUserValidate(existingUser.UserID, hashedCode, expirationTime);
 
 

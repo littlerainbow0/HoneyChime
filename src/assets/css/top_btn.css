@@ -1,0 +1,23 @@
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100..900&family=Noto+Serif+TC:wght@200..900&display=swap");
+.top {
+  font-family: "Noto Sans TC";
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 125%;
+  letter-spacing: 3%;
+}
+
+.top {
+  text-align: center;
+  border: 2px solid #B69C7C;
+  background-color: #B69C7C;
+  width: 50px;
+  height: 50px;
+  border-radius: 25px;
+  padding: 4px;
+  position: fixed;
+  right: 40px;
+  bottom: 40px;
+  text-decoration: none;
+  color: #634A34;
+}/*# sourceMappingURL=top_btn.css.map */
