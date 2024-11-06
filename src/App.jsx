@@ -2,16 +2,11 @@ import '../cssReset.css';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { useState } from 'react'
 import React from 'react';
-import ReactDOM from 'react-dom'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
 import './assets/css/style.css'
 import './all.css'
 
 // React
-import { motion } from "framer-motion"
-import { navText } from './components/admin/navbar_admin.jsx';
 
 import Home from './routes/Home.jsx';
 import News from './routes/News.jsx';
@@ -19,18 +14,6 @@ import About from './routes/About.jsx';
 import Menu from './routes/Menu.jsx';
 import AdminNewsPage from './routes/AdminNews.jsx';
 import Calendarr from './components/admin/Calendarr.jsx';
-import MenuDessertTitle from './components/MenuDessertTitle.jsx';
-import MenuActivity from './components/MenuActivity.jsx';
-import AboutTitle from './components/AboutTitle.jsx';
-import MenuDessert from './components/MenuDessert.jsx';
-import MenuDrink from './components/MenuDrink.jsx';
-import HomeIntroduce2 from './components/HomeIntroduce2.jsx';
-import HomeJourney from './components/HomeJourney.jsx';
-import HomeIntroduce from './components/HomeIntroduce.jsx';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import HomeCarousel from './components/HomeCarousel.jsx';
-import HomeHeader from './components/HomeHeader.jsx';
-import Test from './components/admin/test.jsx';
 
 
 // */ admin pages
@@ -65,6 +48,7 @@ function App() {
     // BrowserRouter > Routes > Route element={別名}
     <BrowserRouter>
       <Routes>
+
         <Route path="/admin" element={<AdminHome />} exact />
         <Route path="/admin/member" element={<AdminMember />} />
         <Route path="/admin/question" element={<AdminQuestion />} />

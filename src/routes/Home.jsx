@@ -9,9 +9,6 @@ import ScrollToTopButton from "../components/ScrollToTopButton";
 const Home =()=>{
     return(
         <div>
-            
-            
-            
             <HomeHeader/>
             <HomeCarousel/>
             <HomeIntroduce/>
