@@ -1,0 +1,25 @@
+#triangle {
+    position: relative;
+    width: 0;
+    height: 0;
+    margin: 1.875rem auto; /* 使三角形居中 */
+}
+#triangle:before, #triangle:after {
+    content: "";
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-left: 1.875rem solid transparent;
+    border-right: 1.875rem solid transparent;
+}
+#triangle:before {
+    border-top: 3.125rem solid #634A34; /* 外层边框，黑色大三角 */
+}
+#triangle:after {
+    top: 0.09375rem;
+    left:0.15rem;
+    margin: 0px auto;
+    border-left: 1.6875rem solid transparent;
+    border-right: 1.6875rem  solid transparent;
+    border-top: 2.8125rem solid white;
+}

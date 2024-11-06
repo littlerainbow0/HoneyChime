@@ -1,19 +1,30 @@
 import React from 'react';
 import { useLocation } from 'react-router-dom';
-import { navText } from "./navbar_admin.jsx"
 
 export default function RouteName() {
     const location = useLocation();
     const { pathname } = location;
 
     let content;
-    const matchedRoute = navText.find(route => route.path === pathname);
-    if (matchedRoute) {
-        content = `Admin/${matchedRoute.item}`;
+    switch (pathname) {
+        case '/admin/home':
+            content = "Admin/Dashboard";
+            break;
+        case '/admin/schedule':
+            content = "Admin/Schedule";
+            break;
+        case '/admin/template':
+            content = "Admin/Template";
+            break;
+        case '/admin/question':
+            content = "Admin/Question";
+            break;
+        case '/admin/members':
+            content = "Admin/Members";
+            break;
+        default:
+            break;
     }
 
-    return <div className='font-titleFont py-5 text-h6 font-bold text-lightbrown w-full'>
-    {content || "Unknown Route"}
-    <hr className='my-3' />
-</div>
+    return <div className='p-5 bg-dark font-titleFont text-h5 text-lightyellow'>{content}</div>;
 }

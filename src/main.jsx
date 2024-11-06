@@ -3,6 +3,8 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { NextUIProvider } from '@nextui-org/react'
 import App from './App'
+import './assets/css/style.css'; 
+
 
 // import './index.css'
 // import '@nextui-org/react/styles.css'

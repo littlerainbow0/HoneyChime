@@ -13,6 +13,26 @@ import './all.css'
 import { motion } from "framer-motion"
 import { navText } from './components/admin/navbar_admin.jsx';
 
+import Home from './routes/Home.jsx';
+import News from './routes/News.jsx';
+import About from './routes/About.jsx';
+import Menu from './routes/Menu.jsx';
+import AdminNewsPage from './routes/AdminNews.jsx';
+import Calendarr from './components/admin/Calendarr.jsx';
+import MenuDessertTitle from './components/MenuDessertTitle.jsx';
+import MenuActivity from './components/MenuActivity.jsx';
+import AboutTitle from './components/AboutTitle.jsx';
+import MenuDessert from './components/MenuDessert.jsx';
+import MenuDrink from './components/MenuDrink.jsx';
+import HomeIntroduce2 from './components/HomeIntroduce2.jsx';
+import HomeJourney from './components/HomeJourney.jsx';
+import HomeIntroduce from './components/HomeIntroduce.jsx';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import HomeCarousel from './components/HomeCarousel.jsx';
+import HomeHeader from './components/HomeHeader.jsx';
+import Test from './components/admin/test.jsx';
+
+
 // */ admin pages
 import AdminHome from './routes/admin/home.jsx'
 import AdminMember from './routes/admin/member.jsx'
@@ -64,9 +84,16 @@ function App() {
 
         <Route path="/user/info/:userId" element={<UserBias />} />
         <Route path="/user/order/:userId" element={<UserOrder />} />
+
+        <Route path='/' element={<Home></Home>}></Route>
+        <Route path='/news' element={<News></News>}></Route>
+        <Route path='/about' element={<About></About>}></Route>
+        <Route path='/menu' element={<Menu></Menu>}></Route>
+        <Route path='/calendar' element={<Calendarr />}></Route>
+        <Route path='/admin/news' element={<AdminNewsPage />}></Route>
       </Routes>
     </BrowserRouter>
   )
 }
 
-export default App
+export default App;

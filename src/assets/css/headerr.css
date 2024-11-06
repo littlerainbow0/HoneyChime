@@ -1,0 +1,136 @@
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100..900&family=Noto+Serif+TC:wght@200..900&display=swap");
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+  display: block;
+}
+
+body {
+  line-height: 1;
+}
+
+ol, ul {
+  list-style: none;
+}
+
+blockquote, q {
+  quotes: none;
+}
+
+blockquote:before, blockquote:after,
+q:before, q:after {
+  content: "";
+  content: none;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+*, *:before, *:after {
+  box-sizing: border-box;
+}
+
+.header_nav ul li a {
+  font-family: "Noto Serif TC", "Noto Sans TC";
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 130%;
+  letter-spacing: 10%;
+}
+
+.header_logo a:nth-of-type(2) {
+  font-family: "Noto Sans TC";
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 150%;
+  letter-spacing: 2%;
+}
+
+header {
+  text-align: center;
+  width: 100vw;
+  height: 640px;
+  background-repeat: no-repeat;
+  background-size: 100% 640px;
+}
+
+
+.header_logo {
+  @apply m-auto pt-6;
+  padding-top: 25px;
+  color: rgba(255, 255, 255, 0.6);
+  margin: 0 auto 0 52px;
+}
+.header_logo a:nth-of-type(2) {
+  text-align: center;
+  float: right;
+  background-color: transparent;
+  clear: both;
+  margin-top: 20px;
+  margin-right: 20px;
+  color: #EEEBE6;
+}
+.header_logo img {
+  width: auto;
+  height: 70px;
+  -o-object-fit: contain;
+     object-fit: contain;
+}
+
+.header_nav {
+  display: block;
+  padding-top: 25px;
+}
+.header_nav ul {
+  font-size: 0px;
+  height: 52px;
+  background-color: rgba(255, 255, 255, 0.4);
+}
+.header_nav ul:hover {
+  background-color: rgba(255, 255, 255, 0.8);
+}
+.header_nav ul:hover a {
+  color: #1F1F1F;
+}
+.header_nav ul li {
+  display: inline-block;
+  text-align: center;
+  font-size: 16px;
+  margin: 0 10px;
+}
+.header_nav ul li a {
+  text-decoration: none;
+  display: inline-block;
+  padding: 10.5px 30px;
+  color: #fff;
+}
+.header_nav ul li a:hover {
+  font-weight: 900;
+}
