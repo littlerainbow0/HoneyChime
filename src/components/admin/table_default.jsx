@@ -26,7 +26,6 @@ const TableDefault = ({ columns, columnNames, data1, detailColumns, detailColumn
   const clickShowModalToEdit = (item) => {
     const relatedDetailItem = data2.filter(subItem => subItem[data2Id] === item[data2Id]);
     setCurrentItem({ ...item, relatedDetailItem });  // 將 data2 的相關數據合併到 currentItem 中
-    // console.log({ ...item, relatedDetailItem });
     
     setShowModal(true);
 };
@@ -40,14 +39,11 @@ const TableDefault = ({ columns, columnNames, data1, detailColumns, detailColumn
     data2Id = "TemplateID";
   } else if (location.pathname === navText[2].path) {
     data1Id = "OrderID";
-    data2Id = "UserID";
+    data2Id = "OrderID";
   } else if (location.pathname === navText[6].path) {
     data1Id = "UserID";
     data2Id = "UserID";
   }
-
-  console.log("1&2:",data1,data2);
-  
 
   const toggleRow = (data1Value, data2Value) => {
     setExpandedRow(prev => (prev === data1Value ? null : data1Value));
@@ -82,7 +78,7 @@ const TableDefault = ({ columns, columnNames, data1, detailColumns, detailColumn
             </thead>
             <tbody>
               {currentRows.map((item, index) => (
-                <React.Fragment key={'thisRowIs'+item.ScheduleID}>
+                <React.Fragment key={'thisRowIs'+index}>
                   <tr className={`
                     transition-all rounded-3xl
                   hover:bg-gray-200 hover:translate-y-1 ${index % 2 === 0 ? "bg-lightyellow" : ""}`}>

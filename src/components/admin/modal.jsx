@@ -7,6 +7,7 @@ import { CalendarDate } from "@internationalized/date";
 import DataFetcherMeals from '../../dataProcessing/admin/GET_meal.jsx'
 import DataFetcherDesserType from '../../dataProcessing/admin/GET_dessertType.jsx'
 import DataFetcherTemplate from '../../dataProcessing/admin/GET_template.jsx'
+import DataFetcherRoute from '../../dataProcessing/admin/GET_route.jsx'
 import DataFetcherStops from '../../dataProcessing/admin/GET_stops.jsx'
 import DataDepartureTime from '../../dataProcessing/admin/GET_departureTime.jsx'
 
@@ -32,11 +33,15 @@ const ScheduleModalItems = (locationPath, item = null) => {
     // 發生特定事件才會觸發useEffect
     // 哇難怪useEffect的效能比較好
 
+    // error message
+    const [errorMessages, setErrorMessages] = useState({});
+
     // 新拿到的data
     const [getMealDataFromServer, setGetMealDataFromServer] = useState([]);
     const [getDessertTypeDataFromServer, setGetDessertTypeDataFromServer] = useState([]);
     const [getTemplateDataFromServer, setGetTemplateDataFromServer] = useState([]);
     const [getDepartureTimeDataFromServer, setGetDepartureTimeDataFromServer] = useState([]);
+    const [getRouteDataFromServer, setGetRouteDataFromServer] = useState([]);
 
     // 從table那邊拿到的item
     const initialState = {
@@ -59,9 +64,6 @@ const ScheduleModalItems = (locationPath, item = null) => {
     };
     const [formData, setFormData] = useState(initialState);
 
-    // 錯誤狀態設置
-    const [errorMessages, setErrorMessages] = useState({});
-
     // useEffect 更新 formData
     useEffect(() => {
         if (item) {
@@ -70,7 +72,7 @@ const ScheduleModalItems = (locationPath, item = null) => {
                 scheduleId: item.ScheduleID,
                 // /正規表達式/，\=轉譯，g=global，/\//g為利用正規表達式選擇全部的/取代成-
                 // replace('/', '-') 只會替換第一個斜線
-                departureDate: item.DepartureDate.replace(/\//g, '-') ,
+                departureDate: item.DepartureDate.replace(/\//g, '-'),
                 departureTime: item.DepartureTime,
                 departureTimeId: item.DepartureTimeID,
                 templateId: item.TemplateID,
@@ -138,12 +140,7 @@ const ScheduleModalItems = (locationPath, item = null) => {
     // */ onchange
     const handleChange = (e) => {
         const { name, value } = e.target;
-        if (value.trim() === "") {
-            setErrorMessages(prev => ({ ...prev, [name]: `請輸入` }));
-            return; // 直接返回，不更新 formData
-        } else {
-            setErrorMessages(prev => ({ ...prev, [name]: "" })); // 清除錯誤信息
-        }
+
         if (name === "dessertTypeId") {
             setFormData(prev => ({
                 ...prev,
@@ -154,11 +151,9 @@ const ScheduleModalItems = (locationPath, item = null) => {
                 },
             }));
         }
+
         if (name === "templateId") {
-            if (value === "") {
-                resetForm();
-                return; // 提前返回，避免更新其他字段
-            } else {
+            if (value != "") {
                 const selectedTemplate = getTemplateDataFromServer.find(template => template.TemplateID === Number(value));
                 if (selectedTemplate) {
                     setFormData(prev => ({
@@ -188,35 +183,17 @@ const ScheduleModalItems = (locationPath, item = null) => {
             }));
             return; // 提前返回以避免更新其他字段
         }
-        setFormData(prev => ({ ...prev, [name]: value }));
+        setFormData(prev => ({
+            ...prev,
+            [name]: value,
+            relatedDetailItem: {
+                ...prev.relatedDetailItem,
+                [name]: value,
+            },
+        }));
     };
     // -- onchange /*
 
-    // const handleTemplateChange = (event) => {
-    //     const selectedTemplateID = Number(event.target.value);
-    //     const selectedTemplate = getTemplateDataFromServer.find(template => template.TemplateID === selectedTemplateID);
-
-    //     if (selectedTemplate) {
-    //         setFormData(prev => ({
-    //             ...prev,
-    //             templateId: selectedTemplate.TemplateID,
-    //             routeId: item ? item.RouteID : "",
-    //             route: `${selectedTemplate.StopStartName} 到 ${selectedTemplate.StopEndName}`,
-    //             dessertTypeId: selectedTemplate.DessertTypeID,
-    //             templateDescription: selectedTemplate.templateDescription,
-    //             relatedDetailItem: {
-    //                 dessertTypeId: selectedTemplate.DessertTypeID,
-    //                 dessertTitle: selectedTemplate.DessertTitle,
-    //                 menuFirstID: selectedTemplate.MenuFirstID,
-    //                 menuFirstName: selectedTemplate.MenuFirstName,
-    //                 menuSecondID: selectedTemplate.MenuSecondID,
-    //                 menuSecondName: selectedTemplate.MenuSecondName,
-    //             },
-    //         }));
-    //     } else {
-    //         resetForm();
-    //     }
-    // };
     const resetForm = () => {
         setFormData(initialState); // 使用初始狀態重置表單
         setErrorMessages({}); // 清除任何錯誤信息
@@ -231,6 +208,7 @@ const ScheduleModalItems = (locationPath, item = null) => {
                     <DataFetcherDesserType setDataFromServer={setGetDessertTypeDataFromServer} />
                     <DataFetcherTemplate setDataFromServer={setGetTemplateDataFromServer} />
                     <DataDepartureTime setDataFromServer={setGetDepartureTimeDataFromServer} />
+                    <DataFetcherRoute setDataFromServer={setGetRouteDataFromServer} />
                     {formData.scheduleId != "" ? (
                         <span className="font-bold">{formData.scheduleId}</span>
                     ) : (
@@ -249,8 +227,8 @@ const ScheduleModalItems = (locationPath, item = null) => {
                         onChange={handleChange}>
                         <option value="">沒有合適的模板？新建一個！</option>
                         {getTemplateDataFromServer.map(data => (
-                            <option value={data.TemplateID} key={data.TemplateID}>
-                                {data.TemplateID}：{data.DessertTitle}
+                            <option value={data.TemplateID} key={'template' + data.TemplateID}>
+                                {data.StopStartName}到{data.StopEndName}：{data.DessertTitle.substring(0, 2)}
                             </option>
                         ))}
                     </select>
@@ -263,24 +241,26 @@ const ScheduleModalItems = (locationPath, item = null) => {
             content: () => (
                 <>
                     <select className="font-bodyFont font-bold bg-transparent"
-                        name="route"
+                        name="routeId"
                         value={formData.routeId}
                         onChange={handleChange}
                         disabled={!!formData.templateId} // 如果有模板ID則禁用
                     >
                         {
                             formData.templateId ? (
-                                <option value={formData.routeId} key={formData.routeId}>
+                                <option value={formData.routeId} >
                                     {formData.route}
                                 </option>
                             ) : (
                                 <>
                                     <option>請選擇路線</option>
-                                    {getTemplateDataFromServer.map(data => (
-                                        <option value={data.RouteID} key={data.RouteID}>
-                                            {data.TemplateDescription.substring(0, 5)}
-                                        </option>
-                                    ))}
+                                    {
+                                        getRouteDataFromServer.map((data, index) => (
+                                            <option value={data.RouteID} key={'routeID' + index}>
+                                                {data.StopStartName} 到 {data.StopEndName}
+                                            </option>
+
+                                        ))}
                                 </>
                             )
                         }
@@ -300,14 +280,14 @@ const ScheduleModalItems = (locationPath, item = null) => {
                 >
                     {
                         formData.templateId ? (
-                            <option value={formData.dessertTypeId} key={formData.dessertTypeId}>
+                            <option value={formData.dessertTypeId} >
                                 {formData.relatedDetailItem.dessertTitle}
                             </option>
                         ) : (
                             <>
                                 <option>請選擇甜點風格</option>
                                 {getDessertTypeDataFromServer.map(data => (
-                                    <option value={data.DessertTypeID} key={data.DessertTypeID}>
+                                    <option value={data.DessertTypeID} key={'dessetType' + data.DessertTypeID}>
                                         {data.DessertTitle}
                                     </option>
                                 ))}
@@ -321,7 +301,7 @@ const ScheduleModalItems = (locationPath, item = null) => {
             content: () => (
                 <>
                     <select className="font-bodyFont bg-transparent"
-                        name="selectedMeal1"
+                        name="menuFirstID"
                         value={formData.menuFirstID}
                         onChange={handleChange}
                         disabled={!!formData.templateId} // 如果有模板ID則禁用
@@ -332,7 +312,7 @@ const ScheduleModalItems = (locationPath, item = null) => {
                             <>
                                 <option>請選擇餐點</option>
                                 {filteredMenu1.map(item => (
-                                    <option value={item.MealID} key={item.MealID}>
+                                    <option value={item.MealID} key={'meal1' + item.MealID}>
                                         {item.MealName}
                                     </option>
                                 ))}
@@ -341,8 +321,8 @@ const ScheduleModalItems = (locationPath, item = null) => {
                     </select>
                     <br />
                     <select className="font-bodyFont bg-transparent"
-                        name="selectedMeal2"
-                        value={formData.selectedMeal2}
+                        name="menuSecondID"
+                        value={formData.menuSecondID}
                         onChange={handleChange}
                         disabled={!!formData.templateId} // 如果有模板ID則禁用
                     >
@@ -352,7 +332,7 @@ const ScheduleModalItems = (locationPath, item = null) => {
                             <>
                                 <option value="">請選擇餐點</option>
                                 {filteredMenu2.map(item => (
-                                    <option value={item.MealID} key={item.MealID}>
+                                    <option value={item.MealID} key={'meal2' + item.MealID}>
                                         {item.MealName}
                                     </option>
                                 ))}
@@ -383,7 +363,7 @@ const ScheduleModalItems = (locationPath, item = null) => {
                 >
                     <option value="">請選擇出發時間</option>
                     {getDepartureTimeDataFromServer.map(time => (
-                        <option value={time.DepartureTimeID} key={time.DepartureTimeID}>
+                        <option value={time.DepartureTimeID} key={'departuretime' + time.DepartureTimeID}>
                             {time.DepartureTime}
                         </option>
                     ))}
@@ -465,11 +445,11 @@ const RouteModalItems = (locationPath, item = null) => {
             return;
         }
 
-        if (name === 'selectedStop1Id' && value === formData.selectedStop2Id) {
-            setFormData(prev => ({ ...prev, selectedStop2Id: '' }));
+        if (name === 'stopStartId' && value === formData.stopEndId) {
+            setFormData(prev => ({ ...prev, stopEndId: '' }));
         }
-        if (name === 'selectedStop2Id' && value === formData.selectedStop1Id) {
-            setFormData(prev => ({ ...prev, selectedStop1Id: '' }));
+        if (name === 'stopEndId' && value === formData.stopStartId) {
+            setFormData(prev => ({ ...prev, stopStartId: '' }));
         }
 
         setFormData(prev => ({
@@ -504,7 +484,7 @@ const RouteModalItems = (locationPath, item = null) => {
                             <>
                                 <option value="" disabled hidden>選擇站點</option>
                                 {getStopsDataFromServer.map((data) => (
-                                    <option key={data.StopID} value={data.StopID}>
+                                    <option key={'stopStart' + data.StopID} value={data.StopID}>
                                         {data.StopName}
                                     </option>
                                 ))}
@@ -523,7 +503,7 @@ const RouteModalItems = (locationPath, item = null) => {
                             <>
                                 <option value="" disabled hidden>選擇站點</option>
                                 {getStopsDataFromServer.map((data) => (
-                                    <option key={data.StopID} value={data.StopID}>
+                                    <option key={'stopEnd' + data.StopID} value={data.StopID}>
                                         {data.StopName}
                                     </option>
                                 ))}
@@ -543,6 +523,8 @@ const RouteModalItems = (locationPath, item = null) => {
                     defaultValue={formData.duration || ""}
                     onChange={handleChange}
                     readOnly={!!formData.routeId} // 雙重否定
+                    min="1"
+                    max="600"
                 />
             ),
         },
@@ -678,7 +660,7 @@ const MealModalItems = (locationPath, item = null) => {
                     onChange={handleChange}>
                     <option value="" disabled hidden>選擇甜點風格</option>
                     {getDessertTypeDataFromServer.map((data) => (
-                        <option key={data.DessertTypeID} value={data.DessertTypeID}>
+                        <option key={'dessert' + data.DessertTypeID} value={data.DessertTypeID}>
                             {data.DessertTitle}
                         </option>
                     ))}
@@ -749,12 +731,13 @@ const ModalOverLay = (props) => {
     const handleSubmitClick = async () => {
         if (handleSubmit) {
             try {
-                await handleSubmit(formData);  // 等待异步操作完成
-                if (props.onClose) {
-                    props.onClose();  // 提交成功后关闭 Modal
-                }
+                await handleSubmit(formData);
             } catch (error) {
-                console.error("提交失败", error);  // 错误处理
+                console.error("提交失敗", error);
+            } finally {
+                // if (props.onClose) {
+                //     props.onClose();
+                // }
             }
         }
     };
@@ -792,7 +775,7 @@ const ModalOverLay = (props) => {
                 </CardHeader>
                 <CardBody className="bg-dark text-lightbrown pr-10">
                     {modalItems.map((elem, index) => (
-                        <div key={index} className="
+                        <div key={'modalItem' + index} className="
                         py-1 
                         grid grid-cols-2 gap-4 items-center">
                             <div className="text-right">

@@ -9,7 +9,7 @@ export const getQAS = async () => {
   U.UserMail,
   Q.Type,
   Q.Content,
-  Q.Time,
+  Q.QuestionTime,
   Q.Reply
   FROM qas Q
   JOIN users U ON U.UserID = Q.UserID

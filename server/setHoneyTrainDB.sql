@@ -1,6 +1,6 @@
-create DATABASE  HoneyTrainDB default character set utf8mb4;
+create DATABASE  HoneyTrainDB2 default character set utf8mb4;
 
-use HoneyTrainDB;
+use HoneyTrainDB2;
 
 DROP TABLE IF EXISTS `CARRIAGES`;
 CREATE TABLE `CARRIAGES` (
@@ -47,10 +47,11 @@ CREATE TABLE `USERS` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 INSERT INTO `USERS` (`UserName`, `UserPhone`, `UserMail`,  `Password`,  `Sex`, `Birth`, `RegistrationTime`) VALUES
+("Amy", "0912345678", "amy@gmail.com", "user1", "F", "2000-11-13", "2024-11-13"),
 ("yeejun", "0903678922", "admin@gmail.com", "admin", "F", "1999-04-01", "2024-10-17"),
-("shaoching", "0994785983", "user1@gmail.com", "user1", "F", "1997-02-22", "2024-10-17"),
-("hsinghui", "0987364923", "user2@gmail.com", "user2", "F", "1999-07-09", "2024-10-17"),
-("hongyu", "0976938475", "user3@gmail.com", "user3", "M", "2005-01-14", "2024-10-17");
+("shaoching", "0994785983", "user1@gmail.com", "user2", "F", "1997-02-22", "2024-10-17"),
+("hsinghui", "0987364923", "user2@gmail.com", "user3", "F", "1999-07-09", "2024-10-17"),
+("hongyu", "0976938475", "user3@gmail.com", "user4", "M", "2005-01-14", "2024-10-17");
 
 DROP TABLE IF EXISTS `DESSERTS`;
 CREATE TABLE `DESSERTS` (
@@ -166,47 +167,47 @@ CREATE TABLE `MEALS` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 INSERT INTO `MEALS` (`DessertTypeID`, `MealName`, `MealImagePath`, `MealContent`, `MealDescription`) VALUES
-(1, "舒芙蕾佐時令水果", "/src/assets/images/dessert/dessert_newDessert.jpg", "舒芙蕾, 時令水果, 日本綠茶"," 舒芙蕾：<br>
+(1, "舒芙蕾佐時令水果", "/src/assets/images/dessert/dessert_newDessert.jpg", "舒芙蕾, 時令水果, 日本綠茶"," 舒芙蕾：
                         由新鮮的雞蛋和高品質的牛奶製成，外層金黃酥脆，內裡則柔軟綿密。
-                        <br>配料選擇：<br>
+                        配料選擇：
                         我們提供多種配料選擇，包括香滑的鮮奶油、時令水果   （如草莓、藍莓）、以及自製的焦糖醬或抹茶醬，讓您根據個人口味自由搭配，增添風味。
-                        <br>飲品搭配：<br>
+                        飲品搭配：
                         精選香醇的日式綠茶，與舒芙蕾相輔相成。"),
-(1, "日式和菓子佐綠茶羊羹", "/src/assets/images/dessert/tripInfo_Jp02.png", "日式和菓子, 綠茶羊羹, 靜岡抹茶","日式菓子：<br>
+(1, "日式和菓子佐綠茶羊羹", "/src/assets/images/dessert/tripInfo_Jp02.png", "日式和菓子, 綠茶羊羹, 靜岡抹茶","日式菓子：
                         和菓子：選用當季新鮮食材，製作出色彩繽紛的和菓子，像是細膩的麻糬、香甜的紅豆糕和繽紛的水果羊羹，無論是口感還是外觀都讓人驚喜。
-                        <br>靜岡抹茶：<br>
+                        靜岡抹茶：
             提供選自日本優質茶園，茶香濃郁，口感清新，完美搭配各式和菓子。"),
-(2, "麻薏蛋糕佐焦糖鳳梨", "/src/assets/images/dessert/tripInfo_Tw01.png", "麻薏蛋糕, 炙烤焦糖鳳梨, 高山茶","麻薏蛋糕：<br/>
+(2, "麻薏蛋糕佐焦糖鳳梨", "/src/assets/images/dessert/tripInfo_Tw01.png", "麻薏蛋糕, 炙烤焦糖鳳梨, 高山茶","麻薏蛋糕：
                         這款麻薏蛋糕以香濃的麻薏為主料，口感綿密，帶有淡淡的堅果香氣，搭配細緻的奶油霜，讓人一口接一口，回味無窮。
-                        <br/><br/>
-                        炙烤焦糖鳳梨：<br/>
+                        
+                        炙烤焦糖鳳梨：
                         我們的炙烤焦糖鳳梨採用新鮮的鳳梨，經過炙烤後，散發出誘人的焦香與甜味，外脆內嫩，是完美的甜點搭配。
-                        <br/><br/>
-                        高山茶：<br/>
+                        
+                        高山茶：
                         選用來自高山的優質茶葉，泡出清新的茶湯，香氣撲鼻，帶有淡淡的甘甜，完美平衡了甜點的濃郁風味，讓你享受每一口的美好時光。"),
-(2, "地瓜涼菓佐高山茶糕", "/src/assets/images/dessert/tripInfo_Tw04.png", "地瓜涼菓, 高山茶糕, 凍頂烏龍茶","地瓜涼菓：<br/>
+(2, "地瓜涼菓佐高山茶糕", "/src/assets/images/dessert/tripInfo_Tw04.png", "地瓜涼菓, 高山茶糕, 凍頂烏龍茶","地瓜涼菓：
                         這款地瓜涼菓採用新鮮地瓜製作，口感滑順，甜而不膩，搭配天然的椰漿，清爽可口，是夏日消暑的最佳選擇。
-                        <br/><br/>
-                        高山茶糕：<br/>
+                        
+                        高山茶糕：
                         高山茶糕融合了優質高山茶的清香，質地柔軟且富有彈性，每一口都散發著茶葉的獨特風味，讓你在甜點中感受到自然的滋味。
-                        <br/><br/>
-                        凍頂烏龍茶：<br/>
+                        
+                        凍頂烏龍茶：
                         選用凍頂烏龍茶，泡出醇厚的茶湯，帶有淡雅的花香與清新的甘味，與各式甜點相得益彰，讓你在享受美味的同時，感受到茶的悠然魅力。"),
-(3, "蒙布朗佐馬卡龍", "/src/assets/images/dessert/trip_Eur.png", "蒙布朗, 馬卡龍, 卡布奇諾","蒙布朗：<br />
+(3, "蒙布朗佐馬卡龍", "/src/assets/images/dessert/trip_Eur.png", "蒙布朗, 馬卡龍, 卡布奇諾","蒙布朗：
                         這款蒙布朗甜點以細膩的栗子餡為主角，搭配香滑的奶油霜，外層包裹著輕盈的蛋糕，展現出豐富的層次感，每一口都充滿秋天的暖意。
-                        <br /><br />
-                        馬卡龍：<br />
+                        
+                        馬卡龍：
                         我們的馬卡龍外脆內軟，選用新鮮食材製作，口味多樣，從經典的香草到濃郁的巧克力，無論是哪一種，都帶來絕妙的甜蜜享受。
-                        <br /><br />
+                        
                         卡布奇諾：
                         這杯卡布奇諾由濃郁的咖啡和綿密的奶泡完美結合，散發著香醇的咖啡香氣，微微的苦味與奶香交融，為甜點時光增添一抹溫暖與愉悅。"),
-(3, "草莓塔佐馬卡龍", "/src/assets/images/dessert/tripInfo_Eur04.png", "草莓塔, 馬卡龍, 精品拿鐵","草莓塔：<br />
+(3, "草莓塔佐馬卡龍", "/src/assets/images/dessert/tripInfo_Eur04.png", "草莓塔, 馬卡龍, 精品拿鐵","草莓塔：
                         這款草莓塔以新鮮草莓為主料，搭配細緻的酥皮與香滑的奶油餡，酸甜的滋味讓每一口都充滿春天的清新氣息，是甜點中的經典之作。
-                        <br /><br />
-                        馬卡龍：<br />
+                        
+                        馬卡龍：
                         我們的馬卡龍色彩繽紛，外脆內軟，口味多樣，從經典的香草、鮮果到濃郁的巧克力，每一口都是甜蜜的驚喜，讓你欲罷不能。
-                        <br /><br />
-                        精品拿鐵：<br />
+                        
+                        精品拿鐵：
                         這杯精品拿鐵由優質咖啡豆精心萃取而成，香濃的咖啡與綿密的奶泡完美結合，微微的甜味與濃郁的香氣，為你的甜點時光增添無限魅力。");
 
 
@@ -218,13 +219,14 @@ CREATE TABLE `QAs` (
     `Type` VARCHAR(40) NOT NULL,
     `Content` VARCHAR(500) NOT NULL,
     `Reply` VARCHAR(10) NOT NULL,
+    `QuestionTime` DATE NOT NULL,
     FOREIGN KEY (UserID) REFERENCES USERS (UserID)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
-INSERT INTO `QAs` (`UserID`, `Type`, `Content`, `Reply`) VALUES
-(1, "訂單/取消", "我有個問題A", "N"),
-(1, "付款/退款", "我有個問題B", "N"),
-(1, "車廂/設備", "我有個問題C", "Y");
+INSERT INTO `QAs` (`UserID`, `Type`, `Content`, `Reply`, `QuestionTime`) VALUES
+(1, "訂單/取消", "我有個問題A", "N", "2024-11-06"),
+(1, "付款/退款", "我有個問題B", "N", "2024-11-06"),
+(1, "車廂/設備", "我有個問題C", "Y", "2024-11-06");
 
 DROP TABLE IF EXISTS `TEMPLATES`;
 CREATE TABLE `TEMPLATES` (
@@ -279,7 +281,7 @@ INSERT INTO `SCHEDULES` (`TemplateID`, `DepartureDate`, `DepartureTimeID`) VALUE
 (1, "2025-11-12", 2),(1, "2025-11-12", 1),(2, "2025-11-12", 1),
 (1, "2025-11-12", 2),(2, "2025-11-12", 1),(3, "2025-11-13", 2),
 (4, "2025-11-13", 2),(5, "2025-11-13", 2),(6, "2025-11-13", 2),
-(4, "2025-11-13", 1),(3, "2025-11-13", 2);
+(4, "2025-11-13", 1),(3, "2025-11-13", 2),(2, "2024-12-31", 2);
 
 DROP TABLE IF EXISTS `ORDERS`;
 CREATE TABLE `ORDERS` (
@@ -308,4 +310,5 @@ CREATE TABLE `ORDERS` (
 INSERT INTO `ORDERS` (`UserID`, `BookerDetailID`, `ScheduleID`, `OrderTime`, `PaymentStatus`, `SeatID`, `PeopleNum`, `MealFirst`, `MealSecond`, `MealThird`, `MealFourth`) VALUES
 (1, 1, 1, "2024-09-05 20:01:00", "已付款", 8, 2, 2, 2, NULL ,NULL),
 (3, 2, 2, "2024-09-06 20:01:00", "已付款", 18, 4, 1, 1, 2, 2),
-(2, 3, 2, "2024-09-04 20:01:00", "已取消", 2, 1, 1, NULL, NULL, NULL);
+(2, 3, 2, "2024-09-04 20:01:00", "已取消", 2, 1, 1, NULL, NULL, NULL),
+(1, 1, 21, "2024-11-01 11:31:43", "已付款", 1, 2, 1, 2, NULL ,NULL);

@@ -1,5 +1,5 @@
 // components/home.jsx
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import axios from 'axios';
 import Navbar from '../../components/admin/navbar_admin.jsx';
 import { div } from 'framer-motion/m';
@@ -48,7 +48,7 @@ const filterCardName = [
 ]
 
 const columns = [
-    "ScheduleID",
+    "Index",
     "DepartureDate",
     "DepartureTime",
     "StopStartName",
@@ -56,7 +56,7 @@ const columns = [
     "DessertTitle",
     "Expired"];
 const columnNames = {
-    ScheduleID: "行程ID",
+    Index: "排序",
     StopStartName: "起點站",
     StopEndName: "終點站",
     DepartureDate: "出發日期",
@@ -79,6 +79,8 @@ const detailColumnNames =
 
 const AdminSchedule = () => {
 
+    const [loading, setLoading] = useState(false); // 用來控制請求過程中防止重複請求
+
     const [showModal, setShowModal] = useState(false);
 
     const clickShowModal = () => {
@@ -87,6 +89,8 @@ const AdminSchedule = () => {
 
     const [getScheduleDataFromServer, setGetScheduleDataFromServer] = useState([]) // 儲存API資料用
     const [getMenuDataFromServer, setGetMenuDataFromServer] = useState([]) // 儲存API資料用
+    const [dataTrigger, setDataTrigger] = useState([])
+
     const [selectedDate, setSelectedDate] = useState(""); // 選中的日期，用於顯示在 Input 框-------------
 
     const filteredData = selectedDate
@@ -108,70 +112,174 @@ const AdminSchedule = () => {
     };
 
     const handleSubmit = (modalData) => {
+        setDataTrigger(prev => !prev)
         console.log('modal拿到的數據', modalData);
-        if (modalData.scheduleId) {
-            api.put(`/updateSchedule/${modalData.scheduleId}`, {
-                TemplateID: modalData.templateId,
-                DepartureDate: modalData.departureDate,
-                DepartureTimeID: modalData.departureTimeId,
-            })
-                .then((response) => {
-                    // 更新数据
-                    setGetScheduleDataFromServer(prev =>
-                        prev.map(item =>
-                            item.scheduleId === modalData.scheduleId
-                                ? { ...item, ...modalData.data }
-                                : item
-                        )
-                    );
-                    setShowModal(false);
-                    alert("更新旅程成功!");
-                })
-                .catch((error) => {
-                    console.log(error);
-                });
-        } else {
-            // 没有 scheduleId，需要新建
-            api.post('/postSchedule', {
-                TemplateID: modalData.templateId,
-                DepartureDate: modalData.departureDate,
-                DepartureTimeID: modalData.departureTimeId,
-            })
-                .then((response) => {
-                    console.log('API 返回資料:', response.data);
-                    setGetScheduleDataFromServer(prev => [
-                        ...prev,
-                        {
-                            scheduleId: response.data.scheduleID,
-                            departureDate: modalData.departureDate,
-                            departureTime: modalData.departureTime,
-                            stopStartName: modalData.stopStartName,
-                            stopEndName: modalData.stopEndName,
-                            dessertTitle: modalData.dessertTitle,
-                            expired: "即將到來"
-                        }
-                    ]);
-                    alert("新增旅程成功!");
-                    setShowModal(false);
-                })
-                .catch((error) => {
-                    console.log(error);
-                });
+
+        // 檢查欄位填寫狀況
+        if (!modalData.routeId || !modalData.dessertTypeId || !modalData.departureDate || !modalData.departureTimeId) {
+            alert("請填寫所有必填欄位！");
+            return;  // 不繼續執行後面的程式碼
         }
+
+        // 檢查重複行程
+        const isDuplicate = getScheduleDataFromServer.some(item => {
+            if (modalData.templateId) {
+                return (
+                    String(item.DepartureDate) === String(modalData.departureDate) &&
+                    String(item.DepartureTime) === String(modalData.departureTime)
+                );
+            } else {
+                return (
+                    (String(item.RouteID) === String(modalData.routeId)
+                        && String(item.DessertTypeID) === String(modalData.dessertTypeId))
+                    ||
+                    (String(item.DepartureDate) === String(modalData.departureDate) &&
+                        String(item.DepartureTime) === String(modalData.departureTime))
+                );
+            }
+        });
+        console.log("檢查重複", isDuplicate);
+
+        if (isDuplicate) {
+            alert("該行程已經存在！");
+            return; // 如果資料重複，不執行 post 或 put 請求
+        }
+        else {
+            if (!modalData.templateId) {
+                // 第一次 post 請求，拿到 ID
+                console.log('modal拿到的數據', modalData);
+                api.post('/postTemplate', {
+                    DessertTypeID: modalData.relatedDetailItem.dessertTypeId,
+                    RouteID: modalData.routeId,
+                    MenuFirst: modalData.relatedDetailItem.menuFirstID,
+                    MenuSecond: modalData.relatedDetailItem.menuSecondID,
+                    TemplateDescription: `${modalData.StopStartName} 到 ${modalData.StopEndName}，${modalData.dessertTitle}`,
+                })
+                    .then((response) => {
+                        console.log('API 返回資料:', response.data.templateID);
+
+                        // 使用返回的 scheduleID，繼續發送第二個 post 請求
+                        api.post('/postSchedule', {
+                            TemplateID: response.data.templateID,  // 使用從第一個 API 拿到的 ID
+                            DepartureDate: modalData.departureDate,
+                            DepartureTimeID: modalData.departureTimeId,
+                        })
+                            .then((response) => {
+                                console.log('第二次 API 返回資料:', response.data);
+                                setGetScheduleDataFromServer(prev => [
+                                    ...prev,
+                                    {
+                                        ...modalData
+                                    }
+                                ]);
+                                alert("新增旅程成功!");
+                                setShowModal(false);
+                            })
+                            .catch((error) => {
+                                console.log('第二次 API 發生錯誤:', error);
+                            });
+                    })
+                    .catch((error) => {
+                        console.log('第一次 API 發生錯誤:', error);
+                    });
+            } else if (modalData.scheduleId) {
+                // 如果有 scheduleId，需要更新資料
+                api.put(`/updateSchedule/${modalData.scheduleId}`, {
+                    TemplateID: modalData.templateId,
+                    DepartureDate: modalData.departureDate,
+                    DepartureTimeID: modalData.departureTimeId,
+                })
+                    .then((response) => {
+                        setGetScheduleDataFromServer(prev =>
+                            prev.map(item =>
+                                item.scheduleId === modalData.scheduleId
+                                    ? { ...item, ...modalData }
+                                    : item
+                            )
+                        );
+                        setShowModal(false);
+                        alert("更新旅程成功!");
+                    })
+                    .catch((error) => {
+                        console.log('更新旅程發生錯誤:', error);
+                    });
+            } else {
+                api.post('/postSchedule', {
+                    TemplateID: modalData.templateId,  // 使用從第一個 API 拿到的 ID
+                    DepartureDate: modalData.departureDate,
+                    DepartureTimeID: modalData.departureTimeId,
+                })
+                    .then((response) => {
+                        console.log('返回資料:', response.data);
+                        setGetScheduleDataFromServer(prev => [
+                            ...prev,
+                            {
+                                ...modalData
+                            }
+                        ]);
+                        alert("新增旅程成功!");
+                        setShowModal(false);
+                    })
+                    .catch((error) => {
+                        console.log('新增旅程發生錯誤:', error);
+                    });
+            }
+        }
+
     };
 
-    useEffect(() => {
-        if (getScheduleDataFromServer.length > 0) {
-            console.log("有沒有正確存入資料", getScheduleDataFromServer);
+    const fetchSchedules = useCallback(async () => {
+        if (loading) return; // 如果正在加載，則不重複請求
+        setLoading(true); // 設置為加載中
+        try {
+            const response = await api.get('/getSchedules');
+            const sortedData = response.data.sort((a, b) => {
+                const dateA = new Date(a.DepartureDate.replace(/\//g, '-'));
+                const dateB = new Date(b.DepartureDate.replace(/\//g, '-'));
+                return dateA - dateB;
+            });
+            const myData = sortedData.map((item, index) => ({
+                ...item,
+                Index: index + 1,
+                Expired: item.Expired ? "已過期" : "即將到來",
+            }));
+            setGetScheduleDataFromServer(myData); // 更新 schedule 資料
+        } catch (error) {
+            console.error('Failed to get schedule data:', error);
+        } finally {
+            setLoading(false); // 請求完成後重設 loading
         }
-        setGetScheduleDataFromServer(getScheduleDataFromServer)
-    }, [getScheduleDataFromServer]);
+    }, [loading]); // 不再依賴於其他 state
 
+    const fetchMenu = useCallback(async () => {
+        if (loading) return; // 如果正在加載，則不重複請求
+        setLoading(true); // 設置為加載中
+        try {
+            const response = await api.get('/getTemplates');
+            setGetMenuDataFromServer(response.data); // 更新 menu 資料
+        } catch (error) {
+            console.error('Failed to get menu data:', error);
+        } finally {
+            setLoading(false); // 請求完成後重設 loading
+        }
+    }, [loading]); // 不再依賴於其他 state
+
+    useEffect(() => {
+        console.log("useEffect triggered123");
+        // 在 component mount 時加載資料
+        fetchSchedules();
+        fetchMenu();
+    }, []);
+    useEffect(() => {
+        if (dataTrigger) {
+            fetchSchedules(); // 重新拉取 schedules 資料
+            setDataTrigger(false); // 重置 trigger 狀態
+        }
+    }, [dataTrigger]);
+    
     const filteredDataMemo = useMemo(() => {
-        return selectedDate
-            ? getScheduleDataFromServer.filter(item => item.DepartureDate === selectedDate)
-            : getScheduleDataFromServer;
-    }, [getScheduleDataFromServer, selectedDate]);
+        return getScheduleDataFromServer;
+    }, [getScheduleDataFromServer]);
 
     return (
         <div className="flex flex-row h-screen">
@@ -200,8 +308,14 @@ const AdminSchedule = () => {
                             onClick={btnFilterClick}
                         />
                     </div>
-                    <DataFetcherSchedule setDataFromServer={setGetScheduleDataFromServer} />
-                    <DataFetcherMenu setDataFromServer={setGetMenuDataFromServer} />
+                    {/* <DataFetcherSchedule
+                        setDataFromServer={setGetScheduleDataFromServer}
+                        setDataTrigger={setDataTrigger}
+                    />
+                    <DataFetcherMenu
+                        setDataFromServer={setGetMenuDataFromServer}
+                        setDataTrigger={setDataTrigger}
+                    /> */}
                     <TableDefault
                         columns={columns}
                         columnNames={columnNames}

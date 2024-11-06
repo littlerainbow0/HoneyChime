@@ -1,5 +1,7 @@
 // components/home.jsx
-import React, { useState } from 'react'; // 引入 useState
+import React, { useState, useEffect } from 'react'; // 引入 useState
+import api from '../../api.jsx';
+
 import Navbar from '../../components/admin/navbar_admin.jsx';
 import TableDefault from '../../components/admin/table_default.jsx'; // 確保導入的是正確的路徑
 import RouteName from '../../components/admin/routeName.jsx'
@@ -63,14 +65,7 @@ const detailColumns = [
 const detailColumnNames = {
 }
 
-const handleSubmit = (modalData) => {
-    console.log('modal拿到的數據', modalData);
-
-    // let modalDataToTemplate
-
-};
-
-const AdminTemplate = () => {
+const AdminRoute = () => {
     const [showModal, setShowModal] = useState(false);
 
     const clickShowModal = () => {
@@ -78,10 +73,60 @@ const AdminTemplate = () => {
     };
 
     const [routeDataFromServer, setRouteDataFromServer] = useState([]) // 儲存API資料用
+    const [routeDataTrigger, setRouteDataTrigger] = useState(false); // 用來觸發資料重載
 
-    const handleSubmit = (modalData) => {
+    const handleSubmit = (modalData, setErrorMessages) => {
         console.log('modal拿到的數據', modalData);
+
+        if (!modalData.stopStartId || !modalData.stopEndId ||
+            !modalData.routeImagePath || !modalData.duration ||
+            !modalData.description || !modalData.landScapeImage1 ||
+            !modalData.landScapeImage2 || !modalData.landScapeImage3 ||
+            !modalData.landScapeDescription
+        ) {
+            alert("請填寫所有必填欄位！");
+            return;  // 不繼續執行後面的程式碼
+        }
+
+        const isDuplicate = routeDataFromServer.some(item =>
+        (
+            String(item.StopStartID) === String(modalData.stopStartId) && String(item.StopEndID) === String(modalData.stopEndId)
+        )
+        );
+
+        if (isDuplicate === true) {
+            alert('此路線已存在，請重新選擇路線')
+        } else {
+            api.post(`/postRoute`, {
+                StopStart: modalData.stopStartId,
+                StopEnd: modalData.stopEndId,
+                RouteImagePath: modalData.routeImagePath,
+                Duration: modalData.duration,
+                Description: modalData.description,
+                LandScapeImage1: modalData.landScapeImage1,
+                LandScapeImage2: modalData.landScapeImage2,
+                LandScapeImage3: modalData.landScapeImage3,
+                LandScapeDescription: modalData.landScapeDescription,
+            })
+                .then((response) => {
+                    const newRouteData = response.data;
+                    setRouteDataFromServer(prev => [...prev, newRouteData]);
+                    setRouteDataTrigger(prev => !prev);  // 触发重新加载数据
+                    setShowModal(false);
+                    alert("新增路線成功!");
+                })
+                .catch((error) => {
+                    console.log('新增路線發生錯誤:', error);
+                });
+        }
     };
+
+    useEffect(() => {
+        if (routeDataFromServer.length > 0) {
+            console.log("有沒有正確存入資料", routeDataFromServer);
+        }
+        setRouteDataFromServer(routeDataFromServer)
+    }, [routeDataFromServer]);
 
     return (
         <div className="flex flex-row">
@@ -95,14 +140,16 @@ const AdminTemplate = () => {
                     <div className='justify-between'>
                         <BtnLightBrown btnText={
                             <>
-                            <RiAddLargeFill />新增路線
+                                <RiAddLargeFill />新增路線
                             </>
                         } onClick={clickShowModal} />
-                        {showModal && 
-                        <Modal onClose={clickShowModal}
-                        handleSubmit={handleSubmit} />} {/* 传递 onClose 函数 */}
+                        {showModal &&
+                            <Modal onClose={clickShowModal}
+                                handleSubmit={handleSubmit} />} {/* 传递 onClose 函数 */}
                     </div>
-                    <DataFetcherRoute setDataFromServer={setRouteDataFromServer} />
+                    <DataFetcherRoute
+                        setDataFromServer={setRouteDataFromServer}
+                        setDataTrigger={setRouteDataTrigger} />
                     <TableDefault
                         columns={columns}
                         columnNames={columnNames}
@@ -117,4 +164,4 @@ const AdminTemplate = () => {
     );
 };
 
-export default AdminTemplate;
+export default AdminRoute;

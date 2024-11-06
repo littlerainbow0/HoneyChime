@@ -11,6 +11,9 @@ const DataFetcher = ({ setDataFromServer }) => {
     const fetchData = async () => {
       try {
         const response = await api.get('/getOrders');
+        console.log("orderData",response.data);
+        response.data.sort((a,b)=> a.OrderID - b.OrderID)
+        
         setDataFromServer(response.data);
 
       } catch (error) {

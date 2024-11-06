@@ -28,6 +28,7 @@ const filterCardName = [
 
 const columns = [
     "OrderID",
+    "UserID",
     "DepartureDate",
     "DepartureTime",
     "StopStartName",
@@ -41,6 +42,7 @@ const columns = [
 ]
 const columnNames = {
     OrderID: "訂單ID",
+    UserID:"會員ID",
     DepartureDate: "發車日期",
     DepartureTime: "發車時間",
     StopStartName: "起點站",
@@ -81,6 +83,8 @@ const AdminTemplate = () => {
     const filteredData = selectedDate
         ? getOrderDataFromServer.filter(item => item.DepartureDate === selectedDate)
         : getOrderDataFromServer;
+        console.log(getOrderDataFromServer);
+        
 
     return (
         <div className="flex flex-row">
