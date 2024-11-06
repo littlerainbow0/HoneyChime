@@ -51,8 +51,8 @@ const HomeIntroduce=()=>{
                     <p className="items-center px-16 font-normal text-p-1 text-indent-1 font-bodyFont fade-in-section md:px-28 lg:px-48 xl:px-72">
                         甜點列車的概念 將「蜂鳴」與「蜂巢」聯結在一起，表達了整個品牌從開始的「鳴響」（旅程的啟動），到結尾的「甜蜜享受」（回到蜂巢的甜點聚會）的完整體驗。每一程都像蜜蜂般專注、忙碌，最終為顧客呈現無與倫比的甜點品味。
                     </p>
-                    <div className="items-center h-screen px-20 my-32 overflow-y-scroll md:px-28 lg:px-48 xl:px-72 snap-y snap-mandatory">
-                        <section className="flex items-center justify-center h-screen transition-opacity duration-1000 transform translate-y-10 opacity-0 snap-start hover:opacity-100 hover:translate-y-0">
+                    <div className="items-center h-screen px-20 my-32  md:px-28 lg:px-48 xl:px-72 snap-y snap-mandatory">
+                        <section className="flex items-center justify-center h-screen transition-opacity duration-1000 transform translate-y-10 opacity-0 snap-start hover:opacity-100">
                             <HoneyChimeLogo color='white'className='w-full'/>
                         </section>
                     </div>

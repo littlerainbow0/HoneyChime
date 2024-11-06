@@ -2,7 +2,6 @@ import '../cssReset.css';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { useState } from 'react'
 import React from 'react';
-import './App.css'
 import './assets/css/style.css'
 import './all.css'
 

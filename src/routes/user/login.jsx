@@ -34,9 +34,9 @@ const Login = () => {
     //     // 檢查用戶是否已經登入
     //     axios.get('http://localhost:8000/checklogin', { withCredentials: true })
     //         .then(response => {
-    //             if (response.data.islogin) {
+    //             if (response.data.isLogin) {
     //                 // 如果已經登入，跳轉到首頁
-    //                 navigate("/contact");
+    //                 navigate("/");
     //             }
     //         })
     //         .catch(error => {
@@ -73,7 +73,7 @@ const Login = () => {
                 setMessage(response.data.message);
                 alert(response.data.message);
 
-                navigate("/");
+                // navigate("/");
             })
             .catch(error => {
                 if (error.response) {
@@ -126,7 +126,7 @@ const Login = () => {
                         handleSubmit: handleSubmit // 傳遞 handleSubmit
                     }}
                 />
-                {/* <button onClick={handleLogOut}>登出</button> */}
+                <button onClick={handleLogOut}>登出</button>
             </div>
         </div>
     );

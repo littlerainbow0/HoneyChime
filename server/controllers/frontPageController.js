@@ -4,9 +4,8 @@ import * as cardsModel from '../models/cardModel.js';  // 引入模型層
 // 取得所有news
 export const getAllNews = async (req, res) => {
     try {
-        const { results } = await newsModel.getAllNews();    
+        const { results } = await newsModel.getAllNews();
         // console.log(results);
-            
         res.json(results);  // 返回 JSON 格式的資料
     } catch (error) {
         console.error('取得news資料錯誤：', error);
@@ -29,6 +28,8 @@ export const getAllCards = async (req, res) => {
 export const postNews = async (req, res) => {
     const data = req.body;
     try {
+        if (data.Date == "" || data.Category == "" || data.Content == "")
+            return res.status(400).json({ message: '請輸入完整資料' });
         const result = await newsModel.postNews(data); // 插入資料
         res.status(201).json({ message: 'NEWS資料已成功新增', newsID: result.newsID });
     } catch (error) {

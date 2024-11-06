@@ -22,7 +22,7 @@ app.use(session({
     resave: false, //資料沒變動不重新保存
     saveUninitialized: true, // 沒有資料也會建立session
     cookie: {
-        maxAge: 10 * 60 * 1000, // 重新設置為 10 分鐘
+        maxAge: 10 * 60 * 100000, // 重新設置為 10 分鐘
         secure: false,// 為了在HTTP中測試而不是在HTTPS
         httpOnly: true
     },

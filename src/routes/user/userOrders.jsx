@@ -65,7 +65,7 @@ const data = [
     },
 ];
 
-console.log(typeof(data[0].userId)); 
+// console.log(typeof(data[0].userId)); 
 
 const AdminHome = () => {
     return (

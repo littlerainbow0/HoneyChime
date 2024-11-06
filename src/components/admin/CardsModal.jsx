@@ -26,7 +26,7 @@ const Modal2=({ isOpen , onClose , cards, onUpdate, setSelectedCards}) =>{  //5�
         const { name, value } = e.target;
         setSelectedCards({ ...cards, [name]: value }); // 更新選中的news資料---------------------------
     };
-    console.log('CardImage URL:', cards.CardImage);
+    // console.log('CardImage URL:', cards.CardImage);
 
     //createPortal重點
     return ReactDOM.createPortal(
