@@ -36,7 +36,7 @@ const Login = () => {
     //         .then(response => {
     //             if (response.data.isLogin) {
     //                 // 如果已經登入，跳轉到首頁
-    //                 navigate("/");
+    //                 navigate("/contact");
     //             }
     //         })
     //         .catch(error => {
@@ -73,7 +73,7 @@ const Login = () => {
                 setMessage(response.data.message);
                 alert(response.data.message);
 
-                // navigate("/");
+                navigate("/contact");
             })
             .catch(error => {
                 if (error.response) {
