@@ -11,7 +11,7 @@ import { Card, CardBody } from "@nextui-org/react";
 const AdminNews = () => {
     const [newsList, setNewsList] = useState([]);
     const [newNews, setNewNews] = useState({ Date: '', Category: '', Content: '', NewsID: '', });
-    const [selectedNews, setSelectedNews] = useState({ Date: '', Category: '', Content: '', });// 用來存當前選中的新聞----------------------------------
+    const [selectedNews, setSelectedNews] = useState({ Date: '', Category: '', Content: '', NewsID: '' });// 用來存當前選中的新聞----------------------------------
     const [cardsList, setCardsList] = useState([]);
     const [selectedCards, setSelectedCards] = useState({ CardImage: '', Title: '', Title2: '', Paragraph: '', });
 
@@ -19,10 +19,7 @@ const AdminNews = () => {
     const [isModalOpen, setModalOpen] = useState(false);
     const handleOpenModal = (news) => {
         setModalOpen(true);
-        // 處理日期顯示格式
-        const processedDate = processDate(news.Date);
-
-        setSelectedNews({ ...news, Date: processedDate }); // 將選中的新聞設置到狀態中
+        setSelectedNews(news); // 將選中的新聞設置到狀態中
     };
     const handleCloseModal = () => {
         setModalOpen(false);
@@ -42,65 +39,60 @@ const AdminNews = () => {
 
     //最新消息 從 API Get sql現有的資料
     useEffect(() => {
-        axios
-            .get('http://localhost:8000/getNews') // 調用後端的 GET API
-            .then(response => {
-                setNewsList(response.data);
-            })
-            .catch(error => console.error(error.response.data.message));
-    });
-
-    // 首頁消息（有圖）從 API Get sql現有的資料
-    useEffect(() => {
-        axios
-            .get('http://localhost:8000/getCards')
-            .then(response => {
-                //console.log('Fetched cards data:', response.data[0].CardImage); 
-                setCardsList(response.data);
-            })
-            .catch(error => console.error(error.response.data.message));
-    });
+        getNews();
+        getCards();
+    }, []);  // 只在組件首次加載時執行一次
 
     // 處理 MySQL 日期格式，轉換成 YYYY-MM-DD
-    const processDate = (dateString) => {
-        if (!dateString) return "";
-        return dateString.split("T")[0];  // 切掉 "T" 後面的部分
+    // const processDate = (dateString) => {
+    //     if (!dateString) return "";
+    //     return dateString.split("T")[0];  // 切掉 "T" 後面的部分
+    // };
+
+    //更新畫面
+    const getNews = () => {
+        axios.get('http://localhost:8000/getNews', { withCredentials: true })
+            .then((response) => {
+                setNewsList(response.data);  // 更新新聞列表
+            }).catch((error) => {
+                console.error(error.response.data.message);  // 顯示錯誤信息
+            });
+    };
+
+    const getCards = () => {
+        axios.get('http://localhost:8000/getCards', { withCredentials: true })
+            .then((response) => {
+                setCardsList(response.data); // 更新卡片
+            }).catch((error) => {
+                console.error(error.response.data.message);  // 顯示錯誤信息
+            });
     };
 
     // 新增消息
     const addNews = () => {
-
-        axios
-            .post('http://localhost:8000/postNews', newNews, {
-                withCredentials: true // 如果需要攜帶 session前後端都要加
-            }) // 調用後端的 POST API
+        axios.post('http://localhost:8000/postNews', newNews, {
+            withCredentials: true // 如果需要攜帶 session前後端都要加
+        }) // 調用後端的 POST API
             .then((response) => {
                 setNewNews({ Date: '', Category: '', Content: '' }); // 清空表單
-            })
-            .catch((error) => console.error(error.response.data.message));
+                getNews();
+            }).catch((error) =>
+                console.error(error.response.data.message));
     };
 
-
-
     // 更新消息
-    const updateNews = (newsID) => {
-        const processedDate = processDate(newNews.Date); // 處理日期
-
-        const updatedNews = {
-            ...newNews,
-            Date: processedDate // 保存處理過的日期
-        };
-        axios
-            .put(`http://localhost:8000/updateNews/${selectedNews.NewsID}`, selectedNews, {
-                withCredentials: true // 如果需要攜帶 session前後端都要加
-            }) // 調用後端的 put API－－－－－－－－－－－－－－－－－－－－－－
-            .then(() => {
+    const updateNews = () => {
+        axios.put(`http://localhost:8000/updateNews/${selectedNews.NewsID}`, selectedNews, {
+            withCredentials: true // 如果需要攜帶 session前後端都要加
+        }) // 調用後端的 put API－－－－－－－－－－－－－－－－－－－－－－
+            .then((response) => {
                 alert('更新成功')
                 //＋刷新畫面
+                getNews();
                 setSelectedNews(null);
                 setModalOpen(false);  // 成功後關閉 Modal
-            })
-            .catch((error) => console.error(error.response.data.message));
+            }).catch((error) =>
+                console.error(error.response.data.message));
     };
 
     //更新首頁消息（有圖）
@@ -109,15 +101,14 @@ const AdminNews = () => {
             {
                 withCredentials: true // 如果需要攜帶 session前後端都要加
             }
-        )
-            .then((response) => {
-                console.log('PUT response:', response.data);
-                alert('更新成功')//＋刷新畫面
-                setSelectedCards(null); //重置選中的新聞
-                setModal2Open(false);
-            })
-            .catch((error) => console.error(error.response.data.message));
-
+        ).then((response) => {
+            console.log('PUT response:', response.data);
+            alert('更新成功')//＋刷新畫面
+            getCards();
+            setSelectedCards(null); //重置選中的新聞
+            setModal2Open(false);
+        }).catch((error) =>
+            console.error(error.response.data.message));
     }
 
     return (
@@ -164,7 +155,7 @@ const AdminNews = () => {
                 <div className=" overflow-y-auto max-h-[500px]">
                     {/* 列出首頁最新消息表單 */}
                     <div className='flex flex-wrap justify-center gap-4'>
-                        {Array.isArray(cardsList) && cardsList.slice().map((cards ,index) => (
+                        {Array.isArray(cardsList) && cardsList.slice().map((cards, index) => (
                             <div key={index} className=' bg-lightyellow rounded-xl' style={{ flex: "1 1 calc(33% - 1rem)", minWidth: "150px", maxWidth: "200px" }}>
                                 <Card variant="bordered" css={{ padding: "1rem" }}>
                                     <CardBody css={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: '1rem' }}>
@@ -181,7 +172,7 @@ const AdminNews = () => {
 
                     {/* 列出最新消息表單 */}
                     <div style={{ display: "flex", flexWrap: "wrap", gap: "1rem", justifyContent: "center" }}>
-                        {Array.isArray(newsList) && newsList.slice().reverse().map((news , index) => (
+                        {Array.isArray(newsList) && newsList.slice().reverse().map((news, index) => (
                             <div key={index} className=' bg-lightbrown rounded-xl' style={{ flex: "1 1 calc(33% - 1rem)", minWidth: "150px", maxWidth: "200px" }}>
                                 <Card variant="bordered" css={{ padding: "1rem" }}>
                                     <CardBody css={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: '1rem' }}>
