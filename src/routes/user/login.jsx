@@ -73,7 +73,7 @@ const Login = () => {
                 setMessage(response.data.message);
                 alert(response.data.message);
 
-                navigate("/contact");
+                navigate("/");
             })
             .catch(error => {
                 if (error.response) {
