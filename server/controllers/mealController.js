@@ -45,3 +45,7 @@ export const getAllMeals = async (req, res) => {
         res.status(500).json({ message: '伺服器錯誤，無法取得甜點類型資料' });
     }
 };
+
+export const  postMeals = async (req,res) => {
+    
+}

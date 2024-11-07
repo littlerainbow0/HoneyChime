@@ -50,7 +50,7 @@ const DataFetcher = ({ setDataFromServer, setDataTrigger }) => {
     fetchData();
   }, [setDataTrigger]);
 
-  return loading ? "Loading..." : null; // 加載中顯示
+  // return loading ? "Loading..." : null; // 加載中顯示
 };
 
 export default DataFetcher;

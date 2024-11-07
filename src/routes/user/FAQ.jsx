@@ -1,6 +1,8 @@
 import React from 'react';
 import Table1Col from '../../components/user/table_1Col.jsx';
 import Header from '../../components/user/header.jsx';
+import Footer from '../../components/user/footer.jsx'
+
 
 const data = [
     {
@@ -46,6 +48,7 @@ const FAQ = () => {
             <div className="flex py-20 justify-center mt-[600px]">
                 <Table1Col data={data} />
             </div>
+            <Footer />
         </div>
     );
 };

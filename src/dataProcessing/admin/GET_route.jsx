@@ -2,8 +2,7 @@ import React, { useState, useEffect } from 'react';
 import api from '../../api.jsx';
 
 
-const DataFetcher = ({ setDataFromServer, setDataTrigger }) => {
-    const [loading, setLoading] = useState(true); // 加載狀態
+const DataFetcher = ({ setDataFromServer, setDataTrigger, loading }) => {
 
     useEffect(() => {
 
@@ -21,6 +20,10 @@ const DataFetcher = ({ setDataFromServer, setDataTrigger }) => {
                     const bIndex = stopOrder.indexOf(Number(b.StopStartID));
                     return aIndex - bIndex;
                 });
+                response.data = response.data.map((e,index)=> ({
+                    ...e,
+                    Index: index+1,
+                }))
 
                 setDataFromServer(response.data);
 
@@ -31,9 +34,9 @@ const DataFetcher = ({ setDataFromServer, setDataTrigger }) => {
             }
         };
         fetchData();
-    }, [setDataTrigger]);
+    }, [loading]);
 
-    return loading ? "Loading..." : null; // 加載中顯示
+    // return loading ? null : "Loading..."; // 加載中顯示
 };
 
 export default DataFetcher;

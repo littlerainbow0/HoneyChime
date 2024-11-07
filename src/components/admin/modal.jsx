@@ -173,9 +173,11 @@ const ScheduleModalItems = (locationPath, item = null) => {
                     }));
                 }
             }
-            return; // 提前返回，避免更新其他字段
+            return;
         }
+
         if (name === "route") {
+            const selectedRoute = getRouteDataFromServer.find(route => route.RouteID === Number(value));
             setFormData(prev => ({
                 ...prev,
                 routeId: value,
@@ -419,7 +421,7 @@ const RouteModalItems = (locationPath, item = null) => {
     const handleChange = (event) => {
         const { name, value, type, files } = event.target;
         if (type === "file") {
-            if (files && files.length == 1) {
+            if (name === "routeImagePath" && files && files.length == 1) {
                 // file => array，並且將資料以array方式取得檔名
                 const file = Array.from(files).map(file => file.name)
                 setFormData(prev => ({
@@ -437,8 +439,8 @@ const RouteModalItems = (locationPath, item = null) => {
                     landScapeImage3: `/src/assets/images/train_exterior/${fileList[2]}`,
                 }));
             }
-            else if (files && files.length > 3) {
-                alert("只能選擇3個檔案");
+            else if (files && files.length !== 3) {
+                alert("務必選擇3張風景圖");
                 event.target.value = "";
             }
 
@@ -464,8 +466,11 @@ const RouteModalItems = (locationPath, item = null) => {
             content: () => (
                 <>
                     <DataFetcherStops setDataFromServer={setGetStopsDataFromServer} />
-                    {/* {formData.routeId} */}
-                    建立新的路線
+                    {formData.routeId != "" ? (
+                        <span className="font-bold">{formData.routeId}</span>
+                    ) : (
+                        <span className="font-bold">建立新路線</span>
+                    )}
                 </>
             ),
         },
@@ -536,21 +541,67 @@ const RouteModalItems = (locationPath, item = null) => {
             ),
             content: () => (
                 <>
-                    <input
-                        type="file"
-                        name="routeImagePath"
-                        accept="image/png, image/jpeg"
-                        id="routeImagePath"
-                        onChange={handleChange}
-                    />
-                    <input
-                        type="file"
-                        multiple
-                        name="landScapeImage1"
-                        accept="image/png, image/jpeg"
-                        onChange={handleChange}
-                        id="landScapeImage1"
-                    />
+                    <div className={`flex flex-row gap-3 ${formData.routeImagePath ? "py-3" : ""}`}>
+                        {formData.routeImagePath &&
+                            <img src={formData.routeImagePath}
+                                className="rounded-full"
+                                title="路線圖"
+                                alt="Route" style={{
+                                    width: '50px', height: 'auto',
+                                    objectFit: 'cover', display: 'block'
+                                }} />}
+                        <div className="bg-brown w-[1px]"></div>
+                        {formData.landScapeImage1 &&
+                            <img src={formData.landScapeImage1}
+                                className="rounded-full"
+                                title="風景圖1"
+                                alt="Route" style={{
+                                    width: '50px', height: 'auto',
+                                    objectFit: 'cover', display: 'block'
+                                }} />}
+                        {formData.landScapeImage2 &&
+                            <img src={formData.landScapeImage2}
+                                className="rounded-full"
+                                title="風景圖2"
+                                alt="Route" style={{
+                                    width: '50px', height: 'auto',
+                                    objectFit: 'cover', display: 'block'
+                                }} />}
+                        {formData.landScapeImage3 &&
+                            <img src={formData.landScapeImage3}
+                                className="rounded-full"
+                                title="風景圖3"
+                                alt="Route" style={{
+                                    width: '50px', height: 'auto',
+                                    objectFit: 'cover', display: 'block'
+                                }} />}
+                    </div>
+                    {formData.routeImagePath
+                        && formData.landScapeImage1
+                        && formData.landScapeImage2
+                        && formData.landScapeImage3
+                        ? (
+                            ""
+                        ) :
+                        (
+                            <>
+                                <input
+                                    type="file"
+                                    name="routeImagePath"
+                                    accept="image/png, image/jpeg"
+                                    id="routeImagePath"
+                                    onChange={handleChange}
+                                />
+                                <input
+                                    type="file"
+                                    multiple
+                                    name="landScapeImage1"
+                                    accept="image/png, image/jpeg"
+                                    onChange={handleChange}
+                                    id="landScapeImage1"
+                                />
+                            </>
+                        )}
                 </>
             ),
         },
@@ -601,6 +652,7 @@ const MealModalItems = (locationPath, item = null) => {
         mealDescription: item ? item.MealDescription : "",
     }
     const [formData, setFormData] = useState(initialState);
+
     useEffect(() => {
         if (item) {
             setFormData(prev => ({
@@ -629,7 +681,7 @@ const MealModalItems = (locationPath, item = null) => {
                 }));
             }
             else {
-                alert("只能選擇1個檔案");
+                alert("務必選擇1張甜點圖");
                 event.target.value = "";
             }
 
@@ -645,8 +697,11 @@ const MealModalItems = (locationPath, item = null) => {
             content: () => (
                 <>
                     <DataFetcherDesserType setDataFromServer={setGetDessertTypeDataFromServer} />
-                    {/* {formData.mealId} */}
-                    新增餐點
+                    {formData.mealId != "" ? (
+                        <span className="font-bold">{formData.mealId}</span>
+                    ) : (
+                        <span className="font-bold">建立新餐點</span>
+                    )}
                 </>
             ),
         },
@@ -675,18 +730,32 @@ const MealModalItems = (locationPath, item = null) => {
                     name="mealName"
                     defaultValue={formData.mealName || ""}
                     onChange={handleChange}
+                    readOnly={formData.mealId ? true : false}
                 />
             ),
         },
         {
             title: "餐點圖片",
             content: () => (
-                <input type="file"
-                    name="mealImagePath"
-                    id="mealImagePath"
-                    defaultValue={formData.mealImagePath || ""}
-                    onChange={handleChange}
-                />
+                <>
+                    {formData.mealImagePath &&
+                        <img src={formData.mealImagePath}
+                            className="my-3 rounded-full"
+                            title="甜點圖"
+                            alt="Route" style={{
+                                width: '50px', height: 'auto',
+                                objectFit: 'cover', display: 'block'
+                            }} />}
+                    {formData.mealImagePath ? (
+                        ""
+                    ) : (
+                        <input type="file"
+                            name="mealImagePath"
+                            id="mealImagePath"
+                            onChange={handleChange}
+                        />
+                    )}
+                </>
             ),
         },
         {
@@ -696,7 +765,7 @@ const MealModalItems = (locationPath, item = null) => {
                     type="text"
                     className="w-full text-ellipsis bg-transparent border border-dashed border-brown rounded-lg"
                     rows="3"
-                    defaultValuevalue={formData.mealContent}
+                    defaultValue={formData.mealContent}
                     name="mealContent"
                     onChange={handleChange}
                 />
@@ -735,9 +804,9 @@ const ModalOverLay = (props) => {
             } catch (error) {
                 console.error("提交失敗", error);
             } finally {
-                // if (props.onClose) {
-                //     props.onClose();
-                // }
+                if (props.onClose) {
+                    props.onClose();
+                }
             }
         }
     };

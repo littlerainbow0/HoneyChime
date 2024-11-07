@@ -5,6 +5,8 @@ import './contact.css'
 import RadiusCard from '../../components/user/card_radius.jsx'
 import BtnContact from '../../components/user/card_contact.jsx'
 import Header from '../../components/user/header.jsx';
+import bgImage from '../../assets/images/landscape/landscape_landscape03.png';
+import Footer from '../../components/user/footer.jsx'
 // -- Componenets /*
 
 const columns = ["userId", "type", "content", "time", "reply"];
@@ -84,6 +86,7 @@ const Contact = () => {
         <RadiusCard data={cardBody} id="" />
         <BtnContact />
       </div>
+      <Footer />
     </div>
   )
 }

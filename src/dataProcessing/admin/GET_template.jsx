@@ -24,7 +24,7 @@ const DataFetcher = ({ setDataFromServer, setDataTrigger }) => {
     fetchData();
   }, [setDataTrigger]); // setDataTrigger每更新一次就刷新資料
 
-  return loading ? "Loading..." : null; // 加載中顯示
+  // return loading ? "Loading..." : null; // 加載中顯示
 };
 
 export default DataFetcher;

@@ -141,7 +141,7 @@ const AdminSchedule = () => {
         console.log("檢查重複", isDuplicate);
 
         if (isDuplicate) {
-            alert("該行程已經存在！");
+            alert("該模板已經存在！無法建立新的旅程，請選擇同一模板再建立旅程");
             return; // 如果資料重複，不執行 post 或 put 請求
         }
         else {
@@ -225,7 +225,6 @@ const AdminSchedule = () => {
                     });
             }
         }
-
     };
 
     const fetchSchedules = useCallback(async () => {
@@ -277,9 +276,9 @@ const AdminSchedule = () => {
         }
     }, [dataTrigger]);
     
-    const filteredDataMemo = useMemo(() => {
-        return getScheduleDataFromServer;
-    }, [getScheduleDataFromServer]);
+    // const filteredDataMemo = useMemo(() => {
+    //     return getScheduleDataFromServer;
+    // }, [getScheduleDataFromServer]);
 
     return (
         <div className="flex flex-row h-screen">
@@ -322,7 +321,7 @@ const AdminSchedule = () => {
                         detailColumns={detailColumns}
                         detailColumnNames={detailColumnNames}
                         data1={dataByBtnFilter.length > 0 ? (dataByBtnFilter) :
-                            (selectedDate ? (filteredDataMemo) : (getScheduleDataFromServer))}
+                            (selectedDate ? (filteredData) : (getScheduleDataFromServer))}
                         data2={getMenuDataFromServer}
                         handleSubmit={handleSubmit}
                     />
