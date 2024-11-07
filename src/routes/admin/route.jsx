@@ -73,7 +73,7 @@ const AdminRoute = () => {
     const [showModal, setShowModal] = useState(false);
     const [loading, setLoading] = useState(false); // 加載狀態
     const [dataTrigger, setDataTrigger] = useState([]); // 用來觸發資料重載
-    const [routeDataFromServer, setRouteDataFromServer] = useState([]) // 儲存API資料用
+    const [dataFromServer, setDataFromServer] = useState([]) // 儲存API資料用
     const [filter, setFilter] = useState("");
 
     const clickShowModal = () => {
@@ -94,7 +94,7 @@ const AdminRoute = () => {
             return;  // 不繼續執行後面的程式碼
         }
 
-        const isDuplicate = routeDataFromServer.some(item => {
+        const isDuplicate = dataFromServer.some(item => {
             (
                 (String(item.StopStartID) === String(modalData.stopStartId))
                 && (String(item.StopEndID) === String(modalData.stopEndId))
@@ -118,7 +118,7 @@ const AdminRoute = () => {
                 })
                     .then((response) => {
                         const newRouteData = response.data;
-                        setRouteDataFromServer(prev => [...prev, newRouteData]);
+                        setDataFromServer(prev => [...prev, newRouteData]);
                         setShowModal(false);
                         alert("新增路線成功!");
                     })
@@ -140,7 +140,7 @@ const AdminRoute = () => {
                 })
                     .then((response) => {
                         const newRouteData = response.data;
-                        setRouteDataFromServer(prev =>
+                        setDataFromServer(prev =>
                             prev.map(item =>
                                 item.routeId === modalData.routeId
                                     ? { ...item, ...modalData }
@@ -157,7 +157,7 @@ const AdminRoute = () => {
         }
     };
 
-    const filteredRouteData = routeDataFromServer.filter((route) => {
+    const filteredRouteData = dataFromServer.filter((route) => {
         if (filter.length === 0) return true;  // 沒有篩選條件時顯示所有資料
         return filter.some(f => route.StopStartName.includes(f)); // 任一篩選條件符合時顯示資料
     });
@@ -181,7 +181,7 @@ const AdminRoute = () => {
             }))
             console.log("data", response.data);
 
-            setRouteDataFromServer(response.data);
+            setDataFromServer(response.data);
 
         } catch (error) {
             console.error('獲取數據失敗', error);
@@ -193,12 +193,12 @@ const AdminRoute = () => {
     useEffect(() => {
         console.log("useEffect triggered");
         fetchData();
-        console.log(routeDataFromServer);
+        console.log(dataFromServer);
     }, []);
     useEffect(() => {
         if (dataTrigger) {
             fetchData(); // 重新拉取 schedules 資料
-            console.log(routeDataFromServer);
+            console.log(dataFromServer);
             setDataTrigger(false); // 重置 trigger 狀態
         }
     }, [dataTrigger]);
@@ -223,7 +223,7 @@ const AdminRoute = () => {
                                 handleSubmit={handleSubmit} />} {/* 传递 onClose 函数 */}
                     </div>
                     {/* <DataFetcherRoute
-                        setDataFromServer={setRouteDataFromServer}
+                        setDataFromServer={setDataFromServer}
                         setDataTrigger={setDataTrigger}
                         loading={loading} /> */}
                     <TableDefault

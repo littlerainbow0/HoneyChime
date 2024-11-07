@@ -55,7 +55,9 @@ function App() {
         <Route path="/contact" element={<Contact />} />
         <Route path="/question" element={<FAQ />} exact />
 
+        <Route path="/user/info" element={<UserBias />} />
         <Route path="/user/info/:userId" element={<UserBias />} />
+        <Route path="/user/order" element={<UserOrder />} />
         <Route path="/user/order/:userId" element={<UserOrder />} />
       </Routes>
     </BrowserRouter>

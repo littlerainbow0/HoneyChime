@@ -1,74 +1,94 @@
 // components/home.jsx
-import React from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
+import { useParams, useNavigate, } from 'react-router-dom';
+import api from '../../api.jsx';
 
 // */ Componenets
 import NavbarUser from '../../components/user/navbar_user.jsx'
 import OrderTable from '../../components/user/table_order.jsx'
-import Header from '../../components/user/header_user.jsx'
+import Header from '../../components/user/header.jsx';
+import Footer from '../../components/user/footer.jsx'
 // -- Componenets /*
 
-
-const columns = [
-    "userId",
-    "orderId",
-    "travelId",
-    "templateTitle",
-    "status",
-    "routeName",
-    "people",
-    "seatsId",
-    "date",
-    "departureTime",
-    "orderStatus",
-    "menuName1",
-    "menuName2",
-    "updateTime",
-    "totalAmount"
-];
-const data = [
-    {
-        userId: 1,
-        orderId: 1,
-        travelId: 1,
-        templateTitle: "日式甜點",
-        status: "即將到來",
-        // 已過期, 即將到來
-        routeName: "台中高雄",
-        people: 3,
-        seatsId: ["A1", "A2", "A3"],
-        date: "2024/11/13",
-        departureTime: "09:00",
-        orderStatus: "已付款",
-        // 已付款 / 未付款 / 已取消 / 棄單
-        menuName1: "日式練切",
-        menuName2: "日式團子",
-        updateTime: "2024/10/11",
-        totalAmount: "4000",
-    },
-    {
-        userId: 1,
-        orderId: 1,
-        travelId: 1,
-        templateTitle: "日式甜點",
-        status: "即將到來",
-        // 已過期, 即將到來
-        routeName: "台中台北",
-        people: 3,
-        seatsId: ["A1", "A2", "A3"],
-        date: "2024/11/13",
-        departureTime: "09:00",
-        orderStatus: "已付款",
-        // 已付款 / 未付款 / 已取消 / 棄單
-        menuName1: "日式練切",
-        menuName2: "日式團子",
-        updateTime: "2024/10/11",
-        totalAmount: "4000",
-    },
-];
-
-console.log(typeof (data[0].userId));
-
 const UserOrders = () => {
+    const { userId } = useParams();
+    const [loading, setLoading] = useState(false); // 加載狀態
+    const [dataTrigger, setDataTrigger] = useState([]); // 用來觸發資料重載
+    const [dataFromServer, setDataFromServer] = useState([])
+
+    const fetchData = useCallback(async () => {
+        if (loading) return;
+        setLoading(true);
+        // 排序用：台北 台中 台南 高雄 花蓮
+        try {
+            const response = await api.get(`/getOrders/1`);
+            console.log("data", response.data);
+            setDataFromServer(response.data);
+        } catch (error) {
+            console.error('獲取數據失敗', error);
+        } finally {
+            setLoading(false);
+        }
+    }, [loading]);
+
+    useEffect(() => {
+        console.log("useEffect triggered");
+        fetchData();
+    }, []);
+    useEffect(() => {
+        console.log("123");
+
+        if (dataTrigger) {
+            fetchData(); // 重新拉取 schedules 資料
+            setDataTrigger(false); // 重置 trigger 狀態
+        }
+    }, [dataTrigger]);
+
+
+    const columns = [
+        "userId",
+        "orderId",
+        "travelId",
+        "templateTitle",
+        "status",
+        "routeName",
+        "people",
+        "seatsId",
+        "date",
+        "departureTime",
+        "orderStatus",
+        "menuName1",
+        "menuName2",
+        "updateTime",
+        "totalAmount"
+    ];
+
+    const currentTime = new Date();
+    const departureTime = new Date(dataFromServer.DepartureDate + 'T' + dataFromServer.DepartureTime);  // 将 departureDate 和 departureTime 合并为 Date 对象
+    const status = currentTime > departureTime ? '已過期' : '即將到來';
+    const data = dataFromServer.map((elem, index) => (
+        {
+            userId: elem.UserID,
+            orderId: elem.OrderID,
+            travelId: elem.ScheduleID,
+            templateTitle: elem.DessertTitle,
+            status: status,
+            // 已過期, 即將到來
+            routeName: `${elem.StopStartName} 到 ${elem.StopEndName}`,
+            people: elem.PeopleNum,
+            seatsId: elem.SeatName,
+            date: elem.DepartureDate,
+            departureTime: elem.DepartureTime,
+            orderStatus: elem.PaymentStatus,
+            // 已付款 / 未付款 / 已取消 / 棄單
+            menuName1: "舒芙蕾佐時令水果",
+            menuName2: "日式和菓子佐綠茶羊羹",
+            updateTime: new Date(),
+            totalAmount: elem.Price,
+        }
+    ))
+        ;
+
     return (
         <div>
             <div className='contactTitle'>
@@ -89,11 +109,12 @@ const UserOrders = () => {
                         borderRadius: '3rem',
                         backdropFilter: 'blur(16px)',
                     }}>
-                        Hello! 您好
+                        Hello!<br />
+                        Amy
                     </h3>
                 </header>
             </div>
-            <div className='mt-[630px]'>
+            <div className='mt-[660px]'>
                 <NavbarUser />
             </div>
             <div className="flex items-center ml-40 mt-24"> {/* 將下拉選單與其他內容放在同一行 */}
@@ -105,6 +126,7 @@ const UserOrders = () => {
             </div>
             <OrderTable data={data} />
             <div className='mb-60' />
+            <Footer />
         </div>
     );
 };

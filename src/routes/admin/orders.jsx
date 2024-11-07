@@ -85,7 +85,6 @@ const AdminTemplate = () => {
         : getOrderDataFromServer;
         console.log(getOrderDataFromServer);
         
-
     return (
         <div className="flex flex-row">
             <Navbar />
