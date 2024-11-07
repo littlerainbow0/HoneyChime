@@ -96,7 +96,7 @@ const AdminNews = () => {
     };
 
     //更新首頁消息（有圖）
-    const updateCards = (CardsID) => {
+    const updateCards = () => {
         axios.put(`http://localhost:8000/updateCards/${selectedCards.CardsID}`, selectedCards,
             {
                 withCredentials: true // 如果需要攜帶 session前後端都要加
@@ -172,7 +172,7 @@ const AdminNews = () => {
 
                     {/* 列出最新消息表單 */}
                     <div style={{ display: "flex", flexWrap: "wrap", gap: "1rem", justifyContent: "center" }}>
-                        {Array.isArray(newsList) && newsList.slice().reverse().map((news, index) => (
+                        {Array.isArray(newsList) && newsList.slice().map((news, index) => (
                             <div key={index} className=' bg-lightbrown rounded-xl' style={{ flex: "1 1 calc(33% - 1rem)", minWidth: "150px", maxWidth: "200px" }}>
                                 <Card variant="bordered" css={{ padding: "1rem" }}>
                                     <CardBody css={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: '1rem' }}>

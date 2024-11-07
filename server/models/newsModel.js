@@ -3,7 +3,7 @@ import * as modelFuns from './modelFuns.js';
 
 // 取得所有新聞
 export const getAllNews = async () => {
-    const sql = 'SELECT * FROM NEWS';
+    const sql = 'SELECT * FROM NEWS ORDER BY Date DESC';
     const { results } = await query(sql);
 
     results.forEach((value, index) => {
