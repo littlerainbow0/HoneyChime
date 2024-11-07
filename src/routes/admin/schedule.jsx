@@ -141,7 +141,7 @@ const AdminSchedule = () => {
         console.log("檢查重複", isDuplicate);
 
         if (isDuplicate) {
-            alert("該模板已經存在！無法建立新的旅程，請選擇同一模板再建立旅程");
+            alert("該模板已經存在！無法建立新的旅程，請選擇已存在模板再建立旅程");
             return; // 如果資料重複，不執行 post 或 put 請求
         }
         else {
