@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <div><object data="./img/train.svg" id="train"></object></div>
+    <button id="complete">OK</button>
+    <script>
+        const svgTrain = document.getElementById("train");
+
+        data =
+            [
+                { seatID: 1, seatName: "F1", isAvailable: 1, price: 2000, count: 0 },
+                { seatID: 2, seatName: "F2", isAvailable: 1, price: 2000, count: 0 },
+                { seatID: 3, seatName: "F3", isAvailable: 1, price: 2000, count: 0 },
+                { seatID: 4, seatName: "F4", isAvailable: 0, price: 2000, count: 1 },
+                { seatID: 5, seatName: "F5", isAvailable: 0, price: 2000, count: 2 },
+                { seatID: 6, seatName: "F6", isAvailable: 1, price: 2000, count: 0 },
+                { seatID: 7, seatName: "F7", isAvailable: 0, price: 2000, count: 2 },
+                { seatID: 8, seatName: "F8", isAvailable: 1, price: 2000, count: 0 }
+            ]; //初始資料 ==> 這邊之後要用API抓
+
+        myFun(svgTrain);
+
+
+
+
+
+
+
+        function myFun(svg) {
+            svg.addEventListener("load", function () {
+                let nowTable = "";
+
+                refreshUI(svg);
+                for (let i = 0; i < data.length; i++) { //全部的桌子
+                    if (data[i].isAvailable) { //根據data的isAvailable 去變色
+                        let table = svg.contentDocument.querySelectorAll(`[class=seat${i + 1}]`); //找到各個桌子
+                        table.forEach((seat) => { //找到對應的桌子 裡面有有兩張椅子 迴圈找裡面兩張椅子
+                            seat.addEventListener("click", function () {//椅子點擊事件
+                                nowTable = seat.getAttribute("class");
+                                if (seat.getAttribute('isClicked') == "1") {
+                                    seat.setAttribute("fill", "#F0F0F0");
+                                    seat.setAttribute("isClicked", '0');
+                                    refreshUI(svg, "0.5", nowTable); //將除了選擇的桌子透明度設為0.5
+                                    setOpavity(svg, nowTable);  //將同桌的位子透明度設為 0.5
+                                }
+                                else {
+                                    seat.setAttribute("isClicked", "1");
+                                    refreshUI(svg, "0.5", nowTable); //將除了選擇的桌子透明度設為0.5
+                                    setOpavity(svg, nowTable);  //將同桌的位子透明度設為1
+                                }
+                            })
+                        });
+                    }
+                }
+
+                document.getElementById("complete").addEventListener("click", function () {
+                    setData(svg);
+                })
+            })
+        }
+
+
+        function setData(svg) {
+            for (let i = 0; i < data.length; i++) {
+                let table = svg.contentDocument.querySelectorAll(`[class=seat${i + 1}]`); //找到各個桌子
+                table.forEach((seat) => {
+                    if (seat.getAttribute("isClicked") == "1") {
+                        data[i].isAvailable = 0;
+                        data[i].count++;
+                    }
+                })
+            }
+            console.log(data);
+        }
+
+        function setOpavity(svg, className) {
+            let temp = svg.contentDocument.getElementsByClassName(`${className}`);
+            let checked = 0;
+            for (let i = 0; i < temp.length; i++) {
+                if (temp[i].getAttribute("isClicked") == 1)
+                    checked++;
+            }
+            for (let i = 0; i < temp.length; i++) {
+                if (checked > 0)
+                    temp[i].setAttribute("opacity", 1);
+                else
+                    temp[i].setAttribute("opacity", 0.5);
+            }
+        }
+
+        function refreshUI(svg, opacity = "1", nowTable) {
+
+            for (let i = 0; i < data.length; i++) { //全部的桌子
+
+                if (data[i].isAvailable) { //根據data的isAvailable 去變色
+                    svg.contentDocument.querySelectorAll(`[class=seat${i + 1}]`).forEach((seat) => { //找到對應的桌子 裡面有有兩張椅子 迴圈找裡面兩張椅子
+                        if (seat.getAttribute("class") != nowTable) {
+                            seat.setAttribute("fill", "#F0F0F0"); //初始化顏色
+                            seat.setAttribute("opacity", opacity);  //初始化透明度
+                            seat.setAttribute("isClicked", "0");
+                        }
+                        if (seat.getAttribute("isClicked") == 1) {
+                            seat.setAttribute("fill", "#FFE8A3");//可以選的椅子點下去變黃色
+                        }
+                    });
+                }
+                else {
+                    svg.contentDocument.querySelectorAll(`[class=seat${i + 1}]`).forEach((seat) => {
+                        seat.setAttribute("fill", "#BDE3FF");
+                    });
+                }
+            }
+        }
+
+
+    </script>
+</body>
+
+</html>

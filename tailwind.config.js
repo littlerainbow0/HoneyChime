@@ -2,14 +2,22 @@
 import { nextui } from "@nextui-org/react";
 
 /** @type {import('tailwindcss').Config} */
-
+console.log('Tailwind content paths:', [
+  './**/*.html',
+  '!./src/routes/user/Facilities.jsx',
+  './src/**/*.{js,css,scss,jsx}'
+]);
 export default {
   content: [
     // 必須在 content 陣列中定位，確保相對應檔案能夠解讀 tailwind 的樣式
     './**/*.html', // 包含專案中的所有 html 文件 (排除 node_modules)
-    '!./node_modules/**/*', // 排除 node_modules
     './node_modules/@nextui-org/react/**/*.{js,ts,jsx,tsx}',
-    './src/**/*.{js,css,scss,jsx}' // 包含 src 資料夾下的所有 JS, CSS, SCSS 文件
+    './src/**/*.{js,css,scss,jsx}', // 包含 src 資料夾下的所有 JS, CSS, SCSS 文件
+    '!./src/routes/user/Facilities.jsx',
+    '!./src/components/Header.jsx',
+    '!./src/assets/css/header.css',
+    '!./src/assets/css/trip.css',
+    '!./node_modules/**/*', // 排除 node_modules
   ],
   theme: {
     screen: {
@@ -22,15 +30,15 @@ export default {
       '3xl': '1920px',
     },
     container: {
-      padding:{
-        xs:'1.25rem',
-        sm:'2rem',
-        md:'2.5rem',
-        lg:'3.75rem',
-        xl:'3.75rem',
-        '2xl':'3.75rem',
-        '3xl':'3.75rem',
-        
+      padding: {
+        xs: '1.25rem',
+        sm: '2rem',
+        md: '2.5rem',
+        lg: '3.75rem',
+        xl: '3.75rem',
+        '2xl': '3.75rem',
+        '3xl': '3.75rem',
+
       },
     },
     extend: {
@@ -41,8 +49,8 @@ export default {
         lightbrown: 'rgb(187,155,155)',
         lightyellow: 'rgb(255,245,245)'
       },
-      width:{
-        '135':'540px',
+      width: {
+        '135': '540px',
       },
       height: {
         '66': '265px',
@@ -61,9 +69,9 @@ export default {
         'p-2': ['0.875rem', { lineHeight: '1.5', letterSpacing: '0.02em' }],
         'p-3': ['0.75rem', { lineHeight: '1.5', letterSpacing: '0.02em' }],
       },
-      fontFamily:{
-        'titleFont':[ "Noto Serif TC", "serif"], //思源宋體
-        'bodyFont':["Noto Sans TC", 'system-ui'], //思源黑體
+      fontFamily: {
+        'titleFont': ["Noto Serif TC", "serif"], //思源宋體
+        'bodyFont': ["Noto Sans TC", 'system-ui'], //思源黑體
       },
       translate: {
         '1/5': '20%', // 定義對應的值
@@ -83,16 +91,16 @@ export default {
       },
       padding: {
         '1/3': '33.33%', // 自定義類名 `pb-1/3`
-        '6/10':  '65%'
-            },
+        '6/10': '65%'
+      },
       transitionDuration: {
-        '0': '0ms',         
-        '250': '250ms',      
-        '750': '750ms',      
-        '2000': '2000ms',    
-        '5000': '5000ms',    
+        '0': '0ms',
+        '250': '250ms',
+        '750': '750ms',
+        '2000': '2000ms',
+        '5000': '5000ms',
         // 其他自定義時間
-            },
+      },
     },
   },
   darkMode: "class",

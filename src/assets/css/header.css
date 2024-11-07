@@ -82,11 +82,12 @@ header {
 }
 
 html {
-  background-color: #D9CCBB;
+  height: 100%;
+  padding-bottom: 100px;
 }
 
 .header_logo {
-  @apply m-auto pt-6;
+  
   padding-top: 25px;
   color: rgba(255, 255, 255, 0.6);
   margin: 0 auto 0 52px;
@@ -136,4 +137,112 @@ html {
 }
 .header_nav ul li a:hover {
   font-weight: 900;
+}
+
+/* h1 */
+.h1 {
+  font-family: 'Noto Serif TC', 'Noto Sans TC', sans-serif;
+  font-size: 48px;
+  font-weight: bold;
+  line-height: 140%;
+  letter-spacing: 5%;
+}
+
+/* h2 */
+.h2 {
+  font-family: 'Noto Serif TC', 'Noto Sans TC', sans-serif;
+  font-size: 32px;
+  font-weight: bold;
+  line-height: 140%;
+  letter-spacing: 5%;
+}
+
+/* h3 */
+.h3 {
+  font-family: 'Noto Serif TC', 'Noto Sans TC', sans-serif;
+  font-size: 28px;
+  font-weight: 600;
+  line-height: 130%;
+  letter-spacing: 10%;
+}
+
+/* h4 */
+.h4 {
+  font-family: 'Noto Serif TC', 'Noto Sans TC', sans-serif;
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 130%;
+  letter-spacing: 10%;
+}
+
+/* h5 */
+.h5 {
+  font-family: 'Noto Serif TC', 'Noto Sans TC', sans-serif;
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 130%;
+  letter-spacing: 10%;
+}
+
+/* h6 */
+.h6 {
+  font-family: 'Noto Serif TC', 'Noto Sans TC', sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 130%;
+  letter-spacing: 10%;
+}
+
+/* body */
+.body {
+  font-family: 'Noto Sans TC', sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 150%;
+  letter-spacing: 2%;
+}
+
+/* body2 */
+.body2 {
+  font-family: 'Noto Sans TC', sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 150%;
+  letter-spacing: 2%;
+}
+
+/* tiny */
+.tiny {
+  font-family: 'Noto Sans TC', sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 150%;
+  letter-spacing: 2%;
+}
+
+/* btn_lg */
+.btn-lg {
+  font-family: 'Noto Sans TC', sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 125%;
+  letter-spacing: 5%;
+}
+
+/* btn_md */
+.btn-md {
+  font-family: 'Noto Sans TC', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 125%;
+  letter-spacing: 3%;
+}
+
+/* btn_sm */
+.btn-sm {
+  font-family: 'Noto Sans TC', sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 125%;
+  letter-spacing: 3%;
 }

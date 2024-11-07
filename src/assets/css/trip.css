@@ -1,0 +1,143 @@
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100..900&family=Noto+Serif+TC:wght@200..900&display=swap");
+.trip_section h3 {
+  font-family: "Noto Serif TC", "Noto Sans TC";
+  font-size: 28px;
+  font-weight: 600;
+  line-height: 130%;
+  letter-spacing: 10%;
+}
+
+.trip_section p {
+  font-family: "Noto Sans TC";
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 150%;
+  letter-spacing: 2%;
+}
+
+.trip_section a {
+  font-family: "Noto Sans TC";
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 125%;
+  letter-spacing: 5%;
+}
+
+.trip_section svg {
+  position: absolute;
+  opacity: 0;
+  top: 14px;
+}
+.trip_section a {
+  text-align: center;
+  line-height: 56px;
+  background-color: #B69C7C;
+  height: 60px;
+  text-decoration: none;
+  letter-spacing: 4px;
+  color: #1F1F1F;
+  position: relative;
+  border-radius: 50px;
+}
+.trip_section a:hover svg {
+  animation: fadeIn 1s;
+  opacity: 1;
+  left: 240px;
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    padding-left: 0;
+    left: 224px;
+  }
+  to {
+    opacity: 1;
+    left: 240px;
+  }
+}
+
+.trip_hero {
+  background-image: url("/src/assets/images/train_exterior/trip_hero.png");
+}
+
+.trip_section {
+  margin: 28px auto;
+  width: 1024px;
+  display: flex;
+  padding: 28px;
+  align-items: center;
+  /* On hover, add a black background color with a little bit see-through */
+  /* Fading animation */
+}
+.trip_section .slider_info {
+  width: 50%;
+  height: 400px;
+  border: 1px solid #1F1F1F;
+  padding: 56px;
+  display: flex;
+  flex-direction: column;
+  gap: 60px;
+  background-color: white;
+}
+.trip_section .slider_info a {
+  color: #1F1F1F;
+}
+.trip_section .slider {
+  margin-top: 54px;
+  margin-left: -8px;
+  border: none;
+}
+.trip_section .slider img {
+  width: 450px;
+  height: 360px;
+  margin-left: -25px;
+}
+.trip_section .next {
+  cursor: pointer;
+  padding: 12px;
+  margin-left: -38px;
+  font-weight: bold;
+  font-size: 18px;
+  transition: 0.6s ease;
+  border-radius: 0 3px 3px 0;
+  background-color: #8F755A;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
+  /* Position the "next button" to the right */
+  left: 425px;
+  bottom: 200px;
+  border-radius: 3px 0 0 3px;
+  z-index: 1;
+}
+.trip_section .next:hover {
+  background-color: #B69C7C;
+  opacity: 0.8;
+  color: #1F1F1F;
+}
+.trip_section .fade {
+  animation-name: fade;
+  animation-duration: 1.5s;
+}
+@keyframes fade {
+  from {
+    opacity: 0.8;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.slowShow, main {
+  animation-name: slowShow;
+  animation-duration: 2.5s;
+}
+
+@keyframes slowShow {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

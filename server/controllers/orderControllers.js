@@ -27,7 +27,7 @@ export const getOrderByUserID = async (req, res) => {
 export const postOrder = async (req, res) => {
     const data = req.body; //
     try {
-        const result = await orderModel.postOrder(data); // 插入資料
+        const result = await orderModel.postOrder(data, req.session.UserID); // 插入資料
         res.status(201).json({ message: '訂單資料已成功新增', orderID: result.orderID });
     } catch (error) {
         console.error('處理請求錯誤：', error);
@@ -38,7 +38,7 @@ export const postOrder = async (req, res) => {
 // 更新訂單
 export const updateUserOrder = async (req, res) => {
     const { orderID } = req.params;  // 從 URL 獲取 orderID 參數
-    const data = req.body; 
+    const data = req.body;
     try {
         const isUpdated = await orderModel.updateUserOrder(orderID, data); // 更新資料
         if (isUpdated) {

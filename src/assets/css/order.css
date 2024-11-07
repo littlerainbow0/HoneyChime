@@ -1,0 +1,88 @@
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100..900&family=Noto+Serif+TC:wght@200..900&display=swap");
+.order h3 {
+  font-family: "Noto Serif TC", "Noto Sans TC";
+  font-size: 28px;
+  font-weight: 600;
+  line-height: 130%;
+  letter-spacing: 10%;
+}
+
+.order h5 {
+  font-family: "Noto Serif TC", "Noto Sans TC";
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 130%;
+  letter-spacing: 10%;
+}
+
+.order_info_section p {
+  font-family: "Noto Sans TC";
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 150%;
+  letter-spacing: 2%;
+}
+
+.order_info_section div:last-of-type a {
+  font-family: "Noto Sans TC";
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 125%;
+  letter-spacing: 5%;
+}
+
+.order_hero {
+  background-image: url("/src/assets/images/train_exterior/train_exterior_8.png");
+}
+
+.order {
+  width: 1024px;
+  margin: 28px auto;
+}
+.order h3 {
+  margin: 28px 0;
+}
+.order h3 span {
+  padding-left: 12px;
+}
+.order h5 {
+  border-bottom: 2px solid #1F1F1F;
+  margin: 28px 0;
+}
+
+.order_info {
+  border-radius: 25px;
+  background-color: rgba(255, 255, 255, 0.8);
+  padding: 24px;
+}
+
+.order_info_section {
+  display: flex;
+  flex-direction: row;
+  align-items: end;
+  gap: 100px;
+}
+.order_info_section p {
+  width: 350px;
+  display: flex;
+  padding: 12px 0;
+  justify-content: space-between;
+}
+.order_info_section div:last-of-type {
+  height: 200px;
+}
+.order_info_section div:last-of-type a {
+  text-align: center;
+  display: block;
+  width: 150px;
+  height: 50px;
+  background-color: rgba(255, 255, 255, 0.8);
+  text-decoration: none;
+  color: #1F1F1F;
+  line-height: 50px;
+  border-radius: 35px;
+  border: 1px solid #1F1F1F;
+}
+.order_info_section div:last-of-type a:hover {
+  border: 2px solid #1F1F1F;
+}/*# sourceMappingURL=order.css.map */

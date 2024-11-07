@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/src/assets/css/header.css">
+    <link rel="stylesheet" href="/src/assets/css/order.css">
+    <script src="https://cdn.jsdelivr.net/npm/axios@1.1.2/dist/axios.min.js"></script>
+
+    <title>預約完成</title>
+</head>
+
+<body>
+    <header class="order_hero">
+        <div class="header_logo">
+            <a href="#">
+                <img src="/src/assets/images/icon/LOGO.svg" alt="">
+            </a>
+            <a href="">
+                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24">
+                    <path fill="currentColor"
+                        d="M20 22H4v-2a5 5 0 0 1 5-5h6a5 5 0 0 1 5 5zm-8-9a6 6 0 1 1 0-12a6 6 0 0 1 0 12" />
+                </svg>
+            </a>
+        </div>
+
+        <nav class="header_nav">
+            <ul>
+                <li><a href="">首頁</a></li>
+                <li><a href="">概念</a></li>
+                <li><a href="">饗宴</a></li>
+                <li><a href="/facilities.html">設施</a></li>
+                <li><a href="/trip.html">旅程</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <div class="order">
+            <h3>您已預約完成<span>✔️</span></h3>
+            <h5>預約明細</h5>
+            <!-- 訂單明細 -->
+            <div class="order_info_section">
+
+                <div class="order_info">
+                    <p>您的預約 - 蜂鳴號</p>
+                    <p>
+                        <span>路線</span>
+                        <span id="orderRoute"></span>
+                    </p>
+                    <p>
+                        <span>出發時間</span>
+                        <span id="order_start"></span>
+                    </p>
+                    <p>
+                        <span>抵達時間</span>
+                        <span id="order_arrive"></span>
+                    </p>
+                    <p>
+                        <span>乘客人數</span>
+                        <span id="orderPeople">
+                        </span>
+                    </p>
+                    <p>
+                        <span>車廂</span>
+                        <span id="orderCar"></span>
+                    </p>
+                    <p>
+                        <span>座位</span>
+                        <span id="orderSeat"></span>
+                    </p>
+                    <p>
+                        <span>餐點</span>
+                        <span>
+                            <span id="orderDessert1"> </span>
+                            <br>
+                            <span id="orderDessert2"> </span>
+                        </span>
+
+                    </p>
+                    <p>
+                        <span>金額</span>
+                        <span id="orderPrice">$0</span>
+                    </p>
+                </div>
+                <!-- 右側行程與資訊 -->
+                <div>
+                    <a href="">查看訂單</a>
+                    <p>請到信箱確認行程電子憑證<br>
+                        如果未收到<br>
+                        請聯繫客服：04-1234-5678
+                    </p>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <script>
+
+        let reservationData = JSON.parse(localStorage.getItem("dataFromUser"));
+        let a = reservationData.name;
+        let b = reservationData.phone;
+        let c = reservationData.email;
+        let d = reservationData.creditCard;
+        let e = reservationData.route;
+        let f = reservationData.date;
+        let g = reservationData.arrive;
+        let h = reservationData.people;
+        let i = reservationData.carriage;
+        let j = reservationData.seat;
+        let k = reservationData.dessert1 || "";
+        let l = reservationData.dessert2 || "";
+        let m = reservationData.price;
+        let n = reservationData.scheduleID;
+
+        console.log(a);
+        console.log(b);
+        console.log(c);
+        console.log(d);
+        console.log(e);
+        console.log(f);
+        console.log(g);
+        console.log(h);
+        console.log(i);
+        console.log(j);
+        console.log(k);
+        console.log(l);
+        console.log(m);
+        console.log(n, "is scheduleID");
+
+        // 取得reservation的資料
+        document.addEventListener('DOMContentLoaded', function () {
+
+            // 顯示資料
+            document.getElementById('orderRoute').innerText = e;
+            document.getElementById('order_start').innerText = f;
+            document.getElementById('order_arrive').innerText = g;
+            document.getElementById('orderPeople').innerText = h;
+            document.getElementById('orderCar').innerText = i;
+            document.getElementById('orderSeat').innerText = j;
+            document.getElementById('orderDessert1').innerText = k;
+            document.getElementById('orderDessert2').innerText = l;
+            document.getElementById('orderPrice').innerText = m;
+
+            // ============ 將日期轉為post所需格式 ===============
+            function formatDateTime(date) {
+                const yyyy = date.getFullYear();
+                const mm = String(date.getMonth() + 1).padStart(2, '0'); // 月份從 0 開始
+                const dd = String(date.getDate()).padStart(2, '0');
+                const hours = String(date.getHours()).padStart(2, '0');
+                const minutes = String(date.getMinutes()).padStart(2, '0');
+                const seconds = String(date.getSeconds()).padStart(2, '0');
+
+                return `${yyyy}-${mm}-${dd} ${hours}:${minutes}:${seconds}`;
+            }
+
+            const orderTime = formatDateTime(new Date()); // 獲取格式化的日期時間
+
+            // ============ 將人數轉為post所需格式 ===============
+
+            function postPeople() {
+                let h = parseInt(reservationData.people, 10) || 0;
+                console.log(h);
+                return h;
+            }
+            const people = postPeople();
+
+            // ============ 將信用卡號轉為post所需格式 ===============
+            function postPayment() {
+                if (d) {
+                    d = "已付款";
+                    return d;
+
+                } else {
+                    d = "未付款";
+                    return d;
+                }
+            }
+            const payment = postPayment();
+            console.log(payment);
+
+            // ============ 將甜點數量轉為post所需格式 ===============
+            function postDessert() {
+                function extractNumber(dessert) {
+                    const parts = dessert.split('*');
+                    return parts.length > 1 ? parseInt(parts[1].trim(), 10) : 0; // 確保有數字部分
+                }
+
+                let k = extractNumber(reservationData.dessert1) || 0; // dessert1 的數字
+                let l = extractNumber(reservationData.dessert2) || 0; // dessert2 的數字
+
+                let mealData = {
+                    MealFirst: null,
+                    MealSecond: null,
+                    MealThird: null,
+                    MealFourth: null,
+                };
+
+                // 根據 k 和 l 的值設定 MealFirst
+                if (k >= 1) {
+                    mealData.MealFirst = 1;
+                } else {
+                    mealData.MealFirst = 2;
+                }
+
+                // 根據 k 和 l 的值設定 MealSecond
+                if (k >= 2) {
+                    mealData.MealSecond = 1;
+                } else if (k >= 1 && l == 1 || l >= 2) {
+                    mealData.MealSecond = 2;
+                } else { mealData.MealSecond = null; }
+
+                // 根據 k 和 l 的值設定 MealThird
+                if (k >= 3) {
+                    mealData.MealThird = 1;
+                } else if (k >= 2 && l == 1 || k > 0 && l >= 2 || l >= 3) {
+                    mealData.MealThird = 2;
+                } else { mealData.MealThird = null; }
+
+                // 根據 k 和 l 的值設定 MealFourth
+                if (k >= 4) {
+                    mealData.MealFourth = 1;
+                } else if (k >= 3 && l == 1 && l >= 2 || k > 0 && l >= 3 || l >= 4) {
+                    mealData.MealFourth = 2;
+                } else { mealData.MealFourth = null; }
+
+                return mealData;
+            }
+            const dessert = postDessert();
+            console.log(dessert);
+
+
+            axios.get('http://localhost:8000/getSeats')
+                .then((Response) => {
+                    seatArray = Response.data;
+                    console.log(Response)
+
+                    let jToSeatID = j;
+                    const matchingSeat = seatArray.find(seat => seat.SeatName === jToSeatID);
+                    if (matchingSeat) {
+                        console.log(matchingSeat.SeatID, "is SeatID");
+                        // console.log(j, "is original j");
+                        let nameToID = matchingSeat.SeatID;
+                        console.log(nameToID, "is name turn to ID");
+
+                        // ============ 將 座位名稱 轉換為 座位ID 成為post所需格式 ===============
+                        return axios.post('http://localhost:8000/postOrder', {
+                            ScheduleID: n,
+                            OrderTime: orderTime,
+                            PaymentStatus: payment,
+                            SeatID: nameToID,
+                            PeopleNum: people,
+                            ...dessert
+
+                        }, { withCredentials: true })
+
+
+                    } else {
+                        console.log("找不到對應的座位 ID:", jToSeatID.SeatID);
+                    }
+
+                })
+                .then((Response) => console.log(Response))
+                .catch((error) => console.log(error.response.data.message));
+
+        });
+
+
+
+
+
+    </script>
+</body>
+
+</html>

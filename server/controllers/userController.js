@@ -4,7 +4,6 @@ import bcrypt from 'bcrypt'; //密碼加密方式
 import nodemailer from 'nodemailer';//寄信
 import dotenv from 'dotenv'; //使用環境變數
 import process from 'process';
-import crypto from 'crypto';
 
 dotenv.config();
 

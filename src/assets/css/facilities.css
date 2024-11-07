@@ -1,0 +1,182 @@
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100..900&family=Noto+Serif+TC:wght@200..900&display=swap");
+.info_title h2 {
+  font-family: "Noto Serif TC", "Noto Sans TC";
+  font-size: 28px;
+  font-weight: 600;
+  line-height: 130%;
+  letter-spacing: 10%;
+}
+
+.vip_seat h3, .car_info h3 {
+  font-family: "Noto Serif TC", "Noto Sans TC";
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 130%;
+  letter-spacing: 10%;
+}
+
+.vip_p2_title h4, .vip_part1 .vip_side_info h4,
+.vip_part2 .vip_side_info h4 {
+  font-family: "Noto Serif TC", "Noto Sans TC";
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 130%;
+  letter-spacing: 10%;
+}
+
+.vip_part1 .vip_side_info h5,
+.vip_part2 .vip_side_info h5 {
+  font-family: "Noto Serif TC", "Noto Sans TC";
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 130%;
+  letter-spacing: 10%;
+}
+
+.info_title p {
+  font-family: "Noto Sans TC";
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 150%;
+  letter-spacing: 2%;
+}
+
+.vip_part1 p,
+.vip_part2 p, .vip_seat p, .car_info p {
+  font-family: "Noto Sans TC";
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 150%;
+  letter-spacing: 2%;
+}
+
+.facilities_hero {
+  background-image: url("/src/assets/images/train_exterior/Facilities_hero.png");
+}
+
+.info_title {
+  display: flex;
+  margin: 28px auto;
+  width: 1024px;
+  margin: 50px auto;
+}
+.info_title div {
+  margin-top: 20px;
+  width: 50%;
+  text-align: left;
+}
+.info_title h2 {
+  margin: 0 20px;
+}
+.info_title p {
+  margin: 100px 20px 20px 20px;
+}
+.info_title img {
+  width: 550px;
+  height: 350px;
+  -o-object-fit: cover;
+     object-fit: cover;
+  border-radius: 25px;
+}
+
+.border_line {
+  margin: auto;
+  width: 1024px;
+  height: 3px;
+  background-image: linear-gradient(to left, #333, #333, #eee 0%, #333 75%);
+}
+
+.car_info {
+  margin-top: 20px;
+  width: 1024px;
+  margin: 50px auto;
+}
+.car_info h3 {
+  margin: 0 20px;
+}
+.car_info p {
+  margin: 20px;
+}
+.car_info div > div {
+  width: 50%;
+  margin: auto;
+}
+.car_info div > img {
+  width: 480px;
+  height: 340px;
+  -o-object-fit: cover;
+     object-fit: cover;
+  border-radius: 25px;
+}
+.car_info > div {
+  display: flex;
+  margin: 50px auto;
+}
+.car_info div:nth-of-type(odd) {
+  flex-direction: row-reverse;
+}
+
+.vip_seat {
+  width: 1024px;
+  margin: 50px auto;
+}
+.vip_part1,
+.vip_part2 {
+  margin: 20px auto;
+  width: 1024px;
+  display: flex;
+  gap: 40px;
+}
+.vip_part1 div > img,
+.vip_part2 div > img {
+  width: 480px;
+  height: 340px;
+  -o-object-fit: cover;
+     object-fit: cover;
+  border-radius: 25px;
+}
+.vip_part1 div,
+.vip_part2 div {
+  margin: auto;
+}
+.vip_part1 .vip_side_info,
+.vip_part2 .vip_side_info {
+  margin: 20px auto;
+}
+.vip_part1 .vip_side_info h4,
+.vip_part2 .vip_side_info h4 {
+  margin: 20px auto;
+}
+.vip_part1 .vip_side_info h5,
+.vip_part2 .vip_side_info h5 {
+  margin: 20px auto;
+}
+
+.vip_part2 {
+  padding-bottom: 100px;
+}
+
+.vip_p2_title div {
+  width: 420px;
+  height: 10px;
+  border-bottom: 2px solid #1F1F1F;
+  margin-bottom: 12px;
+  margin-left: 60px;
+}
+.vip_p2_title h4 {
+  margin-bottom: -12px;
+}
+
+.fade, main {
+  animation-name: fade;
+  animation-duration: 4s;
+}
+
+@keyframes fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

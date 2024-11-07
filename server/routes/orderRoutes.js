@@ -4,7 +4,7 @@ import * as authMiddleware from '../middleware/authMiddleware.js'
 
 const router = express.Router();
 
-router.get('/getOrders', authMiddleware.isAdmin, orderControllers.getAllOrders);
+router.get('/getOrders', orderControllers.getAllOrders);
 router.get('/getOrders/:userID', authMiddleware.isUser, orderControllers.getOrderByUserID);
 
 router.post('/postOrder', authMiddleware.isUser, orderControllers.postOrder);

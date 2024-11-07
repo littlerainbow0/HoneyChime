@@ -32,8 +32,8 @@ const Headerr=({bgImage})=>{
                                 <li><a href="/">首頁</a></li>
                                 <li><a href="/about">概念</a></li>
                                 <li><a href="/menu">饗宴</a></li>
-                                <li><a href="">設施</a></li>
-                                <li><a href="">旅程</a></li>
+                                <li><a href="/facilities">設施</a></li>
+                                <li><a href="/trip">旅程</a></li>
                             </ul>
                         </nav>
                     </div>
@@ -44,8 +44,8 @@ const Headerr=({bgImage})=>{
                                 <li><a href="/">首頁</a></li>
                                 <li><a href="/about">概念</a></li>
                                 <li><a href="/menu">饗宴</a></li>
-                                <li><a href="">設施</a></li>
-                                <li><a href="">旅程</a></li>
+                                <li><a href="/facilities">設施</a></li>
+                                <li><a href="/trip">旅程</a></li>
                             </ul>
                         </nav>
                     

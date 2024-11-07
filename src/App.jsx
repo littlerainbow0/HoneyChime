@@ -37,6 +37,10 @@ import VerifyCode from './routes/user/VerifyCode.jsx'
 import ResetPassword from './routes/user/ResetPassword.jsx'
 // -- user pages /*
 
+import Facilities from './routes/user/Facilities.jsx'
+import Trip from './routes/user/Trip.jsx'
+
+
 
 function App() {
   const [count, setCount] = useState(0)
@@ -55,6 +59,7 @@ function App() {
         <Route path="/admin/meal" element={<AdminMeal />} />
         <Route path="/admin/route" element={<AdminRoute />} />
         <Route path="/admin/order" element={<AdminOrder />} />
+        <Route path='/admin/news' element={<AdminNewsPage />}></Route>
 
         <Route path="/validate" element={<Validate />} exact />
         <Route path="/verifyCode" element={<VerifyCode />} exact />
@@ -73,7 +78,9 @@ function App() {
         <Route path='/about' element={<About></About>}></Route>
         <Route path='/menu' element={<Menu></Menu>}></Route>
         <Route path='/calendar' element={<Calendarr />}></Route>
-        <Route path='/admin/news' element={<AdminNewsPage />}></Route>
+        <Route path='/Facilities' element={<Facilities />}></Route>
+        <Route path='/Trip' element={<Trip />}></Route>
+
       </Routes>
     </BrowserRouter>
   )

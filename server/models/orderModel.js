@@ -134,12 +134,12 @@ LEFT JOIN
     }
 };
 
-export const postOrder = async (data) => {
+export const postOrder = async (data, UserID) => {
     const sql = `INSERT INTO ORDERS (UserID, BookerDetailID, ScheduleID, OrderTime, 
     PaymentStatus, SeatID, PeopleNum, MealFirst, MealSecond, MealThird, MealFourth) 
     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
     try {
-        const { results } = await query(sql, [data.UserID, data.BookerDetailID, data.ScheduleID, data.OrderTime, data.PaymentStatus, data.SeatID, data.PeopleNum, data.MealFirst, data.MealSecond, data.MealThird, data.MealFourth]);
+        const { results } = await query(sql, [UserID, data.BookerDetailID, data.ScheduleID, data.OrderTime, data.PaymentStatus, data.SeatID, data.PeopleNum, data.MealFirst, data.MealSecond, data.MealThird, data.MealFourth]);
         return { orderID: results.insertId };
     } catch (error) {
         console.error('新增訂單資料錯誤：', error);

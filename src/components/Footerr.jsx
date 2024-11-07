@@ -41,7 +41,7 @@ const Footerr =()=>{
                             <p href="#" className="mb-2 text-black no-underline ">訂閱我們</p>
                             <p href="#" className="mb-2 text-black no-underline ">CopyRight</p>
                             <p href="#" className="mb-2 text-black no-underline ">隱私權政策</p>
-                            <p href="#" className="mb-2 text-black no-underline ">後台連結</p>
+                            <a href="/admin/news" className="mb-2 text-black no-underline ">後台連結</a>
                         </li>
                     </ul>
                 </div>

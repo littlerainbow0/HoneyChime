@@ -84,7 +84,7 @@ const HomeHeader=()=>{
                         </a>
                     </div>
                     <div className="flex-auto group">
-                        <a href="#" className="flex items-center justify-center px-4 py-2 mx-auto text-center text-white ">
+                        <a href="/facilities" className="flex items-center justify-center px-4 py-2 mx-auto text-center text-white ">
                         <div className="flex flex-col items-center justify-center">
                             <span className="block px-1 py-1 rounded-full">
                             <div className="h-12 bg-center bg-no-repeat bg-contain bg-custom-icon2 w-7 group-hover:bg-custom-icon"></div>
@@ -94,7 +94,7 @@ const HomeHeader=()=>{
                         </a>
                     </div>
                     <div className="flex-auto group">
-                        <a href="#" className="flex items-center justify-center px-4 py-2 mx-auto text-center text-white ">
+                        <a href="/trip" className="flex items-center justify-center px-4 py-2 mx-auto text-center text-white ">
                         <div className="flex flex-col items-center justify-center">
                             <span className="block px-1 py-1 rounded-full" style={{ position: 'relative', top: '10px' }}>
                             <div className="h-12 bg-center bg-no-repeat bg-contain bg-custom-icon w-7 group-hover:bg-custom-icon2"></div>
