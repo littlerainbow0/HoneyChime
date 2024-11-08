@@ -1,4 +1,5 @@
-import React, { Component } from 'react';
+// import React, { Component } from 'react';
+import { Component } from 'react';
 import { Link } from 'react-router-dom'; // If using React Router
 import '../assets/css/header.css'
 

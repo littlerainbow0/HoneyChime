@@ -1,4 +1,5 @@
-import React, { useEffect } from 'react';
+// import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import '../../assets/css/header.css';
 import '../../assets/css/trip.css';
 import Header from '../../components/Header'

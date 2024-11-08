@@ -7,6 +7,8 @@
     <link rel="stylesheet" href="./src/assets/css/header_html.css">
     <link rel="stylesheet" href="./src/assets/css/tripInfo.css">
     <link rel="stylesheet" href="./src/assets/css/top_btn.css">
+    <script src="https://cdn.jsdelivr.net/npm/axios@1.1.2/dist/axios.min.js"></script>
+
     <title>行程介紹</title>
 </head>
 
@@ -125,7 +127,7 @@
     </main>
 
     <a href="#" class="top">
-      
+
         Top
     </a>
     <script>
@@ -282,22 +284,6 @@
 
         }
 
-        // 傳路線及圖片資料到reservation ---------------------
-        function toReservation(startRoute, endRoute, img) {  
-            
-       
-       
-
-            console.log(startRoute);
-            console.log(endRoute);
-            console.log(img);
-
-            let routeTypeData = { start: startRoute, end: endRoute, image: img }
-            localStorage.setItem("routeType", JSON.stringify(routeTypeData));
-            console.log(localStorage.getItem("routeType"));
-
-            window.location.href = 'reservation.html';
-        }
         // -------------------------------------------------
 
         function displayRouteInfo(data) {
@@ -374,6 +360,59 @@
             }
         }
 
+        // 傳路線及圖片資料到reservation ---------------------
+        // 定義 setMessage 函數，更新 message 元素的內容
+        function setMessage(message) {
+            const messageElement = document.getElementById('message');
+            if (messageElement) { // 確保 message 元素存在
+                messageElement.textContent = message;
+            } else {
+                console.error('未登入');
+            }
+        }
+        function toReservation(startRoute, endRoute, img) {
+
+            axios.get('http://localhost:8000/checkLogIn', {
+                withCredentials: true // 如果需要攜帶 session前後端都要加
+            })
+                .then(response => {
+                    console.log('登入成功:', response.data);
+                    if (response.data.isLogin) { // 如果 isLogin 為 true
+                        // 延遲1秒後跳轉到 reservation.html
+                        setTimeout(() => {
+                            window.location.href = 'reservation.html';
+                        }, 1000); 
+                    } else { // 如果 isLogin 為 false
+                        setMessage("未登入，跳轉到登入頁面。");
+
+                        // 延遲1秒後跳轉到 /login
+                        setTimeout(() => {
+                            window.location.href = '/login'; 
+                        }, 1000); 
+                    }
+
+                })
+                .catch(error => {
+                    if (error.response) {
+                        setMessage(error.response.data.message);
+
+                    } else {
+                        setMessage('發生錯誤，請稍後再試。');
+                    }
+                });
+
+
+            console.log(startRoute);
+            console.log(endRoute);
+            console.log(img);
+
+            let routeTypeData = { start: startRoute, end: endRoute, image: img }
+            localStorage.setItem("routeType", JSON.stringify(routeTypeData));
+            console.log(localStorage.getItem("routeType"));
+
+
+
+        }
 
 
     </script>
