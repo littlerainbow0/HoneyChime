@@ -36,6 +36,8 @@
 
 .reservation_hero {
   background-image: url("/src/assets/images/train_interior/train_interior_01.png");
+  background-repeat: no-repeat;
+  background-size: 100% 514.82px;
 }
 
 .reservation select,

@@ -3,12 +3,15 @@ import React, { Component } from 'react';
 import Header from '../../components/Header'; // 確保路徑正確
 import '../../assets/css/header.css';
 import '../../assets/css/facilities.css';
+import Footerr from '../../components/Footerr.jsx';
+import '../../assets/css/style.css';
 import '../../assets/css/top_btn.css';
+
 
 const Facilities = () => {
     return (
         <div>
-            <html>
+            
             <header className="facilities_hero">
             <Header />
             </header>
@@ -81,11 +84,11 @@ const Facilities = () => {
                 </div>
             </main>
             <a href="#" className="top">
-                Λ
-                <br />
+               
                 Top
             </a>
-            </html>
+            <Footerr />
+
         </div>
     );
 };

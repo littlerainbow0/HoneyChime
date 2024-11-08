@@ -58,17 +58,25 @@
 
 .trip_hero {
   background-image: url("/src/assets/images/train_exterior/trip_hero.png");
+  background-size: 100% 640px;
+  background-repeat: no-repeat;
+
 }
 
 .trip_section {
   margin: 28px auto;
+  padding-left:24px;
   width: 1024px;
   display: flex;
-  padding: 28px;
+  /* padding: 28px; */
   align-items: center;
   /* On hover, add a black background color with a little bit see-through */
   /* Fading animation */
 }
+.slider_info{
+  margin:auto;
+}
+
 .trip_section .slider_info {
   width: 50%;
   height: 400px;
@@ -83,19 +91,23 @@
   color: #1F1F1F;
 }
 .trip_section .slider {
+  width:50%;
+  margin:auto;
   margin-top: 54px;
-  margin-left: -8px;
+  margin-left: -24px;
   border: none;
 }
+
 .trip_section .slider img {
   width: 450px;
   height: 360px;
-  margin-left: -25px;
+  margin-left: 0px;
+  z-index:10;
 }
 .trip_section .next {
   cursor: pointer;
   padding: 12px;
-  margin-left: -38px;
+  margin-left: -12px;
   font-weight: bold;
   font-size: 18px;
   transition: 0.6s ease;

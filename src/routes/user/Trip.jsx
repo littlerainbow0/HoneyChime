@@ -1,8 +1,9 @@
-// import React, { Component } from 'react';
 import React, { useEffect } from 'react';
 import '../../assets/css/header.css';
 import '../../assets/css/trip.css';
 import Header from '../../components/Header'
+import Footerr from '../../components/Footerr.jsx';
+import '../../assets/css/style.css';
 
 const Trip = () => {
     const slideIndexes = [1, 1, 1];
@@ -34,7 +35,7 @@ const Trip = () => {
 
     return (
         <div>
-            <html>
+            
 
             
             <div className="trip_hero">
@@ -102,7 +103,7 @@ const Trip = () => {
                     </div>
                 </div>
             </main>
-            </html>
+            <Footerr />
         </div>
     );
 };

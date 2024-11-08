@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/src/assets/css/header.css">
+    <link rel="stylesheet" href="/src/assets/css/header_html.css">
     <link rel="stylesheet" href="/src/assets/css/order.css">
     <script src="https://cdn.jsdelivr.net/npm/axios@1.1.2/dist/axios.min.js"></script>
 
@@ -13,25 +13,24 @@
 
 <body>
     <header class="order_hero">
-        <div class="header_logo">
-            <a href="#">
-                <img src="/src/assets/images/icon/LOGO.svg" alt="">
-            </a>
-            <a href="">
-                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24">
-                    <path fill="currentColor"
-                        d="M20 22H4v-2a5 5 0 0 1 5-5h6a5 5 0 0 1 5 5zm-8-9a6 6 0 1 1 0-12a6 6 0 0 1 0 12" />
-                </svg>
-            </a>
-        </div>
-
         <nav class="header_nav">
+            <div class="header_logo">
+                <a href="/" class="logo">
+                    <img src="/src/assets/images/icon/LOGO.svg" alt="">
+                </a>
+                <a href="/login" class="member_icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24">
+                        <path fill="currentColor"
+                            d="M20 22H4v-2a5 5 0 0 1 5-5h6a5 5 0 0 1 5 5zm-8-9a6 6 0 1 1 0-12a6 6 0 0 1 0 12" />
+                    </svg>
+                </a>
+            </div>
             <ul>
-                <li><a href="">首頁</a></li>
-                <li><a href="">概念</a></li>
-                <li><a href="">饗宴</a></li>
-                <li><a href="/facilities.html">設施</a></li>
-                <li><a href="/trip.html">旅程</a></li>
+                <li><a href="/">首頁</a></li>
+                <li><a href="/about">概念</a></li>
+                <li><a href="/menu">饗宴</a></li>
+                <li><a href="/facilities">設施</a></li>
+                <li><a href="/trip">旅程</a></li>
             </ul>
         </nav>
     </header>
@@ -85,7 +84,7 @@
                 </div>
                 <!-- 右側行程與資訊 -->
                 <div>
-                    <a href="">查看訂單</a>
+                    <a href="/login">查看訂單</a>
                     <p>請到信箱確認行程電子憑證<br>
                         如果未收到<br>
                         請聯繫客服：04-1234-5678

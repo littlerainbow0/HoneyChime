@@ -52,7 +52,10 @@
 
 .facilities_hero {
   background-image: url("/src/assets/images/train_exterior/Facilities_hero.png");
+  background-repeat: no-repeat;
+  background-size: 100% 640px;
 }
+
 
 .info_title {
   display: flex;

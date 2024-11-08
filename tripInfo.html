@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./src/assets/css/header.css">
+    <link rel="stylesheet" href="./src/assets/css/header_html.css">
     <link rel="stylesheet" href="./src/assets/css/tripInfo.css">
     <link rel="stylesheet" href="./src/assets/css/top_btn.css">
     <title>行程介紹</title>
@@ -12,24 +12,23 @@
 
 <body>
     <header class="tripInfo_hero">
-        <div class="header_logo">
-            <a href="#">
-                <img src="./src/assets/images/icon/LOGO.svg" alt="">
-            </a>
-            <a href="">
-                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24">
-                    <path fill="currentColor"
-                        d="M20 22H4v-2a5 5 0 0 1 5-5h6a5 5 0 0 1 5 5zm-8-9a6 6 0 1 1 0-12a6 6 0 0 1 0 12" />
-                </svg>
-            </a>
-        </div>
-
         <nav class="header_nav">
+            <div class="header_logo">
+                <a href="/" class="logo">
+                    <img src="/src/assets/images/icon/LOGO.svg" alt="">
+                </a>
+                <a href="/login" class="member_icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24">
+                        <path fill="currentColor"
+                            d="M20 22H4v-2a5 5 0 0 1 5-5h6a5 5 0 0 1 5 5zm-8-9a6 6 0 1 1 0-12a6 6 0 0 1 0 12" />
+                    </svg>
+                </a>
+            </div>
             <ul>
-                <li><a href="">首頁</a></li>
-                <li><a href="">概念</a></li>
-                <li><a href="">饗宴</a></li>
-                <li><a href="">設施</a></li>
+                <li><a href="/">首頁</a></li>
+                <li><a href="/about">概念</a></li>
+                <li><a href="/menu">饗宴</a></li>
+                <li><a href="/facilities">設施</a></li>
                 <li><a href="/trip">旅程</a></li>
             </ul>
         </nav>
@@ -40,23 +39,23 @@
             <nav class="top_nav">
                 <ul>
                     <li><button onclick="" class="itinerary_btn" id="1">
-                        <span>日式甜點<br/></span>
-                        台北 ⭢ 台中</button></li>
+                            <span>日式甜點<br /></span>
+                            台北 ⭢ 台中</button></li>
                     <li><button onclick="" class="itinerary_btn" id="2">
-                        <span>日式甜點<br/></span>
-                        台北 ⭢ 花蓮</button></li>
+                            <span>日式甜點<br /></span>
+                            台北 ⭢ 花蓮</button></li>
                     <li><button onclick="" class="itinerary_btn" id="3">
-                        <span>台式甜點<br/></span>
-                        台中 ⭢ 台南</button></li>
+                            <span>台式甜點<br /></span>
+                            台中 ⭢ 台南</button></li>
                     <li><button onclick="" class="itinerary_btn" id="4">
-                        <span>台式甜點<br/></span>
-                        台中 ⭢ 高雄</button></li>
+                            <span>台式甜點<br /></span>
+                            台中 ⭢ 高雄</button></li>
                     <li><button onclick="" class="itinerary_btn" id="5">
-                        <span>歐式甜點<br/></span>
-                        高雄 ⭢ 台中</button></li>
+                            <span>歐式甜點<br /></span>
+                            高雄 ⭢ 台中</button></li>
                     <li><button onclick="" class="itinerary_btn" id="6">
-                        <span>歐式甜點<br/></span>
-                        高雄 ⭢ 花蓮</button></li>
+                            <span>歐式甜點<br /></span>
+                            高雄 ⭢ 花蓮</button></li>
                 </ul>
             </nav>
         </div>
@@ -126,8 +125,7 @@
     </main>
 
     <a href="#" class="top">
-        Λ
-        <br>
+      
         Top
     </a>
     <script>
@@ -285,12 +283,16 @@
         }
 
         // 傳路線及圖片資料到reservation ---------------------
-        function toReservation(startRoute, endRoute, img) {
+        function toReservation(startRoute, endRoute, img) {  
+            
+       
+       
+
             console.log(startRoute);
             console.log(endRoute);
             console.log(img);
-            
-            let routeTypeData = { start: startRoute, end: endRoute, image: img}
+
+            let routeTypeData = { start: startRoute, end: endRoute, image: img }
             localStorage.setItem("routeType", JSON.stringify(routeTypeData));
             console.log(localStorage.getItem("routeType"));
 

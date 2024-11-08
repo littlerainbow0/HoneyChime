@@ -33,6 +33,8 @@
 
 .order_hero {
   background-image: url("/src/assets/images/train_exterior/train_exterior_8.png");
+  background-repeat: no-repeat;
+  background-size: 100% 640px;
 }
 
 .order {
