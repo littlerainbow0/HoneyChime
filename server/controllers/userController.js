@@ -304,11 +304,12 @@ export const updateUserPassword = async (req, res) => {
 
 
 //登出
-export const logOut = async (req, res) => {
+export const logOut = (req, res) => {
     req.session.destroy(err => {
         if (err) {
             return res.status(500).json({ message: '登出失敗' });
         }
-        res.json({ message: '登出成功' });
+        res.clearCookie('connect.sid');
+        res.status(200).json({ message: '登出成功' });
     });
 };
