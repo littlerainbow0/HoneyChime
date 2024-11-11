@@ -2,12 +2,12 @@
 import React from "react";
 import ReactDOM from 'react-dom';
 import './background_admin.css'
-
+import PropTypes from "prop-types";
 
 const Modal=({ isOpen , onClose , news, onUpdate, setSelectedNews}) =>{  //5種props道具--------------------
     if(! isOpen )return null; //如果isOpen是false就結束元件渲染
     
-  
+
     
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -64,6 +64,18 @@ const Modal=({ isOpen , onClose , news, onUpdate, setSelectedNews}) =>{  //5種p
         //createPortal重點第二個根目錄
         ,document.getElementById('modal-root')
     );
+};
+
+Modal.propTypes = {
+    isOpen: PropTypes.bool.isRequired,
+    onClose: PropTypes.func.isRequired,
+    news: PropTypes.shape({
+        Date: PropTypes.any,
+        Category: PropTypes.string,
+        Content: PropTypes.string,
+    }),
+    onUpdate: PropTypes.func.isRequired,
+    setSelectedNews: PropTypes.func.isRequired,
 };
 
 

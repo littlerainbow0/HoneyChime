@@ -1,6 +1,7 @@
 // eslint-disable-next-line no-unused-vars
 import React, { useState, useEffect } from "react";
 import ReactDOM from 'react-dom';
+import PropTypes from "prop-types";
 
 const Modal2=({ isOpen , onClose , cards, onUpdate, setSelectedCards}) =>{  //5種props道具--------------------
     if(! isOpen )return null; //是false就結束元件渲染
@@ -8,17 +9,17 @@ const Modal2=({ isOpen , onClose , cards, onUpdate, setSelectedCards}) =>{  //5�
     const handleImageChange =(event)=>{
         const file=event.target.files[0];
         if(file){
-            const reader=new FileReader();
-            reader.onload=(e)=>{
-                //讀取完畢將url設置到‘CardImage’
-                setSelectedCards((prevCards)=>({
-                    ...prevCards,
-                    CardImage:e.target.result //更新圖片url來顯示圖片
+            const uploadCardImageURL=`/src/assets/images/news_card/${file.name}` ;
+            
+            //讀取完畢將url設置到‘CardImage’
+            setSelectedCards((prevCards)=>({
+                ...prevCards,
+                CardImage:uploadCardImageURL ,//更新圖片url來顯示圖片
                 }));
             };
-            reader.readAsDataURL(file);// 將檔案讀取為 Base64 格式
-        }
-    };
+
+        };
+    
     
     
     
@@ -26,7 +27,7 @@ const Modal2=({ isOpen , onClose , cards, onUpdate, setSelectedCards}) =>{  //5�
         const { name, value } = e.target;
         setSelectedCards({ ...cards, [name]: value }); // 更新選中的news資料---------------------------
     };
-    console.log('CardImage URL:', cards.CardImage);
+    //console.log('CardImage URL:', cards.CardImage);
 
     //createPortal重點
     return ReactDOM.createPortal(
@@ -82,6 +83,18 @@ const Modal2=({ isOpen , onClose , cards, onUpdate, setSelectedCards}) =>{  //5�
         ,document.getElementById('modal-root')
     );
 };
+Modal2.propTypes={
+    isOpen:PropTypes.bool.isRequired,
+    onClose:PropTypes.func.isRequired,
+    cards:PropTypes.shape({
+        CardImage:PropTypes.string,
+        Title:PropTypes.string,
+        Title2:PropTypes.string,
+        Paragraph:PropTypes.string,
+    }),
+    onUpdate: PropTypes.func.isRequired,
+    setSelectedCards: PropTypes.func.isRequired,
+}
 
 
 export default Modal2;
