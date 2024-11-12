@@ -10,14 +10,11 @@ const DataFetcher = ({ setDataFromServer }) => {
 
     const fetchData = async () => {
       try {
-        const response = await api.get('/getOrders');
-        console.log("orderData",response.data);
-        response.data.sort((a,b)=> a.OrderID - b.OrderID)
-        
+        const response = await api.get('/getStops');
         setDataFromServer(response.data);
 
       } catch (error) {
-        console.error('Failed to get data from server/getOrders', error);
+        console.error('Failed to get data from server/getStops', error);
       } finally {
         setLoading(false);
       }

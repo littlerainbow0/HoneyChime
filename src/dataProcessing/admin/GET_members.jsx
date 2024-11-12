@@ -10,14 +10,11 @@ const DataFetcher = ({ setDataFromServer }) => {
 
     const fetchData = async () => {
       try {
-        const response = await api.get('/getOrders');
-        console.log("orderData",response.data);
-        response.data.sort((a,b)=> a.OrderID - b.OrderID)
-        
+        const response = await api.get('/getUsers');
         setDataFromServer(response.data);
 
       } catch (error) {
-        console.error('Failed to get data from server/getOrders', error);
+        console.error('Failed to get data from server/getUsers', error);
       } finally {
         setLoading(false);
       }
@@ -25,7 +22,6 @@ const DataFetcher = ({ setDataFromServer }) => {
     fetchData();
   }, [setDataFromServer]); // 確保只執行一次
 
-  // return loading ? "Loading..." : null; // 加載中顯示
 };
 
 export default DataFetcher;

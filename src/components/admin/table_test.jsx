@@ -4,7 +4,7 @@ import { Button } from "@nextui-org/react";
 import { Avatar, AvatarGroup, AvatarIcon } from "@nextui-org/react";
 
 
-import Modal from './modal.jsx';
+import ModalSchedule from './modal_schedule.jsx';
 
 import { navText } from './navbar_admin.jsx';
 
@@ -14,7 +14,7 @@ import { IoIosArrowUp } from "react-icons/io";
 import { div } from 'framer-motion/m';
 
 
-const TableDefault = ({ columns, columnNames, data1, detailColumns, detailColumnNames, data2, handleSubmit }) => {
+const TableDefault = ({ columns, columnNames, data1, detailColumns, detailColumnNames, data2 }) => {
 
 
   const location = useLocation();
@@ -26,9 +26,10 @@ const TableDefault = ({ columns, columnNames, data1, detailColumns, detailColumn
   const clickShowModalToEdit = (item) => {
     const relatedDetailItem = data2.filter(subItem => subItem[data2Id] === item[data2Id]);
     setCurrentItem({ ...item, relatedDetailItem });  // 將 data2 的相關數據合併到 currentItem 中
-
+    console.log({ ...item, relatedDetailItem });
+    
     setShowModal(true);
-  };
+};
 
 
   // 一個路由有兩個Id
@@ -39,7 +40,7 @@ const TableDefault = ({ columns, columnNames, data1, detailColumns, detailColumn
     data2Id = "TemplateID";
   } else if (location.pathname === navText[2].path) {
     data1Id = "OrderID";
-    data2Id = "OrderID";
+    data2Id = "UserID";
   } else if (location.pathname === navText[6].path) {
     data1Id = "UserID";
     data2Id = "UserID";
@@ -69,8 +70,8 @@ const TableDefault = ({ columns, columnNames, data1, detailColumns, detailColumn
           <table className="text-center bg-gray-50 rounded-3xl" style={{ width: '100%', tableLayout: 'fixed' }}>
             <thead>
               <tr>
-                {columns.map((column, index) => (
-                  <th key={'colName' + column + index} className='py-2'>
+                {columns.map((column) => (
+                  <th key={column} className='py-2'>
                     <p className="text-lightbrown font-bodyFont text-p-2 m-1">{columnNames[column] || column}</p>
                   </th>
                 ))}
@@ -78,37 +79,34 @@ const TableDefault = ({ columns, columnNames, data1, detailColumns, detailColumn
             </thead>
             <tbody>
               {currentRows.map((item, index) => (
-                <React.Fragment key={'thisRowIs' + index}>
+                <React.Fragment key={item.ScheduleID}>
                   <tr className={`
                     transition-all rounded-3xl
                   hover:bg-gray-200 hover:translate-y-1 ${index % 2 === 0 ? "bg-lightyellow" : ""}`}>
                     {columns.map((column, colIndex) => (
-                      <td key={'toMatchEachTableHead' + colIndex} className="">
-                        {column.includes('Image') ? (
-                          <div className=''>
-                            <img
-                              src={item[column]}
-                              className="pt-2 lg:w-12 w-5 lg:h-10 h-5 rounded-md"
-                              style={{ objectFit: 'cover', display: 'block', margin: 'auto' }}
-                            />
-                          </div>
-                        ) : (
-                          <p className="text-dark font-bodyFont text-p-3 max-w-sm line-clamp-2" style={{ margin: 0 }}>
-                            {item[column]}
-                          </p>
-                        )}
+                      <td key={colIndex} className="">
+                        {column.includes('Image')? (
+                            <div className=''>
+                              <img
+                                src={item[column]}
+                                className="pt-2 lg:w-12 w-5 lg:h-10 h-5 rounded-md"
+                                style={{objectFit: 'cover', display: 'block', margin: 'auto' }}
+                              />
+                            </div>
+                          ) : (
+                            <p className="text-dark font-bodyFont text-p-3 max-w-sm line-clamp-2" style={{ margin: 0 }}>
+                              {item[column]}
+                            </p>
+                          )}
                       </td>
                     ))}
-                    {(location.pathname === navText[1].path)
-                      || location.pathname === navText[3].path
-                      || location.pathname === navText[4].path
-                      ? (
-                        <td>
-                          <Button className='text-brown bolder border-transparent rounded-full transition-all hover:text-lightyellow hover:shadow-md hover:bg-lightbrown' onClick={() => clickShowModalToEdit(item)}>
-                            <RiEdit2Fill />
-                          </Button>
-                        </td>
-                      ) : (<td className='hidden' />)}
+                    {(location.pathname === navText[1].path) ? (
+                      <td>
+                        <Button className='text-brown bolder border-transparent rounded-full transition-all hover:text-lightyellow hover:shadow-md hover:bg-lightbrown' onClick={() => clickShowModalToEdit(item)}>
+                          <RiEdit2Fill />
+                        </Button>
+                      </td>
+                    ) : (<td className='hidden' />)}
                     {(location.pathname === navText[1].path
                       || location.pathname === navText[2].path
                       || location.pathname === navText[6].path) ? (
@@ -127,8 +125,8 @@ const TableDefault = ({ columns, columnNames, data1, detailColumns, detailColumn
                           <table className="text-center scale-85" style={{ width: '100%', tableLayout: 'fixed' }}>
                             <thead>
                               <tr>
-                                {detailColumns.map((column, index) => (
-                                  <th key={'detailColName' + column}>
+                                {detailColumns.map((column) => (
+                                  <th key={column}>
                                     <p className="text-gray-500 mx-10 py-1 bg-gray-300 rounded-full font-bodyFont text-p-3 m-1">
                                       {detailColumnNames[column] || column}                                     </p>
                                   </th>
@@ -139,9 +137,9 @@ const TableDefault = ({ columns, columnNames, data1, detailColumns, detailColumn
                               {data2
                                 .filter(subItem => subItem[data2Id] === item[data2Id]) // 仅显示与当前行的 TemplateID 匹配的数据
                                 .map((subItem, subIndex) => (
-                                  <tr key={'thisDetailRowIs' + subIndex}>
+                                  <tr key={subIndex}>
                                     {detailColumns.map((column) => (
-                                      <td key={'data2' + column} className='rounded-full'>
+                                      <td key={column} className='rounded-full'>
                                         <p className="text-gray-500 font-bodyFont text-p-3 mb-1">{subItem[column]}</p>
                                       </td>
                                     ))}
@@ -164,13 +162,9 @@ const TableDefault = ({ columns, columnNames, data1, detailColumns, detailColumn
           </table>
         </div>
       </div>
-      {showModal &&
-
-        <Modal
-          item={currentItem}
-          data2={currentItem.relatedData2}
-          onClose={() => setShowModal(false)}
-          handleSubmit={handleSubmit} />}
+      {showModal && 
+      <ModalSchedule item={currentItem} data2={currentItem.relatedData2} onClose={() => setShowModal(false)} />
+      }
       <div className="flex justify-center">
         {Array.from({ length: totalPages }, (_, index) => (
           <Button

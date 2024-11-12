@@ -14,7 +14,7 @@ const AdminHome = () => {
     return (
         <div className="flex flex-row">
             <Navbar />
-            <div className='w-full ml-10 text-left'>
+            <div className='ml-10 text-left w-full'>
                 <RouteName />
                 <Test />
                 {/* <TableDefault columns={columns} data={data} /> */}

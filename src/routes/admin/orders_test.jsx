@@ -2,14 +2,15 @@
 import React, { useState } from 'react'; // 引入 useState
 import Navbar from '../../components/admin/navbar_admin.jsx';
 import TableDefault from '../../components/admin/table_default.jsx'; // 確保導入的是正確的路徑
+import TableTest from '../../components/admin/table_test.jsx'; // 確保導入的是正確的路徑
 import RouteName from '../../components/admin/routeName.jsx'
 import FilterCard from '../../components/admin/card_filter.jsx'
-import Modal from '../../components/admin/modal.jsx'
+import Modal from '../../components/admin/modal_testjsx'
 import { Button } from '@nextui-org/react';
 import BtnBrown from '../../components/user/btn_brown.jsx'
 import DataFetcherOrder from '../../dataProcessing/admin/GET_order.jsx';
+import DataFetcherTest from '../../dataProcessing/admin/GET_test.jsx';
 import Background from '../../components/admin/background_admin.jsx'
-import Calendar from '../../components/admin/calendar.jsx';
 
 const filterCardName = [
     {
@@ -28,7 +29,6 @@ const filterCardName = [
 
 const columns = [
     "OrderID",
-    "UserID",
     "DepartureDate",
     "DepartureTime",
     "StopStartName",
@@ -42,7 +42,6 @@ const columns = [
 ]
 const columnNames = {
     OrderID: "訂單ID",
-    UserID:"會員ID",
     DepartureDate: "發車日期",
     DepartureTime: "發車時間",
     StopStartName: "起點站",
@@ -69,6 +68,9 @@ const detailColumnNames =
     MealThirdName: "本桌餐點3",
     MealFourthName: "本桌餐點4",
 };
+const test = (id)=> {
+
+}
 
 const AdminTemplate = () => {
     const [showModal, setShowModal] = useState(false);
@@ -79,12 +81,7 @@ const AdminTemplate = () => {
 
     const [getOrderDataFromServer, setGetOrderDataFromServer] = useState([]) // 儲存API資料用
 
-    const [selectedDate, setSelectedDate] = useState(""); // 選中的日期，用於顯示在 Input 框-------------
-    const filteredData = selectedDate
-        ? getOrderDataFromServer.filter(item => item.DepartureDate === selectedDate)
-        : getOrderDataFromServer;
-        console.log(getOrderDataFromServer);
-        
+
     return (
         <div className="flex flex-row">
             <Navbar />
@@ -92,12 +89,7 @@ const AdminTemplate = () => {
             <div className='flex-grow pl-40 md:pl-64 3xl:pl-0 text-left w-full'>
                 <div className='max-w-[1800px] mx-auto'>
                     <RouteName />
-                    <Calendar
-                        selectedDate={selectedDate}
-                        setSelectedDate={setSelectedDate} />
-                    <hr className='mb-6' />
-
-                    {/* <FilterCard data={filterCardName} /> */}
+                    <FilterCard data={filterCardName} />
                     <div className='justify-between'>
                         {/* <BtnBrown btnText="新建一筆模板" onClick={clickShowModal} />
                         {showModal && <Modal onClose={clickShowModal} />} */}
@@ -108,8 +100,8 @@ const AdminTemplate = () => {
                         columnNames={columnNames}
                         detailColumns={detailColumns}
                         detailColumnNames={detailColumnNames}
-                        data1={filteredData}
-                        data2={filteredData}
+                        data1={getOrderDataFromServer}
+                        data2={getOrderDataFromServer}
                     />
                 </div>
             </div>

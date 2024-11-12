@@ -10,18 +10,33 @@
 
 .modal {
   position: fixed;
-  top: 20vh;
-  left: 5%;
-  /* width: 90%; */
-  height: auto;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   z-index: 30;
   animation: slide-down 300ms ease-out forwards;
 }
 
+.modal-content {
+  max-width: 100%; /* 最大寬度 */
+  /* width: 600px;  */
+  max-height: 90vh; /* 最大高度限制 */
+  overflow-y: auto; /* 允許垂直滾動 */
+  background-color: white; /* 背景顏色 */
+  border-radius: 8px; /* 邊角圓滑 */
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); /* 陰影效果 */
+  padding: 20px; /* 內邊距 */
+}
+
 @media (min-width: 768px) {
   .modal {
-    width: 40rem;
-    left: calc(50% - 20rem);
+    /* overflow-x: hidden; */
+    width: 38rem;
+    left: calc(50% - 10rem);
   }
 }
 
@@ -30,7 +45,6 @@
     opacity: 0;
     transform: translateY(-3rem);
   }
-
   to {
     opacity: 1;
     transform: translateY(0);
@@ -39,13 +53,26 @@
 
 input::placeholder {
   color: rgb(187, 155, 155) !important;
-  position: absolute;
-  /* 以下是為了讓placeholder固定在左上角 */
-  left: 0px; 
-  top: 8px; 
-  transform: translateY(-50%); 
 }
 
 input:focus {
   outline: none; /* 移除默认的轮廓 */
+}
+
+::-webkit-scrollbar {
+  width: 8px; /* 垂直滚动条的宽度 */
+}
+
+::-webkit-scrollbar-track {
+  background: rgb(138,110,110); /* 轨道背景颜色 */
+  border-radius: 10px; /* 圆角 */
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgb(187,155,155); /* 滑块颜色 */
+  border-radius: 10px; /* 圆角 */
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgb(255,245,245); /* 滑块 hover 时的颜色 */
 }

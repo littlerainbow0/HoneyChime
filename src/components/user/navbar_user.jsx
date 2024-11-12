@@ -1,26 +1,26 @@
 import { Link } from "react-router-dom"; // 使用 react-router-dom 的 Link
 
-const navbarUserText = [
-    { text: "管理帳戶", route: "/user/info/:userId" }, 
-    { text: "檢視已預訂旅程", route: "/user/order/:userId" }
-];
 
-export default function UserNavbar({ userId }) {
+export default function UserNavbar({userId}) {
+    const navbarUserText = [
+        { text: "管理帳戶", route: `/user/info/${userId}` },
+        { text: "檢視已預訂旅程", route: `/user/order/${userId}` }
+    ];
     return (
         <div>
-            <h3 className="font-titleFont text-h3 font-bold m-20">
-                Hello! 您好
-            </h3>
-            <nav className="bg-dark flex justify-center">
+            <nav className="
+            bg-darkbrown  hover:shadow-lg
+            flex justify-center p-2
+            font-titleFont text-p-1 font-bold text-lightyellow
+            transition-all w-full
+            ">
                 <ul className="p- flex space-x-20">
                     {navbarUserText.map((elem, index) => (
-                        <li key={index}>
-                            <Link 
-                                to={elem.route.replace(':userId', String(userId))} // 正確使用 to
-                                className="
-                                font-titleFont text-p-1 font-bold text-lightyellow
-                                hover:text-lightbrown transition-all
-                                ">
+                        <li key={"thisIsUserNavbar" + index}
+                            className="hover:scale-105 transition-all hover:text-lightbrown">
+                            <Link
+                                to={elem.route}
+                                >
                                 {elem.text}
                             </Link>
                         </li>

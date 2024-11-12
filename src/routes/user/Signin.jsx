@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './signin.css';
-import RadiusCard from '../../components/user/card_radius.jsx';
+import RadiusCard from '../../components/user/card_radius_pre.jsx';
 import axios from 'axios';
 import { BsArrowDownCircleFill } from "react-icons/bs";
 import { useNavigate } from 'react-router-dom';

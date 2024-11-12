@@ -2626,10 +2626,10 @@ video {
   color: rgb(255 245 245 / var(--tw-text-opacity));
 }
 
-.text-primary {
+/* .text-primary {
   --tw-text-opacity: 1;
   color: hsl(var(--nextui-primary) / var(--nextui-primary-opacity, var(--tw-text-opacity)));
-}
+} */
 
 .text-red-500 {
   --tw-text-opacity: 1;

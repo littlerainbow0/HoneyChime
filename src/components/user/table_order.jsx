@@ -31,16 +31,14 @@ export default function orderTable({ data }) {
                                 </div>
                                 <div className="px-5">
                                     <span>發車時間</span>
-                                    <select name="" id="" className="bg-transparent
-                                    hover:bg-lightbrown
-                                     hover:text-lightyellow">
-                                        <option value="">09:00</option>
-                                        <option value="">14:00</option>
-                                    </select>
+                                    <label htmlFor="userPWD">
+                                        {elem.people}人
+                                    </label>
                                 </div>
                                 <div>
                                     <span>{elem.menuName1}</span>
                                     <select name="" id="" className="bg-transparent">
+                                        <option value="">0</option>
                                         <option value="">1</option>
                                         <option value="">2</option>
                                         <option value="">3</option>

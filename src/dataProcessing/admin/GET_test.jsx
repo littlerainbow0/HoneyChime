@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import api from '../../api.jsx';
 
-const DataFetcher = ({ setDataFromServer }) => {
+const DataFetcher = ({ setDataFromServer, id }) => {
   const [loading, setLoading] = useState(true); // 加載狀態
 
   useEffect(() => {
@@ -10,10 +10,7 @@ const DataFetcher = ({ setDataFromServer }) => {
 
     const fetchData = async () => {
       try {
-        const response = await api.get('/getOrders');
-        console.log("orderData",response.data);
-        response.data.sort((a,b)=> a.OrderID - b.OrderID)
-        
+        const response = await api.get(`/getOrders/${id}`);
         setDataFromServer(response.data);
 
       } catch (error) {

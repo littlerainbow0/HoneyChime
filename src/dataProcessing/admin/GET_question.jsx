@@ -10,14 +10,11 @@ const DataFetcher = ({ setDataFromServer }) => {
 
     const fetchData = async () => {
       try {
-        const response = await api.get('/getOrders');
-        console.log("orderData",response.data);
-        response.data.sort((a,b)=> a.OrderID - b.OrderID)
-        
+        const response = await api.get('/getQAS');
         setDataFromServer(response.data);
 
       } catch (error) {
-        console.error('Failed to get data from server/getOrders', error);
+        console.error('Failed to get data from server/getQAS', error);
       } finally {
         setLoading(false);
       }
@@ -29,3 +26,11 @@ const DataFetcher = ({ setDataFromServer }) => {
 };
 
 export default DataFetcher;
+
+// SQL篩選
+// export const DataFetcherByType = async (filterType) => {
+//   // 根據 filterType 發送請求並獲取資料
+//   const response = await fetch(`http://your-api-url/qas?filter=${filterType}`);
+//   const data = await response.json();
+//   return data.results; // 返回結果
+// };

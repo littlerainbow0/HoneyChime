@@ -14,7 +14,7 @@ import api from '../../api.jsx';
 //   },
 // ];
 
-const DataFetcher = ({ setGetScheduleDataFromServer }) => {
+const DataFetcher = ({ setDataFromServer, setDataTrigger }) => {
   const [loading, setLoading] = useState(true); // 加載狀態
 
   useEffect(() => {
@@ -24,23 +24,33 @@ const DataFetcher = ({ setGetScheduleDataFromServer }) => {
     const fetchData = async () => {
       try {
         const response = await api.get('/getSchedules');
-        const myData = response.data.map(item => ({
+        
+        
+        // departureDate 從後台拿回來是 YYYY/MM/DD 格式
+        response.data.sort((a, b) => {
+          const dateA = new Date(a.DepartureDate.replace(/\//g,'-'));
+          const dateB = new Date(b.DepartureDate.replace(/\//g,'-'));
+          return dateA - dateB;
+        });
+        
+        const myData = response.data.map((item,index) => ({
           ...item,
-          Expired: item.Expired ? "已過期" : "即將到來"
-        }));
-
-        setGetScheduleDataFromServer(myData);
+          Index: index+1,
+          Expired: item.Expired ? "已過期" : "即將到來",
+        }));        
+        setDataFromServer(myData);
 
       } catch (error) {
         console.error('Failed to get data from server/getSchedules', error);
       } finally {
         setLoading(false);
+
       }
     };
     fetchData();
-  }, [setGetScheduleDataFromServer]); // 確保只執行一次
+  }, [setDataTrigger]);
 
-  return loading ? <div>Loading...</div> : null; // 加載中顯示
+  // return loading ? "Loading..." : null; // 加載中顯示
 };
 
 export default DataFetcher;

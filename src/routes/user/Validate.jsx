@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './login.css';
 import axios from 'axios';
-import RadiusCard from '../../components/user/card_radius.jsx';
+import RadiusCard from '../../components/user/card_radius_pre.jsx';
 import { useNavigate } from 'react-router-dom';
 import '@arco-design/web-react/dist/css/arco.css';
 

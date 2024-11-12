@@ -59,7 +59,7 @@ export const navText = [
   {
     icon: <ImSpoonKnife />,
     item: "餐點管理",
-    path: "/admin/template",
+    path: "/admin/meal",
   },
   {
     icon: <BsWindowPlus />,
