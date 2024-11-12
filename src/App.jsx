@@ -1,6 +1,6 @@
 import '../cssReset.css';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { useState } from 'react'
+import { BrowserRouter, Route, Routes, useLocation } from 'react-router-dom';
+import { useState, useEffect } from 'react'
 import React from 'react';
 
 // React
@@ -46,10 +46,30 @@ import Facilities from './routes/user/Facilities.jsx'
 import Trip from './routes/user/Trip.jsx'
 // import './App.css'
 
+// const useConditionalStyles = (excludedPath) => {
+//   const location = useLocation();
 
+//   useEffect(() => {
+//     const link = document.createElement('link');
+//     link.rel = 'stylesheet';
+//     link.href = './App.css';
+
+//     if (!excludedPath.includes(location.pathname)) {
+//       document.head.appendChild(link);
+//     }
+//     //清理樣式(當路由改變時移除樣式表)
+//     return () => {
+//       if (link.parentNode === document.head) {
+//         document.head.removeChild(link);
+//       }
+//     };
+//   }, [location.pathname, excludedPath]);
+// };
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [count, setCount] = useState(0);
+  // const excludedPath = ['/news', '/about', '/Facilities', '/trip', '/menu'];
+  // useConditionalStyles(excludedPath);
 
   return (
     // 版本問題，使用react-router-dom最新版路由結構
