@@ -253,13 +253,14 @@ CREATE TABLE `QAs` (
     `Type` VARCHAR(40) NOT NULL,
     `Content` VARCHAR(500) NOT NULL,
     `Reply` VARCHAR(10) NOT NULL,
+    `QuestionTime` DATETIME NOT NULL,
     FOREIGN KEY (UserID) REFERENCES USERS (UserID)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
-INSERT INTO `QAs` (`UserID`, `Type`, `Content`, `Reply`) VALUES
-(1, "訂單/取消", "我有個問題A", "N"),
-(1, "付款/退款", "我有個問題B", "N"),
-(1, "車廂/設備", "我有個問題C", "Y");
+INSERT INTO `QAs` (`UserID`, `Type`, `Content`, `Reply` , `QuestionTime`) VALUES
+(1, "訂單/取消", "我有個問題A", "N", "2024-10-10"),
+(1, "付款/退款", "我有個問題B", "N", "2024-10-10"),
+(1, "車廂/設備", "我有個問題C", "Y", "2024-10-10");
 
 DROP TABLE IF EXISTS `TEMPLATES`;
 CREATE TABLE `TEMPLATES` (
