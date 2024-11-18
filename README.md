@@ -13,8 +13,8 @@
 
 # 簡報Demo
 `由於包含後端及資料庫，較難在GitHub上以網頁連結呈現`
-* YouTube (https://www.youtube.com/watch?v=tz2cydri1MQ)[【MFEE54前端】甜點列車蜂鳴號_簡報demo（有cc字幕）]
-* 簡報截圖 (https://docs.google.com/presentation/d/1mtDdNfwRlbfukiS6Ca5Uq6lBOeBYs5UzaKgAybu0R_Y/edit?usp=sharing)[MFEE54甜點列車_截圖版_作品集用]
+* YouTube [【MFEE54前端】甜點列車蜂鳴號_簡報demo（有cc字幕）](https://www.youtube.com/watch?v=tz2cydri1MQ)
+* Google簡報_截圖 [【MFEE54前端】甜點列車蜂鳴號_截圖版_作品集用](https://docs.google.com/presentation/d/1mtDdNfwRlbfukiS6Ca5Uq6lBOeBYs5UzaKgAybu0R_Y/edit?usp=sharing)
 
 # 專案資料夾結構說明: cmd > tree /F
 * 使用VScode開啟資料夾，推薦下載plugin套件: Material Icon Theme
