@@ -1,3 +1,21 @@
+# 專案介紹
+1. 專案介紹
+> 蜂鳴號：甜點列車預約首選。
+>> 虛構甜點列車蜂鳴號主題網站，提供一般會員進行主題瀏覽、行程預約，也提供後臺給管理者，可對前臺的頁面及獲得的資訊，進行統一的管理。
+>> 採用前後端完全分離的MVC架構，以Vite作為專案建置工具，Node.js為後端，MySQL作資料庫，React、SCSS、tailwind、NextUI等作為view的開發，由GitHub進行版本控制，進而完成這份專題。
+
+2. 組員
+> 張宏宇、林少晴、林幸慧、蕭育蕙
+
+3. 發表日期
+> 2024/11/13
+> 中部資策會前端工程師養成班結訓日
+
+# 簡報Demo
+`由於包含後端及資料庫，較難在GitHub上以網頁連結呈現`
+* YouTube (https://www.youtube.com/watch?v=tz2cydri1MQ)[【MFEE54前端】甜點列車蜂鳴號_簡報demo（有cc字幕）]
+* 簡報截圖 (https://docs.google.com/presentation/d/1mtDdNfwRlbfukiS6Ca5Uq6lBOeBYs5UzaKgAybu0R_Y/edit?usp=sharing)[MFEE54甜點列車_截圖版_作品集用]
+
 # 專案資料夾結構說明: cmd > tree /F
 * 使用VScode開啟資料夾，推薦下載plugin套件: Material Icon Theme
 ```markdown
